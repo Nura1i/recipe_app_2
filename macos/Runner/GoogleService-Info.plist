@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>380669204877-5rsm1n058bfk5roso24nmacf8dhnr1lm.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.380669204877-5rsm1n058bfk5roso24nmacf8dhnr1lm</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBWIYTu7OUQ3A7XBrmvVKLWCeIxNTvMNtk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>380669204877</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.recipeApp</string>
+	<key>PROJECT_ID</key>
+	<string>recipeapp-73714</string>
+	<key>STORAGE_BUCKET</key>
+	<string>recipeapp-73714.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:380669204877:ios:7573c4ff1aff07e21a05c4</string>
+</dict>
+</plist>
