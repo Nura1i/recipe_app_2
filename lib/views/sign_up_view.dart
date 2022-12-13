@@ -1,25 +1,20 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:fl_country_code_picker/fl_country_code_picker.dart';
+import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 
-class loginPage extends StatefulWidget {
-  const loginPage({super.key});
+class signUpView extends StatefulWidget {
+  const signUpView({super.key});
 
   @override
-  State<loginPage> createState() => _loginPageState();
+  State<signUpView> createState() => _signUpViewState();
 }
 
-class _loginPageState extends State<loginPage> {
+class _signUpViewState extends State<signUpView> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // const countryPicker = FlCountryCodePicker(
-    //     favorites: ['UZ'],
-    //     favoritesIcon: Icon(
-    //       Icons.star,
-    //       color: Colors.orange,
-    //     ));
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -82,15 +77,16 @@ class _loginPageState extends State<loginPage> {
                                       'Ismingizni kiriting...',
                                       false,
                                       false,
-                                      false),
+                                      false,
+                                      controllerUsername),
                                 ),
                                 component(Icons.email, 'Email kiriting', false,
-                                    false, false),
+                                    false, false, controllerEmail),
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 20),
                                   child: component(Icons.lock, "Parol qo'ying",
-                                      false, false, false),
+                                      false, false, false, controllerPassword),
                                 ),
                                 SizedBox(height: size.width * .1),
                                 InkWell(
@@ -98,9 +94,6 @@ class _loginPageState extends State<loginPage> {
                                   highlightColor: Colors.transparent,
                                   onTap: () {
                                     HapticFeedback.lightImpact();
-                                    // Fluttertoast.showToast(
-                                    //   msg: 'Sign-In button pressed',
-                                    // );
                                   },
                                   child: Container(
                                     margin: EdgeInsets.only(
@@ -114,7 +107,9 @@ class _loginPageState extends State<loginPage> {
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        SignUpCubit().signUp(context);
+                                      },
                                       child: const Text(
                                         "Ro'yhatdan o'tish",
                                         style: TextStyle(
@@ -135,9 +130,6 @@ class _loginPageState extends State<loginPage> {
                     const Expanded(
                       child: SizedBox(),
                     ),
-                    // Padding(
-                    //     padding: EdgeInsets.only(
-                    //         bottom: MediaQuery.of(context).viewInsets.bottom))
                   ],
                 ),
               ),
@@ -149,7 +141,7 @@ class _loginPageState extends State<loginPage> {
   }
 
   Widget component(IconData icon, String hintText, bool isPassword,
-      bool isEmail, bool isNumber) {
+      bool isEmail, bool isNumber, TextEditingController controller) {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.width / 8,
@@ -161,6 +153,7 @@ class _loginPageState extends State<loginPage> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
+        controller: controller,
         style: TextStyle(
           color: Colors.white.withOpacity(.9),
         ),
@@ -183,14 +176,3 @@ class _loginPageState extends State<loginPage> {
     );
   }
 }
-
-// class MyBehavior extends ScrollBehavior {
-//   @override
-//   Widget buildViewportChrome(
-//     BuildContext context,
-//     Widget child,
-//     AxisDirection axisDirection,
-//   ) {
-//     return child;
-//   }
-// }

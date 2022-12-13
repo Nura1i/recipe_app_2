@@ -1,7 +1,9 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_app/pages/login_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 import 'package:recipe_app/utils/theme/themes.dart';
+import 'package:recipe_app/views/sign_up_view.dart';
 
 class AppProvider extends StatelessWidget {
   const AppProvider({super.key});
@@ -15,13 +17,14 @@ class AppProvider extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: loginPage()
+            //  home: const signUpPage()
             // HomePage()
-            //  MultiBlocProvider(
-            //   providers:[
-            //    BlocProvider(create:(context) => ,)
-            //   ],
-            //    child: HomePage())
-            ));
+            // home: signUpView()
+
+            home: MultiBlocProvider(providers: [
+              BlocProvider(
+                create: (context) => SignUpCubit(),
+              )
+            ], child: const signUpView())));
   }
 }
