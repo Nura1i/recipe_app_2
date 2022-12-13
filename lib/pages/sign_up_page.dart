@@ -15,21 +15,16 @@ class signUpPage extends StatefulWidget {
 class _loginPageState extends State<signUpPage> {
   @override
   Widget build(BuildContext context) {
-    void initState() {
-      super.initState();
-      BlocProvider.of<SignUpCubit>(context).signUp;
-    }
+    BlocProvider.of<SignUpCubit>(context).signUp;
 
     return Scaffold(
       body: BlocBuilder<SignUpCubit, SignUpState>(
         builder: (BuildContext context, SignUpState state) {
           if (state is SignUpError) {
-            return const Text('Error');
+            return viewOfError(state.error);
           }
 
           if (state is SignUpLoaded) {
-            //  var items = state.posts!;
-            var nmadr = state.isRegistered;
             return const HomePage();
           }
 

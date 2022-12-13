@@ -16,10 +16,6 @@ TextEditingController controllerPassword = TextEditingController();
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInit());
 
-  // void get signUp async {
-  //   emit(SignUpLoading());
-  // }
-
   void signUp(BuildContext context) async {
     emit(SignUpLoading());
     try {
@@ -50,6 +46,5 @@ class SignUpCubit extends Cubit<SignUpState> {
     } catch (e) {
       log(e.toString());
     }
-    emit(SignUpLoading());
   }
 }
