@@ -5,8 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/blocs/login/sign_up_state.dart';
 import 'package:recipe_app/pages/Menu/menu_page.dart';
-import 'package:recipe_app/pages/home_page.dart';
-
 import '../../models/user_model.dart';
 import '../../repositories/fire_service.dart';
 
@@ -37,7 +35,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       final userSavedToDatabase =
           await FireDatabaseService.saveUserToCollection(user: userMod);
       if (credentional.user != null && userSavedToDatabase!) {
-        print('Saved');
+        log('Saved');
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const MenuPage()),
             (route) => false);
