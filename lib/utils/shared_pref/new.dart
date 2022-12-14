@@ -1,13 +1,5 @@
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:uuid/uuid.dart';
-/*
-Created by Axmadjon Isaqov on 16:58:03 19.08.2022
-© 2022 @axi_dev 
-*/
-
-/*
-Mavzu:::Login Repository
-*/
 abstract class LoginRepository {
   Future<String?> signIn({required String? login, required String? password});
   Future<String?> signUp(
@@ -16,7 +8,6 @@ abstract class LoginRepository {
       required String? confirmPassword});
   Future<bool?> logout();
 }
-
 class LoginRepo extends LoginRepository {
   LoginRepo.instance();
   static final _instance = LoginRepo.instance();
@@ -70,7 +61,6 @@ class LoginRepo extends LoginRepository {
     if (password != confirmPassword) {
       return null;
     }
-
     final token = const Uuid().v1();
     await Prefs.updateData<String>(key: 'login', data: login);
     await Prefs.updateData<String>(key: 'password', data: password);

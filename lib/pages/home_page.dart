@@ -19,16 +19,25 @@ class _HomePageState extends State<HomePage> {
     body: SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        children:const[
-          Padding(
-            padding:EdgeInsets.only(top:64,left: 22,right: 146 ),
+        children:[
+          const Padding(
+            padding: EdgeInsets.only(top:64,left: 22,right: 146 ),
             child: Text("Find best ricepes\for cooking",style: TextStyle(
               color: Color(0xFF303030),
               fontSize: 24,
               fontWeight: FontWeight.w600,
             ),
             ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10)
+            ),
+           child: TextField(
+           
+           ),
           )
+         
         ],
       ),
     ),
