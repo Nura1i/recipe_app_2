@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:recipe_app/pages/add_page.dart';
-import 'package:recipe_app/pages/bookmark_page.dart';
+import 'package:recipe_app/pages/bookmark_page/bookmark_page.dart';
 import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/pages/notification_page.dart';
 import 'package:recipe_app/pages/profile_page.dart';
