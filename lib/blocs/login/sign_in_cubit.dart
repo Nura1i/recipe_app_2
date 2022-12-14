@@ -4,10 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/blocs/login/sign_in_state.dart';
+import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:uuid/uuid.dart';
-
 
 TextEditingController controllerEmail = TextEditingController();
 TextEditingController controllerPassword = TextEditingController();
@@ -28,7 +28,7 @@ class SignInCubit extends Cubit<SignInState> {
       );
       if (credentionall.user != null) {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const HomePage()),
+            MaterialPageRoute(builder: (context) => const MenuPage()),
             (route) => false);
       }
       bool? checkPassword = controllerPassword.text ==

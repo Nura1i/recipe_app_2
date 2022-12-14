@@ -39,7 +39,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       if (credentional.user != null && userSavedToDatabase!) {
         print('Saved');
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const HomePage()),
+            MaterialPageRoute(builder: (context) => const MenuPage()),
             (route) => false);
       }
     } catch (e) {
