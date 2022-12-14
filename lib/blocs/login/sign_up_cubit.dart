@@ -17,7 +17,6 @@ class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInit());
 
   void signUp(BuildContext context) async {
-    emit(SignUpLoading());
     try {
       if (controllerEmail.text.isEmpty ||
           controllerPassword.text.isEmpty ||
@@ -41,7 +40,6 @@ class SignUpCubit extends Cubit<SignUpState> {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const HomePage()),
             (route) => false);
-        ;
       }
     } catch (e) {
       log(e.toString());

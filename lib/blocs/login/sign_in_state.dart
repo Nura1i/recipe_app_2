@@ -10,9 +10,9 @@ class SignInInit extends SignInState {}
 class SignInLoading extends SignInState {}
 
 class SignInLoaded extends SignInState {
-  final bool? isCreated;
+  final bool? isSaved;
 
-  SignInLoaded({this.isCreated});
+  SignInLoaded({this.isSaved});
 }
 
 class SignInError extends SignInState {

@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
+import 'package:recipe_app/views/sign_in_view.dart';
+import 'package:recipe_app/widgets/pageAnimationFade.dart';
 
 class signUpView extends StatefulWidget {
   const signUpView({super.key});
@@ -28,7 +30,7 @@ class _signUpViewState extends State<signUpView> {
               SizedBox(
                 height: size.height,
                 child: Image.asset(
-                  'assets/images/wallpaper.jpg',
+                  'assets/images/login_wallpaper.jpg',
                   fit: BoxFit.fitHeight,
                 ),
               ),
@@ -36,98 +38,127 @@ class _signUpViewState extends State<signUpView> {
                 child: Column(
                   children: [
                     const Expanded(
+                      flex: 1,
                       child: SizedBox(),
                     ),
                     Expanded(
-                      flex: 3,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(
-                              sigmaX: 70,
-                              sigmaY: 70,
-                              tileMode: TileMode.mirror),
-                          child: SizedBox(
-                            width: size.width * .9,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    top: size.width * .12,
-                                    bottom: size.width * .05,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    child: Text(
-                                      'SIGN UP',
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white.withOpacity(.8),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 20),
-                                  child: component(
-                                      Icons.account_circle_outlined,
-                                      'Ismingizni kiriting...',
-                                      false,
-                                      false,
-                                      false,
-                                      controllerUsername),
-                                ),
-                                component(Icons.email, 'Email kiriting', false,
-                                    false, false, controllerEmail),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 20),
-                                  child: component(Icons.lock, "Parol qo'ying",
-                                      false, false, false, controllerPassword),
-                                ),
-                                SizedBox(height: size.width * .1),
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () {
-                                    HapticFeedback.lightImpact();
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(
+                      flex: 4,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: Colors.white,
+                          ),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                                sigmaX: 2,
+                                sigmaY: 2,
+                                tileMode: TileMode.mirror),
+                            child: SizedBox(
+                              width: size.width * .9,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      top: size.width * .12,
                                       bottom: size.width * .05,
                                     ),
-                                    height: size.width / 8,
-                                    width: size.width / 1.25,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: Colors.black.withOpacity(.1),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        SignUpCubit().signUp(context);
-                                      },
-                                      child: const Text(
-                                        "Ro'yhatdan o'tish",
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      child: Text(
+                                        'SIGN UP',
                                         style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
+                                          fontSize: 25,
                                           fontWeight: FontWeight.w600,
+                                          color: Colors.white.withOpacity(.8),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20),
+                                    child: component(
+                                        Icons.account_circle_outlined,
+                                        'Ismingizni kiriting...',
+                                        false,
+                                        false,
+                                        false,
+                                        controllerUsername),
+                                  ),
+                                  component(Icons.email, 'Email kiriting',
+                                      false, false, false, controllerEmail),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20),
+                                    child: component(
+                                        Icons.lock,
+                                        "Parol qo'ying",
+                                        false,
+                                        false,
+                                        false,
+                                        controllerPassword),
+                                  ),
+                                  SizedBox(height: size.width * .1),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () {
+                                      HapticFeedback.lightImpact();
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                        bottom: size.width * .05,
+                                      ),
+                                      height: size.width / 8,
+                                      width: size.width / 1.25,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(.2),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          border: Border.all(
+                                              width: 1, color: Colors.blue)),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          SignUpCubit().signUp(context);
+                                        },
+                                        child: const Text(
+                                          "Ro'yhatdan o'tish",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: ElevatedButton(
+                                      child: Text('Sign In'),
+                                      onPressed: () => Navigator.of(context)
+                                          .pushAndRemoveUntil(
+                                              SizeTransition1(
+                                                const SignInView(),
+                                              ),
+                                              (route) => false),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                     const Expanded(
+                      flex: 1,
                       child: SizedBox(),
                     ),
                   ],
@@ -149,9 +180,9 @@ class _signUpViewState extends State<signUpView> {
       alignment: Alignment.center,
       padding: EdgeInsets.only(right: size.width / 30),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(.1),
-        borderRadius: BorderRadius.circular(20),
-      ),
+          color: Colors.black.withOpacity(.3),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(width: 1, color: Colors.white)),
       child: TextField(
         controller: controller,
         style: TextStyle(
@@ -169,7 +200,7 @@ class _signUpViewState extends State<signUpView> {
           hintText: hintText,
           hintStyle: TextStyle(
             fontSize: 14,
-            color: Colors.white.withOpacity(.5),
+            color: Colors.white.withOpacity(.6),
           ),
         ),
       ),

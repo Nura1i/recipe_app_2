@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 import 'package:recipe_app/blocs/login/sign_up_state.dart';
-import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/views/sign_up_view.dart';
 
-class signUpPage extends StatefulWidget {
-  const signUpPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<signUpPage> createState() => _loginPageState();
+  State<SignUpPage> createState() => _SignUpPage();
 }
 
-class _loginPageState extends State<signUpPage> {
+class _SignUpPage extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<SignUpCubit>(context).signUp;
@@ -23,12 +22,7 @@ class _loginPageState extends State<signUpPage> {
           if (state is SignUpError) {
             return viewOfError(state.error);
           }
-
-          if (state is SignUpLoaded) {
-            return const HomePage();
-          }
-
-          return viewOfLoading();
+          return const signUpView();
         },
       ),
     );
