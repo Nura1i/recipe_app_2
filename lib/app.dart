@@ -8,6 +8,7 @@ import 'package:recipe_app/pages/sign_up_page.dart';
 import 'package:recipe_app/utils/theme/themes.dart';
 import 'package:recipe_app/views/sign_up_view.dart';
 
+
 class AppProvider extends StatelessWidget {
   const AppProvider({super.key});
   @override
