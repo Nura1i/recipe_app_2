@@ -1,13 +1,6 @@
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:uuid/uuid.dart';
-/*
-Created by Axmadjon Isaqov on 16:58:03 19.08.2022
-© 2022 @axi_dev 
-*/
 
-/*
-Mavzu:::Login Repository
-*/
 abstract class LoginRepository {
   Future<String?> signIn({required String? login, required String? password});
   Future<String?> signUp(
