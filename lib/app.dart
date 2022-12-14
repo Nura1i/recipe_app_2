@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/pages/home/home_pages.dart';
 import 'package:recipe_app/utils/theme/themes.dart';
 
+
 class AppProvider extends StatelessWidget {
   const AppProvider({super.key});
   @override
