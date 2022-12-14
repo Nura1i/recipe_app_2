@@ -1,9 +1,6 @@
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:uuid/uuid.dart';
-<<<<<<< HEAD
 
-=======
->>>>>>> f0e08725799e80d6fdcc195c0160244374e418fc
 abstract class LoginRepository {
   Future<String?> signIn({required String? login, required String? password});
   Future<String?> signUp(
@@ -12,6 +9,7 @@ abstract class LoginRepository {
       required String? confirmPassword});
   Future<bool?> logout();
 }
+
 class LoginRepo extends LoginRepository {
   LoginRepo.instance();
   static final _instance = LoginRepo.instance();
