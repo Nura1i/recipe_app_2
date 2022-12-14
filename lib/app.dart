@@ -31,7 +31,7 @@ class AppProvider extends StatelessWidget {
                 BlocProvider(
                   create: (context) => SignInCubit(),
                 )
-              ], child: const SignUpPage()),
+              ], child: const SignInPage()),
               debugShowCheckedModeBanner: false,
             ));
   }

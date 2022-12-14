@@ -24,6 +24,7 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
   uuid: ^3.0.7
+  flutter_svg: ^1.1.6
   
   
 dev_dependencies:
@@ -40,6 +41,7 @@ flutter:
 
   assets:
       - assets/images/
+      - assets/svg/
 
   # fonts:
   #   - family: Schyler
