@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/blocs/login/sign_up_state.dart';
+import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:recipe_app/pages/home_page.dart';
 
 import '../../models/user_model.dart';

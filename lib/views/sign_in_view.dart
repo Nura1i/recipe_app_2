@@ -42,7 +42,7 @@ class _SignInViewState extends State<SignInView> {
                       child: SizedBox(),
                     ),
                     Expanded(
-                      flex: 2,
+                      flex: 3,
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
