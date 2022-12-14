@@ -25,6 +25,7 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     var current = 0;
+    var size = MediaQuery.of(context).size;
     return CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xFFF6F6F6),
@@ -36,32 +37,32 @@ class _MenuPageState extends State<MenuPage> {
                     icon: SvgPicture.asset(
                       'assets/svg/Inactive.svg',
                     ),
-                    label: 'home',
-                    activeIcon: SvgPicture.asset(
-                      'assets/svg/Inactive.svg',
-                      color: Colors.red,
-                      // color: Colors.red)
-                    )),
+                    activeIcon: _pages('home', 'assets/svg/Inactive.svg')),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset('assets/svg/Menu.svg'),
-                    label: 'Saved',
-                    activeIcon: SvgPicture.asset('assets/svg/Menu.svg',
-                        color: Colors.red)),
+                    activeIcon: _pages('menu', 'assets/svg/Menu.svg')),
                 BottomNavigationBarItem(
-                    icon: SvgPicture.asset('assets/svg/Plus.svg'),
-                    label: 'add',
-                    activeIcon: SvgPicture.asset('assets/svg/Plus.svg',
-                        color: Colors.red)),
+                  icon: Container(
+                    width: size.width * 0.1,
+                    height: size.height * 0.04,
+                    margin: EdgeInsets.only(bottom: size.height * 0.01),
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: SvgPicture.asset(
+                      'assets/svg/Plus.svg',
+                      color: Colors.white,
+                    ),
+                  ),
+                  //activeIcon: _pages('add', 'assets/svg/Plus.svg')
+                ),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset('assets/svg/Notification.svg'),
-                    label: 'Notification',
-                    activeIcon: SvgPicture.asset('assets/svg/Notification.svg',
-                        color: Colors.red)),
+                    activeIcon:
+                        _pages('notification', 'assets/svg/Notification.svg')),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset('assets/svg/Profile.svg'),
-                    label: 'Profile',
-                    activeIcon: SvgPicture.asset('assets/svg/Profile.svg',
-                        color: Colors.red))
+                    activeIcon: _pages('profile', 'assets/svg/Profile.svg'))
               ],
             ),
             tabBuilder: (BuildContext context, int index) {
@@ -69,5 +70,21 @@ class _MenuPageState extends State<MenuPage> {
             },
           ),
         ));
+  }
+
+  Widget _pages(String text, String svg) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+          flex: 10,
+          child: SvgPicture.asset(
+            svg,
+            color: Colors.red,
+          ),
+        ),
+        const Spacer()
+      ],
+    );
   }
 }
