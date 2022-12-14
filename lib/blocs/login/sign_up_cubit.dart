@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/blocs/login/sign_up_state.dart';
 import 'package:recipe_app/pages/Menu/menu_page.dart';
+import 'package:recipe_app/utils/shared_pref/preferences.dart';
+import 'package:uuid/uuid.dart';
 import '../../models/user_model.dart';
 import '../../repositories/fire_service.dart';
 
@@ -15,7 +17,7 @@ TextEditingController controllerPassword = TextEditingController();
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInit());
 
-  void signUp(BuildContext context) async {
+  signUp(BuildContext context) async {
     try {
       if (controllerEmail.text.isEmpty ||
           controllerPassword.text.isEmpty ||
@@ -40,6 +42,15 @@ class SignUpCubit extends Cubit<SignUpState> {
             MaterialPageRoute(builder: (context) => const MenuPage()),
             (route) => false);
       }
+      final token = const Uuid().v1();
+      await Prefs.updateData<String>(key: 'email', data: controllerEmail.text);
+      await Prefs.updateData<String>(
+          key: 'password', data: controllerPassword.text);
+      final isSaved = await Prefs.updateData<String>(key: 'token', data: token);
+      if (isSaved!) {
+        return token;
+      }
+      return null;
     } catch (e) {
       log(e.toString());
     }
