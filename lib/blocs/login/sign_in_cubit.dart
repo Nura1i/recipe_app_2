@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/blocs/login/sign_in_state.dart';
 import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
-import 'package:shared_preferences/shared_preferences.dart' as Shp;
 import 'package:uuid/uuid.dart';
 
 TextEditingController controllerEmail = TextEditingController();
