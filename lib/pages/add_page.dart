@@ -8,7 +8,22 @@ class AddPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('App Page'),),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: .0,
+      ),
+      body:SafeArea(child:Column(
+         mainAxisAlignment: MainAxisAlignment.start,
+         children:const [
+           Padding(padding:
+           EdgeInsets.only(top: 16,left: 21,right: 189),
+           child: Text('Create recipe',style:
+            TextStyle(fontSize: 24,fontWeight:FontWeight.w600),),
+          )
+         ],
+       )
+     )
     );
   }
 }

@@ -1,68 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:recipe_app/pages/bookmark_page/recipe_page.dart';
-import 'package:recipe_app/pages/bookmark_page/video_pages.dart';
-class BookMarkPage extends StatefulWidget {
-  const BookMarkPage({super.key});
-  
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:recipe_app/pages/notification/all_page.dart';
+import 'package:recipe_app/pages/notification/read_page.dart';
+import 'package:recipe_app/pages/notification/unread_page.dart';
+
+class NotificatonPage extends StatefulWidget {
+  const NotificatonPage({super.key});
+
   @override
-  State<BookMarkPage> createState() => _BookMarkPageState();
+  State<NotificatonPage> createState() => _NotificatonPageState();
 }
 
-class _BookMarkPageState extends State<BookMarkPage>with TickerProviderStateMixin {
- late TabController tabController;
+class _NotificatonPageState extends State<NotificatonPage>with TickerProviderStateMixin {
+   late TabController NottabController;
   @override
   void initState() {
-   tabController=TabController(length: 2,vsync: this);
-   tabController.addListener(() {
+   NottabController=TabController(length: 3,vsync: this);
+   NottabController.addListener(() {
     setState(() {
-    
+      
     });
    });
     super.initState();
   }
   @override
   void dispose() {
-    tabController.dispose();
+    NottabController.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
-    dynamic bookmarkpagel=[VideoPage(),RecipeMarkPage()];
+   // dynamic bookmarkpagel=[AllPage(),UnreadPage(),ReadPage()];
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: .0,
+        backgroundColor: Colors.white,
+        title:const Text('Notifications',style: 
+        TextStyle(fontSize: 24,fontWeight:FontWeight.w600,color: Colors.black),),
+        actions: [
+          IconButton(onPressed:(){},
+           icon:SvgPicture.asset('assets/svg/Union.svg',width: 24,height: 24,))
+        ],
+      ),
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 22,top: 64,right: 181),
-              child: Text('Saved Recipes',style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.w600
-               ),
-              ),
-            ),
-            const SizedBox(
+              const SizedBox(
                   height: 32,
                 ),
                 Container(        
                   width: MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
                   color: Colors.white,
+                  border: Border.all(width: 1,color: Colors.black),
                   borderRadius: BorderRadius.circular(10)),
                    child: Column(
                    children: [
                       Padding(
                         padding: const EdgeInsets.all(5.0),
                         child:TabBar(
+  
                           labelStyle: TextStyle(fontWeight: FontWeight.w600),
-                          controller:tabController ,  
+                          controller:NottabController ,  
                           tabs: const [
-                             Tab(text: 'Video',),
-                              Tab(text: 'Recipe',)                             
+                             Tab(text: 'All',),
+                              Tab(text: 'Unread',),
+                              Tab(text: 'Read',)                              
                           ],
                           unselectedLabelColor: Colors.red,
                              labelColor:Colors.white,
@@ -78,21 +82,23 @@ class _BookMarkPageState extends State<BookMarkPage>with TickerProviderStateMixi
                      ],
                     ),
                    ),
-                 Expanded(child:
+                      Expanded(child:
                   Padding(
                     padding: const EdgeInsets.all(1),
                     child: TabBarView(
-                    controller:tabController,
-                     children:const[
-                       VideoPage(),
-                       RecipeMarkPage()
-                     ],
+                    controller:NottabController,
+                     children:const [
+                      AllPage(),
+                      UnreadPage(),
+                      ReadPage()
+                     ]
                     )
                   )
-                ) 
-              ],          
-           ),
-       ),
+                )
+          
+          ],
+        ),
+      ),
     );
   }
 }
