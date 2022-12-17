@@ -4,8 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:recipe_app/pages/bookmark_page/recipe_page.dart';
 import 'package:recipe_app/pages/bookmark_page/video_pages.dart';
 class BookMarkPage extends StatefulWidget {
-  const BookMarkPage({super.key});
-  
+  const BookMarkPage({super.key}); 
   @override
   State<BookMarkPage> createState() => _BookMarkPageState();
 }
