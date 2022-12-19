@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
 import 'package:recipe_app/blocs/login/sign_in_cubit.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 import 'package:recipe_app/pages/Menu/menu_page.dart';
@@ -39,6 +40,9 @@ class _AppProviderState extends State<AppProvider> {
                     ),
                     BlocProvider(
                       create: (context) => SignInCubit(),
+                    ),
+                    BlocProvider(
+                      create: (context) => ListPostCubit(),
                     )
                   ],
                   child: FutureBuilder(

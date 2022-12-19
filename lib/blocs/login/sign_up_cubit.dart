@@ -8,7 +8,7 @@ import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:uuid/uuid.dart';
 import '../../models/user_model.dart';
-import '../../repositories/fire_service.dart';
+import '../../repositories/services/fire_service.dart';
 
 TextEditingController controllerUsername = TextEditingController();
 TextEditingController controllerEmail = TextEditingController();
