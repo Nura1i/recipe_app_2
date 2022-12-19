@@ -1,7 +1,11 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_app/pages/bookmark_page/recipe_page.dart';
 import 'package:recipe_app/pages/bookmark_page/video_pages.dart';
+import 'package:recipe_app/utils/shared_pref/preferences.dart';
+import 'package:recipe_app/widgets/localization_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -27,20 +31,15 @@ class _ProfilePageState extends State<ProfilePage>
     tabController.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+      //  backgroundColor: Colors.white,
         elevation: .0,
-        title: const Text('My profile',
-            style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                color: Colors.black)),
+        title:Text(translation(context).personalInformation),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: size.width * 0.03),
@@ -73,23 +72,28 @@ class _ProfilePageState extends State<ProfilePage>
               SizedBox(
                 width: size.width * 0.23,
               ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.red),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Padding(
-                    padding: EdgeInsets.only(
-                        top: size.height * 0.015,
-                        bottom: size.height * 0.015,
-                        right: size.width * 0.05,
-                        left: size.width * 0.05),
-                    child: const Text(
-                      'Edit profile',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    )),
+              MaterialButton(
+                onPressed:() {
+                  _showdialog(context);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Colors.red),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Padding(
+                      padding: EdgeInsets.only(
+                          top: size.height * 0.015,
+                          bottom: size.height * 0.015,
+                          right: size.width * 0.05,
+                          left: size.width * 0.05),
+                      child: const Text(
+                        'Edit profile',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )),
+                ),
               )
             ],
           ),
@@ -204,4 +208,30 @@ class _ProfilePageState extends State<ProfilePage>
       ],
     );
   }
+}
+
+
+// Diolog widgets
+
+Future _showdialog(BuildContext context){
+  return showDialog(context:context,
+   builder:(context) {
+    return AlertDialog(
+      
+      titlePadding: EdgeInsets.only(left: 10,top: 10),
+      backgroundColor: Colors.white,
+      actionsPadding: EdgeInsets.all(5),
+      insetPadding: EdgeInsets.all(20),
+  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
+    title: Text('Settings'),
+    actions: [
+               ListTile(title: Text('Language'),
+             trailing: DropdownLocalization(context)), 
+            
+           ListTile(title:Text('Text1')),
+         ListTile(title:Text('Text1')),      
+       ],
+     );
+   },
+  );
 }

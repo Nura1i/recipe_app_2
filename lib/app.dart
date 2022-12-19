@@ -6,8 +6,9 @@ import 'package:recipe_app/blocs/login/sign_in_cubit.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:recipe_app/pages/sign_up_page.dart';
-import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:recipe_app/utils/theme/themes.dart';
+
+import 'utils/shared_pref/preferences.dart' ;
 
 
  class AppProvider extends StatefulWidget {
@@ -15,8 +16,29 @@ import 'package:recipe_app/utils/theme/themes.dart';
 
   @override
   State<AppProvider> createState() => _AppProviderState();
+  
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _AppProviderState? state = context.findAncestorStateOfType<_AppProviderState>();
+    state?.setLocale(newLocale);
+  }
 }
+
 class _AppProviderState extends State<AppProvider> {
+  Locale? _locale;
+
+  setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    getLocale().then((locale) => {setLocale(locale)});
+    super.didChangeDependencies();
+  }
+    
+
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
