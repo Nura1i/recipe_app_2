@@ -20,6 +20,7 @@ class userModel with _$userModel {
     List<Map<String, dynamic>>? recepts,
   }) = _userModel;
 
+
   factory userModel.fromJson(Map<String, dynamic> json) =>
       _$userModelFromJson(json);
 }

@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 userModel _$userModelFromJson(Map<String, dynamic> json) {
   return _userModel.fromJson(json);
 }
-
 /// @nodoc
 mixin _$userModel {
   String? get id => throw _privateConstructorUsedError;

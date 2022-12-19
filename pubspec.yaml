@@ -10,9 +10,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: 
+    sdk: flutter 
+  intl: ^0.17.0          
   bloc: ^8.1.0
   equatable: ^2.0.5
   flutter_bloc: ^8.1.1
+ 
   
   flow_builder: ^0.0.9
   flutter_slidable: ^2.0.0
@@ -26,7 +30,7 @@ dependencies:
   uuid: ^3.0.7
   flutter_svg: ^1.1.6
   image_picker: ^0.8.6
-  
+  shared_preferences: ^2.0.15
   
 dev_dependencies:
   flutter_test:
@@ -37,7 +41,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
-
+  generate: true
   uses-material-design: true
 
   assets:

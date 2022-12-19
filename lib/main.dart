@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/firebase_options.dart';
 import 'app.dart';
-
 void main() async {
   // AppSetup.setup;
   WidgetsFlutterBinding.ensureInitialized();

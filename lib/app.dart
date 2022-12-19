@@ -8,15 +8,23 @@ import 'package:recipe_app/pages/sign_up_page.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:recipe_app/utils/theme/themes.dart';
 
-class AppProvider extends StatelessWidget {
+
+ class AppProvider extends StatefulWidget {
   const AppProvider({super.key});
+
+  @override
+  State<AppProvider> createState() => _AppProviderState();
+}
+class _AppProviderState extends State<AppProvider> {
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
         light: AppTheme.whiteTheme,
         initial: AppTheme.currentSavedTheme ?? AdaptiveThemeMode.dark,
-        builder: (light, dark) => MaterialApp(
-              title: 'Flutter Demo',
+        builder: (light, dark) => MaterialApp(                     
+              title: 'Recipe App',
+           //localizationsDelegates: AppLocalizations.localizationsDelegates,
+          // supportedLocales: AppLocalizations.supportedLocales,
               theme: ThemeData(
                 primarySwatch: Colors.blue,
               ),
