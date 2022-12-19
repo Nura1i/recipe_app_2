@@ -11,10 +11,8 @@ class AppProvider extends StatelessWidget {
         light: AppTheme.whiteTheme,
         initial: AppTheme.currentSavedTheme ?? AdaptiveThemeMode.dark,
         builder: (light, dark) => MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
+            debugShowCheckedModeBanner: false,
+            title: 'Cooking Recipe',
             home: loginPage()
             // HomePage()
             //  MultiBlocProvider(

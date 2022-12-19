@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:recipe_app/pages/login_page.dart';
-import 'package:recipe_app/utils/app_setup/app_setup.dart';
-
 import 'app.dart';
 
 void main() {
