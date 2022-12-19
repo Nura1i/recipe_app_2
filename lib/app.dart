@@ -19,41 +19,42 @@ class AppProvider extends StatefulWidget {
 class _AppProviderState extends State<AppProvider> {
   @override
   Widget build(BuildContext context) {
-    return AdaptiveTheme(
-        light: AppTheme.whiteTheme,
-        initial: AppTheme.currentSavedTheme ?? AdaptiveThemeMode.dark,
-        builder: (light, dark) => MaterialApp(
-              title: 'Recipe App',
-              //localizationsDelegates: AppLocalizations.localizationsDelegates,
-              // supportedLocales: AppLocalizations.supportedLocales,
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              //  home: const signUpPage()
-              // HomePage()
-              // home: signUpView()
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => SignUpCubit(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => SignInCubit(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => ListPostCubit(),
+        )
+      ],
+      child: AdaptiveTheme(
+          light: AppTheme.whiteTheme,
+          initial: AppTheme.currentSavedTheme ?? AdaptiveThemeMode.dark,
+          builder: (light, dark) => MaterialApp(
+                title: 'Recipe App',
+                //localizationsDelegates: AppLocalizations.localizationsDelegates,
+                // supportedLocales: AppLocalizations.supportedLocales,
+                theme: ThemeData(
+                  primarySwatch: Colors.blue,
+                ),
+                //  home: const signUpPage()
+                // HomePage()
+                // home: signUpView()
 
-              home: MultiBlocProvider(
-                  providers: [
-                    BlocProvider(
-                      create: (context) => SignUpCubit(),
-                    ),
-                    BlocProvider(
-                      create: (context) => SignInCubit(),
-                    ),
-                    BlocProvider(
-                      create: (context) => ListPostCubit(),
-                    )
-                  ],
-                  child: FutureBuilder(
-                      future: Prefs.loadData<String>(key: 'token'),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData && snapshot.data != null) {
-                          return const MenuPage();
-                        }
-                        return const SignUpPage();
-                      })),
-              debugShowCheckedModeBanner: false,
-            ));
+                home: FutureBuilder(
+                    future: Prefs.loadData<String>(key: 'token'),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData && snapshot.data != null) {
+                        return const MenuPage();
+                      }
+                      return const SignUpPage();
+                    }),
+                debugShowCheckedModeBanner: false,
+              )),
+    );
   }
 }
