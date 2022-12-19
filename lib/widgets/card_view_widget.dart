@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:recipe_app/models/Card%20Model/card_http.dart';
 
@@ -13,12 +11,16 @@ Widget cardView(BuildContext context, Post post) {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Card(
-              elevation: 60,
+              elevation: 20,
               color: Color.fromARGB(255, 214, 214, 214),
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
+                side: BorderSide(color: Colors.white70, width: 2),
+                borderRadius: BorderRadius.circular(15),
               ),
+              // RoundedRectangleBorder(
+              //   borderRadius: BorderRadius.circular(20.0),
+              // ),
               child: Image(
                 height: MediaQuery.of(context).size.height * 0.2,
                 width: MediaQuery.of(context).size.width * 0.8,
