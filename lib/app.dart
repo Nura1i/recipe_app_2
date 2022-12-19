@@ -34,7 +34,7 @@ class AppProvider extends StatelessWidget {
                       create: (context) => SignInCubit(),
                     ),
                     BlocProvider(
-                      create: (context) => ListPostCubit(),
+                      create: (_) => ListPostCubit(),
                     )
                   ],
                   child: FutureBuilder(
