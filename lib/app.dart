@@ -42,7 +42,7 @@ class _AppProviderState extends State<AppProvider> {
                       create: (context) => SignInCubit(),
                     ),
                     BlocProvider(
-                      create: (contex) => ListPostCubit(),
+                      create: (context) => ListPostCubit(),
                     )
                   ],
                   child: FutureBuilder(

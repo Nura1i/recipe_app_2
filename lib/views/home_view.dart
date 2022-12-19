@@ -90,7 +90,6 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               Expanded(flex: 2, child: builder(posts)),
-
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
                 child: Row(
@@ -136,23 +135,6 @@ class _HomeViewState extends State<HomeView> {
                       color: Colors.red,
                     ),
                   ))
-
-              // ListView.builder(
-              //   physics: const NeverScrollableScrollPhysics(),
-              //   shrinkWrap: true,
-              //   scrollDirection: Axis.vertical,
-              //   itemCount: 20,
-              //   itemBuilder: (context, index) {
-              //     return Padding(
-              //       padding: const EdgeInsets.all(8.0),
-              //       child: Container(
-              //         color: Colors.orange,
-              //         width: 100,
-              //         height: 100,
-              //       ),
-              //     );
-              //   },
-              // )
             ]),
           )
         ],
