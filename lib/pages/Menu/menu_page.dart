@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import 'package:recipe_app/pages/add_page.dart';
 import 'package:recipe_app/pages/bookmark_page/bookmark_page.dart';
 import 'package:recipe_app/pages/home_page.dart';
@@ -24,7 +25,7 @@ class _MenuPageState extends State<MenuPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    var current = 0;
+    //  var current = 0;
     var size = MediaQuery.of(context).size;
     return CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,

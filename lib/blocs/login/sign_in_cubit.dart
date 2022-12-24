@@ -24,11 +24,6 @@ class SignInCubit extends Cubit<SignInState> {
         email: controllerEmail.text,
         password: controllerPassword.text,
       );
-      if (credentionall.user != null) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const MenuPage()),
-            (route) => false);
-      }
       bool? checkPassword = controllerPassword.text ==
           await Prefs.loadData<String>(key: 'password');
       bool? checkLogin =
@@ -39,6 +34,12 @@ class SignInCubit extends Cubit<SignInState> {
         final succes = await Prefs.saveData(key: 'token', data: token);
         if (succes!) return token;
       }
+      if (credentionall.user != null) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const MenuPage()),
+            (route) => false);
+      }
+
       return null;
     } catch (e) {
       log(e.toString());

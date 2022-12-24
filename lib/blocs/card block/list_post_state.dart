@@ -9,7 +9,9 @@ abstract class ListPostState {
 
 class ListPostInit extends ListPostState {}
 
-class ListPostLoading extends ListPostState {}
+class ListPostLoading extends ListPostState {
+  bool loading = true;
+}
 
 class ListPostLoaded extends ListPostState {
   final List<Post>? posts;

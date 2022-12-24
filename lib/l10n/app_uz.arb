@@ -3,8 +3,18 @@
   "personalInformation": "Shaxsiy Malumot",
   "name": "Name",
   "nameHint": "Ismingizni kiriting",
+<<<<<<< HEAD
   "hello":"Salom",
    "findrecipe": "Ovqat pishirish uchuneng yaxshi retseptlarni toping",
-   "milliytaom":  "Uzbek Milliy Taom🔥",
+   "milliytaom":  "Uzbek Milliy Taom🔥"
     
+=======
+  "IntroPage1": "Assalomu Aleykum! \n ''Cooking'' ilovamizga xush kelibsiz!",
+  "InroPage11": "Sizni Cooking ilovamizda ko'rganimizdan juda xursandmiz! Bizning ilovamiz bilan tanishish uchun «Next» tugmachasini bosing!",
+  "IntroPage2": "Siz pazandalikka qiziqasizmi? \n Lekin sizning qo'lingizdan kelmayaptimi?",
+  "IntroPage22": "Unday bo'lsa bizning ''Cooking'' - ilovamiz sizga bu borada yordam bera oladi! Biz bilan birga pazandalikni o'rganing! Va yaqinlaringizga xam ulashing.",
+  "IntroPage3": "''Cooking'' - ilovamizda siz o'zgalargaxam o'z retseplaringizni ulasha olasiz!",
+  "IntroPage33": "Siz o'zingiz tuzgan retseplaringizni Dunyoga mashxur qiling! va yaqinlaringizni o'z retseplaringiz bilan hayron qoldiring!."
+
+>>>>>>> 1c836300033a49c3486a1f1694f39d5c9a22813a
 }
