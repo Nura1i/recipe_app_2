@@ -3,8 +3,11 @@
     "personalInformation": "Personal Information",
     "name": "Name",
     "nameHint": "Enter your name",
-    "hello": "Hello",
-    "findrecipe": "Find best\nricepesfor cooking",
-    "milliytaom":  "Uzbek National Dish"
-    
+    "IntroPage1": "Hello! \n Welcome to our ''Cooking'' app!",
+    "IntroPage11": "We are very happy to see you in our Cooking app! Click «Next» to get familiar with our application!",
+    "IntroPage2": "Are you interested in cooking? \n But you can't?",
+    "IntroPage22": "Then our Cooking app can help you! Learn to cook with us! And share with your loved ones.",
+    "IntroPage3": "In our Cooking app, you can share your recipes with others!",
+    "IntroPage33": "Share your recipes with the world! and surprise your loved ones with your recipes!"
+
 }

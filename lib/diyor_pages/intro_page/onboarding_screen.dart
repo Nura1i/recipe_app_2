@@ -1,109 +1,128 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
-// import 'package:recipe_app/diyor_pages/intro_page/intro_page_4.dart';
-// import 'package:recipe_app/pages/login_page.dart';
-// import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-// import '../diyor.dart';
-// import 'intro_page_1.dart';
-// import 'intro_page_2.dart';
-// import 'intro_page_3.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:recipe_app/pages/Menu/menu_page.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-// void main() {
-//   // Native Splash
-//   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-//   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-//   runApp(const MyApp());
-// }
+import '../diyor.dart';
+import 'intro_page_1.dart';
+import 'intro_page_2.dart';
+import 'intro_page_3.dart';
 
-// class OnBoardingScreen extends StatefulWidget {
-//   const OnBoardingScreen({Key? key}) : super(key: key);
+void main() {
+  // Native Splash
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  runApp(const MyApp());
+}
 
-//   @override
-//   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
-// }
+class OnBoardingScreen extends StatefulWidget {
+  const OnBoardingScreen({Key? key}) : super(key: key);
 
-// class _OnBoardingScreenState extends State<OnBoardingScreen> {
-//   @override
-//   // Native Splash
-//   void initState() {
-//     super.initState();
+  @override
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+}
 
-//     Future.delayed(const Duration(seconds: 1))
-//         .then((value) => {FlutterNativeSplash.remove()});
-//   }
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  @override
+  // Native Splash
+  void initState() {
+    super.initState();
 
-//   final PageController _controller = PageController();
+    Future.delayed(const Duration(seconds: 1))
+        .then((value) => {FlutterNativeSplash.remove()});
+  }
 
-//   bool onLastPage = false;
+  final PageController _controller = PageController();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: Stack(
-//         children: [
-//           PageView(
-//             physics: const BouncingScrollPhysics(),
-//             controller: _controller,
-//             onPageChanged: (index) {
-//               setState(() {
-//                 onLastPage = (index == 3);
-//               });
-//             },
-//             children: const [
-//               IntroPage1(),
-//               IntroPage2(),
-//               IntroPage3(),
-//               IntroPage4(),
-//             ],
-//           ),
+  bool onLastPage = false;
 
-//           /// Indicator ...!
-//           Container(
-//               alignment: const Alignment(0, 0.8),
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                 children: [
-//                   /// Skip ...!
-//                   GestureDetector(
-//                     onTap: () {
-//                       _controller.animateToPage(_controller.page!.round() - 1,
-//                           duration: const Duration(milliseconds: 350),
-//                           curve: Curves.easeIn);
-//                     },
-//                     child: const Text('Back'),
-//                   ),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          PageView(
+            physics: const BouncingScrollPhysics(),
+            controller: _controller,
+            onPageChanged: (index) {
+              setState(() {
+                onLastPage = (index == 2);
+              });
+            },
+            children: const [
+              IntroPage1(),
+              IntroPage2(),
+              IntroPage3(),
+            ],
+          ),
 
-//                   /// Dot Indicator ...!
-//                   SmoothPageIndicator(
-//                     controller: _controller,
-//                     count: 4,
-//                     //effect: JumpingDotEffect(),
-//                   ),
+          /// Indicator ...!
+          Container(
+              alignment: const Alignment(0, 0.8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  /// Skip ...!
+                  GestureDetector(
+                    onTap: () {
+                      _controller.animateToPage(_controller.page!.round() - 1,
+                          duration: const Duration(milliseconds: 350),
+                          curve: Curves.easeIn);
+                    },
+                    child: const Text(
+                      'Back',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
+                  ),
 
-//                   /// Next or Done ...!
-//                   onLastPage
-//                       ? GestureDetector(
-//                           onTap: () {
-//                             Navigator.push(context,
-//                                 MaterialPageRoute(builder: (context) {
-//                               return const loginPage();
-//                             }));
-//                           },
-//                           child: const Text('Done'),
-//                         )
-//                       : GestureDetector(
-//                           onTap: () {
-//                             _controller.nextPage(
-//                                 duration: const Duration(milliseconds: 350),
-//                                 curve: Curves.easeIn);
-//                           },
-//                           child: const Text('Next'),
-//                         ),
-//                 ],
-//               ))
-//         ],
-//       ),
-//     );
-//   }
-// }
+                  /// Dot Indicator ...!
+                  SmoothPageIndicator(
+                    controller: _controller,
+                    count: 3,
+                    effect: const JumpingDotEffect(
+                        spacing: 8,
+                        radius: 10,
+                        dotWidth: 12,
+                        dotHeight: 12,
+                        paintStyle: PaintingStyle.stroke,
+                        strokeWidth: 1.5,
+                        dotColor: Colors.black,
+                        activeDotColor: Colors.green),
+                  ),
+
+                  /// Next or Done ...!
+                  onLastPage
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const MenuPage();
+                            }));
+                          },
+                          child: const Text(
+                            'Done',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w500),
+                          ),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            _controller.nextPage(
+                                duration: const Duration(milliseconds: 350),
+                                curve: Curves.easeIn);
+                          },
+                          child: const Text(
+                            'Next',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                ],
+              )),
+        ],
+      ),
+    );
+  }
+}
