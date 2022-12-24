@@ -6,7 +6,7 @@ class IntroPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Intro Page - 2
+      // Intro Page - 22
       backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
