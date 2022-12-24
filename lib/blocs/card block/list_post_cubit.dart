@@ -7,7 +7,10 @@ class ListPostCubit extends Cubit<ListPostState> {
   ListPostCubit() : super(ListPostInit());
 
   void apiPostList() async {
-    emit(ListPostLoading());
+    emit(
+      ListPostLoading(),
+    );
+
     final response = await Network.GET(Network.API_LIST, Network.paramsEmpty());
 
     if (response != null) {

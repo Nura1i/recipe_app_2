@@ -4,6 +4,8 @@ class Post {
   String? about;
   String? photo;
   String? header;
+  bool liked = false;
+  bool saved = false;
   Post({this.id, this.name, this.about, this.photo, this.header});
 
   Post.fromJson(Map<String, dynamic> json)
