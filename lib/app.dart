@@ -27,7 +27,7 @@ class _AppProviderState extends State<AppProvider> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: loginPage()
+            home: const MenuPage()
             // HomePage()
             //  MultiBlocProvider(
             //   providers:[

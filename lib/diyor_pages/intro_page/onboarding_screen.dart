@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:recipe_app/diyor_pages/intro_page/intro_page_4.dart';
 import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -48,14 +47,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             controller: _controller,
             onPageChanged: (index) {
               setState(() {
-                onLastPage = (index == 3);
+                onLastPage = (index == 2);
               });
             },
             children: const [
               IntroPage1(),
               IntroPage2(),
               IntroPage3(),
-              IntroPage4(),
             ],
           ),
 
@@ -72,14 +70,26 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           duration: const Duration(milliseconds: 350),
                           curve: Curves.easeIn);
                     },
-                    child: const Text('Back'),
+                    child: const Text(
+                      'Back',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
                   ),
 
                   /// Dot Indicator ...!
                   SmoothPageIndicator(
                     controller: _controller,
-                    count: 4,
-                    //effect: JumpingDotEffect(),
+                    count: 3,
+                    effect: const JumpingDotEffect(
+                        spacing: 8,
+                        radius: 10,
+                        dotWidth: 12,
+                        dotHeight: 12,
+                        paintStyle: PaintingStyle.stroke,
+                        strokeWidth: 1.5,
+                        dotColor: Colors.black,
+                        activeDotColor: Colors.green),
                   ),
 
                   /// Next or Done ...!
@@ -91,7 +101,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               return const MenuPage();
                             }));
                           },
-                          child: const Text('Done'),
+                          child: const Text(
+                            'Done',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w500),
+                          ),
                         )
                       : GestureDetector(
                           onTap: () {
@@ -99,10 +113,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 duration: const Duration(milliseconds: 350),
                                 curve: Curves.easeIn);
                           },
-                          child: const Text('Next'),
+                          child: const Text(
+                            'Next',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w500),
+                          ),
                         ),
                 ],
-              ))
+              )),
         ],
       ),
     );
