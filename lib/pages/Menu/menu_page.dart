@@ -24,7 +24,7 @@ class _MenuPageState extends State<MenuPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    var current = 0;
+    //  var current = 0;
     var size = MediaQuery.of(context).size;
     return CupertinoPageScaffold(
         resizeToAvoidBottomInset: false,

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
 import 'package:recipe_app/models/Card%20Model/card_http.dart';
-import 'package:recipe_app/views/item_of_post.dart';
-
 import '../blocs/card block/list_post_state.dart';
 
 class post_page extends StatefulWidget {
@@ -60,11 +58,11 @@ class _post_pageState extends State<post_page> {
   }
 }
 
-Widget viewOfPostList(List<Post> items) {
-  return ListView.builder(
-    itemCount: items.length,
-    itemBuilder: (ctx, index) {
-      return itemOfPost(ctx, items[index]);
-    },
-  );
-}
+// Widget viewOfPostList(List<Post> items) {
+//   return ListView.builder(
+//     itemCount: items.length,
+//     itemBuilder: (ctx, index) {
+//       return itemfPost(ctx, items[index]);
+//     },
+//   );
+// }
