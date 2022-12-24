@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
 import 'package:recipe_app/models/Card%20Model/card_http.dart';
 import 'package:recipe_app/pages/On%20open/into_card.dart';
-import 'package:shimmer/shimmer.dart';
 
 Widget cardView(BuildContext context, Post post) {
   var size = MediaQuery.of(context).size;
