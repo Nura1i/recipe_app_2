@@ -1,14 +1,14 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+class newFile extends StatefulWidget {
+  const newFile({super.key});
 
   @override
-  State<MyWidget> createState() => _MyWidgetState();
+  State<newFile> createState() => _newFileState();
 }
 
-class _MyWidgetState extends State<MyWidget> {
+class _newFileState extends State<newFile> {
   @override
   Widget build(BuildContext context) {
     return Container();
