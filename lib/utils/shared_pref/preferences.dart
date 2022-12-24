@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart' as ShP;
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Prefs {
   ///save data
@@ -25,7 +25,6 @@ class Prefs {
     }
     return null;
   }
-
   ///load data
   static Future<T> loadData<T>({required String? key}) async {
     final prefs = await ShP.SharedPreferences.getInstance();
@@ -51,6 +50,8 @@ class Prefs {
     final prefs = await ShP.SharedPreferences.getInstance();
     return prefs.remove(key!);
   }
+
+
 }
 
 
@@ -59,40 +60,4 @@ class Prefs {
 
 
 
-
-// Shared preferences for Localization
-
-const String Language_code='languagecode';
-const String ENGLISH='en';
-const String RUSSIAN='ru';
-const String UZBEK='uz';
-
-Future<Locale> setLocale(String languageCode) async {
-  ShP.SharedPreferences _prefs = await ShP.SharedPreferences.getInstance();
-  await _prefs.setString(Language_code, languageCode);
-  return _locale(languageCode);
-}
-
-Future<Locale> getLocale() async {
-  ShP.SharedPreferences _prefs = await ShP.SharedPreferences.getInstance();
-  String languageCode = _prefs.getString(Language_code) ?? ENGLISH;
-  return _locale(languageCode);
-}
-
-Locale _locale(String languageCode) {
-  switch (languageCode) {
-    case ENGLISH:
-      return const Locale(ENGLISH, '');
-    case RUSSIAN:
-      return const Locale(RUSSIAN, "");
-     case UZBEK:
-      return const Locale(UZBEK, "");
-    default:
-      return const Locale(ENGLISH, '');
-  }
-}
-
-AppLocalizations translation(BuildContext context){
-  return AppLocalizations.of(context)!;
-}
 

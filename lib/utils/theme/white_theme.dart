@@ -2,7 +2,7 @@ part of 'themes.dart';
 
 final TextTheme lightTextTheme = TextTheme(
   bodyMedium: const TextStyle(
-      fontSize: 20, fontWeight: FontWeight.w600, color: Colors.yellow),
+      fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
   bodyLarge: TextStyle(
     fontSize: 30.sp,
     fontWeight: FontWeight.w700,

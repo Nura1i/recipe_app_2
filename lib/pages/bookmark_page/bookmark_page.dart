@@ -31,7 +31,7 @@ class _BookMarkPageState extends State<BookMarkPage>
   Widget build(BuildContext context) {
     dynamic bookmarkpagel = [VideoPage(), RecipeMarkPage()];
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

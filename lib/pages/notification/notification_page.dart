@@ -32,10 +32,10 @@ class _NotificatonPageState extends State<NotificatonPage>with TickerProviderSta
   Widget build(BuildContext context) {
    // dynamic bookmarkpagel=[AllPage(),UnreadPage(),ReadPage()];
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
+     backgroundColor: Theme.of(context).backgroundColor,
         elevation: .0,
-        backgroundColor: Colors.white,
         title:const Text('Notifications',style: 
         TextStyle(fontSize: 24,fontWeight:FontWeight.w600,color: Colors.black),),
         actions: [

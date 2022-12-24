@@ -7,21 +7,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 part 'dark_theme.dart';
 part 'white_theme.dart';
 class AppTheme {
-  static AdaptiveThemeMode? currentSavedTheme=AdaptiveThemeMode.light;
-
-  static final ThemeData whiteTheme=ThemeData(
+    static AdaptiveThemeMode? currentSavedTheme=AdaptiveThemeMode.light;
+     static final ThemeData whiteTheme=ThemeData(
     textTheme: lightTextTheme,
-    backgroundColor: Colors.red,
-    primarySwatch: Colors.red,
+    backgroundColor: Colors.white,
+    primarySwatch: Colors.grey,
     splashColor: Colors.white,
      primaryColor: const Color(0xFFB3A1F8),
      
 
-     );
-
-
+  );
   static final ThemeData darkTheme=ThemeData(
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.black,
     primarySwatch: Colors.blue,
      primaryColor: const Color(0xFF574699),
     splashColor: const Color(0xFF201F24),

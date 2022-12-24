@@ -5,7 +5,7 @@ import 'package:recipe_app/pages/add_page.dart';
 import 'package:recipe_app/pages/bookmark_page/bookmark_page.dart';
 import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/pages/notification/notification_page.dart';
-import 'package:recipe_app/pages/profile_page.dart';
+import 'package:recipe_app/pages/profile_page/profile_page.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});

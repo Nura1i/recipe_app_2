@@ -33,7 +33,7 @@ class _SignInPage extends State<SignInPage> {
       child: Text("Error occurred $err"),
     );
   }
-
+  
   Widget viewOfLoading() {
     return const Center(
       child: CircularProgressIndicator(),

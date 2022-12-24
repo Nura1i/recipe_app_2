@@ -2,5 +2,9 @@
     "homePage": "Home Page",
     "personalInformation": "Personal Information",
     "name": "Name",
-    "nameHint": "Enter your name"
+    "nameHint": "Enter your name",
+    "hello":"Hello",
+    "findrecipe": "Find best\nricepesfor cooking",
+    "milliytaom":  "Uzbek National Dish"
+    
 }

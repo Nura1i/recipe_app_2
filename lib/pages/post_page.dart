@@ -25,7 +25,9 @@ class _post_pageState extends State<post_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
+         backgroundColor: Theme.of(context).backgroundColor,
         title: const Text("BloC"),
       ),
       body: BlocBuilder<ListPostCubit, ListPostState>(

@@ -8,6 +8,7 @@ class AddPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+       backgroundColor: Theme.of(context).backgroundColor,
         //  backgroundColor: Colors.orange,
         appBar: AppBar(
           backgroundColor: Colors.white,

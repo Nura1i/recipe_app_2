@@ -1,28 +1,30 @@
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:recipe_app/pages/bookmark_page/recipe_page.dart';
-import 'package:recipe_app/pages/bookmark_page/video_pages.dart';
-import 'package:recipe_app/utils/shared_pref/preferences.dart';
-import 'package:recipe_app/widgets/localization_widget.dart';
+import 'package:recipe_app/pages/profile_page/profile_page_showdialog.dart';
+import '../../utils/shared_pref/language_prefs/preferences_2.dart';
+import 'package:recipe_app/pages/profile_page/profile_page_widgets.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
-
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin {    
   late TabController tabController;
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
     tabController.addListener(() {
-      setState(() {});
+    setState(() {});
     });
+  setState(() {
+    
+  });
     super.initState();
   }
 
@@ -31,15 +33,16 @@ class _ProfilePageState extends State<ProfilePage>
     tabController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
+     backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-      //  backgroundColor: Colors.white,
+         backgroundColor: Theme.of(context).backgroundColor,
         elevation: .0,
-        title:Text(translation(context).personalInformation),
+        title:Text(translation(context).hello,style: Theme.of(context).textTheme.bodyMedium,),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: size.width * 0.03),
@@ -74,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage>
               ),
               MaterialButton(
                 onPressed:() {
-                  _showdialog(context);
+               showdialogg(context);
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -124,19 +127,20 @@ class _ProfilePageState extends State<ProfilePage>
                   height: 20,
                 ),
                 Row(
+
                   children: [
                     SizedBox(
                       width: size.width * 0.10,
                     ),
-                    _counter('12', 'Recipes'),
+                    counter('12', 'Recipes'),
                     SizedBox(
                       width: size.width * 0.2,
                     ),
-                    _counter('37', 'Saved'),
+                    counter('37', 'Saved'),
                     SizedBox(
                       width: size.width * 0.2,
                     ),
-                    _counter('1389', 'Likes'),
+                    counter('1389', 'Likes'),
                   ],
                 ),
                 const SizedBox(
@@ -172,66 +176,28 @@ class _ProfilePageState extends State<ProfilePage>
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.red,
                             ),
-                          ))
+                          )
+                        )
                     ],
                   ),
                 ),
-                Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.all(1),
-                        child: TabBarView(
-                          controller: tabController,
-                          children: const [VideoPage(), RecipeMarkPage()],
-                        )))
-              ],
+              //   Expanded(
+              //       child: Padding(
+              //           padding: const EdgeInsets.all(1),
+              //           child: TabBarView(
+              //             controller: tabController,
+              //             // Pagelar berilmagan
+              //             children: const [VideoPage(), RecipeMarkPage()],
+              //      )
+              //    )
+              //  )
+               ],
             ),
           ),
-        ],
-      ),
+        ],),
     );
   }
-
-  _counter(String count, String field) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: Text(
-            field,
-            style: TextStyle(color: Color(0xffA9A9A9)),
-          ),
-        ),
-        Text(
-          count,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-        )
-      ],
-    );
-  }
+ 
 }
-
 
 // Diolog widgets
-
-Future _showdialog(BuildContext context){
-  return showDialog(context:context,
-   builder:(context) {
-    return AlertDialog(
-      
-      titlePadding: EdgeInsets.only(left: 10,top: 10),
-      backgroundColor: Colors.white,
-      actionsPadding: EdgeInsets.all(5),
-      insetPadding: EdgeInsets.all(20),
-  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
-    title: Text('Settings'),
-    actions: [
-               ListTile(title: Text('Language'),
-             trailing: DropdownLocalization(context)), 
-            
-           ListTile(title:Text('Text1')),
-         ListTile(title:Text('Text1')),      
-       ],
-     );
-   },
-  );
-}

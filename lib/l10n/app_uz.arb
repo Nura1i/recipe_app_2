@@ -1,6 +1,10 @@
 {    
   "homePage": "Home Page",
-  "personalInformation": "Personal Information",
+  "personalInformation": "Shaxsiy Malumot",
   "name": "Name",
-  "nameHint": "Ismingizni kiriting"   
+  "nameHint": "Ismingizni kiriting",
+  "hello":"Salom",
+   "findrecipe": "Ovqat pishirish uchuneng yaxshi retseptlarni toping",
+   "milliytaom":  "Uzbek Milliy Taom🔥",
+    
 }

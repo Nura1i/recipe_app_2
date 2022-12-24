@@ -5,7 +5,7 @@ final TextTheme darkTextTheme = TextTheme(
         fontSize: 20.sp,
         fontWeight: FontWeight.w600,
         fontFamily: 'SFPro',
-        color: Colors.green),
+        color: Colors.white),
     bodyLarge: TextStyle(
         fontSize: 30.sp,
         fontWeight: FontWeight.w700,
