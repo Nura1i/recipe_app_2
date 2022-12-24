@@ -18,8 +18,8 @@ class userModel with _$userModel {
     List<Map<String, dynamic>>? saved,
     List<Map<String, dynamic>>? amountLikes,
     List<Map<String, dynamic>>? recepts,
+    List<Map<String, dynamic>>? likedRecipes,
   }) = _userModel;
-
 
   factory userModel.fromJson(Map<String, dynamic> json) =>
       _$userModelFromJson(json);

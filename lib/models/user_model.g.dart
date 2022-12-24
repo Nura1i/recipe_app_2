@@ -28,6 +28,9 @@ _$_userModel _$$_userModelFromJson(Map<String, dynamic> json) => _$_userModel(
       recepts: (json['recepts'] as List<dynamic>?)
           ?.map((e) => e as Map<String, dynamic>)
           .toList(),
+      likedRecipes: (json['likedRecipes'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
     );
 
 Map<String, dynamic> _$$_userModelToJson(_$_userModel instance) =>
@@ -45,4 +48,5 @@ Map<String, dynamic> _$$_userModelToJson(_$_userModel instance) =>
       'saved': instance.saved,
       'amountLikes': instance.amountLikes,
       'recepts': instance.recepts,
+      'likedRecipes': instance.likedRecipes,
     };

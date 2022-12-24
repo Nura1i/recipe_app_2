@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 userModel _$userModelFromJson(Map<String, dynamic> json) {
   return _userModel.fromJson(json);
 }
+
 /// @nodoc
 mixin _$userModel {
   String? get id => throw _privateConstructorUsedError;
@@ -33,6 +34,8 @@ mixin _$userModel {
   List<Map<String, dynamic>>? get amountLikes =>
       throw _privateConstructorUsedError;
   List<Map<String, dynamic>>? get recepts => throw _privateConstructorUsedError;
+  List<Map<String, dynamic>>? get likedRecipes =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,7 +61,8 @@ abstract class $userModelCopyWith<$Res> {
       String? username,
       List<Map<String, dynamic>>? saved,
       List<Map<String, dynamic>>? amountLikes,
-      List<Map<String, dynamic>>? recepts});
+      List<Map<String, dynamic>>? recepts,
+      List<Map<String, dynamic>>? likedRecipes});
 }
 
 /// @nodoc
@@ -87,6 +91,7 @@ class _$userModelCopyWithImpl<$Res, $Val extends userModel>
     Object? saved = freezed,
     Object? amountLikes = freezed,
     Object? recepts = freezed,
+    Object? likedRecipes = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -141,6 +146,10 @@ class _$userModelCopyWithImpl<$Res, $Val extends userModel>
           ? _value.recepts
           : recepts // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>?,
+      likedRecipes: freezed == likedRecipes
+          ? _value.likedRecipes
+          : likedRecipes // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
     ) as $Val);
   }
 }
@@ -165,7 +174,8 @@ abstract class _$$_userModelCopyWith<$Res> implements $userModelCopyWith<$Res> {
       String? username,
       List<Map<String, dynamic>>? saved,
       List<Map<String, dynamic>>? amountLikes,
-      List<Map<String, dynamic>>? recepts});
+      List<Map<String, dynamic>>? recepts,
+      List<Map<String, dynamic>>? likedRecipes});
 }
 
 /// @nodoc
@@ -192,6 +202,7 @@ class __$$_userModelCopyWithImpl<$Res>
     Object? saved = freezed,
     Object? amountLikes = freezed,
     Object? recepts = freezed,
+    Object? likedRecipes = freezed,
   }) {
     return _then(_$_userModel(
       id: freezed == id
@@ -246,6 +257,10 @@ class __$$_userModelCopyWithImpl<$Res>
           ? _value._recepts
           : recepts // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>?,
+      likedRecipes: freezed == likedRecipes
+          ? _value._likedRecipes
+          : likedRecipes // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
     ));
   }
 }
@@ -266,10 +281,12 @@ class _$_userModel implements _userModel {
       this.username,
       final List<Map<String, dynamic>>? saved,
       final List<Map<String, dynamic>>? amountLikes,
-      final List<Map<String, dynamic>>? recepts})
+      final List<Map<String, dynamic>>? recepts,
+      final List<Map<String, dynamic>>? likedRecipes})
       : _saved = saved,
         _amountLikes = amountLikes,
-        _recepts = recepts;
+        _recepts = recepts,
+        _likedRecipes = likedRecipes;
 
   factory _$_userModel.fromJson(Map<String, dynamic> json) =>
       _$$_userModelFromJson(json);
@@ -324,9 +341,19 @@ class _$_userModel implements _userModel {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Map<String, dynamic>>? _likedRecipes;
+  @override
+  List<Map<String, dynamic>>? get likedRecipes {
+    final value = _likedRecipes;
+    if (value == null) return null;
+    if (_likedRecipes is EqualUnmodifiableListView) return _likedRecipes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'userModel(id: $id, userId: $userId, bio: $bio, avatarImage: $avatarImage, password: $password, email: $email, totalLikes: $totalLikes, publishedDate: $publishedDate, text: $text, username: $username, saved: $saved, amountLikes: $amountLikes, recepts: $recepts)';
+    return 'userModel(id: $id, userId: $userId, bio: $bio, avatarImage: $avatarImage, password: $password, email: $email, totalLikes: $totalLikes, publishedDate: $publishedDate, text: $text, username: $username, saved: $saved, amountLikes: $amountLikes, recepts: $recepts, likedRecipes: $likedRecipes)';
   }
 
   @override
@@ -352,7 +379,9 @@ class _$_userModel implements _userModel {
             const DeepCollectionEquality().equals(other._saved, _saved) &&
             const DeepCollectionEquality()
                 .equals(other._amountLikes, _amountLikes) &&
-            const DeepCollectionEquality().equals(other._recepts, _recepts));
+            const DeepCollectionEquality().equals(other._recepts, _recepts) &&
+            const DeepCollectionEquality()
+                .equals(other._likedRecipes, _likedRecipes));
   }
 
   @JsonKey(ignore: true)
@@ -371,7 +400,8 @@ class _$_userModel implements _userModel {
       username,
       const DeepCollectionEquality().hash(_saved),
       const DeepCollectionEquality().hash(_amountLikes),
-      const DeepCollectionEquality().hash(_recepts));
+      const DeepCollectionEquality().hash(_recepts),
+      const DeepCollectionEquality().hash(_likedRecipes));
 
   @JsonKey(ignore: true)
   @override
@@ -401,7 +431,8 @@ abstract class _userModel implements userModel {
       final String? username,
       final List<Map<String, dynamic>>? saved,
       final List<Map<String, dynamic>>? amountLikes,
-      final List<Map<String, dynamic>>? recepts}) = _$_userModel;
+      final List<Map<String, dynamic>>? recepts,
+      final List<Map<String, dynamic>>? likedRecipes}) = _$_userModel;
 
   factory _userModel.fromJson(Map<String, dynamic> json) =
       _$_userModel.fromJson;
@@ -432,6 +463,8 @@ abstract class _userModel implements userModel {
   List<Map<String, dynamic>>? get amountLikes;
   @override
   List<Map<String, dynamic>>? get recepts;
+  @override
+  List<Map<String, dynamic>>? get likedRecipes;
   @override
   @JsonKey(ignore: true)
   _$$_userModelCopyWith<_$_userModel> get copyWith =>
