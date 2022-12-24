@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:recipe_app/diyor_pages/intro_page/intro_page_4.dart';
-import 'package:recipe_app/pages/login_page.dart';
+import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../diyor.dart';
@@ -88,7 +88,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return const loginPage();
+                              return const MenuPage();
                             }));
                           },
                           child: const Text('Done'),
