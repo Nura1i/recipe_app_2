@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_state.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/likedIcon_cubit.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/likedIcon_state.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
-import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_state.dart';
 import 'package:recipe_app/models/Card%20Model/card_http.dart';
 import 'package:recipe_app/pages/home_page.dart';
 
@@ -125,7 +125,10 @@ class _openedCardState extends State<openedCard> {
                       SizedBox(
                         width: 5,
                       ),
-                      Text('1391'),
+                      Text(
+                        '1391',
+                        style: TextStyle(fontSize: 14),
+                      ),
                     ],
                   ),
                 ),

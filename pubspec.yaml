@@ -28,6 +28,9 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
   uuid: ^3.0.7
+  flutter_svg: ^1.1.6
+  image_picker: ^0.8.6
+  http: ^0.13.5
   
   
 dev_dependencies:

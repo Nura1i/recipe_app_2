@@ -312,16 +312,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-=======
-  flutter_native_splash:
-    dependency: "direct main"
-    description:
-      name: flutter_native_splash
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.16"
->>>>>>> 1c836300033a49c3486a1f1694f39d5c9a22813a
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -395,20 +385,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
-<<<<<<< HEAD
   http:
     dependency: "direct main"
-=======
-  html:
-    dependency: transitive
-    description:
-      name: html
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.15.1"
-  http:
-    dependency: transitive
->>>>>>> 1c836300033a49c3486a1f1694f39d5c9a22813a
     description:
       name: http
       url: "https://pub.dartlang.org"
@@ -428,16 +406,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.2"
-<<<<<<< HEAD
-=======
-  image:
-    dependency: transitive
-    description:
-      name: image
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.2.2"
->>>>>>> 1c836300033a49c3486a1f1694f39d5c9a22813a
   image_picker:
     dependency: "direct main"
     description:
@@ -677,7 +645,7 @@ packages:
     source: hosted
     version: "4.2.0"
   shared_preferences:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
@@ -746,13 +714,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
-  shimmer:
-    dependency: "direct main"
-    description:
-      name: shimmer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   sky_engine:
     dependency: transitive
     description: flutter

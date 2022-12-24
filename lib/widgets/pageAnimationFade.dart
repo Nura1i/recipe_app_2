@@ -76,8 +76,8 @@ class SlideTransition1 extends PageRouteBuilder {
   SlideTransition1(this.page)
       : super(
             pageBuilder: (context, animation, anotherAnimation) => page,
-            transitionDuration: Duration(milliseconds: 1000),
-            reverseTransitionDuration: Duration(milliseconds: 400),
+            transitionDuration: Duration(milliseconds: 1700),
+            reverseTransitionDuration: Duration(milliseconds: 700),
             transitionsBuilder: (context, animation, anotherAnimation, child) {
               animation = CurvedAnimation(
                   curve: Curves.fastLinearToSlowEaseIn,

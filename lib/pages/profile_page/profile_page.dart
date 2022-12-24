@@ -42,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage>
       appBar: AppBar(
          backgroundColor: Theme.of(context).backgroundColor,
         elevation: .0,
-        title:Text(translation(context).hello,style: Theme.of(context).textTheme.bodyMedium,),
+        title:Text(translation(context).homePage,style: Theme.of(context).textTheme.bodyMedium,),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: size.width * 0.03),
