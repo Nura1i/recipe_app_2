@@ -9,7 +9,7 @@ import 'intro_page_2.dart';
 import 'intro_page_3.dart';
 
 void main() {
-  // Native Splash
+  // Native Splashs
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
