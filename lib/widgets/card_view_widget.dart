@@ -1,16 +1,28 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
 import 'package:recipe_app/models/Card%20Model/card_http.dart';
+import 'package:recipe_app/pages/On%20open/into_card.dart';
+import 'package:shimmer/shimmer.dart';
 
 Widget cardView(BuildContext context, Post post) {
   var size = MediaQuery.of(context).size;
+  final cards = post;
   return Column(
     children: [
       InkWell(
+        onLongPress: () {},
+        radius: 10000,
+        borderRadius: BorderRadius.circular(15),
         highlightColor: Colors.white.withOpacity(0.4),
-        splashColor: Colors.blueGrey.withOpacity(0.6),
-        onTap: () {},
+        splashColor: Colors.red.withOpacity(0.1),
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => openedCard(cards),
+          ));
+        },
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Card(
@@ -24,11 +36,14 @@ Widget cardView(BuildContext context, Post post) {
               ),
               child: Stack(
                 children: [
-                  Image(
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    image: NetworkImage(post.photo!),
-                    fit: BoxFit.cover,
+                  Hero(
+                    tag: '${int.parse(post.id!)}',
+                    child: Image(
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      image: NetworkImage(post.photo!),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Positioned(
                     top: 8,
@@ -63,36 +78,24 @@ Widget cardView(BuildContext context, Post post) {
                           color: Colors.white,
                           size: 30,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<SavedCubit>(context).changeBoomark();
+                        },
                       ),
                     ),
                   )
                 ],
-              )
-
-              // child: Container(
-              //     alignment: Alignment.center,
-              //     height: MediaQuery.of(context).size.height * 0.2,
-              //     width: MediaQuery.of(context).size.width * 1,
-              //     decoration: BoxDecoration(
-              //       // color: Color.fromARGB(255, 227, 222, 222),
-              //       // borderRadius: BorderRadius.circular(25),
-              //       // border: Border.all(width: 2, color: Colors.red),
-              //       image: DecorationImage(
-              //         image: NetworkImage(
-              //           post.photo!,
-              //         ),
-              //         fit: BoxFit.cover,
-              //       ),
-              //     )),
-              ),
+              )),
         ),
       ),
       SizedBox(
         width: MediaQuery.of(context).size.width * 0.78,
-        child: Text(
-          post.header!,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        child: Hero(
+          tag: cards.header!,
+          child: Text(
+            post.header!,
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+          ),
         ),
       ),
     ],
