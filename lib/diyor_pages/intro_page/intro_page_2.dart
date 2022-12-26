@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/shared_pref/language_prefs/preferences_2.dart';
+
 class IntroPage2 extends StatelessWidget {
   const IntroPage2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Intro Page - 22
+      // Intro Page - 2
       backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -25,7 +27,14 @@ class IntroPage2 extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10, bottom: 100),
             child: Column(
-              children: const [
+              children: [
+                // Text 1
+                // Text(translation(context).introPage2,
+                //     textAlign: TextAlign.center,
+                //     style: const TextStyle(
+                //         color: Colors.black,
+                //         fontSize: 18,
+                //         fontWeight: FontWeight.w700)),
                 Text(
                     "Siz pazandalikka qiziqasizmi? \n Lekin sizning qo'lingizdan kelmayaptimi?",
                     textAlign: TextAlign.center,
@@ -33,9 +42,19 @@ class IntroPage2 extends StatelessWidget {
                         color: Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.w700)),
-                SizedBox(
+
+                const SizedBox(
                   height: 10,
                 ),
+
+                // Text 2
+                // Text(translation(context).introPage22,
+                //     textAlign: TextAlign.center,
+                //     style: const TextStyle(
+                //         color: Colors.black,
+                //         fontSize: 18,
+                //         fontWeight: FontWeight.w700)),
+
                 Text(
                   "Unday bo'lsa bizning ''Cooking'' - ilovamiz sizga bu borada yordam bera oladi! Biz bilan birga pazandalikni o'rganing! Va yaqinlaringizga xam ulashing.",
                   style: TextStyle(
