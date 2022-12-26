@@ -2,6 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/adaptive_theme/adaptive_cubit.dart';
+import 'package:recipe_app/blocs/camera/camera_cubit.dart';
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/likedIcon_cubit.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
@@ -74,6 +75,9 @@ class _AppProviderState extends State<AppProvider> {
           ),
           BlocProvider(
             create: (context) => LocaleCubit(),
+          ),
+          BlocProvider(
+            create: (context) => CameraCubit(),
           )
         ],
         child: AdaptiveTheme(
