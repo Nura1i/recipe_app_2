@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
 import 'package:recipe_app/blocs/card%20block/list_post_state.dart';
 import 'package:recipe_app/models/Card%20Model/card_http.dart';
+import 'package:recipe_app/pages/home_view_2.dart';
 import 'package:recipe_app/views/home_view.dart';
 import 'package:recipe_app/views/see_all_card.dart';
 import 'package:recipe_app/widgets/card_view_widget.dart';
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
           if (state is ListPostLoaded) {
             posts = state.posts!;
             // builder(posts);
-            return const HomeView();
+            return const HomeView2();
           }
 
           return const Center(
