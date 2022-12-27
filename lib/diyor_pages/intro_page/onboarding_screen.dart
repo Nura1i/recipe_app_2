@@ -24,7 +24,7 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
-  // Native Splash
+  // Native Splash second qismi !
   void initState() {
     super.initState();
 
