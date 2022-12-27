@@ -51,7 +51,7 @@ Widget add(BuildContext context, bool cam, gal) {
                           color: Colors.black,
                           size: 45,
                         )),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     IconButton(

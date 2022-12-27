@@ -1,6 +1,3 @@
-
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_app/pages/profile_page/profile_page_showdialog.dart';
@@ -14,17 +11,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage>
-    with TickerProviderStateMixin {    
+    with TickerProviderStateMixin {
   late TabController tabController;
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
     tabController.addListener(() {
-    setState(() {});
+      setState(() {});
     });
-  setState(() {
-    
-  });
+    setState(() {});
     super.initState();
   }
 
@@ -38,11 +33,14 @@ class _ProfilePageState extends State<ProfilePage>
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-     backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-         backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         elevation: .0,
-        title:Text(translation(context).homePage,style: Theme.of(context).textTheme.bodyMedium,),
+        title: Text(
+          translation(context).homePage,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: size.width * 0.03),
@@ -76,26 +74,25 @@ class _ProfilePageState extends State<ProfilePage>
                 width: size.width * 0.23,
               ),
               MaterialButton(
-                onPressed:() {
-               showdialogg(context);
+                onPressed: () {
+                  showdialogg(context);
                 },
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border.all(width: 1, color: Colors.red),
                       borderRadius: BorderRadius.circular(15)),
                   child: Padding(
-                      padding: EdgeInsets.only(
-                          top: size.height * 0.015,
-                          bottom: size.height * 0.015,
-                          right: size.width * 0.05,
-                          left: size.width * 0.05),
-                      child: const Text(
-                        'Edit profile',
-                        style: TextStyle(
+                    padding: EdgeInsets.only(
+                        top: size.height * 0.015,
+                        bottom: size.height * 0.015,
+                        right: size.width * 0.05,
+                        left: size.width * 0.05),
+                    child: Text(translation(context).settings,
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,
-                        ),
-                      )),
+                        )),
+                  ),
                 ),
               )
             ],
@@ -112,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage>
             child: SizedBox(
               width: size.width * 0.60,
               child: const Text(
-                'Hello world I’m Alessandra Blair, I’m from Italy 🇮🇹 I love cooking so much!',
+                "Hello world I'm Alessandra Blair, I'm from Italy 🇮🇹 I love cooking so much!",
                 style: TextStyle(
                   color: Color(0xffA9A9A9),
                 ),
@@ -127,20 +124,19 @@ class _ProfilePageState extends State<ProfilePage>
                   height: 20,
                 ),
                 Row(
-
                   children: [
                     SizedBox(
                       width: size.width * 0.10,
                     ),
-                    counter('12', 'Recipes'),
+                    counter('12', translation(context).recipes),
                     SizedBox(
                       width: size.width * 0.2,
                     ),
-                    counter('37', 'Saved'),
+                    counter('37', translation(context).saved),
                     SizedBox(
                       width: size.width * 0.2,
                     ),
-                    counter('1389', 'Likes'),
+                    counter('1389', translation(context).likes),
                   ],
                 ),
                 const SizedBox(
@@ -157,14 +153,15 @@ class _ProfilePageState extends State<ProfilePage>
                           padding: const EdgeInsets.only(
                               left: 5, right: 5, bottom: 5),
                           child: TabBar(
-                            labelStyle: TextStyle(fontWeight: FontWeight.w600),
+                            labelStyle:
+                                const TextStyle(fontWeight: FontWeight.w600),
                             controller: tabController,
-                            tabs: const [
+                            tabs: [
                               Tab(
-                                text: 'Recipes',
+                                text: translation(context).recipes,
                               ),
                               Tab(
-                                text: 'Saved Recipes',
+                                text: translation(context).savedRecipes,
                               )
                             ],
                             unselectedLabelColor: Colors.red,
@@ -176,28 +173,27 @@ class _ProfilePageState extends State<ProfilePage>
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.red,
                             ),
-                          )
-                        )
+                          ))
                     ],
                   ),
                 ),
-              //   Expanded(
-              //       child: Padding(
-              //           padding: const EdgeInsets.all(1),
-              //           child: TabBarView(
-              //             controller: tabController,
-              //             // Pagelar berilmagan
-              //             children: const [VideoPage(), RecipeMarkPage()],
-              //      )
-              //    )
-              //  )
-               ],
+                //   Expanded(
+                //       child: Padding(
+                //           padding: const EdgeInsets.all(1),
+                //           child: TabBarView(
+                //             controller: tabController,
+                //             // Pagelar berilmagan
+                //             children: const [VideoPage(), RecipeMarkPage()],
+                //      )
+                //    )
+                //  )
+              ],
             ),
           ),
-        ],),
+        ],
+      ),
     );
   }
- 
 }
 
 // Diolog widgets

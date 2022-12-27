@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 var posts;
 
 class _HomePageState extends State<HomePage> {
+  @override
   void initState() {
     super.initState();
     BlocProvider.of<ListPostCubit>(context).apiPostList();

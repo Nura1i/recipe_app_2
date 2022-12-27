@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => AppProvider(),
+      builder: (context, child) => const AppProvider(),
     );
   }
 }

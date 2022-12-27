@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/pages/bookmark_page/recipe_page.dart';
 import 'package:recipe_app/pages/bookmark_page/video_pages.dart';
+import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 
 class BookMarkPage extends StatefulWidget {
   const BookMarkPage({super.key});
@@ -31,19 +32,24 @@ class _BookMarkPageState extends State<BookMarkPage>
   Widget build(BuildContext context) {
     dynamic bookmarkpagel = [VideoPage(), RecipeMarkPage()];
     return Scaffold(
+      // Page - 2
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 22, top: 64, right: 181),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 22,
+                top: 20,
+              ),
               child: Text(
-                'Saved Recipes',
-                style: TextStyle(
+                translation(context).savedRecipes,
+                style: const TextStyle(
                     color: Colors.black,
                     fontSize: 24,
-                    fontWeight: FontWeight.w600),
+                    fontWeight: FontWeight.w500),
               ),
             ),
             const SizedBox(
@@ -58,14 +64,15 @@ class _BookMarkPageState extends State<BookMarkPage>
                   Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: TabBar(
-                        labelStyle: TextStyle(fontWeight: FontWeight.w600),
+                        labelStyle:
+                            const TextStyle(fontWeight: FontWeight.w600),
                         controller: tabController,
-                        tabs: const [
+                        tabs: [
                           Tab(
-                            text: 'Video',
+                            text: translation(context).video,
                           ),
                           Tab(
-                            text: 'Recipe',
+                            text: translation(context).recipe,
                           )
                         ],
                         unselectedLabelColor: Colors.red,
