@@ -8,11 +8,9 @@ class ListPostCubit extends Cubit<ListPostState> {
 
   void apiPostList() async {
     emit(
-      ListPostLoading(),
-    );
+      ListPostLoading(),);
 
     final response = await Network.GET(Network.API_LIST, Network.paramsEmpty());
-
     if (response != null) {
       emit(ListPostLoaded(posts: Network.parsePostList(response)));
     } else {

@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:recipe_app/pages/Menu/menu_page.dart';
+import 'package:recipe_app/pages/sign_up_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../diyor.dart';
 import 'intro_page_1.dart';
 import 'intro_page_2.dart';
 import 'intro_page_3.dart';
 
-void main() {
-  // Native Splashs
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  runApp(const MyApp());
-}
+
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -25,12 +19,6 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   // Native Splash second qismi !
-  void initState() {
-    super.initState();
-
-    Future.delayed(const Duration(seconds: 1))
-        .then((value) => {FlutterNativeSplash.remove()});
-  }
 
   final PageController _controller = PageController();
 
@@ -91,14 +79,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         dotColor: Colors.black,
                         activeDotColor: Colors.green),
                   ),
-
                   /// Next or Done ...!
                   onLastPage
                       ? GestureDetector(
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return const MenuPage();
+                              return const SignUpPage();
                             }));
                           },
                           child: const Text(

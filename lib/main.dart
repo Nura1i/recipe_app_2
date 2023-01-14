@@ -15,10 +15,13 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) => const AppProvider(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ScreenUtilInit(
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) => const AppProvider(),
+      ),
     );
   }
 }
