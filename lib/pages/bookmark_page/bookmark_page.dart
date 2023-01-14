@@ -25,7 +25,7 @@ class _BookMarkPageState extends State<BookMarkPage>
   void getPostsData() {
     List<dynamic> responseList = FOOD_DATA;
     List<Widget> listItems = [];
-    responseList.forEach((post) {
+    for (var post in responseList) {
       listItems.add(
         Container(
           height: 150,
@@ -47,7 +47,9 @@ class _BookMarkPageState extends State<BookMarkPage>
                     Text(
                       post["name"],
                       style: const TextStyle(
-                          fontSize: 28, fontWeight: FontWeight.bold),
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
                     ),
                     Text(
                       post["brand"],
@@ -74,7 +76,7 @@ class _BookMarkPageState extends State<BookMarkPage>
           ),
         ),
       );
-    });
+    }
     setState(() {
       itemsData = listItems;
     });
@@ -155,9 +157,9 @@ class _BookMarkPageState extends State<BookMarkPage>
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black),
                             ),
                           ),
                           //Search qismi.
@@ -210,10 +212,10 @@ class _BookMarkPageState extends State<BookMarkPage>
             // Popular Category
             Text(
               "Popular category",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black),
             ),
 
             // Categoriya qismi !

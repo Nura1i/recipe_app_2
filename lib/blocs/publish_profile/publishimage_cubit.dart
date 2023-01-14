@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipe_app/blocs/publish_profile/publish_state.dart';
-import 'package:recipe_app/models/user_model.dart';
+import 'package:recipe_app/models/user%20Model/user_model.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/image_cropper.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 
@@ -45,6 +45,7 @@ class ImagePublishCubit extends Cubit<PublishImageState> {
       emit(ImageInit(cropper: _imageToCrop));
     }
   }
+
   bool? isEnabled = true;
   bool? isLoading = false;
   publish() {

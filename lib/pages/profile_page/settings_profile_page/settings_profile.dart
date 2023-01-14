@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/publish_profile/bio_username_email/bio_username_email_cubit.dart';
 import 'package:recipe_app/blocs/publish_profile/publishimage_cubit.dart';
-import 'package:recipe_app/models/user_model.dart';
+
 import 'package:recipe_app/repositories/services/fire_service.dart';
 
 import 'settings_profile_text_fild_widgets.dart';
@@ -124,7 +124,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
             const SizedBox(
               height: 35,
             ),
-            buildTextField( context, 'UserName', 'UserName',  controllerUserName!),
+            buildTextField(
+                context, 'UserName', 'UserName', controllerUserName!),
             buildTextField(context, 'Bio', 'Bio', controllerBio!),
             buildTextField(context, 'Email', 'Email', controllerEmail!),
             const SizedBox(

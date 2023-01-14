@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:recipe_app/models/user_model.dart';
+import 'package:recipe_app/models/user%20Model/user_model.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 
 TextEditingController? controllerUserName =
@@ -11,6 +11,7 @@ TextEditingController? controllerEmail =
     TextEditingController(text: email.toString());
 Future<bool?> yourProfileSetting() async {
   userModel model = const userModel();
+
   try {
     model = model.copyWith(
         avatarImage: avatarImage,
@@ -18,7 +19,7 @@ Future<bool?> yourProfileSetting() async {
         email: controllerEmail!.text,
         username: controllerUserName!.text);
     FireDatabaseService.updateItemCollection(usermodelll: model);
-  
+
     log('your settings sets');
   } catch (e) {
     log(e.toString());

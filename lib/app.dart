@@ -2,7 +2,8 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/adaptive_theme/adaptive_cubit.dart';
-import 'package:recipe_app/blocs/camera/camera_cubit.dart';
+import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
+
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/likedIcon_cubit.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';

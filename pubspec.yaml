@@ -44,7 +44,6 @@ dependencies:
   flutter_zoom_drawer: ^3.0.3
   day_night_switcher: ^0.2.0+1
   firebase_database: ^10.0.9
-  firebase_storage: ^11.0.10
   image_cropper: ^3.0.1
   dotted_border: ^2.0.0+3
   cropperx: ^1.1.1

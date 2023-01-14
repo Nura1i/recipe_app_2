@@ -1,18 +1,11 @@
-import 'dart:ui';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:recipe_app/blocs/adaptive_theme/adaptive_cubit.dart';
-import 'package:recipe_app/blocs/adaptive_theme/adaptive_theme_view.dart';
-import 'package:recipe_app/diyor_pages/language_intro_widgets.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/language.dart';
 import 'package:recipe_app/utils/theme/themes.dart';
 import '../../app.dart';
-import '../../blocs/camera/camera_cubit.dart';
-
 
 class CustomDrawer extends StatelessWidget {
   final changes;
@@ -269,7 +262,7 @@ ThemeBottomSheet(BuildContext context, light) {
                   TextButton(
                     onPressed: () {
                       light == false
-                         ? BlocProvider.of<ThemeCubit>(context).lightTheme()
+                          ? BlocProvider.of<ThemeCubit>(context).lightTheme()
                           : BlocProvider.of<ThemeCubit>(context).DarkkTheme();
                     },
                     child: Row(
