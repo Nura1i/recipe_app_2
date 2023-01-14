@@ -6,9 +6,6 @@ import 'package:recipe_app/repositories/services/fire_service.dart';
 import '../../utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/pages/profile_page/profile_page_widgets.dart';
 
-import '../bookmark_page/recipe_page.dart';
-import '../bookmark_page/video_pages.dart';
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
   @override

@@ -81,7 +81,9 @@ class _AppProviderState extends State<AppProvider> {
         BlocProvider(
           create: (context) => ThemeCubit(),
         ),
-        BlocProvider(create:(context) => ImagePublishCubit(),)
+        BlocProvider(
+          create: (context) => ImagePublishCubit(),
+        )
       ],
       child: ThemeProvider(
         duration: const Duration(milliseconds: 600),
