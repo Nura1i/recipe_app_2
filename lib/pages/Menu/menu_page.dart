@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'package:recipe_app/pages/add_page.dart';
 import 'package:recipe_app/pages/bookmark_page/bookmark_page.dart';
 import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/pages/notification/notification_page.dart';
-import 'package:recipe_app/pages/profile_page/profile_page.dart';
+import 'package:recipe_app/pages/profile_page/zoom_drawer_page.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -20,8 +19,10 @@ class _MenuPageState extends State<MenuPage> {
     const HomePage(),
     const BookMarkPage(),
     const AddPage(),
-    const NotificatonPage(),
-    const ProfilePage()
+      UserHomePage(),
+    //const NotificatonPage(),
+    const ZoomDrawerPage()
+   // const ProfilePage()
   ];
   @override
   Widget build(BuildContext context) {

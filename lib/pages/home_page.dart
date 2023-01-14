@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
@@ -24,19 +25,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<ListPostCubit, ListPostState>(
-        builder: (BuildContext context, ListPostState state) {
-          if (state is ListPostLoaded) {
-            posts = state.posts!;
-            // builder(posts);
-            return const HomeView();
-          }
-
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+    return ThemeSwitchingArea(
+      
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: BlocBuilder<ListPostCubit, ListPostState>(
+          builder: (BuildContext context, ListPostState state) {
+            if (state is ListPostLoaded) {
+              posts = state.posts!;
+              // builder(posts);
+              return const HomeView();
+            }
+    
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,10 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipe_app/blocs/camera/camera_cubit.dart';
 import 'package:recipe_app/blocs/camera/camera_state.dart';
+import '../diyor_pages/language_intro_widgets.dart';
 
 class AddPage extends StatelessWidget {
   const AddPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     var cam = false;
@@ -29,13 +28,12 @@ class AddPage extends StatelessWidget {
     }));
   }
 }
-
 Widget add(BuildContext context, bool cam, gal) {
   void displayBottomSheet(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (ctx) {
-          return Container(
+          return SizedBox(
               height: MediaQuery.of(context).size.height * 0.13,
               child: Center(
                 child: Row(
@@ -51,7 +49,7 @@ Widget add(BuildContext context, bool cam, gal) {
                           color: Colors.black,
                           size: 45,
                         )),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     IconButton(

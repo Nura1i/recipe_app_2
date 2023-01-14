@@ -28,20 +28,20 @@ class IntroPage1 extends StatelessWidget {
             child: Column(
               children: [
                 // Text 1
-                // Text(translation(context).introPage1,
-                //     textAlign: TextAlign.center,
-                //     style: const TextStyle(
-                //         color: Colors.black,
-                //         fontSize: 18,
-                //         fontWeight: FontWeight.w700)),
-
-                Text(
-                    "Assalomu Aleykum! \n ''Cooking'' ilovamizga xush kelibsiz!",
+                Text(translation(context).introPage1,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.w700)),
+
+                // Text(
+                //     "Assalomu Aleykum! \n ''Cooking'' ilovamizga xush kelibsiz!",
+                //     textAlign: TextAlign.center,
+                //     style: TextStyle(
+                //         color: Colors.black,
+                //         fontSize: 18,
+                //         fontWeight: FontWeight.w700)),
 
                 const SizedBox(
                   height: 10,

@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:recipe_app/pages/On%20open/see_all.dart';
 import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
-import 'package:recipe_app/widgets/pageAnimationFade.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({
@@ -26,7 +25,7 @@ class _HomeViewState extends State<HomeView> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-              padding: EdgeInsets.only(top: 64, right: 146, left: 20),
+              padding: const EdgeInsets.only(top: 64, right: 146, left: 20),
               child: Text(translation(context).findrecipe,
                   style: Theme.of(context).textTheme.bodyMedium)),
           Padding(

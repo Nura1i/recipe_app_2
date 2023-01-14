@@ -33,7 +33,21 @@ dependencies:
   http: ^0.13.5
   smooth_page_indicator: ^1.0.0+2
   flutter_native_splash: ^2.2.16
-  
+  foldable_sidebar: ^1.0.0
+
+# for theme
+  animated_theme_switcher: ^2.0.7
+  switcher_button: ^0.0.4
+  # 
+  flutter_zoom_drawer: ^3.0.3
+  day_night_switcher: ^0.2.0+1
+  firebase_database: ^10.0.9
+  firebase_storage: ^11.0.10
+  image_cropper: ^3.0.1
+  dotted_border: ^2.0.0+3
+  cropperx: ^1.1.1
+  custom_image_crop: ^0.0.4
+  example: ^0.0.1
   
 dev_dependencies:
   flutter_test:
@@ -43,6 +57,9 @@ dev_dependencies:
   json_serializable: ^6.5.4
   flutter_lints: ^2.0.0
   retrofit_generator: ^4.2.0
+
+
+
 flutter:
   generate: true
   uses-material-design: true

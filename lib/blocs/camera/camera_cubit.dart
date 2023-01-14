@@ -10,7 +10,6 @@ class CameraCubit extends Cubit<CameraState> {
     ImagePicker.platform.getImageFromSource(
       source: ImageSource.camera,
     );
-
     emit(CameraOpen(isOpen));
   }
 
