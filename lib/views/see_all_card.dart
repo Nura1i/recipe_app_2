@@ -6,7 +6,7 @@ Widget seeAllView(BuildContext context, Post post) {
   var size = MediaQuery.of(context).size;
   final cards = post;
   return SingleChildScrollView(
-    physics: NeverScrollableScrollPhysics(),
+    physics: const NeverScrollableScrollPhysics(),
     child: Column(
       children: [
         InkWell(

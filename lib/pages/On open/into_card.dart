@@ -6,8 +6,6 @@ import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_state.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/likedIcon_cubit.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/likedIcon_state.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
-import 'package:recipe_app/models/Api%20Miliy%20Taom%20Model/card_http.dart';
-import 'package:recipe_app/pages/home_page.dart';
 
 class openedCard extends StatefulWidget {
   final carrd;

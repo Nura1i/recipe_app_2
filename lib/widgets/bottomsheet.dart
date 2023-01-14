@@ -20,7 +20,7 @@ void displayBottomSheet(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
-                      iconSize: 40,
+                      //  iconSize: 40,
                       onPressed: () {
                         //  BlocProvider.of<CameraCubit>(context).openCamera();
                         BlocProvider.of<CameraCubit>(context)

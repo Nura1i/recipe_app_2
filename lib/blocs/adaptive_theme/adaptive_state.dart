@@ -1,24 +1,32 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:recipe_app/utils/theme/themes.dart';
 
-abstract class ThemeState extends Equatable {
+import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:flutter/material.dart';
+
+abstract class ThemeState {
   @override
+  // TODO: implement props
   List<Object> get props => [];
 }
 
-class ThemeDark extends  ThemeState {
-final AdaptiveThemeMode? mode;
-  ThemeDark({ this.mode});
+class ThemeInit extends ThemeState {}
+
+class LightTheme extends ThemeState {
+  final  lightchange; 
+   LightTheme(this.lightchange,);
+
+}
+class DarkTheme extends ThemeState {
+  final  darkchange;
+  
+   DarkTheme(this.darkchange);
+
 }
 
-class ThemeLight extends  ThemeState {
-   final AdaptiveThemeMode? mode;
-ThemeLight({this.mode});
+class SystemTheme extends ThemeState {
+  final ThemeSwitcher  systemchange;
+   SystemTheme(this.systemchange,);
+
 }
 
-// AppTheme.currentSavedTheme = AppTheme.currentSavedTheme;
-//     changeTheme(AdaptiveThemeMode mode) {
-//     AppTheme.currentSavedTheme = mode;
-//   }
+

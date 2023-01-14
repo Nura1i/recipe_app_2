@@ -9,8 +9,7 @@ Widget DropdownLocal(BuildContext context){
    LocaleCubit themeCubit=BlocProvider.of(context,listen: false);
   return  Container(
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
-      color: Colors.red,
-    ),
+      color: Colors.orange),
     child: DropdownButton(
       underline: const SizedBox(),
       icon: const Icon(
@@ -33,9 +32,9 @@ Widget DropdownLocal(BuildContext context){
                 children: <Widget>[
                   Text(
                     e.flag,
-                    style: const TextStyle(fontSize: 30),
-                  ),
-                  Text(e.name)
+                     style:const TextStyle(fontSize: 30),
+                     ),
+                   Text(e.name,style: Theme.of(context).textTheme.bodySmall,)
                 ],
               ),
             ),

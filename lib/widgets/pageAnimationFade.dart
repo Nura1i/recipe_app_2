@@ -30,8 +30,8 @@ class FadeRoute extends PageRouteBuilder {
   FadeRoute(this.page)
       : super(
           pageBuilder: (context, animation, anotherAnimation) => page,
-          transitionDuration: Duration(milliseconds: 1000),
-          reverseTransitionDuration: Duration(milliseconds: 200),
+          transitionDuration: const Duration(milliseconds: 1000),
+          reverseTransitionDuration: const Duration(milliseconds: 200),
           transitionsBuilder: (context, animation, anotherAnimation, child) {
             animation = CurvedAnimation(
                 curve: Curves.fastLinearToSlowEaseIn,
@@ -51,8 +51,8 @@ class SizeTransition1 extends PageRouteBuilder {
   SizeTransition1(this.page)
       : super(
           pageBuilder: (context, animation, anotherAnimation) => page,
-          transitionDuration: Duration(milliseconds: 10),
-          reverseTransitionDuration: Duration(milliseconds: 200),
+          transitionDuration: const Duration(milliseconds: 10),
+          reverseTransitionDuration: const Duration(milliseconds: 200),
           transitionsBuilder: (context, animation, anotherAnimation, child) {
             animation = CurvedAnimation(
                 curve: Curves.fastLinearToSlowEaseIn,
@@ -62,8 +62,8 @@ class SizeTransition1 extends PageRouteBuilder {
               alignment: Alignment.center,
               child: SizeTransition(
                 sizeFactor: animation,
-                child: page,
                 axisAlignment: 0,
+                child: page,
               ),
             );
           },

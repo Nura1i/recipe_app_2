@@ -140,7 +140,7 @@ class _SignInViewState extends State<SignInView> {
                                     ),
                                   ),
                                   ElevatedButton(
-                                    child: Text('Sign Up'),
+                                    child: const Text('Sign Up'),
                                     onPressed: () => Navigator.of(context)
                                         .pushAndRemoveUntil(
                                             SizeTransition1(

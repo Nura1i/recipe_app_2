@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
@@ -23,7 +21,7 @@ Widget cardView(BuildContext context, Post post) {
           ));
         },
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.only(bottom: 10),
           child: Card(
               elevation: 20,
               color: const Color.fromARGB(255, 214, 214, 214),
@@ -38,7 +36,7 @@ Widget cardView(BuildContext context, Post post) {
                   Hero(
                     tag: '${int.parse(post.id!)}',
                     child: Image(
-                      height: MediaQuery.of(context).size.height * 0.2,
+                      height: MediaQuery.of(context).size.height * 0.17,
                       width: MediaQuery.of(context).size.width * 0.8,
                       image: NetworkImage(post.photo!),
                       fit: BoxFit.cover,
@@ -87,10 +85,13 @@ Widget cardView(BuildContext context, Post post) {
               )),
         ),
       ),
-      SizedBox(
-        width: MediaQuery.of(context).size.width * 0.78,
-        child: Hero(
-          tag: cards.header!,
+      Padding(
+        padding: const EdgeInsets.only(
+          top: 0,
+        ),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.78,
+          height: MediaQuery.of(context).size.height * 0.04,
           child: Text(
             post.header!,
             style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),

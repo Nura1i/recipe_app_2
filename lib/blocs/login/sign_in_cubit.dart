@@ -39,6 +39,7 @@ class SignInCubit extends Cubit<SignInState> {
             MaterialPageRoute(builder: (context) => const MenuPage()),
             (route) => false);
       }
+      
 
       return null;
     } catch (e) {
