@@ -13,14 +13,14 @@ void displayBottomSheet(BuildContext context) {
       builder: (ctx) {
         return Container(
             height: MediaQuery.of(context).size.height * 0.10,
-            padding: EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 10),
             child: Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
-                      iconSize: 40,
+                      //  iconSize: 40,
                       onPressed: () {
                         //  BlocProvider.of<CameraCubit>(context).openCamera();
                         BlocProvider.of<CameraCubit>(context)

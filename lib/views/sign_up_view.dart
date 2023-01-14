@@ -139,16 +139,14 @@ class _signUpViewState extends State<signUpView> {
                                       ),
                                     ),
                                   ),
-                                  Container(
-                                    child: ElevatedButton(
-                                      child: Text('Sign In'),
-                                      onPressed: () => Navigator.of(context)
-                                          .pushAndRemoveUntil(
-                                              SizeTransition1(
-                                                const SignInView(),
-                                              ),
-                                              (route) => false),
-                                    ),
+                                  ElevatedButton(
+                                    child: const Text('Sign In'),
+                                    onPressed: () => Navigator.of(context)
+                                        .pushAndRemoveUntil(
+                                            SizeTransition1(
+                                              const SignInView(),
+                                            ),
+                                            (route) => false),
                                   )
                                 ],
                               ),

@@ -21,169 +21,233 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       // AppBar qismi.
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.orange.shade600,
         elevation: 0,
-        title: const Padding(
-          padding: EdgeInsets.only(
-            left: 5,
-          ),
-          child: Text(
-            'Cooking App',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-            ),
+        title: const Text(
+          'Best Cooking App ',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
+
       backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: true,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
         children: [
-          // Text qismi.
-          Padding(
-            padding:
-                const EdgeInsets.only(top: 20, bottom: 20, right: 22, left: 22),
-            child: Text(
-              translation(context).findrecipe,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                  ),
-            ),
-          ),
-          // Search qismi.
-          Padding(
-            padding: const EdgeInsets.only(right: 20, left: 20),
-            child: Container(
-              width: size.width / 0.7.w,
-              height: size.height / 13.h,
-              decoration: BoxDecoration(
-                border: Border.all(width: 1.w, color: Colors.purple),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              // Icon Search qismi.
-              child: TextField(
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.only(top: 15),
-                  hintText: translation(context).search,
-                  hintStyle: const TextStyle(
-                      color: Colors.purple, fontWeight: FontWeight.w500),
-                  isDense: false,
-                  border: InputBorder.none,
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: Colors.purple,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          // Text qismlari. See all, Trending Now.
-          Expanded(
-            child: Column(children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 22,
-                  right: 10,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // text
-                    Text(translation(context).milliytaom,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                        textAlign: TextAlign.center),
-                    //Text See All qism!
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const see_all(),
-                          ),
-                        );
-                      },
-                      child: Row(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: ScrollConfiguration(
+                  behavior: const MaterialScrollBehavior()
+                      .copyWith(overscroll: false),
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      Column(
                         children: [
-                          Text(
-                            translation(context).seeAll,
-                            style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.red),
+                          SizedBox(
+                            height: 150.h,
                           ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset(
-                              'assets/svg/Belgi.svg',
-                              width: 30,
-                              height: 20,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 10,
                             ),
-                            color: Colors.red,
-                          )
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // text
+                                Text(translation(context).milliytaom,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                    textAlign: TextAlign.center),
+                                //Text See All qism!
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => const see_all(),
+                                      ),
+                                    );
+                                  },
+                                  // See All Text
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        translation(context).seeAll,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.orange.shade400),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: SvgPicture.asset(
+                                          'assets/svg/Belgi.svg',
+                                          height: 13.h,
+                                          color: Colors.orange.shade600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Trending Now !!!
+                          SizedBox(height: 200, child: builder(posts)),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 10,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  translation(context).trendingNow,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                //Text See All.
+                                Row(
+                                  children: [
+                                    Text(
+                                      translation(context).seeAll,
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.orange.shade600),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: SvgPicture.asset(
+                                        'assets/svg/Belgi.svg',
+                                        height: 13.h,
+                                        color: Colors.orange.shade600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
-                    )
-                  ],
+                      SizedBox(height: 200, child: builder(posts)),
+                    ],
+                  ),
                 ),
               ),
-              // Text qisimlari. Trending Now, See All.
-              Expanded(child: builder(posts)),
-
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      translation(context).trendingNow,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+            ],
+          ),
+          // AppBar tegidigi Contanier
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.orange.shade600,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(35),
+                bottomRight: Radius.circular(35),
+              ),
+            ),
+            height: 45,
+          ),
+          //AppBar tegidi Search qismi!
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 10,
+              right: 10,
+            ),
+            child: Container(
+              height: 140.h,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    const Color.fromARGB(255, 188, 146, 146),
+                    Colors.grey.withOpacity(0.98),
+                  ],
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(35),
+                  topRight: Radius.circular(35),
+                  bottomLeft: Radius.circular(35),
+                  bottomRight: Radius.circular(35),
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //Text qismi.
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 15,
+                      right: 22,
+                      left: 22,
+                    ),
+                    child: Text(
+                      translation(context).findrecipe,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Colors.yellow.shade100,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w400,
+                          ),
+                    ),
+                  ),
+                  //Search qismi.
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 20,
+                      left: 20,
+                    ),
+                    child: Container(
+                      width: size.width / 0.7.w,
+                      height: size.height / 13.h,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 2.w,
+                          color: Colors.orange.shade300,
+                        ),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      // Icon Search qismi.
+                      child: Center(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            // contentPadding: const EdgeInsets.only(top: 15),
+                            hintText: translation(context).search,
+                            hintStyle: TextStyle(
+                              color: Colors.yellow.shade100,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            isDense: false,
+                            border: InputBorder.none,
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Colors.yellow.shade200,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                    //Text See All.
-                    Row(
-                      children: [
-                        Text(
-                          translation(context).seeAll,
-                          style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.red),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(
-                            'assets/svg/Belgi.svg',
-                            width: 30,
-                            height: 20,
-                          ),
-                          color: Colors.red,
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Expanded(
-                  flex: 1,
-                  child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) => Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.red,
-                    ),
-                  ))
-            ]),
-          )
+            ),
+          ),
         ],
       ),
     );

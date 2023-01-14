@@ -33,6 +33,7 @@ dependencies:
   http: ^0.13.5
   smooth_page_indicator: ^1.0.0+2
   flutter_native_splash: ^2.2.16
+  google_fonts: ^3.0.1
   
   
 dev_dependencies:
