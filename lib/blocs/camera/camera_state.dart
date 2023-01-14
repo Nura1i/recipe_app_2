@@ -1,3 +1,5 @@
+import 'dart:io';
+
 abstract class CameraState {
   @override
   // TODO: implement props
@@ -11,7 +13,7 @@ class CameraOpen extends CameraState {
   CameraOpen(this.cameraOpen);
 }
 
-class Galere extends CameraState {
-  final galeryOpen;
-  Galere(this.galeryOpen);
+class imagePick extends CameraState {
+  final imagepick;
+  imagePick(this.imagepick);
 }

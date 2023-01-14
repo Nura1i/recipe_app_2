@@ -44,16 +44,23 @@ class _MenuPageState extends State<MenuPage> {
                     icon: SvgPicture.asset('assets/svg/Menu.svg'),
                     activeIcon: _pages('menu', 'assets/svg/Menu.svg')),
                 BottomNavigationBarItem(
-                  icon: Container(
-                    width: size.width * 0.1,
-                    height: size.height * 0.04,
-                    margin: EdgeInsets.only(bottom: size.height * 0.01),
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: SvgPicture.asset(
-                      'assets/svg/Plus.svg',
-                      color: Colors.white,
+                  icon: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const AddPage(),
+                      ));
+                    },
+                    child: Container(
+                      width: size.width * 0.1,
+                      height: size.height * 0.04,
+                      margin: EdgeInsets.only(bottom: size.height * 0.01),
+                      decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: SvgPicture.asset(
+                        'assets/svg/Plus.svg',
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   //activeIcon: _pages('add', 'assets/svg/Plus.svg')

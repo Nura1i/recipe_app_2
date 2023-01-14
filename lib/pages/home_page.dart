@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 var posts;
 
 class _HomePageState extends State<HomePage> {
+  @override
   void initState() {
     super.initState();
     BlocProvider.of<ListPostCubit>(context).apiPostList();
@@ -26,7 +27,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return ThemeSwitchingArea(
-      
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         body: BlocBuilder<ListPostCubit, ListPostState>(
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
               // builder(posts);
               return const HomeView();
             }
-    
+
             return const Center(
               child: CircularProgressIndicator(),
             );
