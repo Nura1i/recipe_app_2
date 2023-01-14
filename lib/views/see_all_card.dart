@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/models/Card%20Model/card_http.dart';
+import 'package:recipe_app/models/Api%20Miliy%20Taom%20Model/card_http.dart';
 import 'package:recipe_app/pages/On%20open/into_card.dart';
 
 Widget seeAllView(BuildContext context, Post post) {

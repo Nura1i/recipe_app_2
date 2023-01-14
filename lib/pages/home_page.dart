@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
 import 'package:recipe_app/blocs/card%20block/list_post_state.dart';
-import 'package:recipe_app/models/Card%20Model/card_http.dart';
+import 'package:recipe_app/models/Api%20Miliy%20Taom%20Model/card_http.dart';
 import 'package:recipe_app/pages/home_view_2.dart';
-import 'package:recipe_app/views/home_view.dart';
 import 'package:recipe_app/views/see_all_card.dart';
 import 'package:recipe_app/widgets/card_view_widget.dart';
 
@@ -18,9 +17,11 @@ class HomePage extends StatefulWidget {
 var posts;
 
 class _HomePageState extends State<HomePage> {
+  @override
   void initState() {
     super.initState();
     BlocProvider.of<ListPostCubit>(context).apiPostList();
+    //BlocProvider.of<ListPostCubit>(context).PostListOfRecipes();
   }
 
   @override

@@ -1,14 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart';
-import 'package:recipe_app/models/Card%20Model/card_http.dart';
+import 'package:recipe_app/models/Api%20Miliy%20Taom%20Model/card_http.dart';
 
 class Network {
   static String BASE = "639c41a642e3ad69272bee27.mockapi.io";
   static Map<String, String> headers = {
     'Content-Type': 'application/json; charset=UTF-8'
   };
-
-  /* Http Apis */
 
   static String API_LIST = "/user";
   static String API_CREATE = "/posts";
@@ -22,7 +20,7 @@ class Network {
     var response = await get(
       uri,
     );
-    // LogService.i(response.body);
+
     if (response.statusCode == 200) {
       return response.body;
     }

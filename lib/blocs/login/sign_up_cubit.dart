@@ -7,7 +7,7 @@ import 'package:recipe_app/blocs/login/sign_up_state.dart';
 import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:uuid/uuid.dart';
-import '../../models/user_model.dart';
+import '../../models/user Model/user_model.dart';
 import '../../repositories/services/fire_service.dart';
 
 TextEditingController controllerUsername = TextEditingController();

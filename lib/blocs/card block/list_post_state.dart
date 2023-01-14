@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:recipe_app/models/Card%20Model/card_http.dart';
+import 'package:recipe_app/models/Api%20Miliy%20Taom%20Model/card_http.dart';
 
 abstract class ListPostState {
   @override
@@ -25,4 +24,9 @@ class ListPostError extends ListPostState {
   final error;
 
   ListPostError({this.error});
+}
+
+class PostListRecipesState extends ListPostState {
+  final lsRecipes;
+  PostListRecipesState(List recipeOfList, {this.lsRecipes});
 }

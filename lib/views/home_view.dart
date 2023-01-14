@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:recipe_app/pages/On%20open/see_all.dart';
 import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
-import 'package:recipe_app/widgets/pageAnimationFade.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:recipe_app/blocs/camera/camera_cubit.dart';
+import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
 
 void displayBottomSheet(BuildContext context) {
   showModalBottomSheet(
@@ -13,7 +13,7 @@ void displayBottomSheet(BuildContext context) {
       builder: (ctx) {
         return Container(
             height: MediaQuery.of(context).size.height * 0.10,
-            padding: EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 10),
             child: Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +24,7 @@ void displayBottomSheet(BuildContext context) {
                       onPressed: () {
                         //  BlocProvider.of<CameraCubit>(context).openCamera();
                         BlocProvider.of<CameraCubit>(context)
-                            .pickImageFromCamera();
+                            .pickImageFromCamera(context);
                       },
                       icon: SvgPicture.asset(
                         'assets/svg/camera.svg',
@@ -44,7 +44,7 @@ void displayBottomSheet(BuildContext context) {
                       iconSize: 45,
                       onPressed: () {
                         BlocProvider.of<CameraCubit>(context)
-                            .pickImageFromGalery();
+                            .pickImageFromGalery(context);
                         //    BlocProvider.of<CameraCubit>(context).openGalerea();
                       },
                       icon: SvgPicture.asset(
