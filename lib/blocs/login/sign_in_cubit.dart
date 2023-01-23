@@ -7,39 +7,43 @@ import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:uuid/uuid.dart';
 
-TextEditingController controllerEmail = TextEditingController();
-TextEditingController controllerPassword = TextEditingController();
-
 class SignInCubit extends Cubit<SignInState> {
   SignInCubit() : super(SignInInit());
 
-  signIn(BuildContext context) async {
+  signIn(BuildContext context, controllerEm, controllerPw) async {
     try {
-      if (controllerEmail.text.isEmpty || controllerPassword.text.isEmpty) {
+      if (controllerEm.text.isEmpty || controllerPw.text.isEmpty) {
         return;
       }
 
       final UserCredential credentionall =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: controllerEmail.text,
-        password: controllerPassword.text,
+        email: controllerEm.text,
+        password: controllerPw.text,
       );
-      bool? checkPassword = controllerPassword.text ==
-          await Prefs.loadData<String>(key: 'password');
-      bool? checkLogin =
-          controllerEmail.text == await Prefs.loadData<String>(key: 'email');
-
-      if (checkLogin && checkPassword) {
-        final token = const Uuid().v1();
-        final succes = await Prefs.saveData(key: 'token', data: token);
-        if (succes!) return token;
-      }
       if (credentionall.user != null) {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const MenuPage()),
             (route) => false);
       }
-      
+      final token = const Uuid().v1();
+      await Prefs.updateData<String>(key: 'email', data: controllerEm.text);
+      await Prefs.updateData<String>(key: 'password', data: controllerPw.text);
+      final isSaved = await Prefs.updateData<String>(key: 'token', data: token);
+      if (isSaved!) {
+        return token;
+      }
+
+      // bool? checkPassword =
+      //     controllerPw.text == await Prefs.loadData<String>(key: 'password');
+      // bool? checkLogin =
+      //     controllerEm.text == await Prefs.loadData<String>(key: 'email');
+
+      // if (checkLogin && checkPassword) {
+      //   final token = const Uuid().v1();
+      //   final succes = await Prefs.updateData(key: 'token', data: token);
+      //   if (succes!) return token;
+      // }
 
       return null;
     } catch (e) {

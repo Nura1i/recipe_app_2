@@ -55,7 +55,7 @@ class IntroPage1 extends StatelessWidget {
                 //         fontSize: 18,
                 //         fontWeight: FontWeight.w700)),
 
-                Text(
+                const Text(
                   "Sizni Cooking ilovamizda ko'rganimizdan juda xursandmiz! Bizning ilovamiz bilan tanishish uchun ''Next'' tugmachasini bosing!",
                   style: TextStyle(
                       color: Colors.grey,

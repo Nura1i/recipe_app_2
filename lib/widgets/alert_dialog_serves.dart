@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
+import 'package:recipe_app/pages/add_page.dart';
 
 Widget choosePers(ctx, count) {
-  int inx = 0;
   return AlertDialog(
-    insetPadding: const EdgeInsets.only(top: 100, left: 40, right: 40),
+    insetPadding: EdgeInsets.only(
+        top: scrolController.offset < 0 ? 100 : scrolController.offset + 50,
+        left: 40,
+        right: 40),
     actions: [
       Container(
         height: 400,
@@ -19,48 +22,48 @@ Widget choosePers(ctx, count) {
           children: [
             BlocProvider.of<CameraCubit>(ctx).acceptCount(count),
             Expanded(
-              child: ListWheelScrollView.useDelegate(
-                  physics: const FixedExtentScrollPhysics(),
-                  onSelectedItemChanged: (index) {
-                    final player = AudioPlayer();
-                    player.play(AssetSource('sounds/choosingNumber.wav'),
-                        volume: 0.1);
-                    player.stop();
+                child: ListWheelScrollView.useDelegate(
+                    physics: const FixedExtentScrollPhysics(
+                        parent: BouncingScrollPhysics()),
+                    onSelectedItemChanged: (index) {
+                      final player = AudioPlayer();
+                      player.play(AssetSource('sounds/choosingNumber.wav'),
+                          volume: 0.1);
+                      player.stop();
 
-                    count = index;
+                      count = index;
 
-                    BlocProvider.of<CameraCubit>(ctx).acceptCount(count);
-                  },
-                  perspective: 0.001,
-                  diameterRatio: 0.8,
-                  itemExtent: 40,
-                  childDelegate:
-                      ListWheelChildBuilderDelegate(builder: (_, int index) {
-                    if (index < 0 || index > 20) {
-                      return null;
-                    }
+                      BlocProvider.of<CameraCubit>(ctx).acceptCount(count);
+                    },
+                    perspective: 0.002,
+                    diameterRatio: 0.9,
+                    itemExtent: 30,
+                    childDelegate:
+                        ListWheelChildBuilderDelegate(builder: (_, int index) {
+                      if (index < 0 || index > 20) {
+                        return null;
+                      }
 
-                    return Container(
-                      // height: 20,
-                      width: 250,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 175, 167, 167),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Text(
-                        "  $index KISHI",
-                        style:
-                            const TextStyle(fontSize: 25, color: Colors.white),
-                      ),
-                    );
-                  })),
-            ),
+                      return Container(
+                        // height: 20,
+                        width: 250,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 175, 167, 167),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Text(
+                          "  $index KISHI",
+                          style: const TextStyle(
+                              fontSize: 25, color: Colors.white),
+                        ),
+                      );
+                    }))),
           ],
         ),
       ),
       ElevatedButton(
         style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all(
-                const Color.fromARGB(255, 211, 84, 74))),
+            backgroundColor: MaterialStateProperty.all(Colors.orange),
+            foregroundColor: MaterialStateProperty.all(Colors.white)),
         onPressed: () {
           BlocProvider.of<CameraCubit>(ctx).isCloseServes();
         },

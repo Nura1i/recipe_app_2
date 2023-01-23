@@ -1,21 +1,42 @@
 import 'package:flutter/material.dart';
 
 class IngredientModel {
-  final String uuid;
-  final Widget widget;
-  const IngredientModel({required this.uuid, required this.widget});
+  String? uuid;
+  Widget? widget;
+  String? dataName;
+  String? dataQuant;
+  TextEditingController? textController;
+  TextEditingController? quantController;
+  IngredientModel(
+      {required this.uuid,
+      required this.widget,
+      this.dataName,
+      this.dataQuant,
+      this.textController,
+      this.quantController});
+
+  IngredientModel copyWidth(
+      {String? uuid, Widget? widget, String? dataName, String? dataQuant}) {
+    return IngredientModel(
+        uuid: uuid ?? this.uuid,
+        widget: widget ?? this.widget,
+        dataName: dataName ?? this.dataName,
+        dataQuant: dataQuant ?? this.dataQuant);
+  }
 }
 
 class Item {
   String? ItemName;
   String? ItemQuanity;
-  String? uuid;
-  Item({required this.ItemName, required this.ItemQuanity, required this.uuid});
+
+  Item({
+    required this.ItemName,
+    required this.ItemQuanity,
+  });
   Map<String, dynamic> toMap() {
     return {
       'ItemName': ItemName,
       'ItemQuanity': ItemQuanity,
-      'uuid': uuid,
     };
   }
 }

@@ -12,11 +12,6 @@ import 'package:recipe_app/repositories/services/fire_service.dart';
 import 'package:recipe_app/widgets/add_ingredients.dart';
 import 'package:uuid/uuid.dart';
 
-TextEditingController? controlerMain;
-TextEditingController? controllerBody;
-// TextEditingController itemNameController = TextEditingController();
-// TextEditingController itemQuanityController = TextEditingController();
-
 class CameraCubit extends Cubit<CameraState> {
   CameraCubit() : super(CameraInit());
   bool isOpen = false;
@@ -99,12 +94,16 @@ class CameraCubit extends Cubit<CameraState> {
   }
 
   List<IngredientModel> ls = [];
-  addItem(ctx, String? uuid, controllerName, controllerQuant) {
+  addItem(ctx, String? uuid) {
+    TextEditingController textController = TextEditingController();
+    TextEditingController quantController = TextEditingController();
     ls.add(IngredientModel(
         uuid: uuid!,
+        textController: textController,
+        quantController: quantController,
         widget: IngredientsWidget(
-          controllerName: controllerName,
-          controllerQuant: controllerQuant,
+          controllerName: textController,
+          controllerQuant: quantController,
           key: ValueKey<String>(uuid),
           uuid: uuid,
           clear: true,
@@ -113,30 +112,20 @@ class CameraCubit extends Cubit<CameraState> {
   }
 
   removeItem(ctx, String? uuid) {
-    //ls.removeWhere((element) => element.widget.key == ValueKey<String>(uuid!));
     ls.removeWhere((element) => element.uuid == uuid!);
 
     emit(addItemState(ls));
-    log('removed at Index:  ${uuid.toString()}');
+    log('removed uuid:  ${uuid.toString()}');
   }
 
   List<String> ingredients = [];
   String? ingredientsString;
 
-  postRecipe(ctx, head, serves, cookTime, bodyText, photo, items) async {
-    // List<String> toList() {
-    //   for (var item in items) {
-    //     ingredients.add(item.toString());
-    //   }
-
-    //   return ingredients.toList();
-    // }
-
-    List items = [
-      // Item(ItemName: 'Olma', ItemQuanity: '300 gram'),
-      // Item(ItemName: 'kartoshka', ItemQuanity: '100 gram'),
-      // Item(ItemName: 'sabzi', ItemQuanity: '200 gram')
-    ];
+  bool load = false;
+  postRecipe(
+      ctx, head, serves, cookTime, bodyText, photo, allIngredients) async {
+    load = true;
+    emit(loading(load));
     recipeModel recipe = recipeModel(
         cookTime: cookTime,
         head: head,
@@ -144,14 +133,17 @@ class CameraCubit extends Cubit<CameraState> {
         userId: FirebaseAuth.instance.currentUser!.uid.toString(),
         id: const Uuid().v1().toString(),
         text: bodyText,
-        items: items.map<Map>((e) => e.toMap()).toList());
+        items: allIngredients);
 
-    final recipeSavedToData = await FireDatabaseService.SaveRecipeToCollection(
+    await FireDatabaseService.SaveRecipeToCollection(
         recipe: recipe, image: photo);
 
     log('Saved');
+
     Navigator.of(ctx).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const MenuPage()),
         (route) => false);
+    load = false;
+    emit(loading(load));
   }
 }

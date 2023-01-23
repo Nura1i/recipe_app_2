@@ -14,7 +14,8 @@ class SignInPage extends StatefulWidget {
 class _SignInPage extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<SignInCubit>(context).signIn(context);
+    // BlocProvider.of<SignInCubit>(context)
+    //     .signIn(context, controllerEmail, controllerPassword);
 
     return Scaffold(
       body: BlocBuilder<SignInCubit, SignInState>(
@@ -33,7 +34,7 @@ class _SignInPage extends State<SignInPage> {
       child: Text("Error occurred $err"),
     );
   }
-  
+
   Widget viewOfLoading() {
     return const Center(
       child: CircularProgressIndicator(),

@@ -17,6 +17,10 @@ class DontImagePublished extends PublishImageState {
   DontImagePublished({this.dontispublished});
 }
 
+class CroppState extends PublishImageState {
+  final croop;
+  CroppState({this.croop});
+}
 // bool? isEnabled = true;
 //   bool? isLoading = false;
 //   void publish() async {

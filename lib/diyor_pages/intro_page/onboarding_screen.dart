@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:recipe_app/pages/sign_up_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../diyor.dart';
 import 'intro_page_1.dart';
 import 'intro_page_2.dart';
 import 'intro_page_3.dart';
-
-
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -79,6 +75,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         dotColor: Colors.black,
                         activeDotColor: Colors.green),
                   ),
+
                   /// Next or Done ...!
                   onLastPage
                       ? GestureDetector(

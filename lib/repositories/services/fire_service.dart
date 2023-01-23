@@ -11,6 +11,8 @@ String? username1111;
 String? bio;
 String? avatarImage;
 String? email;
+List? UserRecepts;
+List? allRecepts;
 
 class FireDatabaseService {
   static final FirebaseFirestore _databaseFirestore =
@@ -18,6 +20,7 @@ class FireDatabaseService {
   static final CollectionReference recipesList =
       FirebaseFirestore.instance.collection('Recipes');
   static final _storage = FirebaseStorage.instance;
+
   static Future<bool?> saveUserToCollection({required userModel user}) async {
     bool userSaved = false;
     try {
@@ -33,13 +36,28 @@ class FireDatabaseService {
     return userSaved;
   }
 
-  static Future<bool?> SaveRecipeToCollection(
+  static Future SaveRecipeToCollection(
       {required recipeModel? recipe, required File? image}) async {
     bool recipeSaved = false;
 
     try {
+      final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+      List recipes = [];
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserId)
+          .get();
+      recipes = userDoc.get('recepts');
+      recipes.add(recipe!.id);
+
+      await _databaseFirestore
+          .collection('users')
+          .doc(currentUserId)
+          .update({'recepts': recipes}).then((value) {
+        log(allRecepts.toString());
+      });
       final userRef = _storage.ref("PhotoOfRecipes");
-      final nameReferense = userRef.child(recipe!.id!);
+      final nameReferense = userRef.child(recipe.id!);
       UploadTask? uploadTask = nameReferense.putFile(image!);
       await uploadTask;
       final PhotoOfRecipe = await nameReferense.getDownloadURL();
@@ -51,54 +69,51 @@ class FireDatabaseService {
           .doc(recipe.id)
           .set(recipe.toJson());
       recipeSaved = true;
-      return recipeSaved;
+      return log('Recept Posted success');
     } catch (e) {
       log(e.toString());
     }
-    return recipeSaved;
   }
 
-  void getdata() async {
+  static Future getdata() async {
     User? userr = FirebaseAuth.instance.currentUser;
     var uuid = userr!.uid;
     DocumentSnapshot userDoc =
         await FirebaseFirestore.instance.collection('users').doc(uuid).get();
+
     username1111 = userDoc.get('username');
     bio = userDoc.get('bio');
     email = userDoc.get('email');
     avatarImage = userDoc.get('avatarImage');
-    //log(username1111!);
   }
 
-  static Future<bool?> createPost({
+  static Future<String?> updateProfile({
     required userModel? usermodel,
     required File? image,
   }) async {
-    bool? isCreated = false;
+    log('Work creatPost');
+
     User? userr = FirebaseAuth.instance.currentUser;
     var uuid = userr!.uid;
     try {
       final userRef = _storage.ref("avatarphoto");
       final nameReferense = userRef.child(usermodel!.id!);
       UploadTask? uploadTask = nameReferense.putFile(image!);
+
       await uploadTask;
-      final avatarImage = await nameReferense.getDownloadURL();
-      usermodel = usermodel.copyWith(
-          avatarImage: avatarImage,
-          email: email,
-          username: username1111,
-          bio: bio);
-      await _databaseFirestore
-          .collection('users')
-          .doc(uuid)
-          .set(usermodel.toJson());
-      isCreated = true;
-      log('Image put firestore');
-      return isCreated;
+      final downloadUrl = await nameReferense.getDownloadURL();
+
+      final CollectionReference users = databaseFirestore.collection("users");
+      String? url = downloadUrl;
+      await users.doc(uuid).update({'avatarImage': url});
+      final DocumentSnapshot<Object?> result;
+      result = await users.doc(uuid).get();
+      log('your image success get');
+      return result['avatarImage'];
     } catch (e) {
       log(e.toString());
-      return isCreated;
     }
+    return null;
   }
 
   static Future<bool?> updateItemCollection({
@@ -133,6 +148,72 @@ class FireDatabaseService {
       return isDeleted;
     }
     return null;
+  }
+
+  static Future saved(recipeID, saved) async {
+    try {
+      List savedList = [];
+      final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserId)
+          .get();
+      savedList = userDoc.get('saved') ?? [];
+      if (saved == false) {
+        if (!savedList.contains(recipeID)) {
+          savedList.add(recipeID);
+        }
+      }
+      if (saved == true) {
+        if (savedList.contains(recipeID)) {
+          savedList.remove(recipeID);
+        }
+      }
+
+      await _databaseFirestore
+          .collection('users')
+          .doc(currentUserId)
+          .update({'saved': savedList}).then((value) {});
+
+      return log('SavedSuccess');
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  static Future like(recipeID, liked) async {
+    try {
+      List totalLikes = [];
+      final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+
+      DocumentSnapshot recipeDoc = await FirebaseFirestore.instance
+          .collection('Recipes')
+          .doc(recipeID)
+          .get();
+      totalLikes = recipeDoc.get('totalLikes') ?? [];
+
+      if (liked == false) {
+        if (!totalLikes.contains(currentUserId)) {
+          totalLikes.add(currentUserId);
+        }
+      }
+      if (liked == true) {
+        if (totalLikes.contains(currentUserId)) {
+          totalLikes.remove(currentUserId);
+        }
+      }
+      await _databaseFirestore
+          .collection('Recipes')
+          .doc(recipeID)
+          .update({'totalLikes': totalLikes}).then((value) {
+        log(totalLikes.toString());
+      });
+
+      return log('LikedSuccess');
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   // static Future<bool?> sendMssage({required MessageModel message}) async {

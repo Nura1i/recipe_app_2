@@ -8,7 +8,6 @@ part of 'user_model.dart';
 
 _$_userModel _$$_userModelFromJson(Map<String, dynamic> json) => _$_userModel(
       id: json['id'] as String?,
-      userId: json['userId'] as String?,
       bio: json['bio'] as String?,
       avatarImage: json['avatarImage'] as String?,
       password: json['password'] as String?,
@@ -19,15 +18,9 @@ _$_userModel _$$_userModelFromJson(Map<String, dynamic> json) => _$_userModel(
           : DateTime.parse(json['publishedDate'] as String),
       text: json['text'] as String?,
       username: json['username'] as String?,
-      saved: (json['saved'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
-      amountLikes: (json['amountLikes'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
-      recepts: (json['recepts'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
+      saved: json['saved'] as List<dynamic>?,
+      amountLikes: json['amountLikes'] as List<dynamic>?,
+      recepts: json['recepts'] as List<dynamic>?,
       likedRecipes: (json['likedRecipes'] as List<dynamic>?)
           ?.map((e) => e as Map<String, dynamic>)
           .toList(),
@@ -36,7 +29,6 @@ _$_userModel _$$_userModelFromJson(Map<String, dynamic> json) => _$_userModel(
 Map<String, dynamic> _$$_userModelToJson(_$_userModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'userId': instance.userId,
       'bio': instance.bio,
       'avatarImage': instance.avatarImage,
       'password': instance.password,

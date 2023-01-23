@@ -20,10 +20,10 @@ class _MenuPageState extends State<MenuPage> {
     const HomePage(),
     const BookMarkPage(),
     const AddPage(),
-      UserHomePage(),
+    const SearchPerson(),
     //const NotificatonPage(),
     const ZoomDrawerPage()
-   // const ProfilePage()
+    // const ProfilePage()
   ];
   @override
   Widget build(BuildContext context) {

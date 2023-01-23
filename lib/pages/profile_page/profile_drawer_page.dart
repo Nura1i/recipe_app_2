@@ -29,7 +29,7 @@ class CustomDrawer extends StatelessWidget {
             child: Align(
               alignment: Alignment.topRight,
               child: ThemeSwitcher.withTheme(
-                builder: (_, switcher, theme) {
+                builder: (contex, switcher, theme) {
                   return IconButton(
                     onPressed: () => switcher.changeTheme(
                       theme: theme.brightness == Brightness.light

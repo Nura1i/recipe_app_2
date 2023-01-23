@@ -6,7 +6,6 @@ part 'user_model.g.dart';
 class userModel with _$userModel {
   const factory userModel({
     String? id,
-    String? userId,
     String? bio,
     String? avatarImage,
     String? password,
@@ -15,9 +14,9 @@ class userModel with _$userModel {
     DateTime? publishedDate,
     String? text,
     String? username,
-    List<Map<String, dynamic>>? saved,
-    List<Map<String, dynamic>>? amountLikes,
-    List<Map<String, dynamic>>? recepts,
+    List? saved,
+    List? amountLikes,
+    List? recepts,
     List<Map<String, dynamic>>? likedRecipes,
   }) = _userModel;
 

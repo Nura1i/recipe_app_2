@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/views/sign_up_view.dart';
 import 'package:recipe_app/widgets/pageAnimationFade.dart';
 
@@ -15,6 +16,8 @@ class SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<SignInView> {
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,8 +25,6 @@ class _SignInViewState extends State<SignInView> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
-        //reverse: true,
-        //physics: NeverScrollableScrollPhysics(),
         child: SizedBox(
           height: size.height,
           child: Stack(
@@ -126,7 +127,9 @@ class _SignInViewState extends State<SignInView> {
                                           ]),
                                       child: GestureDetector(
                                         onTap: () {
-                                          SignInCubit().signIn(context);
+                                          BlocProvider.of<SignInCubit>(context)
+                                              .signIn(context, controllerEmail,
+                                                  controllerPassword);
                                         },
                                         child: const Text(
                                           " Oldinga ",

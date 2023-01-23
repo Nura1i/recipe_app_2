@@ -21,7 +21,6 @@ userModel _$userModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$userModel {
   String? get id => throw _privateConstructorUsedError;
-  String? get userId => throw _privateConstructorUsedError;
   String? get bio => throw _privateConstructorUsedError;
   String? get avatarImage => throw _privateConstructorUsedError;
   String? get password => throw _privateConstructorUsedError;
@@ -30,10 +29,9 @@ mixin _$userModel {
   DateTime? get publishedDate => throw _privateConstructorUsedError;
   String? get text => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
-  List<Map<String, dynamic>>? get saved => throw _privateConstructorUsedError;
-  List<Map<String, dynamic>>? get amountLikes =>
-      throw _privateConstructorUsedError;
-  List<Map<String, dynamic>>? get recepts => throw _privateConstructorUsedError;
+  List<dynamic>? get saved => throw _privateConstructorUsedError;
+  List<dynamic>? get amountLikes => throw _privateConstructorUsedError;
+  List<dynamic>? get recepts => throw _privateConstructorUsedError;
   List<Map<String, dynamic>>? get likedRecipes =>
       throw _privateConstructorUsedError;
 
@@ -50,7 +48,6 @@ abstract class $userModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
-      String? userId,
       String? bio,
       String? avatarImage,
       String? password,
@@ -59,9 +56,9 @@ abstract class $userModelCopyWith<$Res> {
       DateTime? publishedDate,
       String? text,
       String? username,
-      List<Map<String, dynamic>>? saved,
-      List<Map<String, dynamic>>? amountLikes,
-      List<Map<String, dynamic>>? recepts,
+      List<dynamic>? saved,
+      List<dynamic>? amountLikes,
+      List<dynamic>? recepts,
       List<Map<String, dynamic>>? likedRecipes});
 }
 
@@ -79,7 +76,6 @@ class _$userModelCopyWithImpl<$Res, $Val extends userModel>
   @override
   $Res call({
     Object? id = freezed,
-    Object? userId = freezed,
     Object? bio = freezed,
     Object? avatarImage = freezed,
     Object? password = freezed,
@@ -97,10 +93,6 @@ class _$userModelCopyWithImpl<$Res, $Val extends userModel>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
               as String?,
       bio: freezed == bio
           ? _value.bio
@@ -137,15 +129,15 @@ class _$userModelCopyWithImpl<$Res, $Val extends userModel>
       saved: freezed == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>?,
+              as List<dynamic>?,
       amountLikes: freezed == amountLikes
           ? _value.amountLikes
           : amountLikes // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>?,
+              as List<dynamic>?,
       recepts: freezed == recepts
           ? _value.recepts
           : recepts // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>?,
+              as List<dynamic>?,
       likedRecipes: freezed == likedRecipes
           ? _value.likedRecipes
           : likedRecipes // ignore: cast_nullable_to_non_nullable
@@ -163,7 +155,6 @@ abstract class _$$_userModelCopyWith<$Res> implements $userModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
-      String? userId,
       String? bio,
       String? avatarImage,
       String? password,
@@ -172,9 +163,9 @@ abstract class _$$_userModelCopyWith<$Res> implements $userModelCopyWith<$Res> {
       DateTime? publishedDate,
       String? text,
       String? username,
-      List<Map<String, dynamic>>? saved,
-      List<Map<String, dynamic>>? amountLikes,
-      List<Map<String, dynamic>>? recepts,
+      List<dynamic>? saved,
+      List<dynamic>? amountLikes,
+      List<dynamic>? recepts,
       List<Map<String, dynamic>>? likedRecipes});
 }
 
@@ -190,7 +181,6 @@ class __$$_userModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? userId = freezed,
     Object? bio = freezed,
     Object? avatarImage = freezed,
     Object? password = freezed,
@@ -208,10 +198,6 @@ class __$$_userModelCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
               as String?,
       bio: freezed == bio
           ? _value.bio
@@ -248,15 +234,15 @@ class __$$_userModelCopyWithImpl<$Res>
       saved: freezed == saved
           ? _value._saved
           : saved // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>?,
+              as List<dynamic>?,
       amountLikes: freezed == amountLikes
           ? _value._amountLikes
           : amountLikes // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>?,
+              as List<dynamic>?,
       recepts: freezed == recepts
           ? _value._recepts
           : recepts // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>?,
+              as List<dynamic>?,
       likedRecipes: freezed == likedRecipes
           ? _value._likedRecipes
           : likedRecipes // ignore: cast_nullable_to_non_nullable
@@ -270,7 +256,6 @@ class __$$_userModelCopyWithImpl<$Res>
 class _$_userModel implements _userModel {
   const _$_userModel(
       {this.id,
-      this.userId,
       this.bio,
       this.avatarImage,
       this.password,
@@ -279,9 +264,9 @@ class _$_userModel implements _userModel {
       this.publishedDate,
       this.text,
       this.username,
-      final List<Map<String, dynamic>>? saved,
-      final List<Map<String, dynamic>>? amountLikes,
-      final List<Map<String, dynamic>>? recepts,
+      final List<dynamic>? saved,
+      final List<dynamic>? amountLikes,
+      final List<dynamic>? recepts,
       final List<Map<String, dynamic>>? likedRecipes})
       : _saved = saved,
         _amountLikes = amountLikes,
@@ -293,8 +278,6 @@ class _$_userModel implements _userModel {
 
   @override
   final String? id;
-  @override
-  final String? userId;
   @override
   final String? bio;
   @override
@@ -311,9 +294,9 @@ class _$_userModel implements _userModel {
   final String? text;
   @override
   final String? username;
-  final List<Map<String, dynamic>>? _saved;
+  final List<dynamic>? _saved;
   @override
-  List<Map<String, dynamic>>? get saved {
+  List<dynamic>? get saved {
     final value = _saved;
     if (value == null) return null;
     if (_saved is EqualUnmodifiableListView) return _saved;
@@ -321,9 +304,9 @@ class _$_userModel implements _userModel {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<Map<String, dynamic>>? _amountLikes;
+  final List<dynamic>? _amountLikes;
   @override
-  List<Map<String, dynamic>>? get amountLikes {
+  List<dynamic>? get amountLikes {
     final value = _amountLikes;
     if (value == null) return null;
     if (_amountLikes is EqualUnmodifiableListView) return _amountLikes;
@@ -331,9 +314,9 @@ class _$_userModel implements _userModel {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<Map<String, dynamic>>? _recepts;
+  final List<dynamic>? _recepts;
   @override
-  List<Map<String, dynamic>>? get recepts {
+  List<dynamic>? get recepts {
     final value = _recepts;
     if (value == null) return null;
     if (_recepts is EqualUnmodifiableListView) return _recepts;
@@ -353,7 +336,7 @@ class _$_userModel implements _userModel {
 
   @override
   String toString() {
-    return 'userModel(id: $id, userId: $userId, bio: $bio, avatarImage: $avatarImage, password: $password, email: $email, totalLikes: $totalLikes, publishedDate: $publishedDate, text: $text, username: $username, saved: $saved, amountLikes: $amountLikes, recepts: $recepts, likedRecipes: $likedRecipes)';
+    return 'userModel(id: $id, bio: $bio, avatarImage: $avatarImage, password: $password, email: $email, totalLikes: $totalLikes, publishedDate: $publishedDate, text: $text, username: $username, saved: $saved, amountLikes: $amountLikes, recepts: $recepts, likedRecipes: $likedRecipes)';
   }
 
   @override
@@ -362,7 +345,6 @@ class _$_userModel implements _userModel {
         (other.runtimeType == runtimeType &&
             other is _$_userModel &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.bio, bio) || other.bio == bio) &&
             (identical(other.avatarImage, avatarImage) ||
                 other.avatarImage == avatarImage) &&
@@ -389,7 +371,6 @@ class _$_userModel implements _userModel {
   int get hashCode => Object.hash(
       runtimeType,
       id,
-      userId,
       bio,
       avatarImage,
       password,
@@ -420,7 +401,6 @@ class _$_userModel implements _userModel {
 abstract class _userModel implements userModel {
   const factory _userModel(
       {final String? id,
-      final String? userId,
       final String? bio,
       final String? avatarImage,
       final String? password,
@@ -429,9 +409,9 @@ abstract class _userModel implements userModel {
       final DateTime? publishedDate,
       final String? text,
       final String? username,
-      final List<Map<String, dynamic>>? saved,
-      final List<Map<String, dynamic>>? amountLikes,
-      final List<Map<String, dynamic>>? recepts,
+      final List<dynamic>? saved,
+      final List<dynamic>? amountLikes,
+      final List<dynamic>? recepts,
       final List<Map<String, dynamic>>? likedRecipes}) = _$_userModel;
 
   factory _userModel.fromJson(Map<String, dynamic> json) =
@@ -439,8 +419,6 @@ abstract class _userModel implements userModel {
 
   @override
   String? get id;
-  @override
-  String? get userId;
   @override
   String? get bio;
   @override
@@ -458,11 +436,11 @@ abstract class _userModel implements userModel {
   @override
   String? get username;
   @override
-  List<Map<String, dynamic>>? get saved;
+  List<dynamic>? get saved;
   @override
-  List<Map<String, dynamic>>? get amountLikes;
+  List<dynamic>? get amountLikes;
   @override
-  List<Map<String, dynamic>>? get recepts;
+  List<dynamic>? get recepts;
   @override
   List<Map<String, dynamic>>? get likedRecipes;
   @override

@@ -101,166 +101,171 @@ class _BookMarkPageState extends State<BookMarkPage>
     final Size size = MediaQuery.of(context).size;
     final double categoryHeight = size.height * 0.3;
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      // AppBar!!!
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.orange.shade600,
-        title: Text(
-          translation(context).savedRecipes,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.orange.shade600,
+          title: Text(
+            translation(context).savedRecipes,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
-      ),
-      // Body qismi ...!
-      body: SizedBox(
-        height: size.height,
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: [
-                // AppBar tegidi contanier!
-                Container(
-                  color: Colors.orange.shade600,
-                  height: 80,
-                ),
-                Column(
-                  children: <Widget>[
-                    // AppBar tegidi Search qismi!
-                    Container(
-                      height: 140.h,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(45),
-                          topRight: Radius.circular(45),
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Text qismi.
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 15,
-                              right: 22,
-                              left: 22,
-                            ),
-                            child: Text(
-                              translation(context).findrecipe,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black),
-                            ),
+        // Body qismi ...!
+        body: SizedBox(
+          height: size.height,
+          child: Column(
+            children: <Widget>[
+              Stack(
+                children: [
+                  // AppBar tegidi contanier!
+                  Container(
+                    color: Colors.orange.shade600,
+                    height: 80,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      // AppBar tegidi Search qismi!
+                      Container(
+                        height: 140.h,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(45),
+                            topRight: Radius.circular(45),
                           ),
-                          //Search qismi.
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              right: 20,
-                              left: 20,
-                            ),
-                            child: Container(
-                              width: size.width / 0.7.w,
-                              height: size.height / 13.h,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 2.w,
-                                  color: Colors.orange.shade500,
-                                ),
-                                borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Text qismi.
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 15,
+                                right: 22,
+                                left: 22,
                               ),
-                              // Icon Search qismi.
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  TextField(
-                                    decoration: InputDecoration(
-                                      hintText: translation(context).search,
-                                      hintStyle: TextStyle(
-                                        color: Colors.orange.shade500,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      isDense: false,
-                                      border: InputBorder.none,
-                                      prefixIcon: Icon(
-                                        Icons.search,
-                                        color: Colors.orange.shade700,
+                              child: Text(
+                                translation(context).findrecipe,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                              ),
+                            ),
+                            //Search qismi.
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                right: 20,
+                                left: 20,
+                              ),
+                              child: Container(
+                                width: size.width / 0.7.w,
+                                height: size.height / 13.h,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 2.w,
+                                    color: Colors.orange.shade500,
+                                  ),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                // Icon Search qismi.
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextField(
+                                      decoration: InputDecoration(
+                                        hintText: translation(context).search,
+                                        hintStyle: TextStyle(
+                                          color: Colors.orange.shade500,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        isDense: false,
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(
+                                          Icons.search,
+                                          color: Colors.orange.shade700,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            // Popular Category
-            Text(
-              "Popular category",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black),
-            ),
-
-            // Categoriya qismi !
-            AnimatedOpacity(
-              duration: const Duration(milliseconds: 1000),
-              opacity: closeTopContainer ? 0 : 1,
-              child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 400),
-                  width: size.width,
-                  alignment: Alignment.topCenter,
-                  height: closeTopContainer ? 0 : categoryHeight,
-                  child: categoriesScroller),
-            ),
-
-            // categoriyani tegidigi opshi categoriya qismi !
-            Expanded(
-              child: ListView.builder(
-                controller: controller,
-                itemCount: itemsData.length,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  double scale = 1.0;
-                  if (topContainer > 0.5) {
-                    scale = index + 0.5 - topContainer;
-                    if (scale < 0) {
-                      scale = 0;
-                    } else if (scale > 1) {
-                      scale = 1;
-                    }
-                  }
-                  return Opacity(
-                    opacity: scale,
-                    child: Transform(
-                      transform: Matrix4.identity()..scale(scale, scale),
-                      alignment: Alignment.bottomCenter,
-                      child: Align(
-                          heightFactor: 0.7,
-                          alignment: Alignment.topCenter,
-                          child: itemsData[index]),
-                    ),
-                  );
-                },
+                    ],
+                  ),
+                ],
               ),
-            ),
-          ],
+              // Popular Category
+              Text(
+                "Popular category",
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black),
+              ),
+
+              // Categoriya qismi !
+              AnimatedOpacity(
+                duration: const Duration(milliseconds: 1000),
+                opacity: closeTopContainer ? 0 : 1,
+                child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
+                    width: size.width,
+                    alignment: Alignment.topCenter,
+                    height: closeTopContainer ? 0 : categoryHeight,
+                    child: categoriesScroller),
+              ),
+
+              // categoriyani tegidigi opshi categoriya qismi !
+              Expanded(
+                child: ListView.builder(
+                  controller: controller,
+                  itemCount: itemsData.length,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    double scale = 1.0;
+                    if (topContainer > 0.5) {
+                      scale = index + 0.5 - topContainer;
+                      if (scale < 0) {
+                        scale = 0;
+                      } else if (scale > 1) {
+                        scale = 1;
+                      }
+                    }
+                    return Opacity(
+                      opacity: scale,
+                      child: Transform(
+                        transform: Matrix4.identity()..scale(scale, scale),
+                        alignment: Alignment.bottomCenter,
+                        child: Align(
+                            heightFactor: 0.7,
+                            alignment: Alignment.topCenter,
+                            child: itemsData[index]),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

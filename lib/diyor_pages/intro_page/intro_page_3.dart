@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/shared_pref/language_prefs/preferences_2.dart';
-
 class IntroPage3 extends StatelessWidget {
   const IntroPage3({Key? key}) : super(key: key);
 
@@ -27,7 +25,7 @@ class IntroPage3 extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10, bottom: 100),
             child: Column(
-              children: [
+              children: const [
                 // // Text 1
                 // Text(translation(context).introPage3,
                 //     textAlign: TextAlign.center,
@@ -44,7 +42,7 @@ class IntroPage3 extends StatelessWidget {
                         fontSize: 18,
                         fontWeight: FontWeight.w700)),
 
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
 

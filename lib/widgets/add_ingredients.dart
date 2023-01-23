@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
-import 'package:recipe_app/models/ingredient%20Model/ingredient_model.dart';
-
-String? itName;
-String? itQuant;
-//List? itNamels = [];
-List? itNameQuant = [];
 
 class IngredientsWidget extends StatelessWidget {
   const IngredientsWidget(
@@ -20,7 +14,6 @@ class IngredientsWidget extends StatelessWidget {
   final controllerName;
   final controllerQuant;
   final String uuid;
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -37,12 +30,13 @@ class IngredientsWidget extends StatelessWidget {
                   border: Border.all(width: 2, color: const Color(0xffD9D9D9)),
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
-                onChanged: (value) {
-                  itName = value;
-                },
+                maxLength: 20,
                 controller: controllerName,
                 decoration: const InputDecoration(
-                    border: InputBorder.none, hintText: ' Item name'),
+                    counterText: '',
+                    border: InputBorder.none,
+                    hintText: ' Item name'),
+                style: const TextStyle(color: Colors.black),
               )),
           Container(
               width: size.width / 4,
@@ -51,18 +45,13 @@ class IngredientsWidget extends StatelessWidget {
                   border: Border.all(width: 2, color: const Color(0xffD9D9D9)),
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
-                onChanged: (value) {
-                  itQuant = value;
-                  if (itName != null && itQuant != null) {
-                    //items.map<Map>((e) => e.toMap()).toList()
-                    itNameQuant!.add(
-                        Item(ItemName: itName, ItemQuanity: itQuant, uuid: uuid)
-                            .toMap());
-                  }
-                },
+                maxLength: 20,
                 controller: controllerQuant,
                 decoration: const InputDecoration(
-                    border: InputBorder.none, hintText: '  Quantity'),
+                    counterText: '',
+                    border: InputBorder.none,
+                    hintText: '  Quantity'),
+                style: const TextStyle(color: Colors.black),
               )),
           clear == true
               ? IconButton(

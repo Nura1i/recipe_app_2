@@ -20,7 +20,7 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
     ItemsList.add(const SizedBox(
       width: 10,
     ));
-    response.forEach((card) {
+    for (var card in response) {
       ItemsList.add(FittedBox(
         fit: BoxFit.contain,
         alignment: Alignment.topCenter,
@@ -75,7 +75,7 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
           ),
         ),
       ));
-    });
+    }
     ItemsList;
     return Expanded(
       child: ListView.builder(

@@ -130,30 +130,6 @@ class _openedCardState extends State<openedCard> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.53,
-                ),
-                GestureDetector(
-                    onTap: () {
-                      BlocProvider.of<LikedCubit>(context).changeLike();
-                    },
-                    child: BlocProvider.of<LikedCubit>(context).icLike),
-
-                // const Icon(
-                //   Icons.favorite_border,
-                //   size: 33,
-                // ),
-                const SizedBox(
-                  width: 10,
-                ),
-                GestureDetector(
-                    onTap: () {
-                      BlocProvider.of<SavedCubit>(context).changeBoomark();
-                    },
-                    child: BlocProvider.of<SavedCubit>(context).icBook),
-                const SizedBox(
-                  width: 20,
-                ),
               ],
             ),
             Padding(

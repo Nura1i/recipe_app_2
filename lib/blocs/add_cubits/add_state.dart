@@ -41,3 +41,8 @@ class postedRecipe extends CameraState {
   final listOfRecipes;
   postedRecipe(this.listOfRecipes);
 }
+
+class loading extends CameraState {
+  final load;
+  loading(this.load);
+}

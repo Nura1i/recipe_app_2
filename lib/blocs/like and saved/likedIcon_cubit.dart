@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/likedIcon_state.dart';
@@ -9,12 +11,7 @@ class LikedCubit extends Cubit<LikedState> {
   changeLike() {
     emit(LikedSuccess(change));
     change = !change;
-    //emit(LikeSavedSuccess(changed));
-
-    print('$change Like');
-    return Like(change);
-
-    //emit(LikeSavedLoaded(changed: changed));
+    log(change.toString());
   }
 
   Widget Like(bool changed) {
