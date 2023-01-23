@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
+import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/views/sign_in_view.dart';
 import 'package:recipe_app/widgets/pageAnimationFade.dart';
 
@@ -19,145 +20,165 @@ class _signUpViewState extends State<signUpView> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
-        //reverse: true,
-        //physics: NeverScrollableScrollPhysics(),
+        //physics: const BouncingScrollPhysics(),
+        //reverse: false,
         child: SizedBox(
           height: size.height,
           child: Stack(
             children: [
-              SizedBox(
-                height: size.height,
-                child: Image.asset(
-                  'assets/images/login_wallpaper.jpg',
-                  fit: BoxFit.fitHeight,
-                ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    child: Image.asset(
+                      'assets/images/wallpaper.png',
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                ],
               ),
               Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Expanded(
-                      flex: 1,
-                      child: SizedBox(),
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: Colors.white,
-                          ),
-                          borderRadius: BorderRadius.circular(30),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.3),
+                        border: Border.all(
+                          width: 1,
+                          color: Colors.green,
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(
-                                sigmaX: 2,
-                                sigmaY: 2,
-                                tileMode: TileMode.mirror),
-                            child: SizedBox(
-                              width: size.width * .9,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: size.width * .12,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: 2,
+                            sigmaY: 2,
+                            tileMode: TileMode.mirror,
+                          ),
+                          child: SizedBox(
+                            width: size.width * .9,
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: size.width * .12,
+                                    bottom: size.width * .05,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    child: Text(
+                                      translation(context).signup,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 15),
+                                  child: component(
+                                      Icons.account_circle_outlined,
+                                      translation(context).enterYourName,
+                                      false,
+                                      false,
+                                      false,
+                                      controllerUsername),
+                                ),
+                                component(
+                                    Icons.email,
+                                    translation(context).enterEmail,
+                                    false,
+                                    false,
+                                    false,
+                                    controllerEmail),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 15),
+                                  child: component(
+                                      Icons.lock,
+                                      translation(context).enterAPassword,
+                                      false,
+                                      false,
+                                      false,
+                                      controllerPassword),
+                                ),
+                                SizedBox(height: size.width * .1),
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () {
+                                    HapticFeedback.lightImpact();
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(
                                       bottom: size.width * .05,
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10),
+                                    height: size.width / 8,
+                                    width: size.width / 1.25,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: Colors.green.withOpacity(.7),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
+                                        width: 2,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        SignUpCubit().signUp(context);
+                                      },
                                       child: Text(
-                                        'SIGN UP',
-                                        style: TextStyle(
-                                          fontSize: 25,
+                                        translation(context).signup,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w600,
-                                          color: Colors.white.withOpacity(.8),
                                         ),
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20),
-                                    child: component(
-                                        Icons.account_circle_outlined,
-                                        'Ismingizni kiriting...',
-                                        false,
-                                        false,
-                                        false,
-                                        controllerUsername),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                    bottom: size.width * .03,
                                   ),
-                                  component(Icons.email, 'Email kiriting',
-                                      false, false, false, controllerEmail),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20),
-                                    child: component(
-                                        Icons.lock,
-                                        "Parol qo'ying",
-                                        false,
-                                        false,
-                                        false,
-                                        controllerPassword),
-                                  ),
-                                  SizedBox(height: size.width * .1),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () {
-                                      HapticFeedback.lightImpact();
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                        bottom: size.width * .05,
-                                      ),
-                                      height: size.width / 8,
-                                      width: size.width / 1.25,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(.2),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          border: Border.all(
-                                              width: 1, color: Colors.blue)),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          SignUpCubit().signUp(context);
-                                        },
-                                        child: const Text(
-                                          "Ro'yhatdan o'tish",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                        Colors.red.withOpacity(0.8),
                                       ),
                                     ),
-                                  ),
-                                  ElevatedButton(
-                                    child: const Text('Sign In'),
+                                    child: Text(
+                                      translation(context).signIn,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                     onPressed: () => Navigator.of(context)
                                         .pushAndRemoveUntil(
                                             SizeTransition1(
                                               const SignInView(),
                                             ),
                                             (route) => false),
-                                  )
-                                ],
-                              ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    const Expanded(
-                      flex: 1,
-                      child: SizedBox(),
                     ),
                   ],
                 ),
@@ -173,32 +194,33 @@ class _signUpViewState extends State<signUpView> {
       bool isEmail, bool isNumber, TextEditingController controller) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.width / 8,
+      height: size.width / 7.6,
       width: size.width / 1.25,
       alignment: Alignment.center,
       padding: EdgeInsets.only(right: size.width / 30),
       decoration: BoxDecoration(
-          color: Colors.black.withOpacity(.3),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(width: 1, color: Colors.white)),
+        color: Colors.white.withOpacity(.9),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(width: 1.4, color: Colors.green),
+      ),
       child: TextField(
         controller: controller,
         style: TextStyle(
-          color: Colors.white.withOpacity(.9),
+          color: Colors.black.withOpacity(.9),
         ),
         keyboardType:
             !isNumber ? TextInputType.emailAddress : TextInputType.number,
         decoration: InputDecoration(
           prefixIcon: Icon(
             icon,
-            color: Colors.white.withOpacity(.8),
+            color: Colors.green.withOpacity(.9),
           ),
           border: InputBorder.none,
           hintMaxLines: 1,
           hintText: hintText,
           hintStyle: TextStyle(
             fontSize: 14,
-            color: Colors.white.withOpacity(.6),
+            color: Colors.black.withOpacity(.7),
           ),
         ),
       ),

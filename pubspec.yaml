@@ -50,6 +50,7 @@ dependencies:
   custom_image_crop: ^0.0.4
   example: ^0.0.1
   
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,11 +72,12 @@ flutter:
       - assets/intro/
       - assets/svg/
       - assets/sounds/
+      
 
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Explora
+      fonts:
+        - asset: assets/fonts/Explora-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

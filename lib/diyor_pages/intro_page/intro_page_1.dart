@@ -18,7 +18,7 @@ class IntroPage1 extends StatelessWidget {
               width: 300,
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                image: AssetImage('assets/intro/intro1.png'),
+                image: AssetImage('assets/intro/intro1.jpg'),
               )),
             ),
           ),
@@ -28,40 +28,27 @@ class IntroPage1 extends StatelessWidget {
             child: Column(
               children: [
                 // Text 1
-                Text(translation(context).introPage1,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700)),
-
-                // Text(
-                //     "Assalomu Aleykum! \n ''Cooking'' ilovamizga xush kelibsiz!",
-                //     textAlign: TextAlign.center,
-                //     style: TextStyle(
-                //         color: Colors.black,
-                //         fontSize: 18,
-                //         fontWeight: FontWeight.w700)),
-
+                Text(
+                  translation(context).introPage1,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(
                   height: 10,
                 ),
-
-                // // Text 2
-                // Text(translation(context).introPage11,
-                //     textAlign: TextAlign.center,
-                //     style: const TextStyle(
-                //         color: Colors.black,
-                //         fontSize: 18,
-                //         fontWeight: FontWeight.w700)),
-
+                // Text 2
                 Text(
-                  "Sizni Cooking ilovamizda ko'rganimizdan juda xursandmiz! Bizning ilovamiz bilan tanishish uchun ''Next'' tugmachasini bosing!",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500),
+                  translation(context).introPage11,
                   textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),

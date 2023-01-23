@@ -102,7 +102,7 @@ class _AppProviderState extends State<AppProvider> {
                       future: Prefs.loadData<String>(key: 'token'),
                       builder: (context, snapshot) {
                         if (snapshot.hasData && snapshot.data != null) {
-                          return const MenuPage();
+                          return const LanguageIntroPage();
                         }
                         return const LanguageIntroPage();
                       }))

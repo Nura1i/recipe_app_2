@@ -1,28 +1,29 @@
-
+// ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
-import 'package:recipe_app/app.dart';
-import 'package:recipe_app/utils/shared_pref/language_prefs/language.dart';
-Widget LanguageIntro(Text text1,String text2,Locale locale,BuildContext context){
-   var size=MediaQuery.of(context).size;
-  return   MaterialButton( 
-           onPressed:() async{
-             Language? language;              
-               AppProvider.setLLocale(context,locale);},           
-                  child: Container(
-                    height: size.height/13,
-                    //width: size.width/7,           
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
-                    border: Border.all(width: 2,color: Colors.red
-                    ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Row(
-                        children: [
-                         text1,
-                        SizedBox(width:size.width/30,),
-                        Text(text2)
-                      ],),
-                    ),
-                  ) ,);
+
+Widget LanguageIntro(Text text1, String text2, BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        text1,
+        const SizedBox(
+          width: 3,
+        ),
+        Flexible(
+          child: Text(
+            text2,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }
