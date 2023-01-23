@@ -49,6 +49,8 @@ dependencies:
   cropperx: ^1.1.1
   custom_image_crop: ^0.0.4
   example: ^0.0.1
+  path_provider: ^2.0.11
+  dropdown_button2: ^1.9.2
   
   
 dev_dependencies:

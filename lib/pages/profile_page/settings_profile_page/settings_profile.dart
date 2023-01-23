@@ -1,26 +1,33 @@
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_app/blocs/publish_profile/bio_username_email/bio_username_email_cubit.dart';
-import 'package:recipe_app/blocs/publish_profile/publishimage_cubit.dart';
+import 'package:recipe_app/pages/profile_page/settings_profile_page/dropdownbutton.dart';
+import 'package:recipe_app/pages/profile_page/settings_profile_page/image_cropper.dart';
+import 'package:recipe_app/pages/profile_page/settings_profile_page/widgets.dart';
 
-import 'package:recipe_app/repositories/services/fire_service.dart';
+class EditProfilePage extends StatelessWidget {
+  const EditProfilePage({super.key});
 
-import 'settings_profile_text_fild_widgets.dart';
-
-class EditProfilePage extends StatefulWidget {
-  @override
-  _EditProfilePageState createState() => _EditProfilePageState();
-}
-
-class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    FirebaseAuth auth = FirebaseAuth.instance;
+    String uid = auth.currentUser!.uid.toString();
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 1,
+        title: Text(
+          controllerUserName!.text.toString(),
+          style: const TextStyle(color: Colors.black),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: dropdown(context),
+          ),
+        ],
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -30,97 +37,107 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Navigator.of(context).pop();
           },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.green,
-            ),
-            onPressed: () {},
-          ),
-        ],
       ),
-      body: Container(
-        color: const Color.fromARGB(255, 201, 187, 146),
-        padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
-        child: ListView(
+      body: SingleChildScrollView(
+        child: Column(
           children: [
-            Text(
-              "Edit Profile",
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Center(
-                child: Stack(
-              children: [
-                Stack(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        BlocProvider.of<ImagePublishCubit>(context)
-                            .openCropper(context, imagee);
-                      },
-                      child: Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 4,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor),
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.1),
-                                  offset: const Offset(0, 10))
-                            ],
-                            shape: BoxShape.circle,
-                            image: avatarImage != null
-                                ? DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(avatarImage!))
-                                : avatarImage != null
-                                    ? DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(avatarImage!))
-                                    : const DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                          "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                                        ))),
-                        child: Center(
-                          child: avatarImage != null
-                              ? const SizedBox.shrink()
-                              : const CupertinoActivityIndicator(),
+            SizedBox(
+              height: 300,
+              child: StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(uid)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  var data = snapshot.data;
+                  return Container(
+                    color: Theme.of(context).backgroundColor,
+                    // const Color.fromARGB(255, 201, 187, 146),
+                    padding:
+                        const EdgeInsets.only(left: 16, top: 25, right: 16),
+                    child: ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        Text(
+                          "Edit Profile",
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
-                      ),
-                    ),
-                    Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Center(
+                            child: Stack(
+                          children: [
+                            Stack(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CropperScreenn(),
+                                    ));
+                                  },
+                                  child: Container(
+                                    width: 130,
+                                    height: 130,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 4,
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              spreadRadius: 2,
+                                              blurRadius: 10,
+                                              color:
+                                                  Colors.black.withOpacity(0.1),
+                                              offset: const Offset(0, 10))
+                                        ],
+                                        shape: BoxShape.circle,
+                                        image: data!['avatarImage'] != null
+                                            ? DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                    data['avatarImage']))
+                                            : const DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+                                                ))),
+                                  ),
+                                ),
+                                Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    left: 90,
+                                    child: Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          width: 4,
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                        ),
+                                        color: Colors.green,
+                                      ),
+                                      child: const Icon(
+                                        Icons.camera_alt_outlined,
+                                        color: Colors.white,
+                                   ),
+                                )),
+                              ],
                             ),
-                            color: Colors.green,
-                          ),
-                          child: const Icon(
-                            Icons.camera_alt_outlined,
-                            color: Colors.white,
-                          ),
+                          ],
                         )),
-                  ],
-                ),
-              ],
-            )),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
             const SizedBox(
               height: 35,
             ),
@@ -132,34 +149,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
               height: 35,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MaterialButton(
-                  color: Colors.blue,
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  onPressed: () {},
-                  child: const Text("CANCEL",
-                      style: TextStyle(
-                          fontSize: 14,
-                          letterSpacing: 2.2,
-                          color: Colors.black)),
-                ),
                 ElevatedButton(
                     child: const Text('Saved'),
                     onPressed: () async {
                       yourProfileSetting();
                       Navigator.of(context).pop();
-                      // userModel model = const userModel();
-                      // model = model.copyWith(
-                      //  avatarImage: avatarImage,
-                      //     bio: controllerBio!.text,
-                      //     email: controllerEmail!.text,
-                      //     username: controllerUserName!.text);
-                      // FireDatabaseService.updateItemCollection(
-                      //   usermodelll: model,
-                      // );
                     })
               ],
             )
@@ -169,3 +165,5 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 }
+
+

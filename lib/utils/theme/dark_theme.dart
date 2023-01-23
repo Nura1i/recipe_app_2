@@ -1,30 +1,33 @@
 part of 'themes.dart';
-
 final TextTheme darkTextTheme = TextTheme(
-    bodyMedium: TextStyle(
-        fontSize: 20.sp,
-        fontWeight: FontWeight.w600,
-        fontFamily: 'SFPro',
-        color: Colors.white),
+    bodyMedium: const TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      color: Colors.black,
+      fontFamily: 'SFPro',
+    ),
     bodyLarge: TextStyle(
-        fontSize: 30.sp,
-        fontWeight: FontWeight.w700,
-        fontFamily: "SFPro",
-        color: Colors.white),
+      fontSize: 30.sp,
+      fontWeight: FontWeight.w700,
+      fontFamily: 'Parisienne',
+      color: Colors.black,
+    ),
     displayMedium: TextStyle(
         fontSize: 22.sp,
         fontWeight: FontWeight.w400,
-        fontFamily: "Roboto",
-        color: Colors.white),
-    displaySmall: const TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.w500,
-      fontFamily: "Roboto",
-      color: Colors.white,
-    ),
-    bodySmall: TextStyle(
+        fontFamily: 'Roboto',
+        color: Colors.black),
+    displaySmall: TextStyle(
       fontSize: 14.sp,
       fontWeight: FontWeight.w500,
       fontFamily: 'Roboto',
-      color: const Color(0xFF574699),
-    ));
+      color: Colors.black,
+    ),
+    bodySmall: TextStyle(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+        fontFamily: 'SFPro',
+        color: Colors.black),
+    titleLarge: const TextStyle(color: Colors.black)
+    
+    );
