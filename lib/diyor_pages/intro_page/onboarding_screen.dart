@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/pages/sign_up_page.dart';
+import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'intro_page_1.dart';
 import 'intro_page_2.dart';
@@ -13,15 +14,14 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  @override
   // Native Splash second qismi !
-
   final PageController _controller = PageController();
 
   bool onLastPage = false;
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -43,68 +43,111 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
           /// Indicator ...!
           Container(
-              alignment: const Alignment(0, 0.8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  /// Skip ...!
-                  GestureDetector(
-                    onTap: () {
-                      _controller.animateToPage(_controller.page!.round() - 1,
-                          duration: const Duration(milliseconds: 350),
-                          curve: Curves.easeIn);
-                    },
-                    child: const Text(
-                      'Back',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            alignment: const Alignment(0, 0.8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                /// Skip ...!
+                GestureDetector(
+                  onTap: () {
+                    _controller.animateToPage(_controller.page!.round() - 1,
+                        duration: const Duration(milliseconds: 350),
+                        curve: Curves.easeIn);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: size.height / 17,
+                    width: size.width / 3.5,
+                    decoration: BoxDecoration(
+                      color: Colors.blue.shade100,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Text(
+                      translation(context).back,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
+                ),
 
-                  /// Dot Indicator ...!
-                  SmoothPageIndicator(
-                    controller: _controller,
-                    count: 3,
-                    effect: const JumpingDotEffect(
-                        spacing: 8,
-                        radius: 10,
-                        dotWidth: 12,
-                        dotHeight: 12,
-                        paintStyle: PaintingStyle.stroke,
-                        strokeWidth: 1.5,
-                        dotColor: Colors.black,
-                        activeDotColor: Colors.green),
+                /// Dot Indicator ...!
+                SmoothPageIndicator(
+                  controller: _controller,
+                  count: 3,
+                  effect: JumpingDotEffect(
+                    spacing: 8,
+                    radius: 10,
+                    dotWidth: 12,
+                    dotHeight: 12,
+                    paintStyle: PaintingStyle.stroke,
+                    strokeWidth: 1.5,
+                    dotColor: Colors.black,
+                    activeDotColor: Colors.green.shade300,
                   ),
+                ),
 
-                  /// Next or Done ...!
-                  onLastPage
-                      ? GestureDetector(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const SignUpPage();
-                            }));
-                          },
-                          child: const Text(
-                            'Done',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500),
+                /// Next or Done ...!
+                onLastPage
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const SignUpPage();
+                              },
+                            ),
+                          );
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: size.height / 17,
+                          width: size.width / 3.5,
+                          decoration: BoxDecoration(
+                            color: Colors.green.shade300,
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            _controller.nextPage(
-                                duration: const Duration(milliseconds: 350),
-                                curve: Curves.easeIn);
-                          },
-                          child: const Text(
-                            'Next',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500),
+                          child: Text(
+                            translation(context).done,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
-                ],
-              )),
+                      )
+                    : GestureDetector(
+                        onTap: () {
+                          _controller.nextPage(
+                            duration: const Duration(milliseconds: 350),
+                            curve: Curves.easeIn,
+                          );
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: size.height / 17,
+                          width: size.width / 3.5,
+                          decoration: BoxDecoration(
+                            color: Colors.blue.shade100,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Text(
+                            translation(context).next,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+              ],
+            ),
+          ),
         ],
       ),
     );

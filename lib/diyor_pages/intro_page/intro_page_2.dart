@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../utils/shared_pref/language_prefs/preferences_2.dart';
 
 class IntroPage2 extends StatelessWidget {
   const IntroPage2({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class IntroPage2 extends StatelessWidget {
               width: 310,
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                image: AssetImage('assets/intro/intro2.png'),
+                image: AssetImage('assets/intro/intro2.jpg'),
               )),
             ),
           ),
@@ -25,41 +26,28 @@ class IntroPage2 extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10, bottom: 100),
             child: Column(
-              children: const [
+              children: [
                 // Text 1
-                // Text(translation(context).introPage2,
-                //     textAlign: TextAlign.center,
-                //     style: const TextStyle(
-                //         color: Colors.black,
-                //         fontSize: 18,
-                //         fontWeight: FontWeight.w700)),
                 Text(
-                    "Siz pazandalikka qiziqasizmi? \n Lekin sizning qo'lingizdan kelmayaptimi?",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700)),
-
-                SizedBox(
+                  translation(context).introPage2,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(
                   height: 10,
                 ),
-
                 // Text 2
-                // Text(translation(context).introPage22,
-                //     textAlign: TextAlign.center,
-                //     style: const TextStyle(
-                //         color: Colors.black,
-                //         fontSize: 18,
-                //         fontWeight: FontWeight.w700)),
-
                 Text(
-                  "Unday bo'lsa bizning ''Cooking'' - ilovamiz sizga bu borada yordam bera oladi! Biz bilan birga pazandalikni o'rganing! Va yaqinlaringizga xam ulashing.",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500),
+                  translation(context).introPage22,
                   textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500),
                 ),
               ],
             ),
