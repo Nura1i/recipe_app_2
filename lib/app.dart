@@ -2,7 +2,6 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:recipe_app/blocs/adaptive_theme/adaptive_cubit.dart';
 import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
 
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
@@ -82,9 +81,6 @@ class _AppProviderState extends State<AppProvider> {
           create: (context) => CameraCubit(),
         ),
         BlocProvider(
-          create: (context) => ThemeCubit(),
-        ),
-        BlocProvider(
           create: (context) => ImagePublishCubit(),
         ),
         BlocProvider(
@@ -101,7 +97,7 @@ class _AppProviderState extends State<AppProvider> {
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
               locale: _locale,
-              darkTheme: darkTheme,
+              darkTheme: whiteeTheme,
               theme: myTheme,
               home: FutureBuilder(
                   future: Prefs.loadData<String>(key: 'token'),

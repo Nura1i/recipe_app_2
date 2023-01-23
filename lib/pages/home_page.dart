@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     BlocProvider.of<ListPostCubit>(context).apiPostList();
+    BlocProvider.of<ListPostCubit>(context).runner();
     //BlocProvider.of<ListPostCubit>(context).PostListOfRecipes();
   }
 

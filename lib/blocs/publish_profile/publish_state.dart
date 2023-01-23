@@ -8,7 +8,7 @@ class ImageInit extends PublishImageState {
 }
 
 class ImagePublished extends PublishImageState {
-  bool? ispublished;
+  final ispublished;
   ImagePublished({this.ispublished});
 }
 

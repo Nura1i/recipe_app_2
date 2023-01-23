@@ -77,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       MaterialButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => EditProfilePage(),
+                            builder: (context) => const EditProfilePage(),
                           ));
                         },
                         child: Container(
