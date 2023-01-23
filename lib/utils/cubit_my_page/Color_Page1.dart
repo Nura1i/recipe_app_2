@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_app/pages/profile_page/cubit_my_page/cubit_state.dart';
-import 'package:recipe_app/pages/profile_page/cubit_my_page/page_cubit.dart';
+import 'package:recipe_app/utils/cubit_my_page/cubit_state.dart';
+import 'package:recipe_app/utils/cubit_my_page/page_cubit.dart';
 class ColorPage1 extends StatefulWidget {
   const ColorPage1({super.key});
   @override

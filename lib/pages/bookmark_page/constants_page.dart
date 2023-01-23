@@ -28,36 +28,49 @@ final FOOD_DATA = [
 final CATEGORIA_DATA = [
   {
     "name": "O'zbek Milliy Taom",
-    "brand": "Hawkers",
-    "price": 2.99,
+    "image": "osh.png",
+
+  },
+
+  {"name": "Pishiriqlar",
+    "image": "osh.png"},
+
+  {
+    "name": "Salad",
     "image": "osh.png"
   },
-  {"name": "Salatlar", "brand": "Hawkers", "price": 4.99, "image": "pizza.png"},
+
   {
-    "name": "Suyuq taomlar",
-    "brand": "Mcdonald",
-    "price": 1.49,
+    "name": "Issiq ovqat",
     "image": "osh.png"
   },
+
   {
-    "name": "Quyuq taomlar",
-    "brand": "Mcdonald",
-    "price": 2.99,
-    "image": "osh.png"
-  },
-  {
-    "name": "Pizza",
-    "brand": "Ben & Jerry's",
-    "price": 9.49,
+    "name": "Diete",
     "image": "pizza.png"
   },
-  {"name": "Noodles", "brand": "Hawkers", "price": 4.49, "image": "kosa.png"},
-  {"name": "Pizza", "brand": "Dominos", "price": 17.99, "image": "kosa.png"},
+
+  {"name": "Bulion", 
+   "image": "kosa.png"},
+
+  {"name": "Breakfast",
+     "image": "kosa.png"},
+
   {
-    "name": "Sandwich",
-    "brand": "Hawkers",
-    "price": 2.99,
+    "name": "Lunch",
     "image": "burger.png"
   },
-  {"name": "Wrap", "brand": "Subway", "price": 6.99, "image": "kosa.png"}
+
+  {"name": "Dinner",
+    "image": "kosa.png"
+    },
+
+    
+  {"name": "Meat Food",
+    "image": "kosa.png"
+    },
+
+  {"name": "Vegitarian",
+    "image": "kosa.png"
+    }
 ];

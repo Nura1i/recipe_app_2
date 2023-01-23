@@ -1,16 +1,19 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:recipe_app/models/Recipe%20Model/recipe_model.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
+import 'package:recipe_app/views/sign_in_view.dart';
 
 String? username1111;
 String? bio;
 String? avatarImage;
+String? UrlavatarImage;
 String? email;
+
 
 class FireDatabaseService {
   static final FirebaseFirestore _databaseFirestore =
@@ -18,6 +21,7 @@ class FireDatabaseService {
   static final CollectionReference recipesList =
       FirebaseFirestore.instance.collection('Recipes');
   static final _storage = FirebaseStorage.instance;
+
   static Future<bool?> saveUserToCollection({required userModel user}) async {
     bool userSaved = false;
     try {
@@ -58,7 +62,7 @@ class FireDatabaseService {
     return recipeSaved;
   }
 
-  void getdata() async {
+  static Future getdata() async {
     User? userr = FirebaseAuth.instance.currentUser;
     var uuid = userr!.uid;
     DocumentSnapshot userDoc =
@@ -70,42 +74,38 @@ class FireDatabaseService {
     //log(username1111!);
   }
 
-  static Future<bool?> createPost({
+  static Future<String?> updateProfile({
     required userModel? usermodel,
     required File? image,
   }) async {
-    bool? isCreated = false;
+    log('Work creatPost');
+
     User? userr = FirebaseAuth.instance.currentUser;
     var uuid = userr!.uid;
     try {
       final userRef = _storage.ref("avatarphoto");
       final nameReferense = userRef.child(usermodel!.id!);
       UploadTask? uploadTask = nameReferense.putFile(image!);
+
       await uploadTask;
-      final avatarImage = await nameReferense.getDownloadURL();
-      usermodel = usermodel.copyWith(
-          avatarImage: avatarImage,
-          email: email,
-          username: username1111,
-          bio: bio);
-      await _databaseFirestore
-          .collection('users')
-          .doc(uuid)
-          .set(usermodel.toJson());
-      isCreated = true;
-      log('Image put firestore');
-      return isCreated;
+      final downloadUrl = await nameReferense.getDownloadURL();
+
+      final CollectionReference users = databaseFirestore.collection("users");
+      String? url = downloadUrl;
+      await users.doc(uuid).update({'avatarImage': url});
+      final DocumentSnapshot<Object?> result;
+      result = await users.doc(uuid).get();
+      log('your image success get');
+      return result['avatarImage'];
     } catch (e) {
       log(e.toString());
-      return isCreated;
     }
+    return null;
   }
-
   static Future<bool?> updateItemCollection({
-    required userModel? usermodelll,
-  }) async {
+    required userModel? usermodelll,})
+     async {
     bool? isput = false;
-    //TextEditingController controller ;
     User? userr = FirebaseAuth.instance.currentUser;
     var uuid = userr!.uid;
     try {
@@ -120,14 +120,22 @@ class FireDatabaseService {
     return isput;
   }
 
-  static Future<bool?> deletePostById({required userModel? usermodel}) async {
+  static Future<bool?> ProfileImageDelete() async {
     bool? isDeleted = false;
-
     try {
-      final deleteRef = _storage.refFromURL(usermodel!.avatarImage!);
-      await deleteRef.delete();
-      await _databaseFirestore.collection('users').doc(usermodel.id).delete();
-      isDeleted = true; // tushunarsiz joylari mavjud
+      var userId = FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+      await _storage.refFromURL(userDoc['avatarImage']).delete();
+
+      await _databaseFirestore
+          .collection('users')
+          .doc(userId)
+          .update({'avatarImage': null});
+
+      isDeleted = true;
     } catch (e) {
       log(e.toString());
       return isDeleted;
@@ -135,27 +143,15 @@ class FireDatabaseService {
     return null;
   }
 
-  // static Future<bool?> sendMssage({required MessageModel message}) async {
-  //   bool? messageCreated = false;
-  //   try {
-  //     final userDocument = await _databaseFirestore
-  //         .collection('users')
-  //         .doc(message.userId)
-  //         .get();
+  static void signOutUser(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
 
-  //     final UserModel user = UserModel.fromJson(userDocument.data()!);
-  //     message = message.copyWith(username: user.userName);
-  //     await _databaseFirestore
-  //         .collection('messages')
-  //         .doc(message.id)
-  //         .set(message.toJson());
-  //     messageCreated = true;
-  //     return messageCreated;
-  //   } catch (e) {
-  //     log(e.toString());
-  //   }
-  //   return messageCreated;
-  // }
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const SignInView(),
+        ),
+        (route) => false);
+  }
 
   static FirebaseFirestore get databaseFirestore => _databaseFirestore;
 }

@@ -27,7 +27,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           .createUserWithEmailAndPassword(
               email: controllerEmail.text, password: controllerPassword.text);
       assert(credentional.user != null);
-      
+
       userModel? userMod = userModel(
           id: credentional.user!.uid,
           username: controllerUsername.text,

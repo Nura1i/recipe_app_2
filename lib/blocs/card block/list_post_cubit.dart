@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/card%20block/list_post_state.dart';
+import 'package:recipe_app/repositories/services/fire_service.dart';
 import 'package:recipe_app/repositories/services/http_service.dart';
 
 class ListPostCubit extends Cubit<ListPostState> {
@@ -7,7 +8,8 @@ class ListPostCubit extends Cubit<ListPostState> {
 
   void apiPostList() async {
     emit(
-      ListPostLoading(),);
+      ListPostLoading(),
+    );
 
     final response = await Network.GET(Network.API_LIST, Network.paramsEmpty());
     if (response != null) {
@@ -15,6 +17,10 @@ class ListPostCubit extends Cubit<ListPostState> {
     } else {
       emit(ListPostError(error: "Couldn't fetch posts"));
     }
+  }
+
+  void runner() {
+    FireDatabaseService.getdata();
   }
 
   // List recipeOfList = [];

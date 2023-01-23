@@ -1,7 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_app/blocs/adaptive_theme/adaptive_cubit.dart';
 import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
 
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
@@ -51,7 +50,7 @@ class _AppProviderState extends State<AppProvider> {
   Widget build(BuildContext context) {
     final isPlatformDark =
         WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-    final initTheme = isPlatformDark ? darkTheme : whiteTheme;
+    final initTheme = isPlatformDark ? darkkTheme : whiteeTheme;
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -75,9 +74,9 @@ class _AppProviderState extends State<AppProvider> {
         BlocProvider(
           create: (context) => CameraCubit(),
         ),
-        BlocProvider(
-          create: (context) => ThemeCubit(),
-        ),
+        // BlocProvider(
+        //   create: (context) => ThemeCubit(),
+        // ),
         BlocProvider(
           create: (context) => ImagePublishCubit(),
         )
@@ -87,28 +86,21 @@ class _AppProviderState extends State<AppProvider> {
         initTheme: initTheme,
         builder: (_, myTheme) {
           return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
+              title: 'Recipe App',
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: _locale,
+              darkTheme: whiteeTheme,
               theme: myTheme,
-              home: MaterialApp(
-                  title: 'Recipe App',
-                  localizationsDelegates:
-                      AppLocalizations.localizationsDelegates,
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  locale: _locale,
-                  darkTheme: darkTheme,
-                  theme: whiteTheme,
-                  home: FutureBuilder(
-                      future: Prefs.loadData<String>(key: 'token'),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData && snapshot.data != null) {
-                          return const MenuPage();
-                        }
-                        return const LanguageIntroPage();
-                      }))
-
-              //  CustomDrawer(),
-              );
+             themeMode: ThemeMode.light,
+              home: FutureBuilder(
+                  future: Prefs.loadData<String>(key: 'token'),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && snapshot.data != null) {
+                      return const MenuPage();
+                    }
+                    return const LanguageIntroPage();
+                  }));
         },
       ),
 

@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     BlocProvider.of<ListPostCubit>(context).apiPostList();
+    BlocProvider.of<ListPostCubit>(context).runner();
     //BlocProvider.of<ListPostCubit>(context).PostListOfRecipes();
   }
 
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
           if (state is ListPostLoaded) {
             posts = state.posts!;
             // builder(posts);
-            return HomeView2();
+            return const HomeView2();
           }
 
           return const Center(
