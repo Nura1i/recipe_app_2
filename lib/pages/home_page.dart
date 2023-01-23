@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
           if (state is ListPostLoaded) {
             posts = state.posts!;
             // builder(posts);
-            return HomeView2();
+            return const HomeView2();
           }
 
           return const Center(
@@ -51,14 +51,6 @@ Widget builder(List<Post> items) {
     itemCount: items.length,
     itemBuilder: (contex, index) {
       return cardView(contex, posts[index]);
-
-      // Shimmer.fromColors(
-      //   highlightColor: Colors.white,
-      //   baseColor: Colors.grey.shade400,
-      //   child: cardView(contex, posts[index]),
-      //   period: Duration(seconds: time),
-      //   enabled: true,
-      // );
 
       //cardView(contex, posts[index]);
     },
