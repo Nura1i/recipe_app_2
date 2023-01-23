@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +7,10 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:recipe_app/blocs/publish_profile/publish_state.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
-import 'package:recipe_app/pages/profile_page/settings_profile_page/image_cropper.dart';
+
+import 'package:recipe_app/pages/profile_page/settings_profile_page/nw.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 
 Uint8List? imageToCrop;

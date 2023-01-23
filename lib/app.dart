@@ -56,7 +56,7 @@ class _AppProviderState extends State<AppProvider> {
     );
     final isPlatformDark =
         WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-    final initTheme = isPlatformDark ? darkTheme : whiteTheme;
+    final initTheme = isPlatformDark ? darkkTheme : whiteeTheme;
     return MultiBlocProvider(
       providers: [
         BlocProvider(

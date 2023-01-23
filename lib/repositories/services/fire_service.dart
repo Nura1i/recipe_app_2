@@ -1,11 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
-
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:recipe_app/models/Recipe%20Model/recipe_model.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
+import 'package:recipe_app/views/sign_in_view.dart';
 
 String? username1111;
 String? bio;
@@ -237,6 +238,39 @@ class FireDatabaseService {
   //   }
   //   return messageCreated;
   // }
+
+  static Future<bool?> ProfileImageDelete() async {
+    bool? isDeleted = false;
+    try {
+      var userId = FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+      await _storage.refFromURL(userDoc['avatarImage']).delete();
+
+      await _databaseFirestore
+          .collection('users')
+          .doc(userId)
+          .update({'avatarImage': null});
+
+      isDeleted = true;
+    } catch (e) {
+      log(e.toString());
+      return isDeleted;
+    }
+    return null;
+  }
+
+  static void signOutUser(context) async {
+    await FirebaseAuth.instance.signOut();
+
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const SignInView(),
+        ),
+        (route) => false);
+  }
 
   static FirebaseFirestore get databaseFirestore => _databaseFirestore;
 }
