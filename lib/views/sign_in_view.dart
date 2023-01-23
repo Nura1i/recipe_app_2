@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/views/sign_up_view.dart';
 import 'package:recipe_app/widgets/pageAnimationFade.dart';
@@ -92,7 +93,7 @@ class _SignInViewState extends State<SignInView> {
                                     false,
                                     false,
                                     false,
-                                    controllerEmail),
+                                    signUpEmail),
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 20),
@@ -102,7 +103,7 @@ class _SignInViewState extends State<SignInView> {
                                       false,
                                       false,
                                       false,
-                                      controllerPassword),
+                                      signUpPassword),
                                 ),
                                 SizedBox(height: size.width * .1),
                                 InkWell(
@@ -128,7 +129,8 @@ class _SignInViewState extends State<SignInView> {
                                     ),
                                     child: GestureDetector(
                                       onTap: () {
-                                        SignInCubit().signIn(context);
+                                        SignInCubit().signIn(context,
+                                            signUpEmail, signUpPassword);
                                       },
                                       child: Text(
                                         translation(context).forward,

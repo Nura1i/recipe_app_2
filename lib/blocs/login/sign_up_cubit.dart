@@ -10,29 +10,29 @@ import 'package:uuid/uuid.dart';
 import '../../models/user Model/user_model.dart';
 import '../../repositories/services/fire_service.dart';
 
-TextEditingController controllerUsername = TextEditingController();
-TextEditingController controllerEmail = TextEditingController();
-TextEditingController controllerPassword = TextEditingController();
+TextEditingController signUpUsername = TextEditingController();
+TextEditingController signUpEmail = TextEditingController();
+TextEditingController signUpPassword = TextEditingController();
 
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInit());
 
   signUp(BuildContext context) async {
     try {
-      if (controllerEmail.text.isEmpty ||
-          controllerPassword.text.isEmpty ||
-          controllerUsername.text.isEmpty) return;
+      if (signUpUsername.text.isEmpty ||
+          signUpPassword.text.isEmpty ||
+          signUpEmail.text.isEmpty) return;
 
       final UserCredential credentional = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-              email: controllerEmail.text, password: controllerPassword.text);
+              email: signUpEmail.text, password: signUpPassword.text);
       assert(credentional.user != null);
 
       userModel? userMod = userModel(
           id: credentional.user!.uid,
-          username: controllerUsername.text,
-          email: controllerEmail.text,
-          password: controllerPassword.text);
+          username: signUpUsername.text,
+          email: signUpEmail.text,
+          password: signUpPassword.text);
 
       final userSavedToDatabase =
           await FireDatabaseService.saveUserToCollection(user: userMod);
@@ -43,9 +43,9 @@ class SignUpCubit extends Cubit<SignUpState> {
             (route) => false);
       }
       final token = const Uuid().v1();
-      await Prefs.updateData<String>(key: 'email', data: controllerEmail.text);
+      await Prefs.updateData<String>(key: 'email', data: signUpEmail.text);
       await Prefs.updateData<String>(
-          key: 'password', data: controllerPassword.text);
+          key: 'password', data: signUpPassword.text);
       final isSaved = await Prefs.updateData<String>(key: 'token', data: token);
       if (isSaved!) {
         return token;

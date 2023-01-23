@@ -66,7 +66,7 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
                 height: size.height * 0.28,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/globe.jpg'),
+                    image: AssetImage('assets/images/globe.png'),
                   ),
                 ),
               ),

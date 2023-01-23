@@ -92,7 +92,7 @@ class _signUpViewState extends State<signUpView> {
                                       false,
                                       false,
                                       false,
-                                      controllerUsername),
+                                      signUpUsername),
                                 ),
                                 component(
                                     Icons.email,
@@ -100,7 +100,7 @@ class _signUpViewState extends State<signUpView> {
                                     false,
                                     false,
                                     false,
-                                    controllerEmail),
+                                    signUpEmail),
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 15),
@@ -110,7 +110,7 @@ class _signUpViewState extends State<signUpView> {
                                       false,
                                       false,
                                       false,
-                                      controllerPassword),
+                                      signUpPassword),
                                 ),
                                 SizedBox(height: size.width * .1),
                                 InkWell(
