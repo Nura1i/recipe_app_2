@@ -13,6 +13,7 @@ import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 import 'package:recipe_app/blocs/publish_profile/publishimage_cubit.dart';
 import 'package:recipe_app/blocs/search%20Page/searchCubit.dart';
 import 'package:recipe_app/diyor_pages/intro_language_page.dart';
+import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -102,7 +103,7 @@ class _AppProviderState extends State<AppProvider> {
                   future: Prefs.loadData<String>(key: 'token'),
                   builder: (context, snapshot) {
                     if (snapshot.hasData && snapshot.data != null) {
-                      return const LanguageIntroPage();
+                      return const MenuPage();
                     }
                     return const LanguageIntroPage();
                   }));
