@@ -6,7 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:recipe_app/models/Recipe%20Model/recipe_model.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
+import 'package:recipe_app/pages/profile_page/settings_profile_page/widgets.dart';
 import 'package:recipe_app/views/sign_in_view.dart';
+
 
 String? username1111;
 String? bio;
@@ -40,7 +42,6 @@ class FireDatabaseService {
   static Future SaveRecipeToCollection(
       {required recipeModel? recipe, required File? image}) async {
     bool recipeSaved = false;
-
     try {
       final currentUserId = FirebaseAuth.instance.currentUser!.uid;
       List recipes = [];
@@ -48,7 +49,7 @@ class FireDatabaseService {
           .collection('users')
           .doc(currentUserId)
           .get();
-      recipes = userDoc.get('recepts');
+      recipes = userDoc.get('recepts') ?? [];
       recipes.add(recipe!.id);
 
       await _databaseFirestore
@@ -125,10 +126,13 @@ class FireDatabaseService {
     User? userr = FirebaseAuth.instance.currentUser;
     var uuid = userr!.uid;
     try {
-      await _databaseFirestore
-          .collection('users')
-          .doc(uuid)
-          .set(usermodelll!.toJson());
+      await _databaseFirestore.collection('users').doc(uuid).update({
+        'bio': controllerBio!.text,
+        'username': controllerUserName!.text,
+        'email': controllerEmail!.text
+      });
+
+      log('saved bio end email');
     } catch (e) {
       log(e.toString());
     }
@@ -254,6 +258,7 @@ class FireDatabaseService {
           .doc(userId)
           .update({'avatarImage': null});
 
+      log('Profile image delete');
       isDeleted = true;
     } catch (e) {
       log(e.toString());

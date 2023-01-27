@@ -288,20 +288,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0+1"
-  device_frame:
-    dependency: transitive
-    description:
-      name: device_frame
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
-  device_preview:
-    dependency: "direct main"
-    description:
-      name: device_preview
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   dio:
     dependency: transitive
     description:
@@ -890,7 +876,7 @@ packages:
     source: hosted
     version: "4.2.4"
   provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: provider
       url: "https://pub.dartlang.org"
@@ -1062,13 +1048,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
-  switcher_button:
-    dependency: "direct main"
-    description:
-      name: switcher_button
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.4"
   term_glyph:
     dependency: transitive
     description:
@@ -1083,6 +1062,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.12"
+  theme_provider:
+    dependency: "direct main"
+    description:
+      name: theme_provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.0"
   timing:
     dependency: transitive
     description:

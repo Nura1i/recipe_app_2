@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: BlocBuilder<ListPostCubit, ListPostState>(
         builder: (BuildContext context, ListPostState state) {
           if (state is ListPostLoaded) {

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,32 +27,34 @@ class AddPage extends StatelessWidget {
     bool? load = false;
     List<IngredientModel>? items;
 
-    return Scaffold(body:
-        BlocBuilder<CameraCubit, CameraState>(builder: (context, cameraState) {
-      if (cameraState is CameraOpen) {
-        cam = cameraState.cameraOpen;
-      }
-      if (cameraState is imagePick) {
-        image = cameraState.imagepick;
-      }
-      if (cameraState is choose) {
-        choosed = cameraState.choosed;
-      }
-      if (cameraState is AcceptCount) {
-        serves = cameraState.accept;
-      }
-      if (cameraState is AcceptTime) {
-        time = cameraState.acceptTime;
-      }
-      if (cameraState is addItemState) {
-        items = cameraState.items;
-      }
-      if (cameraState is loading) {
-        load = cameraState.load;
-      }
-
-      return add(context, cam, gal, image, choosed, serves, time, items, load);
-    }));
+    return ThemeSwitchingArea(
+      child: Scaffold(body:
+          BlocBuilder<CameraCubit, CameraState>(builder: (context, cameraState) {
+        if (cameraState is CameraOpen) {
+          cam = cameraState.cameraOpen;
+        }
+        if (cameraState is imagePick) {
+          image = cameraState.imagepick;
+        }
+        if (cameraState is choose) {
+          choosed = cameraState.choosed;
+        }
+        if (cameraState is AcceptCount) {
+          serves = cameraState.accept;
+        }
+        if (cameraState is AcceptTime) {
+          time = cameraState.acceptTime;
+        }
+        if (cameraState is addItemState) {
+          items = cameraState.items;
+        }
+        if (cameraState is loading) {
+          load = cameraState.load;
+        }
+    
+        return add(context, cam, gal, image, choosed, serves, time, items, load);
+      })),
+    );
   }
 }
 

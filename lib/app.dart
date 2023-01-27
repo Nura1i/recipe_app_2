@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,10 +18,12 @@ import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:recipe_app/utils/theme/themes.dart';
+import 'package:recipe_app/utils/theme/theme_configg.dart';
 
 class AppProvider extends StatefulWidget {
-  const AppProvider({super.key});
+  const AppProvider({
+    super.key,
+  });
 
   @override
   State<AppProvider> createState() => _AppProviderState();
@@ -32,7 +35,33 @@ class AppProvider extends StatefulWidget {
   }
 }
 
+final isPlatformDark =
+    WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+final initTheme = isPlatformDark ? AppTTheme.darkkTheme : AppTTheme.whiteeTheme;
+
 class _AppProviderState extends State<AppProvider> {
+  var themmm;
+  @override
+  void initState() {
+    changer();
+
+    super.initState();
+  }
+
+  changer() async {
+    var themeService = await ThemeService.instance;
+    var initThemee = themeService.initial;
+    themmm = initThemee;
+
+    return themmm;
+  }
+
+  @override
+  // void initState() {
+  //   changer();
+  //   super.initState();
+  // }
+
   @override
   Locale? _locale;
   @override
@@ -54,9 +83,7 @@ class _AppProviderState extends State<AppProvider> {
       context,
       designSize: const Size(390, 870),
     );
-    final isPlatformDark =
-        WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-    final initTheme = isPlatformDark ? darkkTheme : whiteeTheme;
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -97,7 +124,7 @@ class _AppProviderState extends State<AppProvider> {
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
               locale: _locale,
-              darkTheme: whiteeTheme,
+            
               theme: myTheme,
               home: FutureBuilder(
                   future: Prefs.loadData<String>(key: 'token'),
