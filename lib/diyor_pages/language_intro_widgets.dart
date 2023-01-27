@@ -18,8 +18,9 @@ Widget LanguageIntro(Text text1, String text2, BuildContext context) {
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 14,
+              fontSize: 13.5,
               fontWeight: FontWeight.w400,
+              fontFamily: "Lora",
             ),
           ),
         ),

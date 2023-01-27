@@ -41,17 +41,15 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Center(
-          child: Text(
-            'Cooking App',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              //fontFamily: "Explora",
-            ),
+        title: Text(
+          'Cooking App',
+          style: TextStyle(
+            color: Colors.blue.shade200,
+            fontSize: 20,
+            fontFamily: "kavoon",
           ),
         ),
       ),
@@ -77,6 +75,7 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
                   color: Colors.blue.shade200,
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
+                  fontFamily: "Lora",
                 ),
               ),
               // Tilni Tanlash qismi...!
@@ -99,7 +98,7 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
                       LanguageEnum.uz: LanguageIntro(
                           const Text(
                             "🇺🇿",
-                            style: TextStyle(fontSize: 23),
+                            style: TextStyle(fontSize: 22),
                           ),
                           "O'zbekcha",
                           context),
@@ -139,7 +138,7 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
               child: Container(
                 alignment: Alignment.center,
                 height: size.height / 17,
-                width: size.width / 2.2,
+                width: size.width / 2.5,
                 decoration: BoxDecoration(
                   color: Colors.blue.shade100,
                   borderRadius: BorderRadius.circular(15),
@@ -149,7 +148,8 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
-                    fontSize: 15,
+                    fontSize: 16,
+                    fontFamily: "Lora",
                   ),
                   textAlign: TextAlign.center,
                 ),

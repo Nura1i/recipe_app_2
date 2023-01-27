@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/diyor_pages/intro_language_page.dart';
 import 'package:recipe_app/pages/sign_up_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -54,20 +55,36 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         duration: const Duration(milliseconds: 350),
                         curve: Curves.easeIn);
                   },
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: size.height / 17,
-                    width: size.width / 3.5,
-                    decoration: BoxDecoration(
-                      color: Colors.blue.shade100,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Text(
-                      translation(context).back,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
+                  child: GestureDetector(
+                    onTap: () {
+                      _controller.animateToPage(_controller.page!.round() - 1,
+                          duration: const Duration(milliseconds: 350),
+                          curve: Curves.easeIn);
+                      if (_controller.page!.round() == 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LanguageIntroPage(),
+                          ),
+                        );
+                      }
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: size.height / 17,
+                      width: size.width / 3.5,
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade100,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Text(
+                        translation(context).back,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Lora",
+                        ),
                       ),
                     ),
                   ),
@@ -116,6 +133,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               fontSize: 16,
                               color: Colors.white,
                               fontWeight: FontWeight.w400,
+                              fontFamily: "Lora",
                             ),
                           ),
                         ),
@@ -141,6 +159,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               fontSize: 16,
                               color: Colors.black,
                               fontWeight: FontWeight.w400,
+                              fontFamily: "Lora",
                             ),
                           ),
                         ),

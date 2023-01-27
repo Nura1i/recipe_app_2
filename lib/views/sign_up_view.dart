@@ -23,7 +23,7 @@ class _signUpViewState extends State<signUpView> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
-        //physics: const BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         //reverse: false,
         child: SizedBox(
           height: size.height,
@@ -79,6 +79,7 @@ class _signUpViewState extends State<signUpView> {
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.green,
+                                        fontFamily: "Lora",
                                       ),
                                     ),
                                   ),
@@ -144,6 +145,7 @@ class _signUpViewState extends State<signUpView> {
                                           color: Colors.white,
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
+                                          fontFamily: "Lora",
                                         ),
                                       ),
                                     ),
@@ -163,8 +165,10 @@ class _signUpViewState extends State<signUpView> {
                                     child: Text(
                                       translation(context).signIn,
                                       style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "Lora",
+                                      ),
                                     ),
                                     onPressed: () => Navigator.of(context)
                                         .pushAndRemoveUntil(
@@ -207,6 +211,7 @@ class _signUpViewState extends State<signUpView> {
         controller: controller,
         style: TextStyle(
           color: Colors.black.withOpacity(.9),
+          fontFamily: "Lora",
         ),
         keyboardType:
             !isNumber ? TextInputType.emailAddress : TextInputType.number,
@@ -221,6 +226,7 @@ class _signUpViewState extends State<signUpView> {
           hintStyle: TextStyle(
             fontSize: 14,
             color: Colors.black.withOpacity(.7),
+            fontFamily: "Lora",
           ),
         ),
       ),

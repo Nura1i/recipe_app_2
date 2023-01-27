@@ -346,8 +346,8 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                             borderRadius: BorderRadius.circular(20)),
                         child: ListTile(
                             leading: Container(
-                              height: 37,
-                              width: 37,
+                              height: 37.h,
+                              width: 37.w,
                               margin: const EdgeInsets.only(bottom: 5),
                               padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
@@ -355,8 +355,8 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                                   borderRadius: BorderRadius.circular(10)),
                               child: SvgPicture.asset(
                                 'assets/svg/People.svg',
-                                width: 30,
-                                height: 30,
+                                width: 30.w,
+                                height: 30.h,
                                 color: Colors.orange,
                               ),
                             ),

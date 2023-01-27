@@ -132,9 +132,11 @@ allUsers(contex, data) {
               const SizedBox(
                 width: 20,
               ),
-              Text(
-                data['username'] ?? 'username',
-                style: const TextStyle(color: Colors.white, fontSize: 19),
+              Expanded(
+                child: Text(
+                  data['username'] ?? 'username',
+                  style: const TextStyle(color: Colors.white, fontSize: 19),
+                ),
               )
             ],
           ),

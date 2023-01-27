@@ -108,15 +108,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           style: const TextStyle(color: Colors.red),
                         )
                       : const SizedBox(),
-                  // style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 17.0, top: 12),
                   child: SizedBox(
                     width: size.width * 0.60,
-                    child: const Text(
-                      'Hello world I’m Alessandra Blair, I’m from Italy 🇮🇹 I love cooking so much!',
-                      style: TextStyle(
+                    child: Text(
+                      bio.toString() == 'null' ? 'bio' : bio.toString(),
+                      style: const TextStyle(
                         color: Color(0xffA9A9A9),
                       ),
                     ),
@@ -143,22 +142,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                       width: size.width * 0.06,
                                     ),
                                     counter(
-                                        snapshot.data!['recepts'].length ?? '',
+                                        snapshot.data!['recepts'] == null
+                                            ? '0'
+                                            : snapshot.data!['recepts'].length,
                                         'Recipes'),
                                     SizedBox(
                                       width: size.width * 0.2,
                                     ),
                                     counter(
-                                        snapshot.data!['saved'].length ?? '',
+                                        snapshot.data!['saved'] == null
+                                            ? '0'
+                                            : snapshot.data!['saved'].length,
                                         'Saved'),
                                     SizedBox(
                                       width: size.width * 0.2,
                                     ),
-                                    counter(
-                                        snapshot.data!['totalLikes'] == null
-                                            ? '0'
-                                            : snapshot
-                                                .data!['totalLikes'].length,
+                                    counter(snapshot.data!['totalLikes'] ?? '0',
                                         'Likes'),
                                   ],
                                 );
@@ -220,22 +219,24 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ? const Center(
                                       child: CircularProgressIndicator(),
                                     )
-                                  : SizedBox(
-                                      height: 200,
-                                      child: GridView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount:
-                                            snapshots.data!['recepts']!.length,
-                                        itemBuilder: (contex, index) {
-                                          var data =
-                                              snapshots.data!['recepts'][index];
-                                          return showOwnPosts(data);
-                                        },
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 3),
-                                      ));
+                                  : snapshots.data!['recepts'] != null
+                                      ? SizedBox(
+                                          height: 200,
+                                          child: GridView.builder(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: snapshots
+                                                .data!['recepts']!.length,
+                                            itemBuilder: (contex, index) {
+                                              var data = snapshots
+                                                  .data!['recepts'][index];
+                                              return showOwnPosts(data);
+                                            },
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 3),
+                                          ))
+                                      : const SizedBox();
                             },
                           ),
                           StreamBuilder(
@@ -249,22 +250,24 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ? const Center(
                                       child: CircularProgressIndicator(),
                                     )
-                                  : SizedBox(
-                                      height: 200,
-                                      child: GridView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount:
-                                            snapshots.data!['saved']!.length,
-                                        itemBuilder: (contex, index) {
-                                          var data =
-                                              snapshots.data!['saved'][index];
-                                          return showOwnPosts(data);
-                                        },
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 3),
-                                      ));
+                                  : snapshots.data!['saved'] != null
+                                      ? SizedBox(
+                                          height: 200,
+                                          child: GridView.builder(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: snapshots
+                                                .data!['saved']!.length,
+                                            itemBuilder: (contex, index) {
+                                              var data = snapshots
+                                                  .data!['saved'][index];
+                                              return showOwnPosts(data);
+                                            },
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 3),
+                                          ))
+                                      : const SizedBox();
                             },
                           ),
                         ],

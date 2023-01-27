@@ -54,6 +54,7 @@ dependencies:
   cropperx: ^1.1.1
   custom_image_crop: ^0.0.4
   dropdown_button2: ^1.9.2
+  device_preview: ^1.1.0
   
 dev_dependencies:
   flutter_test:
@@ -79,9 +80,12 @@ flutter:
       - assets/lottie/
 
   fonts:
-    - family: Pacifico
+    - family: Kavoon
       fonts:
-        - asset: assets/fonts/Pacifico-Regular.ttf
+        - asset: assets/fonts/Kavoon-Regular.ttf
+    - family: Lora
+      fonts:
+        - asset: assets/fonts/Lora-VariableFont_wght.ttf
         #  - asset: fonts/Schyler-Italic.ttf
         #   style: italic
   #   - family: Trajan Pro
