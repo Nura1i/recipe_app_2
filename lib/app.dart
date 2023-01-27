@@ -85,79 +85,84 @@ class _AppProviderState extends State<AppProvider> {
     );
 
     return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => SignUpCubit(),
-          ),
-          BlocProvider(
-            create: (context) => SignInCubit(),
-          ),
-          BlocProvider(
-            create: (context) => ListPostCubit(),
-          ),
-          BlocProvider(
-            create: (context) => LikedCubit(),
-          ),
-          BlocProvider(
-            create: (context) => SavedCubit(),
-          ),
-          BlocProvider(
-            create: (context) => LocaleCubit(),
-          ),
-          BlocProvider(
-            create: (context) => CameraCubit(),
-          ),
-          BlocProvider(
-            create: (context) => ImagePublishCubit(),
-          ),
-          BlocProvider(
-            create: (context) => SearchCubit(),
-          )
-        ],
-        child: ThemeProvider(
-            duration: const Duration(milliseconds: 600),
-            initTheme: themmm,
-            builder: (p0, theme) {
-              return MaterialApp(
-               
-                  themeMode: ThemeMode.system,
-                  title: 'Recipe App',
-                  localizationsDelegates:
-                      AppLocalizations.localizationsDelegates,
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  locale: _locale,
-                  //darkTheme: AppTTheme.darkkTheme,
-                  theme: theme,
-                  home: FutureBuilder(
-                      future: Prefs.loadData<String>(key: 'token'),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData && snapshot.data != null) {
-                          return const MenuPage();
-                        }
-                        return const LanguageIntroPage();
-                      }));
-            }));
-  }
-}
+      providers: [
+        BlocProvider(
+          create: (context) => SignUpCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SignInCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ListPostCubit(),
+        ),
+        BlocProvider(
+          create: (context) => LikedCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SavedCubit(),
+        ),
+        BlocProvider(
+          create: (context) => LocaleCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CameraCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ImagePublishCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SearchCubit(),
+        )
+      ],
+      child: ThemeProvider(
+        duration: const Duration(milliseconds: 600),
+        initTheme: initTheme,
+        builder: (_, myTheme) {
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Recipe App',
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: _locale,
+            
+              theme: myTheme,
+              home: FutureBuilder(
+                  future: Prefs.loadData<String>(key: 'token'),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && snapshot.data != null) {
+                      return const LanguageIntroPage();
+                    }
+                    return const LanguageIntroPage();
+                  }));
 
-extension on BuildContext {
-  get light {
-    AdaptiveTheme.of(this).setLight();
-  }
+          //  CustomDrawer(),
+        },
+      ),
 
-  get dark {
-    AdaptiveTheme.of(this).setDark();
-  }
+      //  AdaptiveTheme(
 
-  ThemeData get theme {
-    return AdaptiveTheme.of(this).theme;
-  }
+      //     light: AppTheme.whiteTheme,
+      //     dark: AppTheme.darkTheme,
+      //     initial: AppTheme.currentSavedTheme ?? AdaptiveThemeMode.light,
+      //     builder: (light, dark) => MaterialApp(
+      //         title: 'Recipe App',
+      //         localizationsDelegates: AppLocalizations.localizationsDelegates,
+      //         supportedLocales: AppLocalizations.supportedLocales,
 
-  get changeTheme {
-    if (AdaptiveTheme.of(this).mode == AdaptiveThemeMode.dark) {
-      light;
-    } else {
-      dark;
-    }
+      //         locale: _locale,
+      //         darkTheme: dark,
+      //         theme: light,
+      //         home: FutureBuilder(
+      //             future: Prefs.loadData<String>(key: 'token'),
+      //             builder: (context, snapshot) {
+      //               if (snapshot.hasData && snapshot.data != null) {
+      //                 return const MenuPage();
+      //               }
+      //               return const LanguageIntroPage();
+      //             }
+      //           )
+      //         )
+      //       )
+    );
   }
 }
