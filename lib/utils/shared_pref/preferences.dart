@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:adaptive_theme/adaptive_theme.dart';
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:recipe_app/utils/theme/theme_configg.dart';
 import 'package:shared_preferences/shared_preferences.dart' as ShP;
 
 class Prefs {
@@ -25,6 +26,7 @@ class Prefs {
     }
     return null;
   }
+
   ///load data
   static Future<T> loadData<T>({required String? key}) async {
     final prefs = await ShP.SharedPreferences.getInstance();
@@ -50,14 +52,102 @@ class Prefs {
     final prefs = await ShP.SharedPreferences.getInstance();
     return prefs.remove(key!);
   }
-
-
 }
 
+/////////////////////////////////////////////
+class ThemeService {
+  ThemeService._();
+  static late ShP.SharedPreferences prefs;
+  static ThemeService? _instance;
 
+  static Future<ThemeService> get instance async {
+    if (_instance == null) {
+      prefs = await ShP.SharedPreferences.getInstance();
+      _instance = ThemeService._();
+    }
+    return _instance!;
+  }
 
+  final allThemes = <String, ThemeData>{
+    'dark': AppTTheme.darkkTheme,
+    'light': AppTTheme.whiteeTheme,
+    // 'pink': pinkTheme,
+    // 'darkBlue': darkBlueTheme,
+    // 'halloween': halloweenTheme,
+  };
 
+  String get previousThemeName {
+    String? themeName = prefs.getString('previousThemeName');
+    if (themeName == null) {
+      final isPlatformDark =
+          WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+      themeName = isPlatformDark ? 'light' : 'dark';
+    }
+    return themeName;
+  }
 
+  get initial {
+    String? themeName = prefs.getString('theme');
+    if (themeName == null) {
+      final isPlatformDark =
+          WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+      themeName = isPlatformDark ? 'dark' : 'light';
+    }
+    return allThemes[themeName.toString()];
+  }
 
+  save(String newThemeName) {
+    var currentThemeName = prefs.getString('theme');
+    if (currentThemeName != null) {
+      log('!null');
+      prefs.setString('previousThemeName', currentThemeName);
+    }
+    prefs.setString('theme', newThemeName);
+    log('Saved your theme');
+  }
 
+  ThemeData getByName(String name) {
+    return allThemes[name]!;
+  }
+}
 
+/////////////////////////////////////////
+// class AppTheme extends ChangeNotifier {
+//   final String key = "theme";
+//   ShP.SharedPreferences? _prefs;
+//   late bool _darktheme;
+
+//   bool get darkTheme => _darktheme;
+
+//   AppTheme() {
+//     _darktheme = true;
+//     _loadprefs();
+//   }
+
+//   switchthemelight() {
+//     _darktheme = false;
+//     _saveprefs();
+//     notifyListeners();
+//   }
+
+//   switchthemedark() {
+//     _darktheme = true;
+//     _saveprefs();
+//     notifyListeners();
+//   }
+
+//   _initiateprefs() async {
+//     _prefs ??= await ShP.SharedPreferences.getInstance();
+//   }
+
+//   _loadprefs() async {
+//     await _initiateprefs();
+//     _darktheme = _prefs?.getBool(key) ?? true;
+//     notifyListeners();
+//   }
+
+//   _saveprefs() async {
+//     await _initiateprefs();
+//     _prefs?.setBool(key, _darktheme);
+//   }
+// }

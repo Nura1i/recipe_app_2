@@ -1,19 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 import 'package:recipe_app/app.dart';
 import 'package:recipe_app/diyor_pages/intro_page/onboarding_screen.dart';
 import 'package:recipe_app/diyor_pages/language_intro_widgets.dart';
-import 'package:recipe_app/main.dart';
+
 import 'package:recipe_app/utils/shared_pref/language_prefs/language.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 
-void main() {
-  // Language Intro Page!
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  runApp(const MyApp());
-}
+// void main() async {
+//   // Language Intro Page!
+
+//   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+//   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // var themeService = await ThemeService.instance;
+  // var initThemee = themeService.initial;
+//   runApp(MyApp(
+//     theme: initThemee,
+//   ));
+// }
 
 enum LanguageEnum {
   en(data: 'en'),

@@ -10,7 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recipe_app/blocs/publish_profile/publish_state.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
 
-import 'package:recipe_app/pages/profile_page/settings_profile_page/nw.dart';
+import 'package:recipe_app/pages/profile_page/settings_profile_page/croppPage.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 
 Uint8List? imageToCrop;

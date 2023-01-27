@@ -1,7 +1,15 @@
-part of 'themes.dart';
 
-final TextTheme lightTextTheme = TextTheme(
-   bodyMedium: TextStyle(
+
+ import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+TextTheme lightTextTheme = TextTheme(
+    bodyText1: TextStyle(
+        fontSize: 10.sp,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'SFPro',
+        color: Colors.orange),
+    bodyMedium: TextStyle(
         fontSize: 20.sp,
         fontWeight: FontWeight.w600,
         fontFamily: 'SFPro',
@@ -23,13 +31,8 @@ final TextTheme lightTextTheme = TextTheme(
       color: Colors.white,
     ),
     bodySmall: TextStyle(
-      fontSize: 14.sp,
-      fontWeight: FontWeight.w500,
-      fontFamily: 'Roboto',
-      color: Colors.white
-      
-    ),
-    titleLarge:const TextStyle(color: Colors.white)
-
-
-);
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+        fontFamily: 'Roboto',
+        color: Colors.white),
+    titleLarge: const TextStyle(color: Colors.white));
