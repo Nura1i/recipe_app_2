@@ -20,13 +20,12 @@ class _SignInViewState extends State<SignInView> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         //reverse: true,
-        //physics: NeverScrollableScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: SizedBox(
           height: size.height,
           child: Stack(
@@ -83,6 +82,7 @@ class _SignInViewState extends State<SignInView> {
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.green,
+                                        fontFamily: "Lora",
                                       ),
                                     ),
                                   ),
@@ -138,6 +138,7 @@ class _SignInViewState extends State<SignInView> {
                                           color: Colors.white,
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
+                                          fontFamily: "Lora",
                                         ),
                                       ),
                                     ),
@@ -159,6 +160,7 @@ class _SignInViewState extends State<SignInView> {
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600,
+                                        fontFamily: "Lora",
                                       ),
                                     ),
                                     onPressed: () => Navigator.of(context)
@@ -201,6 +203,7 @@ class _SignInViewState extends State<SignInView> {
         controller: controller,
         style: TextStyle(
           color: Colors.black.withOpacity(.9),
+          fontFamily: "Lora",
         ),
         keyboardType:
             !isNumber ? TextInputType.emailAddress : TextInputType.number,
@@ -215,6 +218,7 @@ class _SignInViewState extends State<SignInView> {
           hintStyle: TextStyle(
             fontSize: 14,
             color: Colors.black.withOpacity(.7),
+            fontFamily: "Lora",
           ),
         ),
       ),

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/app.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/language.dart';
-import 'package:recipe_app/utils/theme/themes.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:recipe_app/utils/shared_pref/preferences.dart';
 
 ThemeBottomSheet(BuildContext context, light) {
   showModalBottomSheet(
@@ -14,7 +15,7 @@ ThemeBottomSheet(BuildContext context, light) {
       context: context,
       builder: (ctx) {
         return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.30.h,
+            height: MediaQuery.of(context).size.height * 0.35.h,
             child: Center(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -28,53 +29,51 @@ ThemeBottomSheet(BuildContext context, light) {
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
-                  themeWidget(
-                      whiteeTheme, whiteeTheme, 'Light', Icons.sunny, context),
-                  const Divider(
-                    thickness: 2,
-                    color: Colors.orange,
-                  ),
-                  themeWidget(whiteeTheme, darkkTheme, 'Dark', Icons.dark_mode,
-                      context),
-                  const Divider(
-                    thickness: 2,
-                    color: Colors.orange,
-                  ),
-                  themeWidget(whiteeTheme, darkkTheme, 'System',
-                      Icons.sunny_snowing, context),
+                  // themeWidget('light', 'light', 'Light', Icons.sunny, context),
+                  // const Divider(
+                  //   thickness: 1,
+                  //   color: Colors.orange,
+                  // ),
+                  // themeWidget('dark', 'dark', 'Dark', Icons.dark_mode, context),
+                  // const Divider(
+                  //   thickness: 1,
+                  //   color: Colors.orange,
+                  // ),
+                  // themeWidget(
+                  //     'dark', 'light', 'System', Icons.sunny_snowing, context),
                 ])));
       });
 }
 
 // Theme for Widgets
-Widget themeWidget(ThemeData themechange1, ThemeData themechange2,
-    String texttheme, IconData icon, BuildContext context) {
-  return ThemeSwitcher.withTheme(
-    builder: (_, switcher, theme) {
-      return TextButton(
-        onPressed: () => switcher.changeTheme(
-          theme:
-              theme.brightness == Brightness.dark ? themechange1 : themechange2,
-        ),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              color: Theme.of(context).focusColor,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              texttheme,
-              style: Theme.of(context).textTheme.bodySmall,
-            )
-          ],
-        ),
-      );
-    },
-  );
-}
+
+
+  //  ThemeSwitcher.withTheme(
+  //   builder: (_, switcher, theme) {
+  //     return TextButton(
+  //       onPressed: () => switcher.changeTheme(
+  //         theme:
+  //             theme.brightness == Brightness.dark ? themechange1 : themechange2,
+  //       ),
+  //       child: Row(
+  //         children: [
+  //           Icon(
+  //             icon,
+  //             color: Theme.of(context).focusColor,
+  //           ),
+  //           const SizedBox(
+  //             width: 3,
+  //           ),
+  //           Text(
+  //             texttheme,
+  //             style: Theme.of(context).textTheme.bodySmall,
+  //           )
+  //         ],
+  //       ),
+  //     );
+  //   },
+  // );
+//}
 
 // Language Widget
 Widget LanguageForSheet(

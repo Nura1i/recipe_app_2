@@ -1,5 +1,12 @@
-part of 'themes.dart';
-final TextTheme darkTextTheme = TextTheme(
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+ TextTheme darkTextTheme = TextTheme(
+    bodyText1: TextStyle(
+        fontSize: 10.sp,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'SFPro',
+        color: Colors.red),
     bodyMedium: const TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w600,
@@ -28,6 +35,4 @@ final TextTheme darkTextTheme = TextTheme(
         fontWeight: FontWeight.w500,
         fontFamily: 'SFPro',
         color: Colors.black),
-    titleLarge: const TextStyle(color: Colors.black)
-    
-    );
+    titleLarge: const TextStyle(color: Colors.black));

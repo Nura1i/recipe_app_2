@@ -45,6 +45,8 @@ dependencies:
   animated_theme_switcher: ^2.0.7
   switcher_button: ^0.0.4
   google_fonts: ^3.0.1
+  theme_provider: ^0.5.0
+  provider: ^6.0.5
 
   # 
   flutter_zoom_drawer: ^3.0.3
@@ -55,6 +57,7 @@ dependencies:
   cropperx: ^1.1.1
   custom_image_crop: ^0.0.4
   dropdown_button2: ^1.9.2
+  device_preview: ^1.1.0
   
 dev_dependencies:
   flutter_test:
@@ -64,6 +67,7 @@ dev_dependencies:
   json_serializable: ^6.5.4
   flutter_lints: ^2.0.0
   retrofit_generator: ^4.2.0
+  device_preview: ^1.1.0
 
 
 
@@ -80,9 +84,12 @@ flutter:
       - assets/lottie/
 
   fonts:
-    - family: Pacifico
+    - family: Kavoon
       fonts:
-        - asset: assets/fonts/Pacifico-Regular.ttf
+        - asset: assets/fonts/Kavoon-Regular.ttf
+    - family: Lora
+      fonts:
+        - asset: assets/fonts/Lora-VariableFont_wght.ttf
         #  - asset: fonts/Schyler-Italic.ttf
         #   style: italic
   #   - family: Trajan Pro

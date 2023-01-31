@@ -35,10 +35,12 @@
   "trendingNow": "Trending Now🔥",
   "notifications": "Notifications",
   "search": "Search recipes...",
+  "popularcategory": "Popular category",
+  "recipecategory": "Recipe Category",
   "introPage1": "Hello! \n Welcome to our ''Cooking'' app!",
   "introPage11": "We are very happy to see you in our Cooking app! Click «Next» to get familiar with our application!",
   "introPage2": "Are you interested in cooking? \n But you can't?",
   "introPage22": "Then our Cooking app can help you! Learn to cook with us! And share with your loved ones.",
   "introPage3": "In our Cooking app, you can share your recipes with others!",
-  "introPage33": "Share your recipes with the world! and surprise your loved ones with your recipes!"  
+  "introPage33": "Share your recipes with the world! and surprise your loved ones with your recipes!"
 }

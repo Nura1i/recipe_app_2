@@ -82,9 +82,8 @@ class _CropperScreennState extends State<CropperScreenn> {
                     color: Colors.black,
                     child: const Icon(Icons.crop, color: Colors.white),
                     onPressed: () async {
-                      final imageBytes = await Cropper.crop(
-                        cropperKey: _cropperKey,
-                      );
+                      final imageBytes =
+                          await Cropper.crop(cropperKey: _cropperKey);
 
                       if (imageBytes != null) {
                         _croppedImage = imageBytes;

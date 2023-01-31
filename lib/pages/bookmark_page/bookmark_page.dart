@@ -28,7 +28,7 @@ class _BookMarkPageState extends State<BookMarkPage>
     for (var post in responseList) {
       listItems.add(
         Container(
-          height: 150,
+          height: 120.w,
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(20.0)),
@@ -46,24 +46,32 @@ class _BookMarkPageState extends State<BookMarkPage>
                   children: <Widget>[
                     Text(
                       post["name"],
-                      style: const TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                      style: TextStyle(
+                        fontSize: 28.w,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontFamily: "Lora",
+                      ),
                     ),
                     Text(
                       post["brand"],
-                      style: const TextStyle(fontSize: 17, color: Colors.grey),
+                      style: TextStyle(
+                        fontSize: 17.w,
+                        color: Colors.grey,
+                        fontFamily: "Lora",
+                      ),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(
                       "\$ ${post["price"]}",
-                      style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 20.w,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Lora",
+                      ),
                     )
                   ],
                 ),
@@ -91,7 +99,7 @@ class _BookMarkPageState extends State<BookMarkPage>
 
       setState(() {
         topContainer = value;
-        closeTopContainer = controller.offset > 50;
+        closeTopContainer = controller.offset > 70;
       });
     });
   }
@@ -99,7 +107,7 @@ class _BookMarkPageState extends State<BookMarkPage>
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final double categoryHeight = size.height * 0.3;
+    final double categoryHeight = size.height * 0.335.w;
 
     return GestureDetector(
       onTap: () {
@@ -112,11 +120,12 @@ class _BookMarkPageState extends State<BookMarkPage>
           elevation: 0,
           backgroundColor: Colors.orange.shade600,
           title: Text(
-            translation(context).savedRecipes,
-            style: const TextStyle(
+            translation(context).recipecategory,
+            style: TextStyle(
               color: Colors.white,
-              fontSize: 22,
+              fontSize: 20.w,
               fontWeight: FontWeight.w600,
+              fontFamily: "Lora",
             ),
           ),
         ),
@@ -127,86 +136,82 @@ class _BookMarkPageState extends State<BookMarkPage>
             children: <Widget>[
               Stack(
                 children: [
-                  // AppBar tegidi contanier!
+                  // AppBar tegidi contanier...!
                   Container(
                     color: Colors.orange.shade600,
-                    height: 80,
+                    height: size.height * 0.1.w,
                   ),
+                  // AppBar tegidi umumiy Search qismi...!
                   Column(
                     children: <Widget>[
-                      // AppBar tegidi Search qismi!
                       Container(
-                        height: 140.h,
+                        height: size.height * 0.20.w,
+                        width: size.width,
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(45),
-                            topRight: Radius.circular(45),
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40),
                           ),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Text qismi.
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                bottom: 15,
-                                right: 22,
-                                left: 22,
-                              ),
-                              child: Text(
-                                translation(context).findrecipe,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                        fontSize: 22,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Text qismi...!
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                  translation(context).findrecipe,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        fontSize: 20.w,
                                         fontWeight: FontWeight.w600,
-                                        color: Colors.black),
+                                        color: Colors.black,
+                                        fontFamily: "Lora",
+                                      ),
+                                ),
                               ),
-                            ),
-                            //Search qismi.
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                right: 20,
-                                left: 20,
-                              ),
-                              child: Container(
-                                width: size.width / 0.7.w,
-                                height: size.height / 13.h,
+                              // Search qismi...!
+                              Container(
+                                height: size.width * 0.12.w,
+                                width: size.width * 1.w,
                                 decoration: BoxDecoration(
+                                  color: Colors.blue.withOpacity(0.05),
                                   border: Border.all(
-                                    width: 2.w,
-                                    color: Colors.orange.shade500,
+                                    width: 1.5.w,
+                                    color: Colors.orange,
                                   ),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
-                                // Icon Search qismi.
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    TextField(
-                                      decoration: InputDecoration(
-                                        hintText: translation(context).search,
-                                        hintStyle: TextStyle(
-                                          color: Colors.orange.shade500,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                        isDense: false,
-                                        border: InputBorder.none,
-                                        prefixIcon: Icon(
-                                          Icons.search,
-                                          color: Colors.orange.shade700,
-                                        ),
-                                      ),
+                                // Icon Search qismi...!
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    hintText: translation(context).search,
+                                    hintStyle: TextStyle(
+                                      color: Colors.orange.shade500,
+                                      fontSize: 16.w,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "Lora",
                                     ),
-                                  ],
+                                    isDense: false,
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(
+                                      Icons.search,
+                                      color: Colors.orange.shade600,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -214,17 +219,21 @@ class _BookMarkPageState extends State<BookMarkPage>
                 ],
               ),
               // Popular Category
-              Text(
-                "Popular category",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Text(
+                  translation(context).popularcategory,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 20.w,
+                        color: Colors.black,
+                        fontFamily: "Lora",
+                      ),
+                ),
               ),
 
               // Categoriya qismi !
               AnimatedOpacity(
-                duration: const Duration(milliseconds: 1000),
+                duration: const Duration(seconds: 1),
                 opacity: closeTopContainer ? 0 : 1,
                 child: AnimatedContainer(
                     duration: const Duration(milliseconds: 400),
@@ -256,7 +265,7 @@ class _BookMarkPageState extends State<BookMarkPage>
                         transform: Matrix4.identity()..scale(scale, scale),
                         alignment: Alignment.bottomCenter,
                         child: Align(
-                            heightFactor: 0.7,
+                            heightFactor: 0.9,
                             alignment: Alignment.topCenter,
                             child: itemsData[index]),
                       ),

@@ -1,19 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 import 'package:recipe_app/app.dart';
 import 'package:recipe_app/diyor_pages/intro_page/onboarding_screen.dart';
 import 'package:recipe_app/diyor_pages/language_intro_widgets.dart';
-import 'package:recipe_app/main.dart';
+
 import 'package:recipe_app/utils/shared_pref/language_prefs/language.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 
-void main() {
-  // Language Intro Page!
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  runApp(const MyApp());
-}
+// void main() async {
+//   // Language Intro Page!
+
+//   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+//   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // var themeService = await ThemeService.instance;
+  // var initThemee = themeService.initial;
+//   runApp(MyApp(
+//     theme: initThemee,
+//   ));
+// }
 
 enum LanguageEnum {
   en(data: 'en'),
@@ -41,17 +46,15 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Center(
-          child: Text(
-            'Cooking App',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              //fontFamily: "Explora",
-            ),
+        title: Text(
+          'Cooking App',
+          style: TextStyle(
+            color: Colors.blue.shade200,
+            fontSize: 20,
+            fontFamily: "kavoon",
           ),
         ),
       ),
@@ -77,6 +80,7 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
                   color: Colors.blue.shade200,
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
+                  fontFamily: "Lora",
                 ),
               ),
               // Tilni Tanlash qismi...!
@@ -99,7 +103,7 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
                       LanguageEnum.uz: LanguageIntro(
                           const Text(
                             "🇺🇿",
-                            style: TextStyle(fontSize: 23),
+                            style: TextStyle(fontSize: 22),
                           ),
                           "O'zbekcha",
                           context),
@@ -139,7 +143,7 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
               child: Container(
                 alignment: Alignment.center,
                 height: size.height / 17,
-                width: size.width / 2.2,
+                width: size.width / 2.5,
                 decoration: BoxDecoration(
                   color: Colors.blue.shade100,
                   borderRadius: BorderRadius.circular(15),
@@ -149,7 +153,8 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
-                    fontSize: 15,
+                    fontSize: 16,
+                    fontFamily: "Lora",
                   ),
                   textAlign: TextAlign.center,
                 ),
