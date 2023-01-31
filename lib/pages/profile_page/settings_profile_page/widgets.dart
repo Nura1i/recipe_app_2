@@ -2,8 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
-import 'package:flutter/material.dart';
-import 'package:recipe_app/repositories/services/fire_service.dart';
+
 TextEditingController? controllerUserName =
     TextEditingController(text: username1111.toString());
 TextEditingController? controllerBio =
@@ -28,10 +27,6 @@ Future<bool?> yourProfileSetting() async {
   return null;
 }
 
-
-
-
-
 bool showPassword = false;
 bool set = true;
 buildTextField(
@@ -41,9 +36,9 @@ buildTextField(
   TextEditingController controller,
 ) {
   return Padding(
-    padding: EdgeInsets.only(bottom: 35.0),
+    padding: const EdgeInsets.only(bottom: 35.0),
     child: TextField(
-        style:Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context).textTheme.bodyMedium,
         controller: controller,
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.only(bottom: 3),

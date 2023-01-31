@@ -42,7 +42,12 @@ class postedRecipe extends CameraState {
   postedRecipe(this.listOfRecipes);
 }
 
-class loading extends CameraState {
+class loadingg extends CameraState {
   final load;
-  loading(this.load);
+  loadingg(this.load);
+}
+
+class successPost extends CameraState {
+  final isPosted;
+  successPost(this.isPosted);
 }

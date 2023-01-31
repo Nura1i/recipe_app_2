@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_state.dart';
@@ -36,22 +38,27 @@ class SavedCubit extends Cubit<SavedState> {
     count = likedLs.length;
     if (likedLs.contains(currentUser)) {
       isLiked = true;
+      log('liked');
+    } else {
+      log('notLiked');
     }
 
     emit(Like(isLiked));
+
+    //emit(counterLike(count));
   }
 
-  // likecounter(data) async {
-  //   List lsUserId;
-  //   int count;
-  //   DocumentSnapshot userDoc = await FirebaseFirestore.instance
-  //       .collection('Recipes')
-  //       .doc(data['id'])
-  //       .get();
-  //   lsUserId = userDoc.get('totalLikes') ?? [];
-  //   count = lsUserId.length;
-  //   log(lsUserId.toString());
-  //   log(count.toString());
-  //   emit(counterLike(count));
-  // }
+//   likecounter(data) async {
+//     log('counter works');
+//     List lsUserId;
+//     int? count = 0;
+//     DocumentSnapshot userDoc = await FirebaseFirestore.instance
+//         .collection('Recipes')
+//         .doc(data['id'])
+//         .get();
+//     lsUserId = userDoc.get('totalLikes') ?? [];
+//     count = lsUserId.length;
+
+//     emit(counterLike(count));
+//   }
 }

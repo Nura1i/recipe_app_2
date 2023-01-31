@@ -9,6 +9,7 @@ class recipeModel with _$recipeModel {
     String? userId,
     String? head,
     String? photo,
+    String? categorie,
     int? serves,
     int? totalLikes,
     String? cookTime,

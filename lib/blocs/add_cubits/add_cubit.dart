@@ -19,7 +19,10 @@ class CameraCubit extends Cubit<CameraState> {
   File? image;
   Future pickImageFromGalery(ctx) async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 60,
+      );
       if (image == null) return;
       final imageTemp = File(image.path);
       this.image = imageTemp;
@@ -32,7 +35,10 @@ class CameraCubit extends Cubit<CameraState> {
 
   Future pickImageFromCamera(ctx) async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      final image = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        imageQuality: 60,
+      );
 
       if (image == null) return;
       final imageTemp = File(image.path);
@@ -120,15 +126,16 @@ class CameraCubit extends Cubit<CameraState> {
 
   List<String> ingredients = [];
   String? ingredientsString;
-
+  bool isPosted = false;
   bool load = false;
-  postRecipe(
-      ctx, head, serves, cookTime, bodyText, photo, allIngredients) async {
+  postRecipe(ctx, head, serves, cookTime, bodyText, photo, allIngredients,
+      categorie) async {
     load = true;
-    emit(loading(load));
+    emit(loadingg(load));
     recipeModel recipe = recipeModel(
         cookTime: cookTime,
         head: head,
+        categorie: categorie,
         serves: serves,
         userId: FirebaseAuth.instance.currentUser!.uid.toString(),
         id: const Uuid().v1().toString(),
@@ -139,11 +146,12 @@ class CameraCubit extends Cubit<CameraState> {
         recipe: recipe, image: photo);
 
     log('Saved');
-
+    isPosted = true;
+    emit(successPost(isPosted));
     Navigator.of(ctx).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const MenuPage()),
         (route) => false);
     load = false;
-    emit(loading(load));
+    //emit(loadingg(load));
   }
 }

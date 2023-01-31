@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cropperx/cropperx.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -29,27 +28,40 @@ class _CropperScreennState extends State<CropperScreenn> {
   Widget build(BuildContext context) {
     XFile? image;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFFFDF5EC),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                  height: 500,
+                  child: _imageToCrop != null
+                      ? Cropper(
+                          cropperKey: _cropperKey,
+                          overlayType: _overlayType,
+                          image: Image.memory(_imageToCrop!),
+                          onScaleStart: (details) {},
+                          onScaleUpdate: (details) {},
+                          onScaleEnd: (details) {},
+                        )
+                      : const Center(
+                          child: Icon(
+                            Icons.camera_alt,
+                            size: 100,
+                            color: Colors.black,
+                          ),
+                        )),
               const SizedBox(height: 16),
-              if (_croppedImage != null)
-                Padding(
-                  padding: const EdgeInsets.all(36.0),
-                  child: CircleAvatar(
-                      radius: 70,
-                      backgroundColor: Colors.blueGrey,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(120),
-                          child: Image.memory(_croppedImage!))),
-                ),
               Wrap(
                 spacing: 16,
                 children: [
-                  ElevatedButton(
-                    child: const Text('Pick image'),
+                  MaterialButton(
+                    padding: const EdgeInsets.all(10),
+                    color: const Color.fromARGB(255, 26, 4, 4),
+                    child: const Text(
+                      'Galery images',
+                      style: TextStyle(color: Colors.white),
+                    ),
                     onPressed: () async {
                       image = await _picker.pickImage(
                         source: ImageSource.gallery,
@@ -63,8 +75,12 @@ class _CropperScreennState extends State<CropperScreenn> {
                       }
                     },
                   ),
-                  ElevatedButton(
-                    child: const Text('Crop image'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  MaterialButton(
+                    color: Colors.black,
+                    child: const Icon(Icons.crop, color: Colors.white),
                     onPressed: () async {
                       final imageBytes = await Cropper.crop(
                         cropperKey: _cropperKey,
@@ -75,7 +91,6 @@ class _CropperScreennState extends State<CropperScreenn> {
                         userModel usermodel11 = userModel(
                             id: FirebaseAuth.instance.currentUser!.uid);
                         Directory tempDir = await getTemporaryDirectory();
-
                         File file =
                             await File('${tempDir.path}/image.png').create();
                         file.writeAsBytesSync(_croppedImage!);
@@ -84,30 +99,11 @@ class _CropperScreennState extends State<CropperScreenn> {
                         log('PUBLISHED');
                         setState(() {});
                       }
+                      Navigator.of(context).pop();
                     },
                   ),
                 ],
               ),
-              SizedBox(
-                height: 500,
-                child: _imageToCrop != null
-                    ? Cropper(
-                        cropperKey: _cropperKey,
-                        overlayType: _overlayType,
-                        image: Image.memory(_imageToCrop!),
-                        onScaleStart: (details) {
-                          // todo: define started action.
-                        },
-                        onScaleUpdate: (details) {
-                          // todo: define updated action.
-                        },
-                        onScaleEnd: (details) {
-                          // todo: define ended action.
-                        },
-                      )
-                    : const ColoredBox(color: Colors.grey),
-              ),
-              const SizedBox(height: 16),
             ],
           ),
         ),

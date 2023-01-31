@@ -40,6 +40,7 @@ dependencies:
   like_button: ^2.0.5
   shimmer: ^2.0.0
   lottie: ^2.2.0
+  cached_network_image: ^3.2.3
 # for theme
   animated_theme_switcher: ^2.0.7
   switcher_button: ^0.0.4

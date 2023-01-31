@@ -20,7 +20,7 @@ class _MenuPageState extends State<MenuPage> {
     const HomePage(),
     const BookMarkPage(),
     const AddPage(),
-    const SearchPerson(),
+    SearchPerson(),
     //const NotificatonPage(),
     const ZoomDrawerPage()
     // const ProfilePage()

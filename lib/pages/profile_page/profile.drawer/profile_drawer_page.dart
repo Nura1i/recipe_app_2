@@ -17,15 +17,12 @@ class CustomDrawer extends StatelessWidget {
     // final initTheme =
     //     isPlatformDark ? AdaptiveThemeMode.dark : AdaptiveThemeMode.light;
     MediaQueryData mediaQuery = MediaQuery.of(context);
-    return SafeArea(
-        child: Container(
-      color: Theme.of(context).backgroundColor,
-      width: mediaQuery.size.width * 0.60,
-      height: mediaQuery.size.height,
-      child: Column(
-        children: <Widget>[
-          Container(
-            child: Align(
+    return Scaffold(
+      body: SafeArea(
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Align(
               alignment: Alignment.topRight,
               child: ThemeSwitcher.withTheme(
                 builder: (_, switcher, theme) {
@@ -65,71 +62,72 @@ class CustomDrawer extends StatelessWidget {
                 },
               ),
             ),
-          ),
-          SizedBox(
-              width: double.infinity,
-              height: 200,
-              //  color:Theme.of(context).backgroundColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
-                  SizedBox(
-                    height: 100,
-                  )
-                ],
-              )),
-          const Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-          drawerlisttile(
-              Icons.dark_mode, 'Theme', Icons.arrow_circle_right_outlined, () {
-            ThemeBottomSheet(context, true);
-          }, context),
-          drawerlisttile(Icons.dark_mode, 'Theme goooooooooooood',
-              Icons.arrow_circle_right_outlined, () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const ThemePage(),
-            ));
-          }, context),
-          const Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-          const Divider(height: 1, color: Colors.grey),
-          drawerlisttile(
-              Icons.language, 'Language', Icons.arrow_circle_right_outlined,
-              () {
-            displayBottomSheet(context);
-          }, context),
-          const Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-          drawerlisttile(
-              Icons.exit_to_app, 'Log Out', Icons.arrow_circle_right_outlined,
-              () {
-            Logoutdialog(context);
-          }, context),
-          const Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-          GestureDetector(
-            onTap: () => Aboutdialog(context),
-            child: ListTile(
-              title: Text(
-                'Haqida',
-                style: Theme.of(context).textTheme.bodySmall,
+            SizedBox(
+                width: double.infinity,
+                height: 200,
+                //  color:Theme.of(context).backgroundColor,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    SizedBox(
+                      height: 100,
+                    )
+                  ],
+                )),
+            const Divider(
+              height: 1,
+              color: Colors.grey,
+            ),
+            drawerlisttile(
+                Icons.dark_mode, 'Theme', Icons.arrow_circle_right_outlined,
+                () {
+              ThemeBottomSheet(context, true);
+            }, context),
+            drawerlisttile(Icons.dark_mode, 'Theme goooooooooooood',
+                Icons.arrow_circle_right_outlined, () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const ThemePage(),
+              ));
+            }, context),
+            const Divider(
+              height: 1,
+              color: Colors.grey,
+            ),
+            const Divider(height: 1, color: Colors.grey),
+            drawerlisttile(
+                Icons.language, 'Language', Icons.arrow_circle_right_outlined,
+                () {
+              displayBottomSheet(context);
+            }, context),
+            const Divider(
+              height: 1,
+              color: Colors.grey,
+            ),
+            drawerlisttile(
+                Icons.exit_to_app, 'Log Out', Icons.arrow_circle_right_outlined,
+                () {
+              Logoutdialog(context);
+            }, context),
+            const Divider(
+              height: 1,
+              color: Colors.grey,
+            ),
+            GestureDetector(
+              onTap: () => Aboutdialog(context),
+              child: ListTile(
+                title: Text(
+                  'Haqida',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ),
             ),
-          ),
-          const Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-        ],
-      ),
-    ));
+            const Divider(
+              height: 1,
+              color: Colors.grey,
+            ),
+          ],
+        ),
+      )),
+    );
   }
 }

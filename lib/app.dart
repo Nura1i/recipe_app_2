@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
 
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
-import 'package:recipe_app/blocs/like%20and%20saved/likedIcon_cubit.dart';
+
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
 import 'package:recipe_app/blocs/localization/localization_cubit.dart';
 import 'package:recipe_app/blocs/login/sign_in_cubit.dart';
@@ -69,9 +69,6 @@ class _AppProviderState extends State<AppProvider> {
           create: (context) => ListPostCubit(),
         ),
         BlocProvider(
-          create: (context) => LikedCubit(),
-        ),
-        BlocProvider(
           create: (context) => SavedCubit(),
         ),
         BlocProvider(
@@ -107,35 +104,8 @@ class _AppProviderState extends State<AppProvider> {
                     }
                     return const LanguageIntroPage();
                   }));
-
-          //  CustomDrawer(),
         },
       ),
-
-      //  AdaptiveTheme(
-
-      //     light: AppTheme.whiteTheme,
-      //     dark: AppTheme.darkTheme,
-      //     initial: AppTheme.currentSavedTheme ?? AdaptiveThemeMode.light,
-      //     builder: (light, dark) => MaterialApp(
-      //         title: 'Recipe App',
-      //         localizationsDelegates: AppLocalizations.localizationsDelegates,
-      //         supportedLocales: AppLocalizations.supportedLocales,
-
-      //         locale: _locale,
-      //         darkTheme: dark,
-      //         theme: light,
-      //         home: FutureBuilder(
-      //             future: Prefs.loadData<String>(key: 'token'),
-      //             builder: (context, snapshot) {
-      //               if (snapshot.hasData && snapshot.data != null) {
-      //                 return const MenuPage();
-      //               }
-      //               return const LanguageIntroPage();
-      //             }
-      //           )
-      //         )
-      //       )
     );
   }
 }

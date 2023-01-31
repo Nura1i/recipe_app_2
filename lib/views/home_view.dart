@@ -47,7 +47,7 @@ class HomeView2 extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const see_all(),
+                          builder: (context) => const seeAllMilliyTaom(),
                         ));
                         // Navigator.of(context)
                         //     .push(SlideTransition1(const see_all()));
@@ -88,7 +88,7 @@ class HomeView2 extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const see_all(),
+                          builder: (context) => const seeAllRecentAdded(),
                         ));
                         // Navigator.of(context)
                         //     .push(SlideTransition1(const see_all()));
@@ -137,7 +137,10 @@ class HomeView2 extends StatelessWidget {
                                 allRecipes = snapshots.data!.docs[index].data()
                                     as Map<String, dynamic>;
 
-                                return recentAdded(context, allRecipes);
+                                return recentAdded(
+                                  context,
+                                  allRecipes,
+                                );
                               }),
                         );
                 },
@@ -156,7 +159,7 @@ class HomeView2 extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const see_all(),
+                          builder: (context) => const seeAllTopCreators(),
                         ));
                         // Navigator.of(context)
                         //     .push(SlideTransition1(const see_all()));
