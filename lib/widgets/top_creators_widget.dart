@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/pages/On%20open/profile_open.dart';
 
@@ -23,7 +24,8 @@ topCreator(contex, data) {
                 ),
                 CircleAvatar(
                   radius: 32,
-                  foregroundImage: NetworkImage(data['avatarImage'] ??
+                  foregroundImage: CachedNetworkImageProvider(data[
+                          'avatarImage'] ??
                       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
                 ),
                 const SizedBox(
@@ -60,5 +62,46 @@ topCreator(contex, data) {
             ),
           ),
         )
+      ]));
+}
+
+topCreatorForAll(contex, dataa) {
+  return GestureDetector(
+      onTap: () {
+        Navigator.of(contex).push(MaterialPageRoute(
+          builder: (context) => profielOnOpen(data: dataa),
+        ));
+      },
+      child: Stack(children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 5),
+          child: Container(
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            decoration: BoxDecoration(
+//                color: Colors.orangeAccent.shade200,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(width: 1, color: Colors.orange)),
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 10,
+                ),
+                CircleAvatar(
+                  radius: 32,
+                  foregroundImage: CachedNetworkImageProvider(dataa[
+                          'avatarImage'] ??
+                      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  dataa['username'] ?? 'username',
+                  style: const TextStyle(color: Colors.grey, fontSize: 19),
+                )
+              ],
+            ),
+          ),
+        ),
       ]));
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:recipe_app/consts/consts.dart';
 import 'package:recipe_app/models/Recipe%20Model/recipe_model.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/widgets.dart';
@@ -16,6 +17,7 @@ String? avatarImage;
 String? email;
 List? UserRecepts;
 List? allRecepts;
+int? totalCountLikes;
 
 class FireDatabaseService {
   static final FirebaseFirestore _databaseFirestore =
@@ -37,6 +39,12 @@ class FireDatabaseService {
       log(e.toString());
     }
     return userSaved;
+  }
+
+  static getUserFromRecept(userId) async {
+    final userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    return userDoc;
   }
 
   static Future SaveRecipeToCollection(
@@ -116,6 +124,34 @@ class FireDatabaseService {
       log(e.toString());
     }
     return null;
+  }
+
+  static Future deletePost(postId) async {
+    try {
+      await _databaseFirestore.collection('Recipes').doc(postId['id']).delete();
+
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser)
+          .get();
+
+      List lsPost = userDoc.get('recepts') ?? [];
+      List lsSaved = userDoc.get('saved') ?? [];
+
+      if (lsPost.contains(postId['id'])) {
+        lsPost.remove(postId['id']);
+      }
+      if (lsSaved.contains(postId['id'])) {
+        lsSaved.remove(postId['id']);
+      }
+      _databaseFirestore
+          .collection('users')
+          .doc(currentUser)
+          .update({'recepts': lsPost, 'saved': lsSaved});
+      log('Deleted Success');
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   static Future<bool?> updateItemCollection({
@@ -219,6 +255,37 @@ class FireDatabaseService {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  static Future totalLikesUser(ownPostsId) async {
+    DocumentSnapshot userLikes = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser)
+        .get();
+    log('works userLikes');
+    List allRecipesLikes = [];
+    //allRecipesLikes.add(userLikes.get('totalLikes') ?? 0);
+    DocumentSnapshot? recipes;
+    for (var e in ownPostsId) {
+      recipes =
+          await FirebaseFirestore.instance.collection('Recipes').doc(e).get();
+    }
+
+    log('works recipes');
+    allRecipesLikes.add(recipes!['totalLikes'].length);
+    int count = 0;
+    for (int element in allRecipesLikes) {
+      count += element;
+      log(element.toString());
+
+      await _databaseFirestore
+          .collection('users')
+          .doc(currentUser)
+          .update({'totalLikes': count});
+    }
+    return count;
+    //   snapshot.data!['totalLikes'] != null
+    // ? 'total Likes: ${snapshot.data!['totalLikes'].length}'
   }
 
   // static Future<bool?> sendMssage({required MessageModel message}) async {

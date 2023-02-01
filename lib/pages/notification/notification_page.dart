@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,21 +10,20 @@ import 'package:recipe_app/pages/On%20open/profile_open.dart';
 String username = '';
 TextEditingController controller = TextEditingController();
 
-class SearchPerson extends StatefulWidget {
-  const SearchPerson({super.key});
+class SearchPerson extends StatelessWidget {
+  SearchPerson({super.key});
+  final focusNode = FocusNode();
 
-  @override
-  State<SearchPerson> createState() => _SearchPersonState();
-}
-
-class _SearchPersonState extends State<SearchPerson> {
   @override
   Widget build(BuildContext context) {
+    // FocusScope.of(context).requestFocus(FocusNode());
     Size size = MediaQuery.of(context).size;
 
-    return Builder(builder: (context) {
-      return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+    return GestureDetector(
+      onTap: () {
+        focusNode.unfocus();
+      },
+      child: Scaffold(
         appBar: AppBar(
           title: const Text('SEARCH USERS'),
           centerTitle: true,
@@ -47,6 +47,7 @@ class _SearchPersonState extends State<SearchPerson> {
                     borderRadius: BorderRadius.circular(20)),
                 child: TextField(
                   controller: controller,
+                  focusNode: focusNode,
                   onChanged: (user) {
                     username = user;
                     BlocProvider.of<SearchCubit>(context).userSearch(username);
@@ -69,7 +70,9 @@ class _SearchPersonState extends State<SearchPerson> {
                     return (snapshots.connectionState ==
                             ConnectionState.waiting)
                         ? const Center(
-                            child: CircularProgressIndicator(),
+                            child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.orange)),
                           )
                         : Expanded(
                             child: ListView(
@@ -109,8 +112,8 @@ class _SearchPersonState extends State<SearchPerson> {
             ],
           );
         }),
-      );
-    });
+      ),
+    );
   }
 }
 
@@ -136,7 +139,8 @@ allUsers(contex, data) {
               ),
               CircleAvatar(
                 radius: 26,
-                foregroundImage: NetworkImage(data['avatarImage'] ??
+                foregroundImage: CachedNetworkImageProvider(data[
+                        'avatarImage'] ??
                     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
               ),
               const SizedBox(

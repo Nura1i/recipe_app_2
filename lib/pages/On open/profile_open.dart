@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,7 +31,8 @@ class profielOnOpen extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: CircleAvatar(
                 radius: 45,
-                foregroundImage: NetworkImage(data['avatarImage'] ??
+                foregroundImage: CachedNetworkImageProvider(data[
+                        'avatarImage'] ??
                     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
               ),
             ),
@@ -90,7 +92,8 @@ class profielOnOpen extends StatelessWidget {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: data['recepts'].length,
                             itemBuilder: (contex, index) {
-                              return showPersonsPosts(data['recepts'][index]);
+                              return showPersonsPosts(
+                                  data['recepts'][index], data);
                             },
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
@@ -108,7 +111,7 @@ class profielOnOpen extends StatelessWidget {
   }
 }
 
-Widget showPersonsPosts(dataaId) {
+Widget showPersonsPosts(dataaId, userdata) {
   return StreamBuilder<QuerySnapshot>(
     stream: FirebaseFirestore.instance.collection('Recipes').snapshots(),
     builder: (context, snapshots) {
@@ -127,7 +130,10 @@ Widget showPersonsPosts(dataaId) {
                   return GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => recipeOpen(data: data),
+                        builder: (context) => recipeOpen(
+                          postData: data,
+                          userData: userdata,
+                        ),
                       ));
                     },
                     child: Padding(
@@ -146,7 +152,8 @@ Widget showPersonsPosts(dataaId) {
                             ],
                             image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: NetworkImage(data['photo'])),
+                                image:
+                                    CachedNetworkImageProvider(data['photo'])),
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.grey),
                       ),

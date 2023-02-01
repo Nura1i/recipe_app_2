@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/models/Api%20Miliy%20Taom%20Model/card_http.dart';
 import 'package:recipe_app/pages/On%20open/into_card.dart';
@@ -36,7 +37,7 @@ Widget cardView(BuildContext context, Post post) {
                     child: Image(
                       height: MediaQuery.of(context).size.height * 0.17,
                       width: MediaQuery.of(context).size.width * 0.8,
-                      image: NetworkImage(post.photo!),
+                      image: CachedNetworkImageProvider(post.photo!),
                       fit: BoxFit.cover,
                     ),
                   ),
