@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:recipe_app/pages/On%20open/see_all.dart';
+
 import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/widgets/recent_added.dart';
@@ -142,7 +143,7 @@ class HomeView2 extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const see_all(),
+                              builder: (context) => const seeAllRecentAdded(),
                             ),
                           );
                         },
@@ -218,7 +219,7 @@ class HomeView2 extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const see_all(),
+                              builder: (context) => const seeAllTopCreators(),
                             ),
                           );
                         },

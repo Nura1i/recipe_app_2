@@ -23,7 +23,7 @@ class chooseCategorie extends StatelessWidget {
   bool? load = false;
   @override
   Widget build(BuildContext context) {
-    List<dynamic> responseList = allCatergories;
+    List<dynamic> responseList = CATEGORIA_DATA_UZ;
     return BlocBuilder<CameraCubit, CameraState>(
       builder: (context, cameraState) {
         if (cameraState is loadingg) {
