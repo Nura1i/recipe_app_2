@@ -28,26 +28,29 @@ class _BookMarkPageState extends State<BookMarkPage>
     for (var post in responseList) {
       listItems.add(
         Container(
-          height: 120.w,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          height: 130.h,
+          width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+              borderRadius: BorderRadius.all(
+                const Radius.circular(20.0).r,
+              ),
               color: Colors.white,
               boxShadow: [
                 BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0),
               ]),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 10.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
                       post["name"],
                       style: TextStyle(
-                        fontSize: 28.w,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                         fontFamily: "Lora",
@@ -56,18 +59,18 @@ class _BookMarkPageState extends State<BookMarkPage>
                     Text(
                       post["brand"],
                       style: TextStyle(
-                        fontSize: 17.w,
+                        fontSize: 16.sp,
                         color: Colors.grey,
                         fontFamily: "Lora",
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 10.h,
                     ),
                     Text(
                       "\$ ${post["price"]}",
                       style: TextStyle(
-                        fontSize: 20.w,
+                        fontSize: 14.sp,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontFamily: "Lora",
@@ -95,27 +98,24 @@ class _BookMarkPageState extends State<BookMarkPage>
     super.initState();
     getPostsData();
     controller.addListener(() {
-      double value = controller.offset / 119;
+      double value = controller.offset / 135;
 
       setState(() {
         topContainer = value;
-        closeTopContainer = controller.offset > 70;
+        closeTopContainer = controller.offset > 60;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    final double categoryHeight = size.height * 0.335.w;
-
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
-
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.orange.shade600,
@@ -123,158 +123,160 @@ class _BookMarkPageState extends State<BookMarkPage>
             translation(context).recipecategory,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20.w,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w600,
               fontFamily: "Lora",
             ),
           ),
         ),
         // Body qismi ...!
-        body: SizedBox(
-          height: size.height,
-          child: Column(
-            children: <Widget>[
-              Stack(
-                children: [
-                  // AppBar tegidi contanier...!
-                  Container(
-                    color: Colors.orange.shade600,
-                    height: size.height * 0.1.w,
-                  ),
-                  // AppBar tegidi umumiy Search qismi...!
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        height: size.height * 0.20.w,
-                        width: size.width,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            topRight: Radius.circular(40),
-                          ),
+        body: Column(
+          children: <Widget>[
+            Stack(
+              children: [
+                // AppBar tegidi contanier...!
+                Container(
+                  color: Colors.orange.shade600,
+                  height: 100.h,
+                ),
+                // AppBar tegidi umumiy Search qismi...!
+                Column(
+                  children: <Widget>[
+                    Container(
+                      height: 120.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(40).r,
+                          topRight: const Radius.circular(40).r,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Text qismi...!
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15),
-                                child: Text(
-                                  translation(context).findrecipe,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        fontSize: 20.w,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black,
-                                        fontFamily: "Lora",
-                                      ),
-                                ),
-                              ),
-                              // Search qismi...!
-                              Container(
-                                height: size.width * 0.12.w,
-                                width: size.width * 1.w,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue.withOpacity(0.05),
-                                  border: Border.all(
-                                    width: 1.5.w,
-                                    color: Colors.orange,
-                                  ),
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                // Icon Search qismi...!
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    hintText: translation(context).search,
-                                    hintStyle: TextStyle(
-                                      color: Colors.orange.shade500,
-                                      fontSize: 16.w,
-                                      fontWeight: FontWeight.w500,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20.w,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Text qismi...!
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Text(
+                                translation(context).findrecipe,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
                                       fontFamily: "Lora",
                                     ),
-                                    isDense: false,
-                                    border: InputBorder.none,
-                                    prefixIcon: Icon(
-                                      Icons.search,
-                                      color: Colors.orange.shade600,
-                                    ),
+                              ),
+                            ),
+                            // Search qismi...!
+                            Container(
+                              height: 40.h,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.orange.withOpacity(0.03),
+                                border: Border.all(
+                                  width: 1.5.w,
+                                  color: Colors.orange,
+                                ),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              // Icon Search qismi...!
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: translation(context).search,
+                                  hintStyle: TextStyle(
+                                    color: Colors.orange.shade500,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: "Lora",
+                                  ),
+                                  isDense: false,
+                                  border: InputBorder.none,
+                                  prefixIcon: Icon(
+                                    Icons.search,
+                                    color: Colors.orange.shade600,
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              // Popular Category
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Text(
-                  translation(context).popularcategory,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontSize: 20.w,
-                        color: Colors.black,
-                        fontFamily: "Lora",
-                      ),
+                    ),
+                  ],
                 ),
+              ],
+            ),
+            // Popular Category...!
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              child: Text(
+                translation(context).popularcategory,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontFamily: "Lora",
+                    ),
               ),
+            ),
 
-              // Categoriya qismi !
-              AnimatedOpacity(
-                duration: const Duration(seconds: 1),
-                opacity: closeTopContainer ? 0 : 1,
-                child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 400),
-                    width: size.width,
-                    alignment: Alignment.topCenter,
-                    height: closeTopContainer ? 0 : categoryHeight,
-                    child: categoriesScroller),
-              ),
+            // Popular Categoriya qismi...!
+            AnimatedOpacity(
+              duration: const Duration(seconds: 1),
+              opacity: closeTopContainer ? 0 : 1,
+              child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 400),
+                  width: double.infinity,
+                  alignment: Alignment.topCenter,
+                  height: closeTopContainer ? 0 : 200.h,
+                  child: categoriesScroller),
+            ),
 
-              // categoriyani tegidigi opshi categoriya qismi !
-              Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  itemCount: itemsData.length,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    double scale = 1.0;
-                    if (topContainer > 0.5) {
-                      scale = index + 0.5 - topContainer;
-                      if (scale < 0) {
-                        scale = 0;
-                      } else if (scale > 1) {
-                        scale = 1;
-                      }
+            // categoriyani tegidigi opshi categoriya qismi...!
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                controller: controller,
+                itemCount: itemsData.length,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  ScreenUtil.init(context, designSize: const Size(360, 690));
+                  double scale = 1.0;
+                  if (topContainer > 0.5) {
+                    scale = index + 0.5 - topContainer;
+                    if (scale < 0) {
+                      scale = 0;
+                    } else if (scale > 1) {
+                      scale = 1;
                     }
-                    return Opacity(
+                  }
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.h),
+                    child: Opacity(
                       opacity: scale,
                       child: Transform(
                         transform: Matrix4.identity()..scale(scale, scale),
                         alignment: Alignment.bottomCenter,
                         child: Align(
-                            heightFactor: 0.9,
-                            alignment: Alignment.topCenter,
-                            child: itemsData[index]),
+                          alignment: Alignment.topCenter,
+                          child: itemsData[index],
+                        ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

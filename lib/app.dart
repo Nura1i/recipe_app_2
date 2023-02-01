@@ -80,9 +80,8 @@ class _AppProviderState extends State<AppProvider> {
   Widget build(BuildContext context) {
     ScreenUtil.init(
       context,
-      designSize: const Size(390, 870),
+      designSize: const Size(360, 690),
     );
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -118,21 +117,23 @@ class _AppProviderState extends State<AppProvider> {
         initTheme: initTheme,
         builder: (_, myTheme) {
           return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Recipe App',
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
-              locale: _locale,
-              theme: myTheme,
-              home: FutureBuilder(
-                  future: Prefs.loadData<String>(key: 'token'),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData && snapshot.data != null) {
-                      return const MenuPage();
-                    }
-                    return const LanguageIntroPage();
-                  }));
-
+            color: Colors.orange,
+            debugShowCheckedModeBanner: false,
+            title: 'Recipe App',
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: _locale,
+            theme: myTheme,
+            home: FutureBuilder(
+              future: Prefs.loadData<String>(key: 'token'),
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data != null) {
+                  return const MenuPage();
+                }
+                return const LanguageIntroPage();
+              },
+            ),
+          );
           //  CustomDrawer(),
         },
       ),

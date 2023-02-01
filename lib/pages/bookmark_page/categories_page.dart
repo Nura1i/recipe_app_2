@@ -14,7 +14,6 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
   ScrollController controller = ScrollController();
 
   categoria(List response) {
-    final Size size = MediaQuery.of(context).size;
     List<Widget> ItemsList = [];
     ItemsList.add(
       SizedBox(width: 10.w),
@@ -22,35 +21,33 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
     for (var card in response) {
       ItemsList.add(
         FittedBox(
-          fit: BoxFit.contain,
+          fit: BoxFit.fill,
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: EdgeInsets.only(right: 10.w),
+            padding: const EdgeInsets.only(right: 10).r,
             child: Stack(
               alignment: Alignment.topCenter,
               children: [
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.orange.shade400,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
+                    borderRadius: BorderRadius.all(
+                      const Radius.circular(30).r,
                     ),
                   ),
-                  margin: EdgeInsets.only(top: 65.w),
-                  width: size.width * 0.55.w,
-                  height: size.width * 0.45.w,
+                  margin: EdgeInsets.only(top: 70.w),
+                  width: 230.w,
+                  height: 200.h,
                   child: Center(
                     child: Container(
-                      margin: EdgeInsets.only(top: 60.w),
+                      margin: const EdgeInsets.only(top: 60).r,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 15.w),
                         child: Text(
                           card["name"],
+                          // overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 28.w,
+                            fontSize: 30.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Lora",
@@ -62,10 +59,10 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
                   ),
                 ),
                 Container(
-                  height: size.width * 0.35.w,
-                  width: size.width * 0.35.w,
+                  width: 150.w,
+                  height: 150.h,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
+                    borderRadius: BorderRadius.circular(100).r,
                     image: DecorationImage(
                       image: AssetImage(
                         "assets/images/${card["image"]}",
@@ -94,8 +91,10 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     List<dynamic>? responseList;
     List<dynamic>? responseList2;
+
     if (translation(context).all == 'All') {
       responseList = CATEGORIA_DATA_EN;
       responseList2 = CATEGORIA_DATA_DISERT_EN;
