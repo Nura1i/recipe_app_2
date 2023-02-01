@@ -148,10 +148,12 @@ class CameraCubit extends Cubit<CameraState> {
     log('Saved');
     isPosted = true;
     emit(successPost(isPosted));
+    isPosted = false;
     Navigator.of(ctx).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const MenuPage()),
         (route) => false);
     load = false;
+    emit(successPost(isPosted));
     //emit(loadingg(load));
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,22 +13,9 @@ import '../../utils/shared_pref/language_prefs/preferences_2.dart';
 
 var UserId = FirebaseAuth.instance.currentUser!.uid;
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
-
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  @override
-  void initState() {
-    FireDatabaseService.getdata();
-    FireDatabaseService.totalLikesUser(lsOfOwnRecipes)
-        .whenComplete(() => log(count.toString()));
-
-    super.initState();
-  }
+class ProfilePage extends StatelessWidget {
+  final avatar;
+  const ProfilePage({super.key, this.avatar});
 
   @override
   @override
@@ -75,14 +60,29 @@ class _ProfilePageState extends State<ProfilePage> {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      CircleAvatar(
-                        foregroundImage: avatarImage != null
-                            ? CachedNetworkImageProvider(avatarImage!)
-                            : const CachedNetworkImageProvider(
-                                'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'),
-                        radius: 50,
-                        backgroundColor: Colors.grey,
-                      ),
+                      StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(currentUser)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            return (snapshot.connectionState ==
+                                    ConnectionState.waiting)
+                                ? const Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : CircleAvatar(
+                                    foregroundImage: snapshot
+                                                .data!['avatarImage'] !=
+                                            null
+                                        ? CachedNetworkImageProvider(
+                                            snapshot.data!['avatarImage'])
+                                        : const CachedNetworkImageProvider(
+                                            'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'),
+                                    radius: 50,
+                                    backgroundColor: Colors.grey,
+                                  );
+                          }),
                       SizedBox(
                         width: size.width * 0.23,
                       ),
@@ -158,7 +158,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                         snapshot.data!['recepts'] == null
                                             ? '0'
                                             : snapshot.data!['recepts'].length,
-                                        'Recipes'),
+                                        'Recipes',
+                                        context),
                                     SizedBox(
                                       width: size.width * 0.2,
                                     ),
@@ -166,12 +167,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                         snapshot.data!['saved'] == null
                                             ? '0'
                                             : snapshot.data!['saved'].length,
-                                        'Saved'),
+                                        'Saved',
+                                        context),
                                     SizedBox(
                                       width: size.width * 0.2,
                                     ),
-                                    counter(snapshot.data!['totalLikes'] ?? '0',
-                                        'Likes'),
+                                    counter(
+                                        snapshot.data!['totalLikes'] == null
+                                            ? '0'
+                                            : snapshot
+                                                .data!['totalLikes'].length,
+                                        'Likes',
+                                        context),
                                   ],
                                 );
                         }),
@@ -299,28 +306,32 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-counter(count, String field) {
-  return Column(
-    children: [
-      Padding(
-        padding: const EdgeInsets.only(bottom: 5),
-        child: Text(
-          field,
-          style: const TextStyle(color: Color(0xffA9A9A9)),
+counter(count, String field, context) {
+  var size = MediaQuery.of(context).size;
+  return SizedBox(
+    width: size.width * 0.15,
+    child: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 5),
+          child: Text(
+            field,
+            style: const TextStyle(color: Color(0xffA9A9A9)),
+          ),
         ),
-      ),
-      Text(
-        count.toString(),
-        style: const TextStyle(
-            fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
-      )
-    ],
+        Text(
+          count.toString(),
+          style: const TextStyle(
+              fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+        )
+      ],
+    ),
   );
 }
 
 var count;
 List lsOfOwnRecipes = [];
-Widget showOwnPosts(dataaId, dataUser) {
+Widget showOwnPosts(idRecepts, dataUser) {
   return StreamBuilder<QuerySnapshot>(
     stream: FirebaseFirestore.instance.collection('Recipes').snapshots(),
     builder: (context, snapshots) {
@@ -335,9 +346,8 @@ Widget showOwnPosts(dataaId, dataUser) {
               itemBuilder: (context, index) {
                 var data = snapshots.data!.docs[index];
 
-                if (data['id'] == dataaId) {
-                  lsOfOwnRecipes.add(dataaId);
-
+                if (data['id'] == idRecepts) {
+                  //  BlocProvider.of<SavedCubit>(context).totalLikes(idRecepts);
                   return GestureDetector(
                     onTap: () async {
                       DocumentSnapshot userDoc = await FirebaseFirestore

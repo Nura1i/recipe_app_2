@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +77,7 @@ class _recipeOpenState extends State<recipeOpen> {
           }
           if (savedState is Like) {
             issLaked = savedState.isLiked;
-            log('${count.toString()}  counter');
+
             return SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
@@ -248,38 +246,41 @@ class _recipeOpenState extends State<recipeOpen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-                          stream: FirebaseFirestore.instance
-                              .collection('Recipes')
-                              .doc(widget.postData['id'])
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            return (snapshot.connectionState ==
-                                    ConnectionState.waiting)
-                                ? const Align(
-                                    alignment: Alignment.topRight,
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.only(right: 20, bottom: 5),
-                                      child: Text(''),
-                                    ),
-                                  )
-                                : Align(
-                                    alignment: Alignment.topRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 25, bottom: 5),
-                                      child: Text(
-                                        snapshot.data!['totalLikes'] != null
-                                            ? 'total Likes: ${snapshot.data!['totalLikes'].length}'
-                                                .toString()
-                                            : 'total Likes: 0',
-                                        style: const TextStyle(
-                                            color: Colors.orange),
-                                      ),
-                                    ),
-                                  );
-                          }),
+                      widget.postData != null
+                          ? StreamBuilder<
+                                  DocumentSnapshot<Map<String, dynamic>>>(
+                              stream: FirebaseFirestore.instance
+                                  .collection('Recipes')
+                                  .doc(widget.postData['id'])
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                return (snapshot.connectionState ==
+                                        ConnectionState.waiting)
+                                    ? const Align(
+                                        alignment: Alignment.topRight,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              right: 20, bottom: 5),
+                                          child: Text(''),
+                                        ),
+                                      )
+                                    : Align(
+                                        alignment: Alignment.topRight,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 25, bottom: 5),
+                                          child: Text(
+                                            snapshot.data!['totalLikes'] != null
+                                                ? 'total Likes: ${snapshot.data!['totalLikes'].length}'
+                                                    .toString()
+                                                : 'total Likes: 0',
+                                            style: const TextStyle(
+                                                color: Colors.orange),
+                                          ),
+                                        ),
+                                      );
+                              })
+                          : const SizedBox(),
                       Row(
                         children: [
                           Container(
@@ -426,6 +427,31 @@ class _recipeOpenState extends State<recipeOpen> {
   }
 
   Future<bool> onBookMarkButtonTapped(bool isSaved) async {
+    if (isSaved == false) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(seconds: 2),
+          elevation: 100,
+          shape: const StadiumBorder(),
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.only(bottom: 40, right: 20, left: 20),
+          backgroundColor: Colors.orange,
+          content: Row(
+            children: [
+              Image(
+                  height: 30,
+                  width: 30,
+                  image: CachedNetworkImageProvider(
+                    widget.postData['photo'],
+                  )),
+              const SizedBox(
+                width: 20,
+              ),
+              Text(
+                '${widget.postData['categorie'].toString()}  |saved|',
+              ),
+            ],
+          )));
+    }
     await FireDatabaseService.saved(widget.postData['id'], isSaved);
     return !isSaved;
   }

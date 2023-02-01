@@ -52,7 +52,7 @@ class EditProfilePage extends StatelessWidget {
                       var data = snapshot.data;
                       return (snapshot.connectionState ==
                               ConnectionState.waiting)
-                          ? const SizedBox()
+                          ? const Center(child: CircularProgressIndicator())
                           : Container(
                               color: Theme.of(_).backgroundColor,
                               // const Color.fromARGB(255, 201, 187, 146),
@@ -161,7 +161,9 @@ class EditProfilePage extends StatelessWidget {
                         color: Colors.green,
                         child: const Text('Saved'),
                         onPressed: () async {
-                          yourProfileSetting();
+                          await yourProfileSetting();
+
+                          // ignore: use_build_context_synchronously
                           Navigator.of(context).pop();
                         })
                   ],
