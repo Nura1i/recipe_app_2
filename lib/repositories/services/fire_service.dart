@@ -10,7 +10,6 @@ import 'package:recipe_app/models/user%20Model/user_model.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/widgets.dart';
 import 'package:recipe_app/views/sign_in_view.dart';
 
-
 String? username1111;
 String? bio;
 String? avatarImage;
@@ -63,9 +62,7 @@ class FireDatabaseService {
       await _databaseFirestore
           .collection('users')
           .doc(currentUserId)
-          .update({'recepts': recipes}).then((value) {
-        log(allRecepts.toString());
-      });
+          .update({'recepts': recipes});
       final userRef = _storage.ref("PhotoOfRecipes");
       final nameReferense = userRef.child(recipe.id!);
       UploadTask? uploadTask = nameReferense.putFile(image!);
@@ -95,6 +92,7 @@ class FireDatabaseService {
     bio = userDoc.get('bio');
     email = userDoc.get('email');
     avatarImage = userDoc.get('avatarImage');
+    // Navigator.of(ctx).pop();
   }
 
   static Future<String?> updateProfile({
@@ -128,12 +126,22 @@ class FireDatabaseService {
 
   static Future deletePost(postId) async {
     try {
-      await _databaseFirestore.collection('Recipes').doc(postId['id']).delete();
+      DocumentSnapshot postDoc = await FirebaseFirestore.instance
+          .collection('Recipes')
+          .doc(postId['id'])
+          .get();
+      List likes = postDoc['totalLikes'] ?? [];
 
+      await _databaseFirestore.collection('Recipes').doc(postId['id']).delete();
+      await _storage.refFromURL(postId['photo']).delete();
       DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection('users')
           .doc(currentUser)
           .get();
+      List userLikes = userDoc['totalLikes'] ?? [];
+      for (var element in likes) {
+        userLikes.remove(element);
+      }
 
       List lsPost = userDoc.get('recepts') ?? [];
       List lsSaved = userDoc.get('saved') ?? [];
@@ -144,10 +152,8 @@ class FireDatabaseService {
       if (lsSaved.contains(postId['id'])) {
         lsSaved.remove(postId['id']);
       }
-      _databaseFirestore
-          .collection('users')
-          .doc(currentUser)
-          .update({'recepts': lsPost, 'saved': lsSaved});
+      _databaseFirestore.collection('users').doc(currentUser).update(
+          {'recepts': lsPost, 'saved': lsSaved, 'totalLikes': userLikes});
       log('Deleted Success');
     } catch (e) {
       log(e.toString());
@@ -169,6 +175,7 @@ class FireDatabaseService {
       });
 
       log('saved bio end email');
+      await getdata();
     } catch (e) {
       log(e.toString());
     }
@@ -232,6 +239,12 @@ class FireDatabaseService {
           .collection('Recipes')
           .doc(recipeID)
           .get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserId)
+          .get();
+      List ls = [];
+      ls = userDoc.get('totalLikes') ?? [];
       totalLikes = recipeDoc.get('totalLikes') ?? [];
 
       if (liked == false) {
@@ -242,14 +255,23 @@ class FireDatabaseService {
       if (liked == true) {
         if (totalLikes.contains(currentUserId)) {
           totalLikes.remove(currentUserId);
+          ls.remove(currentUserId);
         }
       }
       await _databaseFirestore
           .collection('Recipes')
           .doc(recipeID)
-          .update({'totalLikes': totalLikes}).then((value) {
-        log(totalLikes.toString());
-      });
+          .update({'totalLikes': totalLikes});
+
+      if (currentUserId == recipeDoc.get('userId')) {
+        for (var element in totalLikes) {
+          ls.add(element);
+        }
+      }
+      await _databaseFirestore
+          .collection('users')
+          .doc(currentUserId)
+          .update({'totalLikes': ls});
 
       return log('LikedSuccess');
     } catch (e) {
@@ -257,58 +279,15 @@ class FireDatabaseService {
     }
   }
 
-  static Future totalLikesUser(ownPostsId) async {
-    DocumentSnapshot userLikes = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUser)
-        .get();
-    log('works userLikes');
-    List allRecipesLikes = [];
-    //allRecipesLikes.add(userLikes.get('totalLikes') ?? 0);
-    DocumentSnapshot? recipes;
-    for (var e in ownPostsId) {
-      recipes =
-          await FirebaseFirestore.instance.collection('Recipes').doc(e).get();
-    }
+  totalLikesUser(lsLikes) async {
+    log('works totalLikes');
 
-    log('works recipes');
-    allRecipesLikes.add(recipes!['totalLikes'].length);
-    int count = 0;
-    for (int element in allRecipesLikes) {
-      count += element;
-      log(element.toString());
-
-      await _databaseFirestore
-          .collection('users')
-          .doc(currentUser)
-          .update({'totalLikes': count});
-    }
-    return count;
-    //   snapshot.data!['totalLikes'] != null
-    // ? 'total Likes: ${snapshot.data!['totalLikes'].length}'
+    // await _databaseFirestore
+    //     .collection('users')
+    //     .doc(currentUser)
+    //     .update({'totalLikes': lsLikes.length.toString()});
+    log('saved likes');
   }
-
-  // static Future<bool?> sendMssage({required MessageModel message}) async {
-  //   bool? messageCreated = false;
-  //   try {
-  //     final userDocument = await _databaseFirestore
-  //         .collection('users')
-  //         .doc(message.userId)
-  //         .get();
-
-  //     final UserModel user = UserModel.fromJson(userDocument.data()!);
-  //     message = message.copyWith(username: user.userName);
-  //     await _databaseFirestore
-  //         .collection('messages')
-  //         .doc(message.id)
-  //         .set(message.toJson());
-  //     messageCreated = true;
-  //     return messageCreated;
-  //   } catch (e) {
-  //     log(e.toString());
-  //   }
-  //   return messageCreated;
-  // }
 
   static Future<bool?> ProfileImageDelete() async {
     bool? isDeleted = false;

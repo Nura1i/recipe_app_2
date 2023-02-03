@@ -60,15 +60,17 @@ class profielOnOpen extends StatelessWidget {
                     data['recepts'] != null
                         ? data['recepts'].length.toString()
                         : '0',
-                    'Recipes'),
+                    'Recipes',
+                    context),
                 SizedBox(
                   width: size.width * 0.2,
                 ),
                 counter(
                     data['totalLikes'] != null
-                        ? data['totalLikes'].toString()
+                        ? data['totalLikes'].length.toString()
                         : '0',
-                    'Likes'),
+                    'Likes',
+                    context),
               ],
             ),
             const SizedBox(

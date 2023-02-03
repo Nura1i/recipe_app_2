@@ -26,7 +26,7 @@ class AddPage extends StatelessWidget {
     var time;
     bool? load = false;
     List<IngredientModel>? items;
-    bool? isPosted = false;
+    bool isPosted = false;
 
     return Scaffold(body:
         BlocBuilder<CameraCubit, CameraState>(builder: (context, cameraState) {
@@ -203,6 +203,9 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                           serves = null;
                           time = null;
                           log('POSTED SUCCESSFULY And Cleaned');
+                          isPosted = false;
+                        } else {
+                          log('not posted yet await');
                         }
                       }
                     },
@@ -499,27 +502,6 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                     const SizedBox(
                       height: 20,
                     ),
-                    // IngredientsWidget(
-                    //   // controllerItemName: itemNameController,
-                    //   // controllerItemQuanity: itemQuanityController,
-                    //   clear: false,
-                    //   uuid: const Uuid().v1(),
-                    //   index: -1,
-                    // ),
-                    // IngredientsWidget(
-                    //   // controllerItemName: itemNameController,
-                    //   // controllerItemQuanity: itemQuanityController,
-                    //   clear: false,
-                    //   uuid: const Uuid().v1(),
-                    //   index: -2,
-                    // ),
-                    // IngredientsWidget(
-                    //   // controllerItemName: itemNameController,
-                    //   // controllerItemQuanity: itemQuanityController,
-                    //   clear: false,
-                    //   uuid: const Uuid().v1(),
-                    //   index: -3,
-                    // ),
                     items != null
                         ? ListView.builder(
                             itemCount: items.length,

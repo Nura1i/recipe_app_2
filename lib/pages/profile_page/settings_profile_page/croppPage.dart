@@ -64,8 +64,7 @@ class _CropperScreennState extends State<CropperScreenn> {
                     ),
                     onPressed: () async {
                       image = await _picker.pickImage(
-                        source: ImageSource.gallery,
-                      );
+                          source: ImageSource.gallery, imageQuality: 50);
 
                       if (image != null) {
                         final imageBytes = await image!.readAsBytes();

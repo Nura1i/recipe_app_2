@@ -10,7 +10,7 @@ class userModel with _$userModel {
     String? avatarImage,
     String? password,
     String? email,
-    int? totalLikes,
+    List? totalLikes,
     DateTime? publishedDate,
     String? text,
     String? username,
