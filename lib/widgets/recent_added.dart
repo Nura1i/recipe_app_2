@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/consts/consts.dart';
 import 'package:recipe_app/pages/On%20open/into_recipe.dart';
 
@@ -25,8 +26,8 @@ recentAdded(contex, data) {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    height: 150,
-                    width: 220,
+                    height: 120.h,
+                    width: 200,
                     decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(20),

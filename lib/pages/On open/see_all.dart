@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:recipe_app/pages/home_page.dart';
+import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/widgets/recent_added.dart';
 import 'package:recipe_app/widgets/top_creators_widget.dart';
 
@@ -120,17 +123,27 @@ class seeAllTopCreators extends StatelessWidget {
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
+        preferredSize: Size.fromHeight(50.h),
         child: AppBar(
           scrolledUnderElevation: 20,
-          toolbarHeight: 50,
+          toolbarHeight: 50.h,
           shadowColor: Colors.orange,
           backgroundColor: Colors.orange,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50))),
-          title: const Text('Popular Creators'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: const Radius.circular(40).r,
+              bottomRight: const Radius.circular(40).r,
+            ),
+          ),
+          title: Text(
+            translation(context).popularShef,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.sp,
+              fontFamily: "Lora",
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           centerTitle: true,
           elevation: 0,
         ),
@@ -147,34 +160,22 @@ class seeAllTopCreators extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       )
                     : SizedBox(
-                        height: 200,
                         child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: snapshots.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              var data = snapshots.data!.docs[index].data()
-                                  as Map<String, dynamic>;
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: snapshots.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            var data = snapshots.data!.docs[index].data()
+                                as Map<String, dynamic>;
 
-                              return topCreatorForAll(context, data);
-                            }),
+                            return topCreatorForAll(context, data);
+                          },
+                        ),
                       );
               },
             ),
-          )
-          // Padding(
-          //   padding: const EdgeInsets.all(3),
-          //   child: CircleAvatar(
-          //     backgroundColor: Colors.red,
-          //     radius: 21,
-          //     child: SvgPicture.asset(
-          //       'assets/svg/Inactive.svg',
-          //       color: Colors.white,
-          //       height: 30,
-          //     ),
-          //   ),
-          // )
+          ),
         ],
       ),
     );
