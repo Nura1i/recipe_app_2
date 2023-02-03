@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:recipe_app/pages/home_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
