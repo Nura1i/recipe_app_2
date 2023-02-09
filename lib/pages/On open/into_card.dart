@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../utils/shared_pref/language_prefs/preferences_2.dart';
 
 class openedCard extends StatefulWidget {
   final carrd;
@@ -10,125 +13,134 @@ class openedCard extends StatefulWidget {
   State<openedCard> createState() => _openedCardState();
 }
 
+// Uzbek National Recipes Cardni ustiga bosgandagi ichki Text qismi...!
 class _openedCardState extends State<openedCard> {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
-          child: AppBar(
-            shadowColor: Colors.orange,
-            backgroundColor: Colors.orange,
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20))),
-            elevation: 10,
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.h),
+        child: AppBar(
+          scrolledUnderElevation: 10,
+          toolbarHeight: 50.h,
+          shadowColor: Colors.orange,
+          backgroundColor: Colors.orange,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: const Radius.circular(40).r,
+              bottomRight: const Radius.circular(40).r,
+            ),
           ),
+          title: Text(
+            translation(context).milliytaom,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.sp,
+              fontFamily: "Lora",
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          elevation: 0,
         ),
-        body: _intoCard()
-
-        // BlocBuilder<SavedCubit, SavedState>(
-        //     builder: (BuildContext context, SavedState state) {
-        //   BlocBuilder<LikedCubit, LikedState>(
-        //       builder: (BuildContext context, LikedState state) {
-        //     if (state is LikedSuccess) {
-        //       Liked = state.success;
-        //     }
-        //     return _intoCard(Saved, Liked);
-        //   });
-        //   if (state is SavedSuccess) {
-        //     Saved = state.success;
-        //     _intoCard(Saved, Liked);
-        //   }
-        //   return _intoCard(Saved, Liked);
-        // }),
-        );
+      ),
+      body: _intoCard(),
+    );
   }
 
-  // Widget like<bool>(bool liked) {
-  //   return liked;
-  // }
-
   Widget _intoCard() {
-    return SafeArea(
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            scrollbarTheme: ScrollbarThemeData(
-                thumbColor: MaterialStateProperty.all(Colors.orange))),
-        child: Scrollbar(
-          thumbVisibility: true,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10.0, bottom: 20, left: 20, right: 10),
-                  child: Text(
-                    widget.carrd.header,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
+    return Theme(
+      data: Theme.of(context).copyWith(
+        scrollbarTheme: ScrollbarThemeData(
+          thumbColor: MaterialStateProperty.all(Colors.orange),
+        ),
+      ),
+      child: Scrollbar(
+        thumbVisibility: true,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              SizedBox(height: 80.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+                child: Text(
+                  widget.carrd.header,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontFamily: "Lora",
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: Hero(
+                  tag: '${int.parse(widget.carrd!.id!)}',
+                  child: Container(
+                    height: 200.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30).r,
+                      image: DecorationImage(
+                        image: CachedNetworkImageProvider(widget.carrd!.photo!),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-                Hero(
-                    tag: '${int.parse(widget.carrd!.id!)}',
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.27,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          image: DecorationImage(
-                              image: CachedNetworkImageProvider(
-                                  widget.carrd!.photo!),
-                              fit: BoxFit.cover)),
-                    )),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+                child: Row(
                   children: [
-                    const SizedBox(
-                      width: 29,
-                    ),
                     Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.all(2),
+                      padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(5)),
+                        color: Colors.grey.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(15).r,
+                      ),
                       child: Row(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.remove_red_eye_outlined,
-                            size: 16,
+                            size: 16.sp,
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 5.w,
                           ),
                           Text(
                             '1391',
-                            style: TextStyle(fontSize: 14),
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: Colors.black,
+                              fontFamily: "Lora",
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 20, top: 20, right: 10, bottom: 10),
-                  child: Text(
-                    widget.carrd.about,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                child: Text(
+                  widget.carrd.about,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Lora",
                   ),
-                )
-              ],
-            ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: 50.h)
+            ],
           ),
         ),
       ),

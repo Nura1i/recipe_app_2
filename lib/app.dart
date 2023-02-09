@@ -18,6 +18,7 @@ import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:recipe_app/utils/theme/theme_configg.dart';
+import 'package:recipe_app/views/sign_up_view.dart';
 
 class AppProvider extends StatefulWidget {
   const AppProvider({
@@ -78,10 +79,7 @@ class _AppProviderState extends State<AppProvider> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-      context,
-      designSize: const Size(360, 690),
-    );
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -116,7 +114,7 @@ class _AppProviderState extends State<AppProvider> {
           return MaterialApp(
             color: Colors.orange,
             debugShowCheckedModeBanner: false,
-            title: 'Recipe App',
+            title: 'Cooking Uno',
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             locale: _locale,
@@ -131,7 +129,6 @@ class _AppProviderState extends State<AppProvider> {
               },
             ),
           );
-          //  CustomDrawer(),
         },
       ),
     );

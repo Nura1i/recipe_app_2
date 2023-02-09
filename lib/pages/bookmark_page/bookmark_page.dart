@@ -31,13 +31,14 @@ class _BookMarkPageState extends State<BookMarkPage>
           height: 130.h,
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                const Radius.circular(20.0).r,
-              ),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0),
-              ]),
+            borderRadius: BorderRadius.all(
+              const Radius.circular(20.0).r,
+            ),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0),
+            ],
+          ),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 10.h),
             child: Row(
@@ -88,23 +89,29 @@ class _BookMarkPageState extends State<BookMarkPage>
         ),
       );
     }
-    setState(() {
-      itemsData = listItems;
-    });
+    setState(
+      () {
+        itemsData = listItems;
+      },
+    );
   }
 
   @override
   void initState() {
     super.initState();
     getPostsData();
-    controller.addListener(() {
-      double value = controller.offset / 135;
+    controller.addListener(
+      () {
+        double value = controller.offset / 135;
 
-      setState(() {
-        topContainer = value;
-        closeTopContainer = controller.offset > 60;
-      });
-    });
+        setState(
+          () {
+            topContainer = value;
+            closeTopContainer = controller.offset > 60;
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -118,7 +125,7 @@ class _BookMarkPageState extends State<BookMarkPage>
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.orange.shade600,
+          backgroundColor: Colors.orange,
           title: Text(
             translation(context).recipecategory,
             style: TextStyle(
@@ -153,9 +160,7 @@ class _BookMarkPageState extends State<BookMarkPage>
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20.w,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,7 +191,7 @@ class _BookMarkPageState extends State<BookMarkPage>
                                   width: 1.5.w,
                                   color: Colors.orange,
                                 ),
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(25).r,
                               ),
                               // Icon Search qismi...!
                               child: TextField(

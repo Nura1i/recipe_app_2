@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/blocs/search%20Page/searchCubit.dart';
 import 'package:recipe_app/blocs/search%20Page/searchState.dart';
 import 'package:recipe_app/pages/On%20open/profile_open.dart';
+import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 
 String username = '';
 TextEditingController controller = TextEditingController();
@@ -16,144 +17,186 @@ class SearchPerson extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // FocusScope.of(context).requestFocus(FocusNode());
-    Size size = MediaQuery.of(context).size;
-
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     return GestureDetector(
       onTap: () {
         focusNode.unfocus();
       },
       child: Scaffold(
+        backgroundColor: Colors.orange,
+        // AppBar qismi...1
         appBar: AppBar(
-          title: const Text('SEARCH USERS'),
-          centerTitle: true,
           backgroundColor: Colors.orange,
+          title: Text(
+            translation(context).searchUsers,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18.sp,
+              fontFamily: "Lora",
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          elevation: 0,
         ),
+        // Search Page qismi...!
         body: BlocBuilder<SearchCubit, SearchState>(
-            builder: (context, searchState) {
-          if (searchState is searched) {
-            username = searchState.user;
-          }
+          builder: (context, searchState) {
+            if (searchState is searched) {
+              username = searchState.user;
+            }
 
-          return Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                width: size.width / 0.7.w,
-                height: size.height / 17.h,
-                decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.9),
-                    border: Border.all(width: 1, color: Colors.orange),
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextField(
-                  controller: controller,
-                  focusNode: focusNode,
-                  onChanged: (user) {
-                    username = user;
-                    BlocProvider.of<SearchCubit>(context).userSearch(username);
-                  },
-                  style: const TextStyle(color: Colors.black),
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(top: 13),
-                    hintText: 'Search users',
-                    isDense: false,
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.search),
-                  ),
-                ),
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(40).r,
               ),
-              StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('users')
-                      .snapshots(),
-                  builder: (context, snapshots) {
-                    return (snapshots.connectionState ==
-                            ConnectionState.waiting)
-                        ? const Center(
-                            child: CircularProgressIndicator(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    child: Container(
+                      height: 40.h,
+                      margin: const EdgeInsets.only(top: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.withOpacity(0.03),
+                        border: Border.all(
+                          width: 1.5.w,
+                          color: Colors.orange,
+                        ),
+                        borderRadius: BorderRadius.circular(25).r,
+                      ),
+                      child: TextField(
+                        controller: controller,
+                        focusNode: focusNode,
+                        onChanged: (user) {
+                          username = user;
+                          BlocProvider.of<SearchCubit>(context)
+                              .userSearch(username);
+                        },
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          hintText: translation(context).searchUsers,
+                          hintStyle: TextStyle(
+                            color: Colors.orange.shade500,
+                            fontSize: 14.sp,
+                            fontFamily: "Lora",
+                          ),
+                          isDense: false,
+                          border: InputBorder.none,
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.orange.shade600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .snapshots(),
+                    builder: (context, snapshots) {
+                      return (snapshots.connectionState ==
+                              ConnectionState.waiting)
+                          ? const Center(
+                              child: CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                    Colors.orange)),
-                          )
-                        : Expanded(
-                            child: ListView(
+                                  Colors.orange,
+                                ),
+                              ),
+                            )
+                          : Expanded(
+                              child: ListView(
                                 physics: const BouncingScrollPhysics(),
                                 children: [
                                   const SizedBox(
-                                    height: 20,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
+                                    height: 15,
                                   ),
                                   ListView.builder(
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      physics: const BouncingScrollPhysics(),
-                                      itemCount: snapshots.data!.docs.length,
-                                      itemBuilder: (context, index) {
-                                        final data = snapshots.data!.docs[index]
-                                            .data() as Map<String, dynamic>;
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    physics: const BouncingScrollPhysics(),
+                                    itemCount: snapshots.data!.docs.length,
+                                    itemBuilder: (context, index) {
+                                      final data = snapshots.data!.docs[index]
+                                          .data() as Map<String, dynamic>;
 
-                                        if (username.isEmpty) {
-                                          return allUsers(context, data);
-                                        }
-                                        if (data['username']
-                                            .toString()
-                                            .toLowerCase()
-                                            .startsWith(username
-                                                .toLowerCase()
-                                                .toString())) {
-                                          return allUsers(context, data);
-                                        }
-                                        return const SizedBox();
-                                      }),
-                                ]),
-                          );
-                  }),
-            ],
-          );
-        }),
+                                      if (username.isEmpty) {
+                                        return allUsers(context, data);
+                                      }
+                                      if (data['username']
+                                          .toString()
+                                          .toLowerCase()
+                                          .startsWith(username
+                                              .toLowerCase()
+                                              .toString())) {
+                                        return allUsers(context, data);
+                                      }
+                                      return const SizedBox();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
 }
 
+// Search Users qismi...!
 allUsers(contex, data) {
   return GestureDetector(
-      onTap: () {
-        Navigator.of(contex).push(MaterialPageRoute(
-          builder: (context) => profielOnOpen(data: data),
-        ));
-      },
-      child: Padding(
-        padding:
-            const EdgeInsets.only(right: 20, left: 20, bottom: 10, top: 10),
-        child: Container(
-          height: 70,
-          decoration: BoxDecoration(
-              color: Colors.orange.withOpacity(0.8),
-              borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            children: [
-              const SizedBox(
-                width: 12,
-              ),
-              CircleAvatar(
-                radius: 26,
-                foregroundImage: CachedNetworkImageProvider(data[
-                        'avatarImage'] ??
-                    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: Text(
-                  data['username'] ?? 'username',
-                  style: const TextStyle(color: Colors.white, fontSize: 19),
-                ),
-              )
-            ],
-          ),
-        ),
+    onTap: () {
+      Navigator.of(contex).push(MaterialPageRoute(
+        builder: (context) => profielOnOpen(data: data),
       ));
+    },
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+      child: Container(
+        height: 50.h,
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2.w,
+            color: Colors.grey.shade200,
+          ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(25).r,
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 5.w,
+            ),
+            CircleAvatar(
+              radius: 20.r,
+              foregroundImage: CachedNetworkImageProvider(data['avatarImage'] ??
+                  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+            ),
+            const SizedBox(
+              width: 15,
+            ),
+            Expanded(
+              child: Text(
+                data['username'] ?? 'username',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14.sp,
+                  fontFamily: "Lora",
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    ),
+  );
 }

@@ -19,10 +19,9 @@ var posts;
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    super.initState();
     BlocProvider.of<ListPostCubit>(context).apiPostList();
     BlocProvider.of<ListPostCubit>(context).runner();
-    //BlocProvider.of<ListPostCubit>(context).PostListOfRecipes();
+    super.initState();
   }
 
   @override
@@ -33,10 +32,8 @@ class _HomePageState extends State<HomePage> {
         builder: (BuildContext context, ListPostState state) {
           if (state is ListPostLoaded) {
             posts = state.posts!;
-            // builder(posts);
             return const HomeView2();
           }
-
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -46,6 +43,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+// Uzbek National recipes Homedagi ko'rinish qismi...!
 Widget builder(List<Post> items) {
   return ListView.builder(
     physics: const BouncingScrollPhysics(),
@@ -53,12 +51,11 @@ Widget builder(List<Post> items) {
     itemCount: items.length,
     itemBuilder: (contex, index) {
       return cardView(contex, posts[index]);
-
-      //cardView(contex, posts[index]);
     },
   );
 }
 
+// Uzbek National Recipes See All qismi
 Widget builderAll(List<Post> items) {
   return GridView.builder(
     physics: const BouncingScrollPhysics(),

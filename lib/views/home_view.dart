@@ -32,7 +32,7 @@ class HomeView2 extends StatelessWidget {
           'Cooking Uno',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 20.sp,
+            fontSize: 18.sp,
             fontWeight: FontWeight.bold,
             fontFamily: "Lora",
           ),
@@ -49,7 +49,7 @@ class HomeView2 extends StatelessWidget {
               Column(
                 children: [
                   Container(
-                    height: 220.h,
+                    height: 230.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -59,7 +59,7 @@ class HomeView2 extends StatelessWidget {
                       children: [
                         // Uzbek National Recipes...!
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.h),
+                          padding: EdgeInsets.only(bottom: 10.h, top: 20.h),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -68,12 +68,12 @@ class HomeView2 extends StatelessWidget {
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
-                                        fontSize: 16.sp,
+                                        fontSize: 14.sp,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: "Lora",
                                       )),
-                              const SizedBox(width: 10),
+                              SizedBox(width: 10.w),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(
@@ -86,7 +86,7 @@ class HomeView2 extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Text(
-                                      'See All',
+                                      translation(context).seeAll,
                                       style: TextStyle(
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.bold,
@@ -112,154 +112,154 @@ class HomeView2 extends StatelessWidget {
             ],
           ),
           // Recent Add $ Top 10 Userc...!
-          SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                // Top 10 Users...!
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(translation(context).popularShef,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    fontFamily: "Lora",
-                                  ),
-                          textAlign: TextAlign.center),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const seeAllTopCreators(),
-                            ),
-                          );
-                        },
-                        child: Row(
-                          children: [
-                            Text(
-                              'See All',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontFamily: "Lora",
-                                fontWeight: FontWeight.w600,
-                                color: Colors.red,
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  //Popular Shef Top 10 Users...!
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(translation(context).popularShef,
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontFamily: "Lora",
+                                    ),
+                            textAlign: TextAlign.center),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const seeAllTopCreators(),
                               ),
-                            ),
-                            SizedBox(width: 5.w),
-                            SvgPicture.asset('assets/svg/Belgi.svg')
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                // Top 10 Users...! Cards
-                StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('users')
-                      .snapshots(),
-                  builder: (context, snapshots) {
-                    return (snapshots.connectionState ==
-                            ConnectionState.waiting)
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : SizedBox(
-                            height: 125.h,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: snapshots.data!.docs.length,
-                              itemBuilder: (context, index) {
-                                var data = snapshots.data!.docs[index].data()
-                                    as Map<String, dynamic>;
-
-                                return topCreator(context, data);
-                              },
-                            ),
-                          );
-                  },
-                ),
-                // Recent Added...!
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Recent Added',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Lora",
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const seeAllRecentAdded(),
-                            ),
-                          );
-                        },
-                        child: Row(
-                          children: [
-                            Text(
-                              'See All',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontFamily: "Lora",
-                                fontWeight: FontWeight.w600,
-                                color: Colors.red,
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                translation(context).seeAll,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontFamily: "Lora",
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.red,
+                                ),
                               ),
-                            ),
-                            SizedBox(width: 5.w),
-                            SvgPicture.asset('assets/svg/Belgi.svg')
-                          ],
+                              SizedBox(width: 5.w),
+                              SvgPicture.asset('assets/svg/Belgi.svg')
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                // Recent Added...! Cards
-                StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('Recipes')
-                      .snapshots(),
-                  builder: (context, snapshots) {
-                    return (snapshots.connectionState ==
-                            ConnectionState.waiting)
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : SizedBox(
-                            height: 190.h,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: snapshots.data!.docs.length,
-                              itemBuilder: (context, index) {
-                                allRecipes = snapshots.data!.docs[index].data()
-                                    as Map<String, dynamic>;
-
-                                return recentAdded(context, allRecipes);
-                              },
-                            ),
-                          );
-                  },
-                ),
-              ],
+                  // Popular Shef Top 10 Users...! Cards
+                  StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .snapshots(),
+                    builder: (context, snapshots) {
+                      return (snapshots.connectionState ==
+                              ConnectionState.waiting)
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : SizedBox(
+                              height: 138.h,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: snapshots.data!.docs.length,
+                                itemBuilder: (context, index) {
+                                  var data = snapshots.data!.docs[index].data()
+                                      as Map<String, dynamic>;
+                                  return topCreator(context, data);
+                                },
+                              ),
+                            );
+                    },
+                  ),
+                  // Recent Added...!
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          translation(context).recentAdded,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Lora",
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const seeAllRecentAdded(),
+                              ),
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                translation(context).seeAll,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontFamily: "Lora",
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.red,
+                                ),
+                              ),
+                              SizedBox(width: 5.w),
+                              SvgPicture.asset('assets/svg/Belgi.svg')
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Recent Added...! Cards
+                  StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('Recipes')
+                        .snapshots(),
+                    builder: (context, snapshots) {
+                      return (snapshots.connectionState ==
+                              ConnectionState.waiting)
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : SizedBox(
+                              height: 245.h,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: snapshots.data!.docs.length,
+                                itemBuilder: (context, index) {
+                                  allRecipes = snapshots.data!.docs[index]
+                                      .data() as Map<String, dynamic>;
+                                  return recentAdded(context, allRecipes);
+                                },
+                              ),
+                            );
+                    },
+                  ),
+                  Container(
+                    height: 35.h,
+                  )
+                ],
+              ),
             ),
           ),
         ],

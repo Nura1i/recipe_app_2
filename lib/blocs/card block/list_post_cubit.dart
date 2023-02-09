@@ -7,10 +7,6 @@ class ListPostCubit extends Cubit<ListPostState> {
   ListPostCubit() : super(ListPostInit());
 
   void apiPostList() async {
-    emit(
-      ListPostLoading(),
-    );
-
     final response = await Network.GET(Network.API_LIST, Network.paramsEmpty());
     if (response != null) {
       emit(ListPostLoaded(posts: Network.parsePostList(response)));
@@ -22,17 +18,4 @@ class ListPostCubit extends Cubit<ListPostState> {
   void runner() {
     FireDatabaseService.getdata();
   }
-
-  // List recipeOfList = [];
-  // PostListOfRecipes() async {
-  //   dynamic resultant = await FireDatabaseService().getRecipes();
-
-  //   if (resultant == null) {
-  //     log('Not Posted');
-  //   } else {
-  //     log('Post active');
-  //     recipeOfList.add(resultant);
-  //     emit(PostListRecipesState(recipeOfList));
-  //   }
-  // }
 }
