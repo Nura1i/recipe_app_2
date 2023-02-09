@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
 import 'package:recipe_app/blocs/add_cubits/add_state.dart';
 import 'package:recipe_app/pages/bookmark_page/constants_page.dart';
+import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 
 class chooseCategorie extends StatelessWidget {
   final headText;
@@ -23,7 +24,23 @@ class chooseCategorie extends StatelessWidget {
   bool? load = false;
   @override
   Widget build(BuildContext context) {
-    List<dynamic> responseList = CATEGORIA_DATA_UZ;
+    List<dynamic>? responseList;
+    List<dynamic>? responseList2;
+    if (translation(context).all == 'All') {
+      responseList = CATEGORIA_DATA_EN;
+      responseList2 = CATEGORIA_DATA_DISERT_EN;
+    }
+    if (translation(context).all == 'Все') {
+      responseList = CATEGORIA_DATA_RU;
+      responseList2 = CATEGORIA_DATA_DISERT_RU;
+    }
+    if (translation(context).all == 'Hammasi') {
+      responseList = CATEGORIA_DATA_UZ;
+      responseList2 = CATEGORIA_DATA_DISERT_UZ;
+    }
+    for (var element in responseList2!) {
+      responseList!.add(element);
+    }
     return BlocBuilder<CameraCubit, CameraState>(
       builder: (context, cameraState) {
         if (cameraState is loadingg) {
@@ -52,7 +69,7 @@ class chooseCategorie extends StatelessWidget {
                       )
                     : const Text(''),
                 load == false
-                    ? chooseCategoriWidget(responseList, context)
+                    ? chooseCategoriWidget(responseList!, context)
                     : const Center(
                         child: CircularProgressIndicator(
                           color: Colors.orange,

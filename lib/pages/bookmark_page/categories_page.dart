@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/pages/bookmark_page/constants_page.dart';
+import 'package:recipe_app/pages/bookmark_page/onChoosed_categorie.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 
 class CategoriesScroller extends StatefulWidget {
@@ -18,7 +19,9 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
     ItemsList.add(
       SizedBox(width: 10.w),
     );
+    var item;
     for (var card in response) {
+      item = card;
       ItemsList.add(
         FittedBox(
           fit: BoxFit.fill,
@@ -83,7 +86,17 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
         scrollDirection: Axis.horizontal,
         itemCount: ItemsList.length,
         itemBuilder: (context, index) {
-          return ItemsList[index];
+          return GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) {
+                    return onChoosedCategorie(
+                      categorie: response[index - 1],
+                    );
+                  },
+                ));
+              },
+              child: ItemsList[index]);
         },
       ),
     );

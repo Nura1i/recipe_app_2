@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -40,20 +42,22 @@ class _recipeOpenState extends State<recipeOpen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         actions: [
-          widget.postData['userId'] == currentUser
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: GestureDetector(
-                    onTap: () {
-                      DeletePostDialog(context, widget.postData);
-                    },
-                    child: const Icon(
-                      Icons.delete_outline_rounded,
-                      size: 34,
-                      color: Colors.red,
-                    ),
-                  ),
-                )
+          widget.postData != null
+              ? widget.postData['userId'] == currentUser
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: GestureDetector(
+                        onTap: () {
+                          DeletePostDialog(context, widget.postData);
+                        },
+                        child: const Icon(
+                          Icons.delete_outline_rounded,
+                          size: 34,
+                          color: Colors.red,
+                        ),
+                      ),
+                    )
+                  : const SizedBox()
               : const SizedBox()
         ],
         elevation: 20,
@@ -89,7 +93,7 @@ class _recipeOpenState extends State<recipeOpen> {
                     child: Container(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        widget.postData['head'],
+                        widget.postData['head'] ?? '',
                         style:
                             const TextStyle(color: Colors.black, fontSize: 22),
                       ),
@@ -254,31 +258,39 @@ class _recipeOpenState extends State<recipeOpen> {
                                   .doc(widget.postData['id'])
                                   .snapshots(),
                               builder: (context, snapshot) {
-                                return (snapshot.connectionState ==
-                                        ConnectionState.waiting)
-                                    ? const Align(
-                                        alignment: Alignment.topRight,
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                              right: 20, bottom: 5),
-                                          child: Text(''),
-                                        ),
-                                      )
-                                    : Align(
-                                        alignment: Alignment.topRight,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 25, bottom: 5),
-                                          child: Text(
-                                            snapshot.data!['totalLikes'] != null
-                                                ? 'total Likes: ${snapshot.data!['totalLikes'].length}'
-                                                    .toString()
-                                                : 'total Likes: 0',
-                                            style: const TextStyle(
-                                                color: Colors.orange),
-                                          ),
-                                        ),
-                                      );
+                                if (snapshot.hasError) {
+                                  log('error');
+                                  return const Center(
+                                    child: Text('error 404 ,files not found'),
+                                  );
+                                }
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  log('waiting');
+                                  const Align(
+                                    alignment: Alignment.topRight,
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.only(right: 20, bottom: 5),
+                                      child: Text(''),
+                                    ),
+                                  );
+                                }
+                                return Align(
+                                  alignment: Alignment.topRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 25, bottom: 5),
+                                    child: Text(
+                                      snapshot.data!['totalLikes'] != null
+                                          ? 'total Likes: ${snapshot.data!['totalLikes'].length}'
+                                              .toString()
+                                          : 'total Likes: 0',
+                                      style:
+                                          const TextStyle(color: Colors.orange),
+                                    ),
+                                  ),
+                                );
                               })
                           : const SizedBox(),
                       Row(
