@@ -18,8 +18,6 @@ class HomeView2 extends StatelessWidget {
   const HomeView2({super.key, required this.topUsers});
   @override
   Widget build(BuildContext context) {
-    final usersQuery =
-        FirebaseFirestore.instance.collection('users').orderBy('name');
     ScrollController controller = ScrollController();
     ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
@@ -279,7 +277,7 @@ class HomeView2 extends StatelessWidget {
                               child: CircularProgressIndicator(),
                             )
                           : SizedBox(
-                              height: 190.h,
+                              height: 245.h,
                               child: ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
