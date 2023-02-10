@@ -9,7 +9,6 @@ import 'package:recipe_app/blocs/add_cubits/add_state.dart';
 import 'package:recipe_app/models/Recipe%20Model/recipe_model.dart';
 import 'package:recipe_app/models/ingredient%20Model/ingredient_model.dart';
 import 'package:recipe_app/pages/Menu/menu_page.dart';
-import 'package:recipe_app/pages/notification/notification_page.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/widgets/add_ingredients.dart';
