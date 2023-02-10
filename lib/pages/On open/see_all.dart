@@ -7,48 +7,60 @@ import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/widgets/recent_added.dart';
 import 'package:recipe_app/widgets/top_creators_widget.dart';
 
+// Uzbek National Recipes See All Page...!
 class seeAllMilliyTaom extends StatelessWidget {
   const seeAllMilliyTaom({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
+        preferredSize: Size.fromHeight(50.h),
         child: AppBar(
-          backgroundColor: Colors.red.withOpacity(0.6),
-          title: const Text('All'),
+          scrolledUnderElevation: 10,
+          toolbarHeight: 50.h,
+          shadowColor: Colors.orange,
+          backgroundColor: Colors.orange,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: const Radius.circular(40).r,
+              bottomRight: const Radius.circular(40).r,
+            ),
+          ),
+          title: Text(
+            translation(context).milliytaom,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.sp,
+              fontFamily: "Lora",
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           centerTitle: true,
-          elevation: 10,
+          elevation: 0,
         ),
       ),
       body: Column(
         children: [
-          Expanded(flex: 1, child: builderAll(posts)),
-          // Padding(
-          //   padding: const EdgeInsets.all(3),
-          //   child: CircleAvatar(
-          //     backgroundColor: Colors.red,
-          //     radius: 21,
-          //     child: SvgPicture.asset(
-          //       'assets/svg/Inactive.svg',
-          //       color: Colors.white,
-          //       height: 30,
-          //     ),
-          //   ),
-          // )
+          SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: builderAll(posts)),
         ],
       ),
     );
   }
 }
 
+// Recent Added See All Page...!
 class seeAllRecentAdded extends StatelessWidget {
   const seeAllRecentAdded({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
@@ -56,14 +68,24 @@ class seeAllRecentAdded extends StatelessWidget {
         preferredSize: const Size.fromHeight(50),
         child: AppBar(
           scrolledUnderElevation: 20,
-          toolbarHeight: 50,
+          toolbarHeight: 50.h,
           shadowColor: Colors.orange,
           backgroundColor: Colors.orange,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50))),
-          title: const Text('Recent Added Recipes'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: const Radius.circular(40).r,
+              bottomRight: const Radius.circular(40).r,
+            ),
+          ),
+          title: Text(
+            translation(context).recentAddedRecipes,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Lora",
+            ),
+          ),
           centerTitle: true,
           elevation: 0,
         ),
@@ -97,8 +119,13 @@ class seeAllRecentAdded extends StatelessWidget {
                               return recentAddedForAll(context, data);
                             },
                             gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2),
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    childAspectRatio: MediaQuery.of(context)
+                                            .size
+                                            .width /
+                                        (MediaQuery.of(context).size.height /
+                                            1.8.h),
+                                    crossAxisCount: 3),
                           ),
                         );
                 },
@@ -111,12 +138,14 @@ class seeAllRecentAdded extends StatelessWidget {
   }
 }
 
+// See All Popular Shef See All Page...!
 class seeAllTopCreators extends StatelessWidget {
   final topUsers;
   const seeAllTopCreators({super.key, required this.topUsers});
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
@@ -137,7 +166,7 @@ class seeAllTopCreators extends StatelessWidget {
             translation(context).popularShef,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20.sp,
+              fontSize: 18.sp,
               fontFamily: "Lora",
               fontWeight: FontWeight.bold,
             ),
