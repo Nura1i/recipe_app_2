@@ -93,19 +93,24 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
       // AppBar...!
       appBar: AppBar(
         scrolledUnderElevation: 10,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            controlerMain!.clear();
-            controllerBody!.clear();
+        leading: GestureDetector(
+          onTap: () {
+            // controlerMain!.clear();
+            // controllerBody!.clear();
             headText = null;
             bodyText = null;
-            itNameQuant = [];
-            items = null;
+            // itNameQuant = [];
+            // items = null;
 
             BlocProvider.of<CameraCubit>(context).clearItems(context);
           },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+            size: 20.w,
+          ),
         ),
+
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: const Radius.circular(40).r,
