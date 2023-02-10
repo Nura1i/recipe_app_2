@@ -4,14 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:recipe_app/consts/consts.dart';
 import 'package:recipe_app/pages/On%20open/into_recipe.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/settings_profile.dart';
 import 'package:recipe_app/pages/profile_page/zoom_drawer_page.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 import '../../utils/shared_pref/language_prefs/preferences_2.dart';
-
-var UserId = FirebaseAuth.instance.currentUser!.uid;
 
 class ProfilePage extends StatelessWidget {
   final avatar;
@@ -63,7 +60,7 @@ class ProfilePage extends StatelessWidget {
                       StreamBuilder(
                           stream: FirebaseFirestore.instance
                               .collection('users')
-                              .doc(currentUser)
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
                               .snapshots(),
                           builder: (context, snapshot) {
                             return (snapshot.connectionState ==
@@ -143,7 +140,7 @@ class ProfilePage extends StatelessWidget {
                     StreamBuilder(
                         stream: FirebaseFirestore.instance
                             .collection('users')
-                            .doc(currentUser)
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
                             .snapshots(),
                         builder: (context, snapshot) {
                           return (snapshot.connectionState ==
@@ -231,7 +228,7 @@ class ProfilePage extends StatelessWidget {
                           StreamBuilder(
                             stream: FirebaseFirestore.instance
                                 .collection('users')
-                                .doc(UserId)
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
                                 .snapshots(),
                             builder: (context, snapshots) {
                               return (snapshots.connectionState ==
@@ -264,7 +261,7 @@ class ProfilePage extends StatelessWidget {
                           StreamBuilder(
                             stream: FirebaseFirestore.instance
                                 .collection('users')
-                                .doc(UserId)
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
                                 .snapshots(),
                             builder: (context, snapshots) {
                               return (snapshots.connectionState ==

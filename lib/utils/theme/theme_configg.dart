@@ -1,30 +1,32 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:recipe_app/utils/theme/dark_theme.dart';
-import 'package:recipe_app/utils/theme/white_theme.dart';
+
 // part 'dark_theme.dart';
 class AppTTheme {
   // static  AdaptiveThemeMode? currentSavedTheme = AdaptiveThemeMode.light;
   static final ThemeData whiteeTheme = ThemeData.light().copyWith(
-  //  brightness: Brightness.light,
+    //  brightness: Brightness.light,
     backgroundColor: Colors.white,
     canvasColor: Colors.orange,
-  //  textTheme: darkTextTheme,
+    //  textTheme: darkTextTheme,
     splashColor: Colors.white,
     primaryColor: const Color(0xFFB3A1F8),
     iconTheme: const IconThemeData(color: Colors.black),
     shadowColor: Colors.white,
+    highlightColor: Colors.orange,
     focusColor: const Color.fromARGB(255, 13, 25, 36),
     hoverColor: const Color.fromARGB(255, 13, 25, 36),
+    colorScheme: ColorScheme.fromSwatch()
+        .copyWith(secondary: Colors.white.withOpacity(0.1)),
   );
 
   static final ThemeData darkkTheme = ThemeData.dark().copyWith(
-    //  brightness: Brightness.dark,
+      //  brightness: Brightness.dark,
       backgroundColor: const Color.fromARGB(255, 13, 25, 36),
       primaryColor: const Color(0xFF574699),
       splashColor: const Color(0xFF201F24),
       canvasColor: const Color.fromARGB(255, 13, 25, 36),
+      highlightColor: Colors.orange,
       //textTheme: lightTextTheme,
       shadowColor: const Color.fromARGB(255, 90, 57, 6),
       focusColor: Colors.white,

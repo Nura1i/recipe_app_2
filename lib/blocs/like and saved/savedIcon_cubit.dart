@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_state.dart';
-import 'package:recipe_app/consts/consts.dart';
 
 class SavedCubit extends Cubit<SavedState> {
   SavedCubit() : super(SavedInit());
@@ -11,7 +11,7 @@ class SavedCubit extends Cubit<SavedState> {
     List savedLs = [];
     DocumentSnapshot userDoc = await FirebaseFirestore.instance
         .collection('users')
-        .doc(currentUser)
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
 
     savedLs = userDoc.get('saved') ?? [];
@@ -34,7 +34,7 @@ class SavedCubit extends Cubit<SavedState> {
 
     likedLs = userDoc.get('totalLikes') ?? [];
     count = likedLs.length;
-    if (likedLs.contains(currentUser)) {
+    if (likedLs.contains(FirebaseAuth.instance.currentUser!.uid)) {
       isLiked = true;
     }
     emit(Like(isLiked));

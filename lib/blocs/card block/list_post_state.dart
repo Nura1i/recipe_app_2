@@ -14,10 +14,9 @@ class ListPostLoading extends ListPostState {
 
 class ListPostLoaded extends ListPostState {
   final List<Post>? posts;
+  final result;
 
-  ListPostLoaded({
-    this.posts,
-  });
+  ListPostLoaded({this.posts, this.result});
 }
 
 class ListPostError extends ListPostState {
@@ -29,4 +28,9 @@ class ListPostError extends ListPostState {
 class PostListRecipesState extends ListPostState {
   final lsRecipes;
   PostListRecipesState(List recipeOfList, {this.lsRecipes});
+}
+
+class TopUserData extends ListPostState {
+  final data;
+  TopUserData(this.data);
 }

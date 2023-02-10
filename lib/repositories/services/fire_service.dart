@@ -1,14 +1,18 @@
+import 'dart:collection';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:recipe_app/consts/consts.dart';
+
 import 'package:recipe_app/models/Recipe%20Model/recipe_model.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/widgets.dart';
+
 import 'package:recipe_app/views/sign_in_view.dart';
+
+import 'package:shared_preferences/shared_preferences.dart' as ShP;
 
 String? username1111;
 String? bio;
@@ -136,7 +140,7 @@ class FireDatabaseService {
       await _storage.refFromURL(postId['photo']).delete();
       DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection('users')
-          .doc(currentUser)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
       List userLikes = userDoc['totalLikes'] ?? [];
       for (var element in likes) {
@@ -152,12 +156,43 @@ class FireDatabaseService {
       if (lsSaved.contains(postId['id'])) {
         lsSaved.remove(postId['id']);
       }
-      _databaseFirestore.collection('users').doc(currentUser).update(
-          {'recepts': lsPost, 'saved': lsSaved, 'totalLikes': userLikes});
+      _databaseFirestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update(
+              {'recepts': lsPost, 'saved': lsSaved, 'totalLikes': userLikes});
       log('Deleted Success');
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  static Future topCreators() async {
+    final QuerySnapshot<Map<String, dynamic>> allusersDoc;
+    var ref = FirebaseFirestore.instance.collection('users');
+    allusersDoc = await ref.get();
+    List ls = allusersDoc.docs;
+    Map<String, dynamic>? topUserId = {};
+    int max = 0;
+
+    for (var element in ls) {
+      if (element.data()['totalLikes'] != null) {
+        if (max < element.data()['totalLikes'].length) {
+          topUserId[element.data()['id'].toString()] =
+              element.data()['totalLikes'].length;
+        }
+      }
+    }
+
+    var sortedByValueMap = Map.fromEntries(topUserId.entries.toList()
+      ..sort((e1, e2) => e1.value.compareTo(e2.value)));
+    final reverseM =
+        LinkedHashMap.fromEntries(sortedByValueMap.entries.toList().reversed);
+    List topItems = [];
+    for (int i = 0; i < 9; i++) {
+      topItems.add(reverseM.keys.elementAt(i));
+    }
+    return topItems;
   }
 
   static Future<bool?> updateItemCollection({
@@ -181,21 +216,6 @@ class FireDatabaseService {
     }
 
     return isput;
-  }
-
-  static Future<bool?> deletePostById({required userModel? usermodel}) async {
-    bool? isDeleted = false;
-
-    try {
-      final deleteRef = _storage.refFromURL(usermodel!.avatarImage!);
-      await deleteRef.delete();
-      await _databaseFirestore.collection('users').doc(usermodel.id).delete();
-      isDeleted = true; // tushunarsiz joylari mavjud
-    } catch (e) {
-      log(e.toString());
-      return isDeleted;
-    }
-    return null;
   }
 
   static Future saved(recipeID, saved) async {
@@ -246,6 +266,13 @@ class FireDatabaseService {
       List ls = [];
       ls = userDoc.get('totalLikes') ?? [];
       totalLikes = recipeDoc.get('totalLikes') ?? [];
+      List supLike = recipeDoc.get('totalLikes') ?? [];
+      DocumentSnapshot ownRecipeDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(recipeDoc.get('userId'))
+          .get();
+
+      List ownRecipeLikeList = ownRecipeDoc.get('totalLikes') ?? [];
 
       if (liked == false) {
         if (!totalLikes.contains(currentUserId)) {
@@ -255,7 +282,7 @@ class FireDatabaseService {
       if (liked == true) {
         if (totalLikes.contains(currentUserId)) {
           totalLikes.remove(currentUserId);
-          ls.remove(currentUserId);
+          // ls.remove(currentUserId);
         }
       }
       await _databaseFirestore
@@ -264,9 +291,28 @@ class FireDatabaseService {
           .update({'totalLikes': totalLikes});
 
       if (currentUserId == recipeDoc.get('userId')) {
+        for (var element in supLike) {
+          ls.remove(element);
+        }
+      }
+      if (currentUserId == recipeDoc.get('userId')) {
         for (var element in totalLikes) {
           ls.add(element);
         }
+      }
+      if (currentUserId != recipeDoc.get('userId')) {
+        for (var element in supLike) {
+          ownRecipeLikeList.remove(element);
+        }
+
+        for (var element in totalLikes) {
+          ownRecipeLikeList.add(element);
+        }
+
+        await _databaseFirestore
+            .collection('users')
+            .doc(recipeDoc.get('userId'))
+            .update({'totalLikes': ownRecipeLikeList});
       }
       await _databaseFirestore
           .collection('users')
@@ -277,16 +323,6 @@ class FireDatabaseService {
     } catch (e) {
       log(e.toString());
     }
-  }
-
-  totalLikesUser(lsLikes) async {
-    log('works totalLikes');
-
-    // await _databaseFirestore
-    //     .collection('users')
-    //     .doc(currentUser)
-    //     .update({'totalLikes': lsLikes.length.toString()});
-    log('saved likes');
   }
 
   static Future<bool?> ProfileImageDelete() async {
@@ -313,8 +349,11 @@ class FireDatabaseService {
     return null;
   }
 
-  static void signOutUser(context) async {
+  static signOutUser(context) async {
     await FirebaseAuth.instance.signOut();
+
+    final prefs = await ShP.SharedPreferences.getInstance();
+    await prefs.clear();
 
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(

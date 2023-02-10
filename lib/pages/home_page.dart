@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 var posts;
+List? Topusers;
 
 class _HomePageState extends State<HomePage> {
   @override
@@ -22,7 +23,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     BlocProvider.of<ListPostCubit>(context).apiPostList();
     BlocProvider.of<ListPostCubit>(context).runner();
-    //BlocProvider.of<ListPostCubit>(context).PostListOfRecipes();
   }
 
   @override
@@ -33,8 +33,11 @@ class _HomePageState extends State<HomePage> {
         builder: (BuildContext context, ListPostState state) {
           if (state is ListPostLoaded) {
             posts = state.posts!;
-            // builder(posts);
-            return const HomeView2();
+            Topusers = state.result;
+
+            return HomeView2(
+              topUsers: Topusers,
+            );
           }
 
           return const Center(

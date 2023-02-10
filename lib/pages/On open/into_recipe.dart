@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_state.dart';
-import 'package:recipe_app/consts/consts.dart';
 import 'package:recipe_app/pages/On%20open/profile_open.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 import 'package:recipe_app/widgets/alertForDeletPost.dart';
@@ -29,7 +29,6 @@ class _recipeOpenState extends State<recipeOpen> {
   void initState() {
     BlocProvider.of<SavedCubit>(context).saved(widget.postData);
     BlocProvider.of<SavedCubit>(context).liked(widget.postData);
-    //BlocProvider.of<SavedCubit>(context).likecounter(widget.postData);
     super.initState();
   }
 
@@ -37,13 +36,13 @@ class _recipeOpenState extends State<recipeOpen> {
   Widget build(BuildContext context) {
     bool? issSaved;
     bool? issLaked;
-    int? count;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         actions: [
           widget.postData != null
-              ? widget.postData['userId'] == currentUser
+              ? widget.postData['userId'] ==
+                      FirebaseAuth.instance.currentUser!.uid
                   ? Padding(
                       padding: const EdgeInsets.only(right: 20),
                       child: GestureDetector(
@@ -250,49 +249,48 @@ class _recipeOpenState extends State<recipeOpen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      widget.postData != null
-                          ? StreamBuilder<
-                                  DocumentSnapshot<Map<String, dynamic>>>(
-                              stream: FirebaseFirestore.instance
-                                  .collection('Recipes')
-                                  .doc(widget.postData['id'])
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasError) {
-                                  log('error');
-                                  return const Center(
-                                    child: Text('error 404 ,files not found'),
-                                  );
-                                }
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  log('waiting');
-                                  const Align(
+                      StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Recipes')
+                              .doc(widget.postData['id'])
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              log('error');
+                              return const Center(
+                                child: Text('error 404 ,files not found'),
+                              );
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              log('waiting');
+                              const Align(
+                                alignment: Alignment.topRight,
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(right: 20, bottom: 5),
+                                  child: Text(''),
+                                ),
+                              );
+                            }
+                            return (snapshot.data != null)
+                                ? Align(
                                     alignment: Alignment.topRight,
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.only(right: 20, bottom: 5),
-                                      child: Text(''),
+                                      padding: const EdgeInsets.only(
+                                          right: 25, bottom: 5),
+                                      child: Text(
+                                        snapshot.data!['totalLikes'] != null
+                                            ? 'total Likes: ${snapshot.data!['totalLikes'].length}'
+                                                .toString()
+                                            : 'total Likes: 0',
+                                        style: const TextStyle(
+                                            color: Colors.orange),
+                                      ),
                                     ),
-                                  );
-                                }
-                                return Align(
-                                  alignment: Alignment.topRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 25, bottom: 5),
-                                    child: Text(
-                                      snapshot.data!['totalLikes'] != null
-                                          ? 'total Likes: ${snapshot.data!['totalLikes'].length}'
-                                              .toString()
-                                          : 'total Likes: 0',
-                                      style:
-                                          const TextStyle(color: Colors.orange),
-                                    ),
-                                  ),
-                                );
-                              })
-                          : const SizedBox(),
+                                  )
+                                : const SizedBox();
+                          }),
                       Row(
                         children: [
                           Container(

@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/pages/On%20open/profile_open.dart';
 
-topCreator(contex, data) {
+topCreator(contex, data, index) {
+  List TopColors = [
+    Colors.orange,
+    const Color.fromARGB(255, 149, 68, 18),
+    Colors.grey,
+    Colors.green
+  ];
   return GestureDetector(
     onTap: () {
       Navigator.of(contex).push(MaterialPageRoute(
@@ -60,7 +66,7 @@ topCreator(contex, data) {
                 borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(20),
                     bottomLeft: Radius.circular(20)),
-                color: Colors.green,
+                color: index < 3 ? TopColors[index] : Colors.green,
               ),
               child: Text(
                 '  TOP',

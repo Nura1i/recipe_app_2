@@ -112,9 +112,8 @@ class seeAllRecentAdded extends StatelessWidget {
 }
 
 class seeAllTopCreators extends StatelessWidget {
-  const seeAllTopCreators({
-    super.key,
-  });
+  final topUsers;
+  const seeAllTopCreators({super.key, required this.topUsers});
 
   @override
   Widget build(BuildContext context) {
@@ -150,29 +149,25 @@ class seeAllTopCreators extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection('users').snapshots(),
-              builder: (context, snapshots) {
-                return (snapshots.connectionState == ConnectionState.waiting)
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : SizedBox(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: snapshots.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            var data = snapshots.data!.docs[index].data()
-                                as Map<String, dynamic>;
-
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: topUsers.length,
+              itemBuilder: (context, index) => StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(topUsers[index])
+                    .snapshots(),
+                builder: (context, snapshots) {
+                  return (snapshots.connectionState == ConnectionState.waiting)
+                      ? const SizedBox()
+                      : Builder(
+                          builder: (_) {
+                            var data = snapshots.data!;
                             return topCreatorForAll(context, data);
                           },
-                        ),
-                      );
-              },
+                        );
+                },
+              ),
             ),
           ),
         ],
