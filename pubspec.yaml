@@ -88,6 +88,9 @@ flutter:
     - family: Lora
       fonts:
         - asset: assets/fonts/Lora-VariableFont_wght.ttf
+    - family: Kalam
+      fonts:
+        - asset: assets/fonts/Kalam-Light.ttf
         #  - asset: fonts/Schyler-Italic.ttf
         #   style: italic
   #   - family: Trajan Pro

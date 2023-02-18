@@ -26,21 +26,24 @@ class HomeView2 extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.orange,
         elevation: .0,
-        systemOverlayStyle:
-            const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+        ),
         centerTitle: true,
         title: Text(
           'Cooking Uno',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 20.sp,
+            fontSize: 18.sp,
             fontWeight: FontWeight.bold,
             fontFamily: "Lora",
           ),
         ),
       ),
+      // Cards Uzbek National Recipes, Popular Shef, Recent Added...!
       body: Column(
         children: [
+          // Card Uzbek National Recipes Column...!
           Column(
             children: [
               Stack(
@@ -52,31 +55,34 @@ class HomeView2 extends StatelessWidget {
                   Column(
                     children: [
                       Container(
-                        height: 220.h,
+                        height: 215.h,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(40).r,
                         ),
+                        // Uzbek National Recipes See All...!
                         child: Column(
                           children: [
-                            // Uzbek National Recipes...!
                             Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              padding:
+                                  const EdgeInsets.only(top: 15, bottom: 5),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(translation(context).milliytaom,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            fontSize: 16.sp,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: "Lora",
-                                          )),
-                                  const SizedBox(width: 10),
+                                  Text(
+                                    translation(context).milliytaom,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 14.sp,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "Lora",
+                                        ),
+                                  ),
+                                  SizedBox(width: 15.w),
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.of(context).push(
@@ -89,7 +95,7 @@ class HomeView2 extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Text(
-                                          'See All',
+                                          translation(context).seeAll,
                                           style: TextStyle(
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.bold,
@@ -99,7 +105,9 @@ class HomeView2 extends StatelessWidget {
                                         ),
                                         SizedBox(width: 5.w),
                                         SvgPicture.asset(
-                                            'assets/svg/Belgi.svg'),
+                                          'assets/svg/Belgi.svg',
+                                          width: 12.w,
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -115,14 +123,9 @@ class HomeView2 extends StatelessWidget {
                   ),
                 ],
               ),
-              // Recent Add $ Top 10 Userc...!
             ],
           ),
-          const Divider(
-            thickness: 1,
-            height: 1,
-            color: Colors.orange,
-          ),
+          // Top 10 Userc & Recent Add...!
           Expanded(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
@@ -130,19 +133,21 @@ class HomeView2 extends StatelessWidget {
                 children: [
                   // Top 10 Users...!
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(translation(context).popularShef,
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontFamily: "Lora",
-                                    ),
-                            textAlign: TextAlign.center),
+                        Text(
+                          translation(context).popularShef,
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontFamily: "Lora",
+                                  ),
+                          textAlign: TextAlign.center,
+                        ),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
@@ -155,90 +160,89 @@ class HomeView2 extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                'See All',
+                                translation(context).seeAll,
                                 style: TextStyle(
-                                  fontSize: 16.sp,
+                                  fontSize: 14.sp,
                                   fontFamily: "Lora",
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.bold,
                                   color: Colors.red,
                                 ),
                               ),
                               SizedBox(width: 5.w),
-                              SvgPicture.asset('assets/svg/Belgi.svg')
+                              SvgPicture.asset(
+                                'assets/svg/Belgi.svg',
+                                width: 12.w,
+                              )
                             ],
                           ),
                         ),
                       ],
                     ),
                   ),
-
-                  SizedBox(
-                    height: 10.h,
-                  ),
+                  SizedBox(height: 10.h),
                   // Top 10 Users...! Cards
                   StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection('users')
-                          .snapshots(),
-                      builder: (context, snapshots) {
-                        if (snapshots.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: SizedBox(),
-                          );
-                        }
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .snapshots(),
+                    builder: (context, snapshots) {
+                      if (snapshots.connectionState ==
+                          ConnectionState.waiting) {
+                        return const Center(
+                          child: SizedBox(),
+                        );
+                      }
 
-                        return (snapshots.data == null)
-                            ? const SizedBox()
-                            : SizedBox(
-                                height: 125.h,
-                                child: ListView.builder(
-                                  controller: controller,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
-                                  itemCount: topUsers.length,
-                                  itemBuilder: (context, index) =>
-                                      StreamBuilder(
-                                    stream: FirebaseFirestore.instance
-                                        .collection('users')
-                                        .doc(topUsers[index])
-                                        .snapshots(),
-                                    builder: (context, snapshots) {
-                                      if (snapshots.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return const Center(
-                                          child: SizedBox(),
-                                        );
-                                      }
-                                      /////STREAM BUILDER UPDATE QVOTTI SCROLL QGAN PAYT OZGARTIRISH KERE
-                                      return (snapshots.data == null)
-                                          ? const SizedBox()
-                                          : Builder(
-                                              builder: (context) {
-                                                var data = snapshots.data!;
-                                                return topCreator(
-                                                    context, data, index);
-                                              },
-                                            );
-                                    },
-                                  ),
+                      return (snapshots.data == null)
+                          ? const SizedBox()
+                          : SizedBox(
+                              height: 125.h,
+                              child: ListView.builder(
+                                controller: controller,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                itemCount: topUsers.length,
+                                itemBuilder: (context, index) => StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(topUsers[index])
+                                      .snapshots(),
+                                  builder: (context, snapshots) {
+                                    if (snapshots.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Center(
+                                        child: SizedBox(),
+                                      );
+                                    }
+                                    return (snapshots.data == null)
+                                        ? const SizedBox()
+                                        : Builder(
+                                            builder: (context) {
+                                              var data = snapshots.data!;
+                                              return topCreator(
+                                                  context, data, index);
+                                            },
+                                          );
+                                  },
                                 ),
-                              );
-                      }),
+                              ),
+                            );
+                    },
+                  ),
+                  SizedBox(height: 5.h),
 
                   // Recent Added...!
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Recent Added',
+                          translation(context).recentAdded,
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                             fontFamily: "Lora",
                           ),
@@ -254,16 +258,19 @@ class HomeView2 extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                'See All',
+                                translation(context).seeAll,
                                 style: TextStyle(
-                                  fontSize: 16.sp,
+                                  fontSize: 14.sp,
                                   fontFamily: "Lora",
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.bold,
                                   color: Colors.red,
                                 ),
                               ),
                               SizedBox(width: 5.w),
-                              SvgPicture.asset('assets/svg/Belgi.svg')
+                              SvgPicture.asset(
+                                'assets/svg/Belgi.svg',
+                                width: 12.w,
+                              ),
                             ],
                           ),
                         ),
@@ -298,6 +305,7 @@ class HomeView2 extends StatelessWidget {
                             );
                     },
                   ),
+                  SizedBox(height: 30.h),
                 ],
               ),
             ),

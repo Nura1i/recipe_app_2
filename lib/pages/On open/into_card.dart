@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../utils/shared_pref/language_prefs/preferences_2.dart';
 
 class openedCard extends StatefulWidget {
@@ -21,6 +20,7 @@ class _openedCardState extends State<openedCard> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
+      // AppBar...!
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h),
         child: AppBar(
@@ -38,7 +38,7 @@ class _openedCardState extends State<openedCard> {
             translation(context).milliytaom,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontFamily: "Lora",
               fontWeight: FontWeight.bold,
             ),
@@ -51,6 +51,7 @@ class _openedCardState extends State<openedCard> {
     );
   }
 
+  // Images and Text qisimlari...!
   Widget _intoCard() {
     return Theme(
       data: Theme.of(context).copyWith(
@@ -70,7 +71,7 @@ class _openedCardState extends State<openedCard> {
                 child: Text(
                   widget.carrd.header,
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 13.sp,
                     fontFamily: "Lora",
                     fontWeight: FontWeight.w600,
                   ),
@@ -84,6 +85,7 @@ class _openedCardState extends State<openedCard> {
                   child: Container(
                     height: 200.h,
                     decoration: BoxDecoration(
+                      border: Border.all(width: 1.w, color: Colors.white),
                       borderRadius: BorderRadius.circular(30).r,
                       image: DecorationImage(
                         image: CachedNetworkImageProvider(widget.carrd!.photo!),
@@ -94,44 +96,11 @@ class _openedCardState extends State<openedCard> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(15).r,
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.remove_red_eye_outlined,
-                            size: 16.sp,
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Text(
-                            '1391',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.black,
-                              fontFamily: "Lora",
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                 child: Text(
                   widget.carrd.about,
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 13.sp,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Lora",
@@ -139,7 +108,7 @@ class _openedCardState extends State<openedCard> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 50.h)
+              SizedBox(height: 20.h),
             ],
           ),
         ),
