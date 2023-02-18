@@ -237,24 +237,22 @@ class ProfilePage extends StatelessWidget {
                                       child: CircularProgressIndicator(),
                                     )
                                   : snapshots.data!['recepts'] != null
-                                      ? SizedBox(
-                                          height: 200,
-                                          child: GridView.builder(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            itemCount: snapshots
-                                                .data!['recepts']!.length,
-                                            itemBuilder: (contex, index) {
-                                              var data = snapshots
-                                                  .data!['recepts'][index];
-                                              var dataUser = snapshots.data;
-                                              return showOwnPosts(
-                                                  data, dataUser);
-                                            },
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 3),
-                                          ))
+                                      ? GridView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: snapshots
+                                              .data!['recepts']!.length,
+                                          itemBuilder: (contex, index) {
+                                            var data = snapshots
+                                                .data!['recepts'][index];
+                                            var dataUser = snapshots.data;
+                                            return showOwnPosts(data, dataUser);
+                                          },
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 3),
+                                        )
                                       : const SizedBox();
                             },
                           ),
@@ -293,7 +291,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ],
                       )),
-                )
+                ),
               ],
             ),
           ),
@@ -338,13 +336,13 @@ Widget showOwnPosts(idRecepts, dataUser) {
             )
           : ListView.builder(
               shrinkWrap: true,
+              padding: const EdgeInsets.all(3),
               physics: const NeverScrollableScrollPhysics(),
               itemCount: snapshots.data!.docs.length,
               itemBuilder: (context, index) {
                 var data = snapshots.data!.docs[index];
 
                 if (data['id'] == idRecepts) {
-                  //  BlocProvider.of<SavedCubit>(context).totalLikes(idRecepts);
                   return GestureDetector(
                     onTap: () async {
                       DocumentSnapshot userDoc = await FirebaseFirestore
