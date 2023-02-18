@@ -107,7 +107,7 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
           child: Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
-            size: 20.w,
+            size: 20.r,
           ),
         ),
 
@@ -718,8 +718,8 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                             },
                           )
                         : const SizedBox(),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 10.h,
                     ),
                     // Add New Ingredient + Text qismi...!
                     Padding(

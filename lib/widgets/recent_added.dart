@@ -26,7 +26,7 @@ recentAdded(contex, data) {
           );
         },
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 15.h),
+          padding: EdgeInsets.symmetric(vertical: 10.h),
           child: Container(
             color: Colors.white,
             width: 150.w,

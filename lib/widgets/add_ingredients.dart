@@ -19,105 +19,108 @@ class IngredientsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 690));
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        const SizedBox(),
-        // Indgredients Text "Item name"...!
-        Container(
-          width: 160.w,
-          height: 40.h,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: Colors.grey.shade400,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          const SizedBox(),
+          // Indgredients Text "Item name"...!
+          Container(
+            width: 160.w,
+            height: 40.h,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+                color: Colors.grey.shade400,
+              ),
+              borderRadius: BorderRadius.circular(10).r,
             ),
-            borderRadius: BorderRadius.circular(10).r,
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-            child: TextField(
-              maxLength: 20,
-              controller: controllerName,
-              decoration: InputDecoration(
-                counterText: '',
-                border: InputBorder.none,
-                hintText: translation(context).itemName,
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontSize: 12.sp,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+              child: TextField(
+                maxLength: 20,
+                controller: controllerName,
+                decoration: InputDecoration(
+                  counterText: '',
+                  border: InputBorder.none,
+                  hintText: translation(context).itemName,
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 12.sp,
+                    fontFamily: "Lora",
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14.sp,
                   fontFamily: "Lora",
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 14.sp,
-                fontFamily: "Lora",
-                fontWeight: FontWeight.bold,
+            ),
+          ),
+          // Indgredients Text "Quantity"...!
+          Container(
+            width: 100.w,
+            height: 40.h,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1.w,
+                color: Colors.grey.shade400,
               ),
+              borderRadius: BorderRadius.circular(10).r,
             ),
-          ),
-        ),
-        // Indgredients Text "Quantity"...!
-        Container(
-          width: 100.w,
-          height: 40.h,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1.w,
-              color: Colors.grey.shade400,
-            ),
-            borderRadius: BorderRadius.circular(10).r,
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-            child: TextField(
-              maxLength: 20,
-              controller: controllerQuant,
-              decoration: InputDecoration(
-                counterText: '',
-                border: InputBorder.none,
-                hintText: translation(context).quantity,
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontSize: 12.sp,
-                  fontFamily: "Lora",
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+              child: TextField(
+                maxLength: 20,
+                controller: controllerQuant,
+                decoration: InputDecoration(
+                  counterText: '',
+                  border: InputBorder.none,
+                  hintText: translation(context).quantity,
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 12.sp,
+                    fontFamily: "Lora",
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                style: TextStyle(
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontFamily: "Lora",
                 ),
-              ),
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                fontFamily: "Lora",
               ),
             ),
           ),
-        ),
-        // Icon Clear Button...!
-        clear == true
-            ? IconButton(
-                onPressed: () {
-                  BlocProvider.of<CameraCubit>(context)
-                      .removeItem(context, uuid);
-                },
-                icon: Container(
-                  width: 50.w,
-                  height: 50.h,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(30),
+          // Icon Clear Button...!
+          clear == true
+              ? IconButton(
+                  onPressed: () {
+                    BlocProvider.of<CameraCubit>(context)
+                        .removeItem(context, uuid);
+                  },
+                  icon: Container(
+                    width: 50.w,
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: const Icon(
+                      Icons.clear,
+                      color: Colors.red,
+                      size: 20,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.clear,
-                    color: Colors.red,
-                    size: 20,
-                  ),
-                ),
-              )
-            : const SizedBox()
-      ],
+                )
+              : const SizedBox()
+        ],
+      ),
     );
   }
 }

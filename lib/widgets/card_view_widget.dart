@@ -54,7 +54,7 @@ Widget cardView(BuildContext context, Post post) {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(5).r,
+                      borderRadius: BorderRadius.circular(8).r,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(2),
@@ -81,6 +81,7 @@ Widget cardView(BuildContext context, Post post) {
         child: Text(
           post.header!,
           style: TextStyle(
+            color: Colors.grey.shade800,
             fontWeight: FontWeight.bold,
             fontFamily: "Lora",
             fontSize: 10.sp,

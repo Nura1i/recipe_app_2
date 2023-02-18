@@ -34,7 +34,7 @@ class seeAllMilliyTaom extends StatelessWidget {
             translation(context).milliytaom,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontFamily: "Lora",
               fontWeight: FontWeight.bold,
             ),
@@ -46,8 +46,9 @@ class seeAllMilliyTaom extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: builderAll(posts)),
+            height: MediaQuery.of(context).size.height,
+            child: builderAll(posts),
+          ),
         ],
       ),
     );
@@ -67,7 +68,7 @@ class seeAllRecentAdded extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: AppBar(
-          scrolledUnderElevation: 20,
+          scrolledUnderElevation: 10,
           toolbarHeight: 50.h,
           shadowColor: Colors.orange,
           backgroundColor: Colors.orange,
@@ -119,13 +120,9 @@ class seeAllRecentAdded extends StatelessWidget {
                               return recentAddedForAll(context, data);
                             },
                             gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    childAspectRatio: MediaQuery.of(context)
-                                            .size
-                                            .width /
-                                        (MediaQuery.of(context).size.height /
-                                            1.8.h),
-                                    crossAxisCount: 3),
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                            ),
                           ),
                         );
                 },
@@ -138,7 +135,7 @@ class seeAllRecentAdded extends StatelessWidget {
   }
 }
 
-// See All Popular Shef See All Page...!
+// See All Popular Shef See All Home Page...!
 class seeAllTopCreators extends StatelessWidget {
   final topUsers;
   const seeAllTopCreators({super.key, required this.topUsers});
@@ -152,7 +149,7 @@ class seeAllTopCreators extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h),
         child: AppBar(
-          scrolledUnderElevation: 20,
+          scrolledUnderElevation: 10,
           toolbarHeight: 50.h,
           shadowColor: Colors.orange,
           backgroundColor: Colors.orange,
@@ -166,7 +163,7 @@ class seeAllTopCreators extends StatelessWidget {
             translation(context).popularShef,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 18.sp,
+              fontSize: 16.sp,
               fontFamily: "Lora",
               fontWeight: FontWeight.bold,
             ),
@@ -177,6 +174,7 @@ class seeAllTopCreators extends StatelessWidget {
       ),
       body: Column(
         children: [
+          SizedBox(height: 5.h),
           Expanded(
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
