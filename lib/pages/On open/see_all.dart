@@ -105,28 +105,24 @@ class seeAllRecentAdded extends StatelessWidget {
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
-                      : SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: snapshots.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              var data = snapshots.data!.docs[index].data()
-                                  as Map<String, dynamic>;
 
-                              return recentAddedForAll(context, data);
-                            },
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    childAspectRatio: MediaQuery.of(context)
-                                            .size
-                                            .width /
-                                        (MediaQuery.of(context).size.height /
-                                            1.8.h),
-                                    crossAxisCount: 3),
-                          ),
+                      /////////GRID NOTOGRI ISHLAVOTTI
+                      : GridView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: snapshots.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            var data = snapshots.data!.docs[index].data()
+                                as Map<String, dynamic>;
+
+                            return recentAddedForAll(context, data);
+                          },
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisSpacing: 2,
+                                  crossAxisCount: 3,
+                                  mainAxisExtent: 160),
                         );
                 },
               ),

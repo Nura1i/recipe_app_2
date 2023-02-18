@@ -12,6 +12,9 @@ import 'package:recipe_app/widgets/bottomsheet.dart';
 import 'package:recipe_app/pages/chooseCategorie.dart';
 import 'package:uuid/uuid.dart';
 
+String? headText;
+String? bodyTextt;
+
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
 
@@ -20,6 +23,12 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
+  @override
+  void initState() {
+    setState(() {});
+    super.initState();
+  }
+
   @override
   @override
   Widget build(BuildContext context) {
@@ -67,8 +76,7 @@ class _AddPageState extends State<AddPage> {
 }
 
 ScrollController scrolController = ScrollController();
-String? headText;
-String? bodyText;
+
 Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
     items, isPosted) {
   var size = MediaQuery.of(context).size;
@@ -98,7 +106,7 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
             // controlerMain!.clear();
             // controllerBody!.clear();
             headText = null;
-            bodyText = null;
+            bodyTextt = null;
             // itNameQuant = [];
             // items = null;
 
@@ -238,7 +246,7 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                 return;
               }
               // Next "Body text Is Empty"...!
-              if (bodyText == null) {
+              if (bodyTextt == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     duration: const Duration(milliseconds: 1000),
@@ -267,7 +275,7 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
               if (headText != null &&
                   serves != 0 &&
                   time != null &&
-                  bodyText != null) {
+                  bodyTextt != null) {
                 List? allIngredients;
                 if (items != null) {
                   for (var element in items) {
@@ -288,7 +296,7 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                     builder: (context) {
                       return chooseCategorie(
                         allIngredients: allIngredients,
-                        bodyText: bodyText,
+                        bodyText: bodyTextt,
                         headText: headText,
                         img: img,
                         serves: serves,
@@ -300,8 +308,8 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                 if (isPosted == true) {
                   controlerMain!.clear();
                   controllerBody!.clear();
-                  headText = '';
-                  bodyText = '';
+                  headText = null;
+                  bodyTextt = null;
                   allIngredients = null;
                   img = null;
                   serves = null;
@@ -657,7 +665,7 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                         ),
                         child: TextField(
                           onChanged: (value) {
-                            bodyText = value;
+                            bodyTextt = value;
                           },
                           style: TextStyle(
                             fontSize: 15.sp,

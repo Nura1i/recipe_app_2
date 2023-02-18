@@ -150,19 +150,20 @@ class _profielOnOpenState extends State<profielOnOpen> {
                         ));
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 2, right: 2),
+                        padding:
+                            const EdgeInsets.only(left: 2, right: 2, top: 2),
                         child: Container(
                           height: 120.w,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //     color: Colors.grey.withOpacity(0.5),
+                              //     spreadRadius: 5,
+                              //     blurRadius: 7,
+                              //     offset: const Offset(0, 3),
+                              //   ),
+                              // ],
                               image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: CachedNetworkImageProvider(

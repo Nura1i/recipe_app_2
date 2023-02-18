@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/dropdownbutton.dart';
-import 'package:recipe_app/pages/profile_page/settings_profile_page/croppPage.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/widgets.dart';
+import 'package:recipe_app/widgets/bottomsheet.dart';
 
 class EditProfilePage extends StatelessWidget {
   const EditProfilePage({super.key});
@@ -75,11 +75,15 @@ class EditProfilePage extends StatelessWidget {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Navigator.of(context)
-                                                  .push(MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const CropperScreenn(),
-                                              ));
+                                              displayBottomSheetForProfile(
+                                                  context);
+                                              // Navigator.of(context)
+                                              //     .push(MaterialPageRoute(
+                                              //   builder: (context) =>
+                                              //       const CropperScreenn(),
+                                              // )
+
+                                              // );
                                             },
                                             child: Container(
                                               width: 130,

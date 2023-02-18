@@ -166,19 +166,6 @@ class _BookMarkPageState extends State<BookMarkPage>
                 ],
               ),
               // Popular Category...!
-              if (searchedRecipe.isEmpty)
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.h),
-                  child: Text(
-                    translation(context).popularcategory,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontFamily: "Lora",
-                        ),
-                  ),
-                ),
 
               // Popular Categoriya qismi...!
               if (searchedRecipe.isEmpty)
@@ -192,7 +179,19 @@ class _BookMarkPageState extends State<BookMarkPage>
                       height: closeTopContainer ? 0 : 200.h,
                       child: categoriesScroller),
                 ),
-
+              if (searchedRecipe.isEmpty)
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                  child: Text(
+                    translation(context).popularcategory,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontFamily: "Lora",
+                        ),
+                  ),
+                ),
               // categoriyani tegidigi opshi categoriya qismi...!
               if (searchedRecipe.isEmpty)
                 allRecipes != null
@@ -294,7 +293,7 @@ class _BookMarkPageState extends State<BookMarkPage>
                   ));
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.only(right: 20, left: 20),
                   child: Container(
                     height: 130.h,
                     width: double.infinity,
@@ -357,6 +356,7 @@ class _BookMarkPageState extends State<BookMarkPage>
                             height: 100,
                             width: 100,
                             decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20).r,
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: CachedNetworkImageProvider(

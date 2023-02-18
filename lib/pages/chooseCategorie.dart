@@ -115,6 +115,7 @@ class chooseCategorie extends StatelessWidget {
 
             BlocProvider.of<CameraCubit>(context).postRecipe(context, headText,
                 serves, time, bodyText, img, allIngredients, card['name']);
+            //BlocProvider.of<CameraCubit>(context).clearItems(context);
           },
           child: Container(
             decoration: BoxDecoration(

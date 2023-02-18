@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
+import 'package:recipe_app/pages/profile_page/settings_profile_page/croppPage.dart';
 
 void displayBottomSheet(BuildContext context) {
   showModalBottomSheet(
@@ -54,6 +56,65 @@ void displayBottomSheet(BuildContext context) {
                   //     child: img != null
                   //         ? Image.file(img)
                   //         : Text('    No Photo'))
+                ],
+              ),
+            ));
+      });
+}
+
+void displayBottomSheetForProfile(BuildContext context) {
+  final ImagePicker picker = ImagePicker();
+  XFile image;
+  showModalBottomSheet(
+      context: context,
+      elevation: 10,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      builder: (ctx) {
+        return Container(
+            height: MediaQuery.of(context).size.height * 0.08,
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                      onPressed: () async {
+                        image = (await picker.pickImage(
+                            source: ImageSource.camera, imageQuality: 50))!;
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) {
+                            return CropperScreenn(
+                              image: image,
+                            );
+                          },
+                        ));
+                      },
+                      icon: SvgPicture.asset(
+                        'assets/svg/camera.svg',
+                        width: 45,
+                      )),
+                  const SizedBox(
+                    width: 100,
+                  ),
+                  IconButton(
+                      iconSize: 45,
+                      onPressed: () async {
+                        image = (await picker.pickImage(
+                            source: ImageSource.gallery, imageQuality: 50))!;
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) {
+                            return CropperScreenn(
+                              image: image,
+                            );
+                          },
+                        ));
+                      },
+                      icon: SvgPicture.asset(
+                        'assets/svg/gallery.svg',
+                      )),
                 ],
               ),
             ));

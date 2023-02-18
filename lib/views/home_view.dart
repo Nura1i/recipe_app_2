@@ -118,6 +118,11 @@ class HomeView2 extends StatelessWidget {
               // Recent Add $ Top 10 Userc...!
             ],
           ),
+          const Divider(
+            thickness: 1,
+            height: 1,
+            color: Colors.orange,
+          ),
           Expanded(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),

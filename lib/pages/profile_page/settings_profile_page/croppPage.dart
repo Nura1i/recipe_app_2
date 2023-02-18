@@ -10,7 +10,8 @@ import 'package:recipe_app/models/user%20Model/user_model.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 
 class CropperScreenn extends StatefulWidget {
-  const CropperScreenn({Key? key});
+  final image;
+  const CropperScreenn({Key? key, this.image});
 
   @override
   State<CropperScreenn> createState() => _CropperScreennState();
@@ -18,17 +19,64 @@ class CropperScreenn extends StatefulWidget {
 
 class _CropperScreennState extends State<CropperScreenn> {
   @override
+  void initState() {
+    updateData();
+    super.initState();
+    setState(() {});
+  }
+
+  @override
   final ImagePicker _picker = ImagePicker();
   final GlobalKey _cropperKey = GlobalKey(debugLabel: 'cropperKey');
   Uint8List? _imageToCrop;
   Uint8List? _croppedImage;
   final OverlayType _overlayType = OverlayType.circle;
 
+  updateData() async {
+    if (widget.image != null) {
+      final imageBytes = await widget.image!.readAsBytes();
+      setState(() {
+        _imageToCrop = imageBytes;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    XFile? image;
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF5EC),
+      appBar: AppBar(
+        actions: [
+          MaterialButton(
+            child: const Icon(Icons.check_circle_outline,
+                size: 33, color: Colors.blue),
+            onPressed: () async {
+              final imageBytes = await Cropper.crop(cropperKey: _cropperKey);
+
+              if (imageBytes != null) {
+                _croppedImage = imageBytes;
+                userModel usermodel11 =
+                    userModel(id: FirebaseAuth.instance.currentUser!.uid);
+                Directory tempDir = await getTemporaryDirectory();
+                File file = await File('${tempDir.path}/image.png').create();
+                file.writeAsBytesSync(_croppedImage!);
+                FireDatabaseService.updateProfile(
+                    usermodel: usermodel11, image: file);
+                log('PUBLISHED');
+                setState(() {});
+              }
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+        title: const Text(
+          'Change photo',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        elevation: .0,
+        backgroundColor: Colors.orange,
+      ),
+      backgroundColor: Colors.orange,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -36,13 +84,18 @@ class _CropperScreennState extends State<CropperScreenn> {
               SizedBox(
                   height: 500,
                   child: _imageToCrop != null
-                      ? Cropper(
-                          cropperKey: _cropperKey,
-                          overlayType: _overlayType,
-                          image: Image.memory(_imageToCrop!),
-                          onScaleStart: (details) {},
-                          onScaleUpdate: (details) {},
-                          onScaleEnd: (details) {},
+                      ? Container(
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 3, color: Colors.orange)),
+                          child: Cropper(
+                            cropperKey: _cropperKey,
+                            overlayType: _overlayType,
+                            image: Image.memory(_imageToCrop!),
+                            onScaleStart: (details) {},
+                            onScaleUpdate: (details) {},
+                            onScaleEnd: (details) {},
+                          ),
                         )
                       : const Center(
                           child: Icon(
@@ -54,51 +107,9 @@ class _CropperScreennState extends State<CropperScreenn> {
               const SizedBox(height: 16),
               Wrap(
                 spacing: 16,
-                children: [
-                  MaterialButton(
-                    padding: const EdgeInsets.all(10),
-                    color: const Color.fromARGB(255, 26, 4, 4),
-                    child: const Text(
-                      'Galery images',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () async {
-                      image = await _picker.pickImage(
-                          source: ImageSource.gallery, imageQuality: 50);
-
-                      if (image != null) {
-                        final imageBytes = await image!.readAsBytes();
-                        setState(() {
-                          _imageToCrop = imageBytes;
-                        });
-                      }
-                    },
-                  ),
-                  const SizedBox(
+                children: const [
+                  SizedBox(
                     width: 20,
-                  ),
-                  MaterialButton(
-                    color: Colors.black,
-                    child: const Icon(Icons.crop, color: Colors.white),
-                    onPressed: () async {
-                      final imageBytes =
-                          await Cropper.crop(cropperKey: _cropperKey);
-
-                      if (imageBytes != null) {
-                        _croppedImage = imageBytes;
-                        userModel usermodel11 = userModel(
-                            id: FirebaseAuth.instance.currentUser!.uid);
-                        Directory tempDir = await getTemporaryDirectory();
-                        File file =
-                            await File('${tempDir.path}/image.png').create();
-                        file.writeAsBytesSync(_croppedImage!);
-                        FireDatabaseService.updateProfile(
-                            usermodel: usermodel11, image: file);
-                        log('PUBLISHED');
-                        setState(() {});
-                      }
-                      Navigator.of(context).pop();
-                    },
                   ),
                 ],
               ),

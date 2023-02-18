@@ -17,15 +17,29 @@ TextEditingController signUpPassword = TextEditingController();
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInit());
 
+  changeIcon(check) {
+    check = !check;
+    emit(passwordCheck(check));
+  }
+
+  // checkEmail() {
+  //   result = false;
+  //   emit(alreadyHasAccount(result));
+  // }
+
   signUp(BuildContext context) async {
     try {
-      if (signUpUsername.text.isEmpty ||
-          signUpPassword.text.isEmpty ||
+      // log('loading');
+      // isLoading = true;
+      // emit(SignUpLoading(isLoading));
+      if (signUpUsername.text.isEmpty &&
+          signUpPassword.text.isEmpty &&
           signUpEmail.text.isEmpty) return;
 
       final UserCredential credentional = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: signUpEmail.text, password: signUpPassword.text);
+
       assert(credentional.user != null);
 
       userModel? userMod = userModel(
@@ -36,8 +50,10 @@ class SignUpCubit extends Cubit<SignUpState> {
 
       final userSavedToDatabase =
           await FireDatabaseService.saveUserToCollection(user: userMod);
+
       if (credentional.user != null && userSavedToDatabase!) {
         log('Saved');
+
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const MenuPage()),
             (route) => false);
@@ -50,9 +66,36 @@ class SignUpCubit extends Cubit<SignUpState> {
       if (isSaved!) {
         return token;
       }
+
       return null;
     } catch (e) {
       log(e.toString());
+      // log('message');
+      // isLoading = false;
+      // emit(SignUpLoading(isLoading));
+
+      // Timer(const Duration(milliseconds: 200), () {
+      //   isLoading = false;
+      //   emit(SignUpLoading(isLoading));
+      // });
+      // Timer(const Duration(milliseconds: 300), () {
+      //   if (e.toString() ==
+      //       '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
+      //     log('already use');
+      //     result = true;
+      //     emit(alreadyHasAccount(result));
+      //     isLoading = false;
+      //     emit(SignUpLoading(isLoading));
+      //   } else {
+      //     result = false;
+      //     emit(alreadyHasAccount(result));
+      //     isLoading = false;
+      //     emit(SignUpLoading(isLoading));
+      //   }
+      // });
     }
   }
 }
+
+bool isLoading = false;
+bool? result = false;

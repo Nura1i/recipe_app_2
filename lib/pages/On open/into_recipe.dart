@@ -246,150 +246,151 @@ class _recipeOpenState extends State<recipeOpen> {
                       },
                     )
                   ]),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection('Recipes')
-                              .doc(widget.postData['id'])
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError) {
-                              log('error');
-                              return const Center(
-                                child: Text('error 404 ,files not found'),
-                              );
-                            }
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              log('waiting');
-                              const Align(
+                  StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('Recipes')
+                          .doc(widget.postData['id'])
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          log('error');
+                          return const Center(
+                            child: Text('error 404 ,files not found'),
+                          );
+                        }
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          log('waiting');
+                          const Align(
+                            alignment: Alignment.topRight,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 20, bottom: 5),
+                              child: Text(''),
+                            ),
+                          );
+                        }
+                        return (snapshot.data != null)
+                            ? Align(
                                 alignment: Alignment.topRight,
                                 child: Padding(
-                                  padding:
-                                      EdgeInsets.only(right: 20, bottom: 5),
-                                  child: Text(''),
+                                  padding: const EdgeInsets.only(
+                                      right: 25, bottom: 5),
+                                  child: Text(
+                                    snapshot.data!['totalLikes'] != null
+                                        ? 'total Likes: ${snapshot.data!['totalLikes'].length}'
+                                            .toString()
+                                        : 'total Likes: 0',
+                                    style:
+                                        const TextStyle(color: Colors.orange),
+                                  ),
                                 ),
-                              );
-                            }
-                            return (snapshot.data != null)
-                                ? Align(
-                                    alignment: Alignment.topRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 25, bottom: 5),
+                              )
+                            : const SizedBox();
+                      }),
+                  Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(left: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.orangeAccent.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(7)),
+                        height: 30,
+                        width: 150,
+                        child: Text(
+                          "${widget.postData['serves'].toString()}  kishiga",
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(left: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.orangeAccent.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(7)),
+                        height: 30,
+                        width: 180,
+                        child: Text(
+                          'cookTime:  ${widget.postData['cookTime']}',
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: Colors.orangeAccent.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Text(
+                        'text:  ${widget.postData['text']}',
+                        style: const TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(
+                      left: 20,
+                    ),
+                    child: Text(
+                      'Ingredients',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  widget.postData['items'] != null
+                      ? (ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          padding: const EdgeInsets.only(top: 10),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: widget.postData['items'].length,
+                          itemBuilder: (context, index) {
+                            Map item = widget.postData['items'][index];
+                            List myList = item.values.toList();
+                            String itemName = myList[1];
+                            String itemQuant = myList[0];
+
+                            return itemName != ''
+                                ? Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Container(
+                                      height: 30,
+                                      alignment: Alignment.center,
+                                      margin: const EdgeInsets.only(
+                                          left: 20, right: 20),
+                                      decoration: BoxDecoration(
+                                          color: Colors.orangeAccent
+                                              .withOpacity(0.7),
+                                          borderRadius:
+                                              BorderRadius.circular(7)),
                                       child: Text(
-                                        snapshot.data!['totalLikes'] != null
-                                            ? 'total Likes: ${snapshot.data!['totalLikes'].length}'
-                                                .toString()
-                                            : 'total Likes: 0',
+                                        "$itemName  $itemQuant  ",
                                         style: const TextStyle(
-                                            color: Colors.orange),
+                                            color: Colors.black,
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w300),
                                       ),
                                     ),
                                   )
                                 : const SizedBox();
-                          }),
-                      Row(
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(left: 20),
-                            decoration: BoxDecoration(
-                                color: Colors.orangeAccent.withOpacity(0.7),
-                                borderRadius: BorderRadius.circular(7)),
-                            height: 30,
-                            width: 150,
-                            child: Text(
-                              "${widget.postData['serves'].toString()}  kishiga",
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w300),
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(left: 20),
-                            decoration: BoxDecoration(
-                                color: Colors.orangeAccent.withOpacity(0.7),
-                                borderRadius: BorderRadius.circular(7)),
-                            height: 30,
-                            width: 180,
-                            child: Text(
-                              'cookTime:  ${widget.postData['cookTime']}',
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w300),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: Colors.orangeAccent.withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Text(
-                            'text:  ${widget.postData['text']}',
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20, bottom: 20),
-                        child: Text(
-                          'Ingredients',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                      SizedBox(
-                          height: 300,
-                          child: widget.postData['items'] != null
-                              ? (ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: widget.postData['items'].length,
-                                  itemBuilder: (context, index) {
-                                    Map item = widget.postData['items'][index];
-                                    List myList = item.values.toList();
-                                    String itemName = myList[1];
-                                    String itemQuant = myList[0];
-
-                                    return Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: Container(
-                                        height: 30,
-                                        alignment: Alignment.center,
-                                        margin: const EdgeInsets.only(
-                                            left: 20, right: 20),
-                                        decoration: BoxDecoration(
-                                            color: Colors.orangeAccent
-                                                .withOpacity(0.7),
-                                            borderRadius:
-                                                BorderRadius.circular(7)),
-                                        child: Text(
-                                          "$itemName  $itemQuant  ",
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.w300),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ))
-                              : const SizedBox())
-                    ],
-                  ),
+                          },
+                        ))
+                      : const SizedBox(),
+                  const SizedBox(
+                    height: 30,
+                  )
                 ],
               ),
             );
@@ -462,12 +463,12 @@ class _recipeOpenState extends State<recipeOpen> {
             ],
           )));
     }
-    await FireDatabaseService.saved(widget.postData['id'], isSaved);
+    FireDatabaseService.saved(widget.postData['id'], isSaved);
     return !isSaved;
   }
 
   Future<bool> onLikeButtonTapped(bool isLiked) async {
-    await FireDatabaseService.like(widget.postData['id'], isLiked);
+    FireDatabaseService.like(widget.postData['id'], isLiked);
 
     return !isLiked;
   }
