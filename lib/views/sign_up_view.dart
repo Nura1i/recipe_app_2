@@ -34,7 +34,7 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
             ),
             Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
                     decoration: BoxDecoration(
@@ -228,6 +228,7 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
                                       if (signUpPassword.text != '' &&
                                           signUpEmail.text != '' &&
                                           signUpUsername.text != '') {
+                                        loading = true;
                                         BlocProvider.of<SignUpCubit>(context)
                                             .signUp(context);
                                       }
@@ -259,48 +260,63 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
                                   ),
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Allready has account ',
-                                    style: TextStyle(
-                                        color: Colors.black.withOpacity(0.7),
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      bottom: size.width * .03,
-                                    ),
-                                    child: ElevatedButton(
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                          Colors.red.withOpacity(0.8),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        translation(context).signIn,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      onPressed: () => Navigator.of(context)
-                                          .pushAndRemoveUntil(
-                                              SizeTransition1(
-                                                const SignInPage(),
-                                              ),
-                                              (route) => false),
-                                    ),
-                                  ),
-                                ],
-                              )
                             ],
                           ),
                         ),
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: size.height * 0.20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Allready has account ',
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.08,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          bottom: size.width * .03,
+                        ),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            shape: const BeveledRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(14))),
+                            shadowColor: Colors.red,
+                            elevation: 5,
+                            // padding: MaterialStateProperty.all<EdgeInsets>(
+                            //     const EdgeInsets.fromLTRB(5, 0, 5, 0)),
+                            // backgroundColor: MaterialStateProperty.all(
+                            //   Colors.red.withOpacity(0.8),
+                            // ),
+                          ),
+                          child: Text(
+                            translation(context).signIn,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          onPressed: () =>
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  SizeTransition1(
+                                    const SignInPage(),
+                                  ),
+                                  (route) => false),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: size.height * 0.014,
+                  )
                 ],
               ),
             ),

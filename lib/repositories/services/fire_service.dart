@@ -9,8 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:recipe_app/models/Recipe%20Model/recipe_model.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/widgets.dart';
-
-import 'package:recipe_app/views/sign_in_view.dart';
+import 'package:recipe_app/pages/sign_in_page.dart';
 
 import 'package:shared_preferences/shared_preferences.dart' as ShP;
 
@@ -357,7 +356,7 @@ class FireDatabaseService {
 
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => const SignInView(),
+          builder: (context) => const SignInPage(),
         ),
         (route) => false);
   }

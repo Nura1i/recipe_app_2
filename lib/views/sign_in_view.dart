@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 import 'package:recipe_app/pages/sign_up_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
@@ -9,16 +10,20 @@ import 'package:recipe_app/widgets/pageAnimationFade.dart';
 
 import '../blocs/login/sign_in_cubit.dart';
 
-class SignInView extends StatefulWidget {
-  const SignInView({super.key});
+class SignInView extends StatelessWidget {
+  final context;
+  final pass;
+  final UserResult;
+
+  const SignInView({
+    super.key,
+    required this.context,
+    this.pass,
+    this.UserResult,
+  });
 
   @override
-  State<SignInView> createState() => _SignInViewState();
-}
-
-class _SignInViewState extends State<SignInView> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -44,7 +49,7 @@ class _SignInViewState extends State<SignInView> {
               ),
               Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
                       decoration: BoxDecoration(
@@ -88,22 +93,26 @@ class _SignInViewState extends State<SignInView> {
                                   ),
                                 ),
                                 component(
+                                    context,
                                     Icons.email,
                                     translation(context).enterEmail,
                                     false,
                                     false,
                                     false,
-                                    signUpEmail),
+                                    signUpEmail,
+                                    false),
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 20),
                                   child: component(
+                                      context,
                                       Icons.lock,
                                       translation(context).enterAPassword,
                                       false,
                                       false,
                                       false,
-                                      signUpPassword),
+                                      signUpPassword,
+                                      true),
                                 ),
                                 SizedBox(height: size.width * .1),
                                 InkWell(
@@ -129,8 +138,64 @@ class _SignInViewState extends State<SignInView> {
                                     ),
                                     child: GestureDetector(
                                       onTap: () {
-                                        SignInCubit().signIn(context,
-                                            signUpEmail, signUpPassword);
+                                        if (signUpEmail.text == '') {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  elevation: 100,
+                                                  shape: StadiumBorder(),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 40,
+                                                      right: 20,
+                                                      left: 20),
+                                                  backgroundColor: Colors.green,
+                                                  content:
+                                                      Text("Email is empty")));
+                                          return;
+                                        }
+                                        if (signUpPassword.text == '') {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  elevation: 100,
+                                                  shape: StadiumBorder(),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 40,
+                                                      right: 20,
+                                                      left: 20),
+                                                  backgroundColor: Colors.green,
+                                                  content: Text(
+                                                      "Password is empty")));
+                                          return;
+                                        }
+                                        BlocProvider.of<SignInCubit>(context)
+                                            .signIn(context, signUpEmail,
+                                                signUpPassword);
+
+                                        if (UserResult == false) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  duration:
+                                                      Duration(seconds: 2),
+                                                  elevation: 100,
+                                                  shape: StadiumBorder(),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 40,
+                                                      right: 20,
+                                                      left: 20),
+                                                  backgroundColor: Colors.green,
+                                                  content: Text(
+                                                      "There is no user record corresponding to this identifier. The user may have been deleted.")));
+                                          return;
+                                        }
                                       },
                                       child: Text(
                                         translation(context).forward,
@@ -144,39 +209,68 @@ class _SignInViewState extends State<SignInView> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                    bottom: size.width * .03,
-                                  ),
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                        Colors.red.withOpacity(0.8),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      translation(context).signup,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Lora",
-                                      ),
-                                    ),
-                                    onPressed: () => Navigator.of(context)
-                                        .pushAndRemoveUntil(
-                                            SizeTransition1(
-                                              const SignUpPage(),
-                                            ),
-                                            (route) => false),
-                                  ),
-                                )
                               ],
                             ),
                           ),
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: size.height * 0.22,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Create new Account',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Lora",
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: size.width * 0.1,
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                            bottom: size.width * .03,
+                          ),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                              shape: const BeveledRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(14))),
+                              shadowColor: Colors.red,
+                              elevation: 5,
+                              // padding: MaterialStateProperty.all<EdgeInsets>(
+                              //     const EdgeInsets.fromLTRB(5, 0, 5, 0)),
+                              // backgroundColor: MaterialStateProperty.all(
+                              //   Colors.red.withOpacity(0.8),
+                              // ),
+                            ),
+                            child: Text(
+                              translation(context).signup,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "Lora",
+                              ),
+                            ),
+                            onPressed: () =>
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    SizeTransition1(
+                                      const SignUpPage(),
+                                    ),
+                                    (route) => false),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.014,
+                    )
                   ],
                 ),
               ),
@@ -187,8 +281,16 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
-  Widget component(IconData icon, String hintText, bool isPassword,
-      bool isEmail, bool isNumber, TextEditingController controller) {
+  Widget component(
+    BuildContext context,
+    IconData icon,
+    String hintText,
+    bool isPassword,
+    bool isEmail,
+    bool isNumber,
+    TextEditingController controller,
+    bool obsuretext,
+  ) {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.width / 7.6,
@@ -196,18 +298,34 @@ class _SignInViewState extends State<SignInView> {
       alignment: Alignment.center,
       padding: EdgeInsets.only(right: size.width / 30),
       decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.9),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(width: 1.4, color: Colors.green)),
+        color: Colors.white.withOpacity(.9),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(width: 1.4, color: Colors.green),
+      ),
       child: TextField(
+        obscureText: obsuretext == true ? pass : false,
         controller: controller,
         style: TextStyle(
           color: Colors.black.withOpacity(.9),
-          fontFamily: "Lora",
         ),
         keyboardType:
             !isNumber ? TextInputType.emailAddress : TextInputType.number,
         decoration: InputDecoration(
+          suffixIcon: obsuretext
+              ? IconButton(
+                  onPressed: () {
+                    BlocProvider.of<SignInCubit>(context).changeIcon(pass);
+                  },
+                  icon: pass == true
+                      ? const Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.green,
+                        )
+                      : const Icon(
+                          Icons.remove_red_eye_outlined,
+                          color: Colors.black,
+                        ))
+              : const SizedBox(),
           prefixIcon: Icon(
             icon,
             color: Colors.green.withOpacity(.9),
@@ -218,7 +336,6 @@ class _SignInViewState extends State<SignInView> {
           hintStyle: TextStyle(
             fontSize: 14,
             color: Colors.black.withOpacity(.7),
-            fontFamily: "Lora",
           ),
         ),
       ),

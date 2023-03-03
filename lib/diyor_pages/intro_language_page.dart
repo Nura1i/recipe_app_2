@@ -13,8 +13,8 @@ import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 
 //   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 //   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  // var themeService = await ThemeService.instance;
-  // var initThemee = themeService.initial;
+// var themeService = await ThemeService.instance;
+// var initThemee = themeService.initial;
 //   runApp(MyApp(
 //     theme: initThemee,
 //   ));
@@ -52,10 +52,10 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
         title: Text(
           'Cooking App',
           style: TextStyle(
-            color: Colors.blue.shade200,
-            fontSize: 20,
-            fontFamily: "kavoon",
-          ),
+              color: Colors.blue.shade200,
+              fontSize: 20,
+              fontFamily: "Lora",
+              fontWeight: FontWeight.bold),
         ),
       ),
       body: Column(
