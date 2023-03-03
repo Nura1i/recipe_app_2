@@ -5,6 +5,7 @@ import 'package:recipe_app/repositories/services/fire_service.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/language.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 
 ThemeBottomSheet(BuildContext context, light) {
@@ -47,32 +48,31 @@ ThemeBottomSheet(BuildContext context, light) {
 
 // Theme for Widgets
 
-
-  //  ThemeSwitcher.withTheme(
-  //   builder: (_, switcher, theme) {
-  //     return TextButton(
-  //       onPressed: () => switcher.changeTheme(
-  //         theme:
-  //             theme.brightness == Brightness.dark ? themechange1 : themechange2,
-  //       ),
-  //       child: Row(
-  //         children: [
-  //           Icon(
-  //             icon,
-  //             color: Theme.of(context).focusColor,
-  //           ),
-  //           const SizedBox(
-  //             width: 3,
-  //           ),
-  //           Text(
-  //             texttheme,
-  //             style: Theme.of(context).textTheme.bodySmall,
-  //           )
-  //         ],
-  //       ),
-  //     );
-  //   },
-  // );
+//  ThemeSwitcher.withTheme(
+//   builder: (_, switcher, theme) {
+//     return TextButton(
+//       onPressed: () => switcher.changeTheme(
+//         theme:
+//             theme.brightness == Brightness.dark ? themechange1 : themechange2,
+//       ),
+//       child: Row(
+//         children: [
+//           Icon(
+//             icon,
+//             color: Theme.of(context).focusColor,
+//           ),
+//           const SizedBox(
+//             width: 3,
+//           ),
+//           Text(
+//             texttheme,
+//             style: Theme.of(context).textTheme.bodySmall,
+//           )
+//         ],
+//       ),
+//     );
+//   },
+// );
 //}
 
 // Language Widget
@@ -181,41 +181,76 @@ Widget drawerlisttile(
           )));
 }
 
+// Log Out Page...!
 Logoutdialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
         elevation: .0,
-        title: const Text('Sign Out'),
-        content: const Text(
-          'Siz Programmadan chiqib ketishni hoxlaysizmi ?',
+        title: Text(
+          translation(context).signOut,
+          style: TextStyle(
+            color: Colors.red,
+            fontSize: 14.sp,
+            fontFamily: "Lora",
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Text(
+          translation(context).doyouwanttoexittheApplication,
+          style: TextStyle(
+            color: Colors.grey.shade700,
+            fontSize: 13.sp,
+            fontFamily: "Lora",
+            fontWeight: FontWeight.bold,
+          ),
         ),
         titleTextStyle: Theme.of(context).textTheme.bodySmall,
         contentTextStyle: Theme.of(context).textTheme.bodySmall,
         backgroundColor: Theme.of(context).backgroundColor,
         shape: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: Colors.orange, width: 2)),
+          borderRadius: BorderRadius.circular(15).r,
+          borderSide: BorderSide(
+            color: Colors.white,
+            width: 2.w,
+          ),
+        ),
         actions: [
           MaterialButton(
-              color: Colors.orange,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'Cancel',
-                style: Theme.of(context).textTheme.bodySmall,
-              )),
+            color: Colors.grey.shade100,
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            // Text Cancel...!
+            child: Text(
+              translation(context).cancel,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 13.sp,
+                fontFamily: "Lora",
+                fontWeight: FontWeight.bold,
+              ),
+              //Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
           MaterialButton(
-              color: Colors.orange,
-              onPressed: () {
-                FireDatabaseService.signOutUser(context);
-              },
-              child: Text(
-                'Sign Out',
-                style: Theme.of(context).textTheme.bodySmall,
-              )),
+            color: Colors.grey.shade100,
+            onPressed: () {
+              FireDatabaseService.signOutUser(context);
+            },
+            // Text Sing Out...!
+            child: Text(
+              translation(context).signOut,
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 13.sp,
+                fontFamily: "Lora",
+                fontWeight: FontWeight.bold,
+              ),
+              //Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
         ],
       );
     },

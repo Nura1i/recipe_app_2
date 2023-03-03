@@ -17,127 +17,192 @@ class ProfilePage extends StatelessWidget {
   @override
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     var size = MediaQuery.of(context).size;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).backgroundColor,
-          elevation: .0,
-          title: Text(
-            translation(context).homePage,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(right: size.width * 0.03),
-              child: IconButton(
+        extendBodyBehindAppBar: true,
+        // AppBar qismi...!
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50.h),
+          child: AppBar(
+            scrolledUnderElevation: 10,
+            toolbarHeight: 50.h,
+            shadowColor: Color.fromARGB(255, 255, 255, 255),
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: const Radius.circular(40).r,
+                bottomRight: const Radius.circular(40).r,
+              ),
+            ),
+            title: Text(
+              translation(context).homePage,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 14.sp,
+                fontFamily: "Lora",
+                fontWeight: FontWeight.bold,
+              ),
+              //Theme.of(context).textTheme.bodyMedium,
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: IconButton(
                   onPressed: () {
                     z.toggle!();
                   },
                   icon: SvgPicture.asset(
                     'assets/svg/ProfileUnion.svg',
-                    height: size.width * 0.015,
+                    height: 6.h,
                     color: Colors.black,
-                  )),
-            )
-          ],
-        ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: SizedBox(
-            height: size.height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: size.height * 0.015,
+                  ),
                 ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            return (snapshot.connectionState ==
-                                    ConnectionState.waiting)
-                                ? const Center(
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : CircleAvatar(
-                                    foregroundImage: snapshot
-                                                .data!['avatarImage'] !=
-                                            null
-                                        ? CachedNetworkImageProvider(
-                                            snapshot.data!['avatarImage'])
-                                        : const CachedNetworkImageProvider(
-                                            'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'),
-                                    radius: 50,
-                                    backgroundColor: Colors.grey,
-                                  );
-                          }),
-                      SizedBox(
-                        width: size.width * 0.23,
-                      ),
-                      MaterialButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const EditProfilePage(),
-                          ));
-                        },
-                        child: Container(
+              )
+            ],
+            centerTitle: true,
+            elevation: 0,
+          ),
+        ),
+        body: ListView(
+          physics: AlwaysScrollableScrollPhysics(),
+
+          primary: false,
+          //  physics: BouncingScrollPhysics(),
+          children: [
+            SizedBox(
+              height: size.height,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Users Avtar...!
+                        Container(
                           decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 1, color: Colors.orange),
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: size.height * 0.015,
-                                  bottom: size.height * 0.015,
-                                  right: size.width * 0.05,
-                                  left: size.width * 0.05),
-                              child: const Text(
-                                'Edit profile',
+                            borderRadius: BorderRadius.circular(60).r,
+                            border: Border.all(
+                              width: 1.w,
+                              color: Colors.grey.shade300,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 3,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: StreamBuilder(
+                            stream: FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              return (snapshot.connectionState ==
+                                      ConnectionState.waiting)
+                                  ? const Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : CircleAvatar(
+                                      foregroundImage: snapshot
+                                                  .data!['avatarImage'] !=
+                                              null
+                                          ? CachedNetworkImageProvider(
+                                              snapshot.data!['avatarImage'],
+                                            )
+                                          : const CachedNetworkImageProvider(
+                                              'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
+                                            ),
+                                      radius: 60.r,
+                                      backgroundColor: Colors.white,
+                                    );
+                            },
+                          ),
+                        ),
+                        // Edit Profile...!
+                        Container(
+                          height: 35,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                              width: 1.w,
+                              color: Colors.orange,
+                            ),
+                          ),
+                          child: MaterialButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30).r,
+                            ),
+                            highlightColor: Colors.orange,
+                            color: const Color.fromARGB(255, 252, 252, 252),
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const EditProfilePage(),
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w, vertical: 10.h),
+                              child: Text(
+                                translation(context).editprofile,
                                 style: TextStyle(
                                   color: Colors.orange,
-                                  fontWeight: FontWeight.w600,
+                                  fontSize: 13.sp,
+                                  fontFamily: "Lora",
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              )),
+                              ),
+                            ),
+                          ),
                         ),
-                      )
-                    ]),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 17),
-                  child: username1111 != null
-                      ? Text(
-                          username1111!,
-                          style: const TextStyle(color: Colors.black),
-                        )
-                      : const SizedBox(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 17.0, top: 12),
-                  child: SizedBox(
-                    width: size.width * 0.60,
-                    child: Text(
-                      bio.toString() == 'null' ? 'bio' : bio.toString(),
-                      style: const TextStyle(
-                        color: Color(0xffA9A9A9),
+                      ],
+                    ),
+                  ),
+                  // Users name text...!
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15, left: 15),
+                    child: username1111 != null
+                        ? Text(
+                            username1111!,
+                            style: TextStyle(
+                              color: Colors.grey.shade800,
+                              fontSize: 14.sp,
+                              fontFamily: "Lora",
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : const SizedBox(),
+                  ),
+                  // Users Bio Text...!
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15, top: 10),
+                    child: SizedBox(
+                      width: 150.w,
+                      child: Text(
+                        bio.toString() == 'null' ? '' : bio.toString(),
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    StreamBuilder(
+                  // Recipes, Saved, Likes, And Recipes & Saved Recipes...!
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 20.h),
+                      StreamBuilder(
                         stream: FirebaseFirestore.instance
                             .collection('users')
                             .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -146,179 +211,198 @@ class ProfilePage extends StatelessWidget {
                           return (snapshot.connectionState ==
                                   ConnectionState.waiting)
                               ? const SizedBox()
-                              : Row(
-                                  children: [
-                                    SizedBox(
-                                      width: size.width * 0.06,
-                                    ),
-                                    counter(
+                              : Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 15.w),
+                                  // Text Recipes, Saved, Likes...!
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      // Recipes...!
+                                      counter(
                                         snapshot.data!['recepts'] == null
                                             ? '0'
                                             : snapshot.data!['recepts'].length,
-                                        'Recipes',
-                                        context),
-                                    SizedBox(
-                                      width: size.width * 0.2,
-                                    ),
-                                    counter(
+                                        translation(context).recipes,
+                                        context,
+                                      ),
+                                      // Saved...!
+                                      counter(
                                         snapshot.data!['saved'] == null
                                             ? '0'
                                             : snapshot.data!['saved'].length,
-                                        'Saved',
-                                        context),
-                                    SizedBox(
-                                      width: size.width * 0.2,
-                                    ),
-                                    counter(
+                                        translation(context).saved,
+                                        context,
+                                      ),
+                                      // Likes...!
+                                      counter(
                                         snapshot.data!['totalLikes'] == null
                                             ? '0'
                                             : snapshot
                                                 .data!['totalLikes'].length,
-                                        'Likes',
-                                        context),
-                                  ],
-                                );
-                        }),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                          color: Colors.white70,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Column(
-                        children: const [
-                          Padding(
-                              padding: EdgeInsets.only(
-                                  left: 5, right: 5, bottom: 5, top: 5),
-                              child: TabBar(
-                                labelStyle:
-                                    TextStyle(fontWeight: FontWeight.w600),
-                                tabs: [
-                                  Tab(
-                                    text: 'Recipes',
+                                        translation(context).likes,
+                                        context,
+                                      ),
+                                    ],
                                   ),
-                                  Tab(
-                                    text: 'Saved Recipes',
-                                  )
-                                ],
-                                unselectedLabelColor: Colors.black,
-                                overlayColor:
-                                    MaterialStatePropertyAll(Colors.white),
-                                labelColor: Colors.orange,
-                                indicatorColor: Colors.orange,
-                                indicatorWeight: 2,
-                                padding: EdgeInsets.all(4),
-                                // indicator: BoxDecoration(
-                                //   borderRadius: BorderRadius.circular(5),
-                                //   color: Colors.orange,
-                                // ),
-                              )),
+                                );
+                        },
+                      ),
+                      // Recipes & Saved Recipes...!
+                      Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5.w, vertical: 5.h),
+                            child: TabBar(
+                              labelStyle: TextStyle(
+                                fontSize: 14.sp,
+                                fontFamily: "Lora",
+                                fontWeight: FontWeight.bold,
+                              ),
+                              tabs: [
+                                // Recipes...!
+                                Tab(
+                                  text: translation(context).recipes,
+                                ),
+                                // Saved Recipes...!
+                                Tab(
+                                  text: translation(context).savedRecipes,
+                                ),
+                              ],
+                              unselectedLabelColor: Colors.black,
+                              overlayColor:
+                                  const MaterialStatePropertyAll(Colors.white),
+                              labelColor: Colors.orange,
+                              indicatorColor: Colors.orange,
+                              indicatorWeight: 2,
+                              padding: const EdgeInsets.all(2),
+                            ),
+                          ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: Padding(
-                      padding: const EdgeInsets.all(0),
-                      child: TabBarView(
-                        children: [
-                          StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(FirebaseAuth.instance.currentUser!.uid)
-                                .snapshots(),
-                            builder: (context, snapshots) {
-                              return (snapshots.connectionState ==
-                                      ConnectionState.waiting)
-                                  ? const Center(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                  : snapshots.data!['recepts'] != null
-                                      ? GridView.builder(
-                                          shrinkWrap: true,
+                    ],
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .snapshots(),
+                          builder: (context, snapshots) {
+                            return (snapshots.connectionState ==
+                                    ConnectionState.waiting)
+                                ? const Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : snapshots.data!['recepts'] != null
+                                    ? GridView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: 15,
+                                        physics: NeverScrollableScrollPhysics(),
+
+                                        // snapshots
+                                        //     .data!['recepts']!.length,
+                                        itemBuilder: (contex, index) {
+                                          // var data = snapshots
+                                          //     .data!['recepts'][index];
+                                          var dataUser = snapshots.data;
+                                          return Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              width: 100,
+                                              height: 100,
+                                              color: Colors.yellow,
+                                            ),
+                                          );
+
+                                          //  showOwnPosts(
+                                          //     data, dataUser);
+                                        },
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                        ),
+                                      )
+                                    : const SizedBox();
+                          },
+                        ),
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .snapshots(),
+                          builder: (context, snapshots) {
+                            return (snapshots.connectionState ==
+                                    ConnectionState.waiting)
+                                ? const Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : snapshots.data!['saved'] != null
+                                    ? SizedBox(
+                                        height: 200,
+                                        child: GridView.builder(
                                           physics:
                                               const NeverScrollableScrollPhysics(),
-                                          itemCount: snapshots
-                                              .data!['recepts']!.length,
+                                          itemCount:
+                                              snapshots.data!['saved']!.length,
                                           itemBuilder: (contex, index) {
-                                            var data = snapshots
-                                                .data!['recepts'][index];
+                                            var data =
+                                                snapshots.data!['saved'][index];
                                             var dataUser = snapshots.data;
                                             return showOwnPosts(data, dataUser);
                                           },
                                           gridDelegate:
                                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: 3),
-                                        )
-                                      : const SizedBox();
-                            },
-                          ),
-                          StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(FirebaseAuth.instance.currentUser!.uid)
-                                .snapshots(),
-                            builder: (context, snapshots) {
-                              return (snapshots.connectionState ==
-                                      ConnectionState.waiting)
-                                  ? const Center(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                  : snapshots.data!['saved'] != null
-                                      ? SizedBox(
-                                          height: 200,
-                                          child: GridView.builder(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            itemCount: snapshots
-                                                .data!['saved']!.length,
-                                            itemBuilder: (contex, index) {
-                                              var data = snapshots
-                                                  .data!['saved'][index];
-                                              var dataUser = snapshots.data;
-                                              return showOwnPosts(
-                                                  data, dataUser);
-                                            },
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 3),
-                                          ))
-                                      : const SizedBox();
-                            },
-                          ),
-                        ],
-                      )),
-                ),
-              ],
+                                            crossAxisCount: 3,
+                                          ),
+                                        ),
+                                      )
+                                    : const SizedBox();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
 }
 
+// Recipes, Saved, likeslarni Textstyle qismi...!
 counter(count, String field, context) {
-  var size = MediaQuery.of(context).size;
   return SizedBox(
-    width: size.width * 0.15,
     child: Column(
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 5),
           child: Text(
             field,
-            style: const TextStyle(color: Color(0xffA9A9A9)),
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 14.sp,
+              fontFamily: "Lora",
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         Text(
           count.toString(),
-          style: const TextStyle(
-              fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
-        )
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.bold,
+            fontFamily: "Lora",
+            color: Colors.black,
+          ),
+        ),
       ],
     ),
   );
@@ -336,13 +420,13 @@ Widget showOwnPosts(idRecepts, dataUser) {
             )
           : ListView.builder(
               shrinkWrap: true,
-              padding: const EdgeInsets.all(3),
               physics: const NeverScrollableScrollPhysics(),
               itemCount: snapshots.data!.docs.length,
               itemBuilder: (context, index) {
                 var data = snapshots.data!.docs[index];
 
                 if (data['id'] == idRecepts) {
+                  //  BlocProvider.of<SavedCubit>(context).totalLikes(idRecepts);
                   return GestureDetector(
                     onTap: () async {
                       DocumentSnapshot userDoc = await FirebaseFirestore
@@ -351,48 +435,42 @@ Widget showOwnPosts(idRecepts, dataUser) {
                           .doc(data['userId'])
                           .get();
 
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => recipeOpen(
-                            postData: data.data(), userData: userDoc),
-                      ));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => recipeOpen(
+                              postData: data.data(), userData: userDoc),
+                        ),
+                      );
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 2, right: 2),
+                      padding: const EdgeInsets.only(
+                        left: 2,
+                        right: 0,
+                      ),
                       child: Container(
-                        height: 120.w,
+                        height: 127.h,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image:
-                                    CachedNetworkImageProvider(data['photo'])),
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey),
+                          border: Border.all(
+                            width: 1.w,
+                            color: Colors.grey.shade300,
+                          ),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: CachedNetworkImageProvider(
+                              data['photo'],
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(4).r,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   );
                 }
-
                 return const SizedBox();
-              });
+              },
+            );
     },
   );
 }
-
-
-
-  //  Shimmer.fromColors(
-  //       highlightColor: Colors.white,
-  //       baseColor: Colors.grey.shade400,
-  //       child: cardView(contex, posts[index]),
-  //       period: Duration(seconds: time),
-  //       enabled: true,
-  //     );

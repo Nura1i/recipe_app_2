@@ -25,7 +25,7 @@ Widget seeAllView(BuildContext context, Post post) {
           child: Card(
             elevation: 8,
             shadowColor: Colors.grey,
-            color: const Color.fromARGB(255, 214, 214, 214),
+            color: Colors.white,
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
               side: BorderSide(
@@ -82,15 +82,11 @@ Widget seeAllView(BuildContext context, Post post) {
               fontSize: 10.sp,
               fontWeight: FontWeight.bold,
               fontFamily: "Lora",
-              // overflow: TextOverflow.ellipsis,
             ),
             textAlign: TextAlign.center,
           ),
         ),
       ),
-      SizedBox(
-        height: 40.h,
-      )
     ],
   );
 }
