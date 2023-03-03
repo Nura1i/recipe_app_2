@@ -49,7 +49,10 @@ class SearchPerson extends StatelessWidget {
             return Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(40).r,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(40).r,
+                  topRight: const Radius.circular(40).r,
+                ),
               ),
               child: Column(
                 children: [
@@ -67,6 +70,9 @@ class SearchPerson extends StatelessWidget {
                         borderRadius: BorderRadius.circular(25).r,
                       ),
                       child: TextField(
+                        maxLength: 30,
+                        autocorrect: false,
+                        enableSuggestions: false,
                         controller: controller,
                         focusNode: focusNode,
                         onChanged: (user) {
@@ -74,8 +80,14 @@ class SearchPerson extends StatelessWidget {
                           BlocProvider.of<SearchCubit>(context)
                               .userSearch(username);
                         },
-                        style: const TextStyle(color: Colors.black),
+                        style: TextStyle(
+                          color: Colors.orange,
+                          fontSize: 16.sp,
+                          fontFamily: "Lora",
+                          //fontWeight: FontWeight.bold,
+                        ),
                         decoration: InputDecoration(
+                          counterText: "",
                           hintText: translation(context).searchUsers,
                           hintStyle: TextStyle(
                             color: Colors.orange.shade500,
@@ -110,9 +122,7 @@ class SearchPerson extends StatelessWidget {
                               child: ListView(
                                 physics: const BouncingScrollPhysics(),
                                 children: [
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
+                                  SizedBox(height: 15.h),
                                   ListView.builder(
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
@@ -136,6 +146,7 @@ class SearchPerson extends StatelessWidget {
                                       return const SizedBox();
                                     },
                                   ),
+                                  SizedBox(height: 15.h),
                                 ],
                               ),
                             );
@@ -155,12 +166,14 @@ class SearchPerson extends StatelessWidget {
 allUsers(contex, data) {
   return GestureDetector(
     onTap: () {
-      Navigator.of(contex).push(MaterialPageRoute(
-        builder: (context) => profielOnOpen(data: data),
-      ));
+      Navigator.of(contex).push(
+        MaterialPageRoute(
+          builder: (context) => profielOnOpen(data: data),
+        ),
+      );
     },
     child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
       child: Container(
         height: 50.h,
         decoration: BoxDecoration(
@@ -181,9 +194,7 @@ allUsers(contex, data) {
               foregroundImage: CachedNetworkImageProvider(data['avatarImage'] ??
                   'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
             ),
-            const SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15.w),
             Expanded(
               child: Text(
                 data['username'] ?? 'username',
@@ -193,7 +204,7 @@ allUsers(contex, data) {
                   fontFamily: "Lora",
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

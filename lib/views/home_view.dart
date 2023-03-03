@@ -21,9 +21,18 @@ class HomeView2 extends StatelessWidget {
     ScrollController controller = ScrollController();
     ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Theme.of(context).backgroundColor,
       // AppBar...!
       appBar: AppBar(
+        scrolledUnderElevation: 7,
+        shadowColor: Colors.orange,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: const Radius.circular(40).r,
+            bottomRight: const Radius.circular(40).r,
+          ),
+        ),
         backgroundColor: Colors.orange,
         elevation: .0,
         systemOverlayStyle: const SystemUiOverlayStyle(
@@ -39,276 +48,336 @@ class HomeView2 extends StatelessWidget {
             fontFamily: "Lora",
           ),
         ),
-      ),
-      // Cards Uzbek National Recipes, Popular Shef, Recent Added...!
-      body: Column(
-        children: [
-          // Card Uzbek National Recipes Column...!
-          Column(
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    height: 100.h,
-                    color: Colors.orange,
+        // Card Uzbek National Recipes..!
+        bottom: PreferredSize(
+            preferredSize: const Size(double.infinity, 200),
+            child: Stack(
+              children: [
+                Container(
+                  height: 215.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(40).r,
                   ),
-                  Column(
+                  // Uzbek National Recipes See All...!
+                  child: Column(
                     children: [
-                      Container(
-                        height: 215.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(40).r,
-                        ),
-                        // Uzbek National Recipes See All...!
-                        child: Column(
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, bottom: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 15, bottom: 5),
+                            Text(
+                              translation(context).milliytaom,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontSize: 14.sp,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "Lora",
+                                  ),
+                            ),
+                            SizedBox(width: 15.w),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const seeAllMilliyTaom(),
+                                  ),
+                                );
+                              },
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    translation(context).milliytaom,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          fontSize: 14.sp,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: "Lora",
-                                        ),
-                                  ),
-                                  SizedBox(width: 15.w),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const seeAllMilliyTaom(),
-                                        ),
-                                      );
-                                    },
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          translation(context).seeAll,
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: "Lora",
-                                            color: Colors.red,
-                                          ),
-                                        ),
-                                        SizedBox(width: 5.w),
-                                        SvgPicture.asset(
-                                          'assets/svg/Belgi.svg',
-                                          width: 12.w,
-                                        ),
-                                      ],
+                                    translation(context).seeAll,
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Lora",
+                                      color: Colors.red,
                                     ),
+                                  ),
+                                  SizedBox(width: 5.w),
+                                  SvgPicture.asset(
+                                    'assets/svg/Belgi.svg',
+                                    width: 12.w,
                                   ),
                                 ],
                               ),
                             ),
-                            // Uzbek National Recipes...! Cards
-                            SizedBox(height: 170.h, child: builder(posts)),
                           ],
                         ),
                       ),
+                      // Uzbek National Recipes...! Cards
+                      SizedBox(height: 170.h, child: builder(posts)),
                     ],
                   ),
-                ],
+                ),
+              ],
+            )),
+      ),
+      // Divider and Cards Popular Shef, Recent Added...!
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              SizedBox(
+                height: 250.h,
               ),
-            ],
-          ),
-          // Top 10 Userc & Recent Add...!
-          Expanded(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  // Top 10 Users...!
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          translation(context).popularShef,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 50.h,
+                      ),
+                      // Divider...!
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                height: 1.h,
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [Colors.black, Colors.orange],
+                                      begin: Alignment.centerRight,
+                                      end: Alignment.centerLeft,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2),
+                              child: Row(
+                                children: const [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.orange,
+                                    size: 15,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.orange,
+                                    size: 30,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.orange,
+                                    size: 15,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: SizedBox(
+                                height: 1.h,
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [Colors.black, Colors.orange],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Top 10 Users...!
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              translation(context).popularShef,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                     fontFamily: "Lora",
                                   ),
-                          textAlign: TextAlign.center,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    seeAllTopCreators(topUsers: topUsers),
+                              textAlign: TextAlign.center,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        seeAllTopCreators(topUsers: topUsers),
+                                  ),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    translation(context).seeAll,
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontFamily: "Lora",
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5.w),
+                                  SvgPicture.asset(
+                                    'assets/svg/Belgi.svg',
+                                    width: 12.w,
+                                  )
+                                ],
                               ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      // Top 10 Users...! Cards
+                      StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .snapshots(),
+                        builder: (context, snapshots) {
+                          if (snapshots.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: SizedBox(),
                             );
-                          },
-                          child: Row(
-                            children: [
-                              Text(
-                                translation(context).seeAll,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontFamily: "Lora",
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              SizedBox(width: 5.w),
-                              SvgPicture.asset(
-                                'assets/svg/Belgi.svg',
-                                width: 12.w,
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 10.h),
-                  // Top 10 Users...! Cards
-                  StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('users')
-                        .snapshots(),
-                    builder: (context, snapshots) {
-                      if (snapshots.connectionState ==
-                          ConnectionState.waiting) {
-                        return const Center(
-                          child: SizedBox(),
-                        );
-                      }
-
-                      return (snapshots.data == null)
-                          ? const SizedBox()
-                          : SizedBox(
-                              height: 125.h,
-                              child: ListView.builder(
-                                controller: controller,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                physics: const AlwaysScrollableScrollPhysics(),
-                                itemCount: topUsers.length,
-                                itemBuilder: (context, index) => StreamBuilder(
-                                  stream: FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(topUsers[index])
-                                      .snapshots(),
-                                  builder: (context, snapshots) {
-                                    if (snapshots.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const Center(
-                                        child: SizedBox(),
-                                      );
-                                    }
-                                    return (snapshots.data == null)
-                                        ? const SizedBox()
-                                        : Builder(
-                                            builder: (context) {
-                                              var data = snapshots.data!;
-                                              return topCreator(
-                                                  context, data, index);
-                                            },
+                          }
+                          return (snapshots.data == null)
+                              ? const SizedBox()
+                              : SizedBox(
+                                  height: 125.h,
+                                  child: ListView.builder(
+                                    controller: controller,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    itemCount: topUsers.length,
+                                    itemBuilder: (context, index) =>
+                                        StreamBuilder(
+                                      stream: FirebaseFirestore.instance
+                                          .collection('users')
+                                          .doc(topUsers[index])
+                                          .snapshots(),
+                                      builder: (context, snapshots) {
+                                        if (snapshots.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const Center(
+                                            child: SizedBox(),
                                           );
-                                  },
-                                ),
+                                        }
+                                        return (snapshots.data == null)
+                                            ? const SizedBox()
+                                            : Builder(
+                                                builder: (context) {
+                                                  var data = snapshots.data!;
+                                                  return topCreator(
+                                                      context, data, index);
+                                                },
+                                              );
+                                      },
+                                    ),
+                                  ),
+                                );
+                        },
+                      ),
+                      SizedBox(height: 5.h),
+                      // Recent Added...!
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              translation(context).recentAdded,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Lora",
                               ),
-                            );
-                    },
-                  ),
-                  SizedBox(height: 5.h),
-
-                  // Recent Added...!
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          translation(context).recentAdded,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Lora",
-                          ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const seeAllRecentAdded(),
+                                  ),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    translation(context).seeAll,
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontFamily: "Lora",
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5.w),
+                                  SvgPicture.asset(
+                                    'assets/svg/Belgi.svg',
+                                    width: 12.w,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const seeAllRecentAdded(),
-                              ),
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Text(
-                                translation(context).seeAll,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontFamily: "Lora",
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              SizedBox(width: 5.w),
-                              SvgPicture.asset(
-                                'assets/svg/Belgi.svg',
-                                width: 12.w,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Recent Added...! Cards
-                  StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('Recipes')
-                        .snapshots(),
-                    builder: (context, snapshots) {
-                      return (snapshots.connectionState ==
-                              ConnectionState.waiting)
-                          ? const Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : SizedBox(
-                              height: 245.h,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: snapshots.data!.docs.length,
-                                itemBuilder: (context, index) {
-                                  allRecipes = snapshots.data!.docs[index]
-                                      .data() as Map<String, dynamic>;
+                      ),
+                      // Recent Added...! Cards
+                      StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('Recipes')
+                            .snapshots(),
+                        builder: (context, snapshots) {
+                          return (snapshots.connectionState ==
+                                  ConnectionState.waiting)
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : SizedBox(
+                                  height: 245.h,
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    physics: const BouncingScrollPhysics(),
+                                    itemCount: snapshots.data!.docs.length,
+                                    itemBuilder: (context, index) {
+                                      allRecipes = snapshots.data!.docs[index]
+                                          .data() as Map<String, dynamic>;
 
-                                  return recentAdded(context, allRecipes);
-                                },
-                              ),
-                            );
-                    },
+                                      return recentAdded(context, allRecipes);
+                                    },
+                                  ),
+                                );
+                        },
+                      ),
+                      SizedBox(height: 30.h),
+                    ],
                   ),
-                  SizedBox(height: 30.h),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),

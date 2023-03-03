@@ -28,7 +28,7 @@ Widget cardView(BuildContext context, Post post) {
           child: Card(
             elevation: 8,
             shadowColor: Colors.grey,
-            color: const Color.fromARGB(255, 214, 214, 214),
+            color: Colors.white,
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
               side: BorderSide(

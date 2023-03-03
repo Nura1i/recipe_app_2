@@ -28,29 +28,30 @@ class _CropperScreennState extends State<CropperScreenn> {
   Widget build(BuildContext context) {
     XFile? image;
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF5EC),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
-                  height: 500,
-                  child: _imageToCrop != null
-                      ? Cropper(
-                          cropperKey: _cropperKey,
-                          overlayType: _overlayType,
-                          image: Image.memory(_imageToCrop!),
-                          onScaleStart: (details) {},
-                          onScaleUpdate: (details) {},
-                          onScaleEnd: (details) {},
-                        )
-                      : const Center(
-                          child: Icon(
-                            Icons.camera_alt,
-                            size: 100,
-                            color: Colors.black,
-                          ),
-                        )),
+                height: 500,
+                child: _imageToCrop != null
+                    ? Cropper(
+                        cropperKey: _cropperKey,
+                        overlayType: _overlayType,
+                        image: Image.memory(_imageToCrop!),
+                        onScaleStart: (details) {},
+                        onScaleUpdate: (details) {},
+                        onScaleEnd: (details) {},
+                      )
+                    : const Center(
+                        child: Icon(
+                          Icons.camera_alt,
+                          size: 100,
+                          color: Colors.black,
+                        ),
+                      ),
+              ),
               const SizedBox(height: 16),
               Wrap(
                 spacing: 16,

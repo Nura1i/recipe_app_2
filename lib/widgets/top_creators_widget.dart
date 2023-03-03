@@ -66,7 +66,10 @@ topCreator(contex, data, index) {
             child: Container(
               padding: const EdgeInsets.only(right: 10, left: 3),
               decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.white),
+                border: Border.all(
+                  width: 1.w,
+                  color: Colors.white,
+                ),
                 borderRadius: BorderRadius.only(
                   topRight: const Radius.circular(20).r,
                   bottomLeft: const Radius.circular(20).r,
@@ -74,7 +77,7 @@ topCreator(contex, data, index) {
                 color: index < 3 ? TopColors[index] : Colors.green,
               ),
               child: Text(
-                '  TOP',
+                '   TOP',
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: "Lora",
@@ -109,7 +112,7 @@ topCreatorForAll(contex, dataa) {
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 249, 248, 248),
               border: Border.all(
-                width: 1,
+                width: 1.w,
                 color: Colors.grey.shade300,
               ),
               borderRadius: BorderRadius.circular(15).r,
