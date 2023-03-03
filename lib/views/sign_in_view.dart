@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
+import 'package:recipe_app/pages/sign_up_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
-import 'package:recipe_app/views/sign_up_view.dart';
 import 'package:recipe_app/widgets/pageAnimationFade.dart';
 
 import '../blocs/login/sign_in_cubit.dart';
@@ -166,7 +166,7 @@ class _SignInViewState extends State<SignInView> {
                                     onPressed: () => Navigator.of(context)
                                         .pushAndRemoveUntil(
                                             SizeTransition1(
-                                              const signUpView(),
+                                              const SignUpPage(),
                                             ),
                                             (route) => false),
                                   ),

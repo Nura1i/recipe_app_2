@@ -540,7 +540,7 @@ class _recipeOpenState extends State<recipeOpen> {
                                           ],
                                         ),
                                       )
-                                    : SizedBox();
+                                    : const SizedBox();
                               },
                             ))
                           : const SizedBox()

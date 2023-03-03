@@ -1,42 +1,39 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 import 'package:recipe_app/blocs/login/sign_up_state.dart';
 import 'package:recipe_app/views/sign_up_view.dart';
 
-class SignUpPage extends StatefulWidget {
+class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPage();
-}
-
-class _SignUpPage extends State<SignUpPage> {
-  @override
   Widget build(BuildContext context) {
-    BlocProvider.of<SignUpCubit>(context).signUp;
-
     return Scaffold(
       body: BlocBuilder<SignUpCubit, SignUpState>(
-        builder: (BuildContext context, SignUpState state) {
-          if (state is SignUpError) {
-            return viewOfError(state.error);
+        builder: (context, state) {
+          if (state is passwordCheck) {
+            passwordObs = state.pass;
           }
-          return const signUpView();
+          if (state is alreadyHasAccount) {
+            result = state.result;
+            log('${result.toString()}  result');
+          }
+          if (state is SignUpLoading) {
+            load = state.load;
+            log(load.toString());
+          }
+
+          return signUpView(context, result, load, passwordObs);
         },
       ),
     );
   }
-
-  Widget viewOfError(String err) {
-    return Center(
-      child: Text("Error occurred $err"),
-    );
-  }
-
-  Widget viewOfLoading() {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
-  }
 }
+
+bool result = false;
+bool load = false;
+bool passwordObs = true;
+bool chek = false;
