@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:recipe_app/app.dart';
 import 'package:recipe_app/diyor_pages/intro_page/onboarding_screen.dart';
@@ -52,10 +53,11 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
         title: Text(
           'Cooking App',
           style: TextStyle(
-              color: Colors.blue.shade200,
-              fontSize: 20,
-              fontFamily: "Lora",
-              fontWeight: FontWeight.bold),
+            color: Colors.blue.shade200,
+            fontSize: 20.sp,
+            fontFamily: "Lora",
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: Column(
