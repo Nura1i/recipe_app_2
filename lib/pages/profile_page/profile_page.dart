@@ -30,7 +30,7 @@ class ProfilePage extends StatelessWidget {
           child: AppBar(
             scrolledUnderElevation: 10,
             toolbarHeight: 50.h,
-            shadowColor: Color.fromARGB(255, 255, 255, 255),
+            shadowColor: const Color.fromARGB(255, 255, 255, 255),
             backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
@@ -68,7 +68,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
         body: ListView(
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
 
           primary: false,
           //  physics: BouncingScrollPhysics(),
@@ -287,49 +287,65 @@ class ProfilePage extends StatelessWidget {
                   Expanded(
                     child: TabBarView(
                       children: [
-                        StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .snapshots(),
-                          builder: (context, snapshots) {
-                            return (snapshots.connectionState ==
-                                    ConnectionState.waiting)
-                                ? const Center(
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : snapshots.data!['recepts'] != null
-                                    ? GridView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: 15,
-                                        physics: NeverScrollableScrollPhysics(),
-
-                                        // snapshots
-                                        //     .data!['recepts']!.length,
-                                        itemBuilder: (contex, index) {
-                                          // var data = snapshots
-                                          //     .data!['recepts'][index];
-                                          var dataUser = snapshots.data;
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              width: 100,
-                                              height: 100,
-                                              color: Colors.yellow,
-                                            ),
-                                          );
-
-                                          //  showOwnPosts(
-                                          //     data, dataUser);
-                                        },
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3,
-                                        ),
-                                      )
-                                    : const SizedBox();
+                        ListView.builder(
+                          itemCount: 20,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                color: Colors.yellow,
+                              ),
+                            );
                           },
                         ),
+                        // StreamBuilder(
+                        //   stream: FirebaseFirestore.instance
+                        //       .collection('users')
+                        //       .doc(FirebaseAuth.instance.currentUser!.uid)
+                        //       .snapshots(),
+                        //   builder: (context, snapshots) {
+                        //     return (snapshots.connectionState ==
+                        //             ConnectionState.waiting)
+                        //         ? const Center(
+                        //             child: CircularProgressIndicator(),
+                        //           )
+                        //         : snapshots.data!['recepts'] != null
+                        //             ? GridView.builder(
+                        //                 shrinkWrap: true,
+                        //                 itemCount: 15,
+                        //                 physics:
+                        //                     const NeverScrollableScrollPhysics(),
+
+                        //                 // snapshots
+                        //                 //     .data!['recepts']!.length,
+                        //                 itemBuilder: (contex, index) {
+                        //                   // var data = snapshots
+                        //                   //     .data!['recepts'][index];
+                        //                 //  var dataUser = snapshots.data;
+                        //                   return Padding(
+                        //                     padding: const EdgeInsets.all(8.0),
+                        //                     child: Container(
+                        //                       width: 100,
+                        //                       height: 100,
+                        //                       color: Colors.yellow,
+                        //                     ),
+                        //                   );
+
+                        //                   //  showOwnPosts(
+                        //                   //     data, dataUser);
+                        //                 },
+                        //                 gridDelegate:
+                        //                     const SliverGridDelegateWithFixedCrossAxisCount(
+                        //                   crossAxisCount: 3,
+                        //                 ),
+                        //               )
+                        //             : const SizedBox();
+                        //   },
+                        // ),
                         StreamBuilder(
                           stream: FirebaseFirestore.instance
                               .collection('users')

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -353,18 +352,20 @@ Widget component(
       border: Border.all(width: 1.4, color: Colors.green),
     ),
     child: TextField(
+      autocorrect: false,
+      enableSuggestions: false,
+      maxLength: controller == signUpUsername ? 25 : 55,
       obscureText: obsuretext == true ? passwordObs : false,
       controller: controller,
       style: TextStyle(
         color: Colors.black.withOpacity(.9),
       ),
-      keyboardType:
-          !isNumber ? TextInputType.emailAddress : TextInputType.number,
       decoration: InputDecoration(
+        counterText: '',
+        suffixIconConstraints: const BoxConstraints(maxHeight: 50),
         suffixIcon: obsuretext
             ? IconButton(
                 onPressed: () {
-                  log('works');
                   BlocProvider.of<SignUpCubit>(context).changeIcon(passwordObs);
                 },
                 icon: passwordObs == true

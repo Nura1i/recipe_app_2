@@ -178,24 +178,24 @@ class SignInView extends StatelessWidget {
                                             .signIn(context, signUpEmail,
                                                 signUpPassword);
 
-                                        if (UserResult == false) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                                  duration:
-                                                      Duration(seconds: 2),
-                                                  elevation: 100,
-                                                  shape: StadiumBorder(),
-                                                  behavior:
-                                                      SnackBarBehavior.floating,
-                                                  margin: EdgeInsets.only(
-                                                      bottom: 40,
-                                                      right: 20,
-                                                      left: 20),
-                                                  backgroundColor: Colors.green,
-                                                  content: Text(
-                                                      "There is no user record corresponding to this identifier. The user may have been deleted.")));
-                                          return;
-                                        }
+                                        // if (UserResult == false) {
+                                        //   ScaffoldMessenger.of(context)
+                                        //       .showSnackBar(const SnackBar(
+                                        //           duration:
+                                        //               Duration(seconds: 2),
+                                        //           elevation: 100,
+                                        //           shape: StadiumBorder(),
+                                        //           behavior:
+                                        //               SnackBarBehavior.floating,
+                                        //           margin: EdgeInsets.only(
+                                        //               bottom: 40,
+                                        //               right: 20,
+                                        //               left: 20),
+                                        //           backgroundColor: Colors.green,
+                                        //           content: Text(
+                                        //               "There is no user record corresponding to this identifier. The user may have been deleted.")));
+                                        //   return;
+                                        // }
                                       },
                                       child: Text(
                                         translation(context).forward,
@@ -303,6 +303,8 @@ class SignInView extends StatelessWidget {
         border: Border.all(width: 1.4, color: Colors.green),
       ),
       child: TextField(
+        autocorrect: false,
+        enableSuggestions: false,
         obscureText: obsuretext == true ? pass : false,
         controller: controller,
         style: TextStyle(
