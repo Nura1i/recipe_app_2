@@ -101,6 +101,7 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
       // AppBar...!
       appBar: AppBar(
         scrolledUnderElevation: 10,
+        shadowColor: Colors.orange,
         leading: GestureDetector(
           onTap: () {
             // controlerMain!.clear();
@@ -109,7 +110,6 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
             bodyTextt = null;
             // itNameQuant = [];
             // items = null;
-
             BlocProvider.of<CameraCubit>(context).clearItems(context);
           },
           child: Icon(
@@ -128,7 +128,7 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
           translation(context).createRecipe,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 18.sp,
+            fontSize: 16.sp,
             fontFamily: "Lora",
             fontWeight: FontWeight.bold,
           ),
