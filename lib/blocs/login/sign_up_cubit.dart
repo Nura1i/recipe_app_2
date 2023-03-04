@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -70,29 +71,15 @@ class SignUpCubit extends Cubit<SignUpState> {
       return null;
     } catch (e) {
       log(e.toString());
-      // log('message');
-      // isLoading = false;
-      // emit(SignUpLoading(isLoading));
-
-      // Timer(const Duration(milliseconds: 200), () {
-      //   isLoading = false;
-      //   emit(SignUpLoading(isLoading));
-      // });
-      // Timer(const Duration(milliseconds: 300), () {
-      //   if (e.toString() ==
-      //       '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
-      //     log('already use');
-      //     result = true;
-      //     emit(alreadyHasAccount(result));
-      //     isLoading = false;
-      //     emit(SignUpLoading(isLoading));
-      //   } else {
-      //     result = false;
-      //     emit(alreadyHasAccount(result));
-      //     isLoading = false;
-      //     emit(SignUpLoading(isLoading));
-      //   }
-      // });
+      if (e.toString() ==
+          '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
+        result = true;
+        emit(alreadyHasAccount(result));
+      }
+      Timer(const Duration(seconds: 2), () {
+        result = false;
+        emit(alreadyHasAccount(result));
+      });
     }
   }
 }

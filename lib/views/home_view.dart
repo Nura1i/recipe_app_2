@@ -18,8 +18,8 @@ class HomeView2 extends StatelessWidget {
   const HomeView2({super.key, required this.topUsers});
   @override
   Widget build(BuildContext context) {
-    ScrollController controller = ScrollController();
     Size size = MediaQuery.of(context).size;
+    ScrollController controller = ScrollController();
     ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -51,7 +51,7 @@ class HomeView2 extends StatelessWidget {
         ),
         // Card Uzbek National Recipes..!
         bottom: PreferredSize(
-            preferredSize: Size(double.infinity, size.height * 0.32),
+            preferredSize: Size(double.infinity, size.height * 0.30),
             child: Stack(
               children: [
                 Container(
@@ -126,7 +126,7 @@ class HomeView2 extends StatelessWidget {
           Column(
             children: [
               SizedBox(
-                height: size.height * 0.30,
+                height: size.height * 0.37,
               ),
               Expanded(
                 child: SingleChildScrollView(
