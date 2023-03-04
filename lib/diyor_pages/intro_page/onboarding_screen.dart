@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/diyor_pages/intro_language_page.dart';
 import 'package:recipe_app/pages/sign_up_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
@@ -31,10 +32,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             physics: const BouncingScrollPhysics(),
             controller: _controller,
             onPageChanged: (index) {
-              setState(() {
-                onLastPage = (index == 2);
-              });
+              setState(
+                () {
+                  onLastPage = (index == 2);
+                },
+              );
             },
+
+            // ntro Page qisimlari...!
             children: const [
               IntroPage1(),
               IntroPage2(),
@@ -60,6 +65,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       _controller.animateToPage(_controller.page!.round() - 1,
                           duration: const Duration(milliseconds: 350),
                           curve: Curves.easeIn);
+                      // Button Back ni bosganda Tilni tanlash Pagega o'tadigan joyi...!
                       if (_controller.page!.round() == 0) {
                         Navigator.push(
                           context,
@@ -69,13 +75,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         );
                       }
                     },
+
+                    // Button Text Back...!
                     child: Container(
                       alignment: Alignment.center,
                       height: size.height / 17,
                       width: size.width / 3.5,
                       decoration: BoxDecoration(
                         color: Colors.blue.shade100,
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(15).r,
                       ),
                       child: Text(
                         translation(context).back,
@@ -109,6 +117,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 /// Next or Done ...!
                 onLastPage
                     ? GestureDetector(
+                        // Button Done bosganda SignUp page ga o'tqizib beradigan qismi...!
                         onTap: () {
                           Navigator.push(
                             context,
@@ -119,13 +128,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             ),
                           );
                         },
+
+                        // Button Text Done...!
                         child: Container(
                           alignment: Alignment.center,
                           height: size.height / 17,
                           width: size.width / 3.5,
                           decoration: BoxDecoration(
                             color: Colors.green.shade300,
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(15).r,
                           ),
                           child: Text(
                             translation(context).done,
@@ -145,13 +156,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             curve: Curves.easeIn,
                           );
                         },
+
+                        // Button Text Next...!
                         child: Container(
                           alignment: Alignment.center,
                           height: size.height / 17,
                           width: size.width / 3.5,
                           decoration: BoxDecoration(
                             color: Colors.blue.shade100,
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(15).r,
                           ),
                           child: Text(
                             translation(context).next,

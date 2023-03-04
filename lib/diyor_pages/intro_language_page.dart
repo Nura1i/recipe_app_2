@@ -1,25 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:recipe_app/app.dart';
 import 'package:recipe_app/diyor_pages/intro_page/onboarding_screen.dart';
 import 'package:recipe_app/diyor_pages/language_intro_widgets.dart';
-
 import 'package:recipe_app/utils/shared_pref/language_prefs/language.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
-
-// void main() async {
-//   // Language Intro Page!
-
-//   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-//   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-// var themeService = await ThemeService.instance;
-// var initThemee = themeService.initial;
-//   runApp(MyApp(
-//     theme: initThemee,
-//   ));
-// }
 
 enum LanguageEnum {
   en(data: 'en'),
@@ -37,6 +23,7 @@ class LanguageIntroPage extends StatefulWidget {
   State<LanguageIntroPage> createState() => _LanguageIntroPageState();
 }
 
+// Til talanadigan Home Page qismi...!
 class _LanguageIntroPageState extends State<LanguageIntroPage>
     with TickerProviderStateMixin {
   LanguageEnum selectedType = LanguageEnum.en;
@@ -63,9 +50,9 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Images Language...!
           Column(
             children: [
+              // Images Language...!
               Container(
                 margin: const EdgeInsets.only(top: 30),
                 height: size.height * 0.28,
@@ -75,6 +62,7 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
                   ),
                 ),
               ),
+              // Text qismi...!
               Text(
                 translation(context).selectLanguage,
                 textAlign: TextAlign.center,
@@ -96,26 +84,29 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
                     thumbColor: Colors.blue.shade100,
                     children: {
                       LanguageEnum.en: LanguageIntro(
-                          const Text(
-                            "🇺🇸",
-                            style: TextStyle(fontSize: 23),
-                          ),
-                          "English",
-                          context),
+                        const Text(
+                          "🇺🇸",
+                          style: TextStyle(fontSize: 23),
+                        ),
+                        "English",
+                        context,
+                      ),
                       LanguageEnum.uz: LanguageIntro(
-                          const Text(
-                            "🇺🇿",
-                            style: TextStyle(fontSize: 22),
-                          ),
-                          "O'zbekcha",
-                          context),
+                        const Text(
+                          "🇺🇿",
+                          style: TextStyle(fontSize: 22),
+                        ),
+                        "O'zbekcha",
+                        context,
+                      ),
                       LanguageEnum.ru: LanguageIntro(
-                          const Text(
-                            "🇷🇺",
-                            style: TextStyle(fontSize: 23),
-                          ),
-                          "Русский",
-                          context),
+                        const Text(
+                          "🇷🇺",
+                          style: TextStyle(fontSize: 23),
+                        ),
+                        "Русский",
+                        context,
+                      ),
                     },
                     groupValue: selectedType,
                     onValueChanged: (value) {
@@ -148,7 +139,7 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
                 width: size.width / 2.5,
                 decoration: BoxDecoration(
                   color: Colors.blue.shade100,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(15).r,
                 ),
                 child: Text(
                   translation(context).next,

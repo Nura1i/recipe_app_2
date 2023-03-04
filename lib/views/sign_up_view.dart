@@ -1,17 +1,17 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 import 'package:recipe_app/pages/sign_in_page.dart';
 import 'package:recipe_app/pages/sign_up_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/widgets/pageAnimationFade.dart';
 
+// Sign Up View Page qismi...!
 signUpView(BuildContext context, resultt, loading, passwordObse) {
   Size size = MediaQuery.of(context).size;
-
   return Scaffold(
     backgroundColor: Colors.white,
     resizeToAvoidBottomInset: true,
@@ -20,6 +20,7 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
         height: size.height,
         child: Stack(
           children: [
+            // Imeges qismi Backround...!
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -39,27 +40,29 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
                     decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(0.3),
                       border: Border.all(
-                        width: 1,
+                        width: 1.w,
                         color: Colors.green,
                       ),
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(50).r,
                     ),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(50).r,
                       child: BackdropFilter(
                         filter: ImageFilter.blur(
                           sigmaX: 2,
                           sigmaY: 2,
                           tileMode: TileMode.mirror,
                         ),
+                        // Contanier size...!
                         child: SizedBox(
                           width: size.width * .9,
                           child: Column(
                             children: [
+                              // Tepadagi Text Sign Up...!
                               Padding(
                                 padding: EdgeInsets.only(
                                   top: size.width * .12,
-                                  bottom: size.width * .05,
+                                  bottom: size.width * .03,
                                 ),
                                 child: Padding(
                                   padding:
@@ -67,13 +70,15 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
                                   child: Text(
                                     translation(context).signup,
                                     style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18,
+                                      fontFamily: "Lora",
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.green,
                                     ),
                                   ),
                                 ),
                               ),
+                              // Text Enter Your Name...!
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 15),
@@ -88,6 +93,7 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
                                   false,
                                 ),
                               ),
+                              // Text Enter Email...!
                               component(
                                 context,
                                 Icons.email,
@@ -98,6 +104,7 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
                                 signUpEmail,
                                 false,
                               ),
+                              // Text Enter A Password...!
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 15),
@@ -113,12 +120,14 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
                                 ),
                               ),
                               SizedBox(height: size.width * .1),
+                              // Buttonlar Is Emti..!
                               InkWell(
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () {
                                   HapticFeedback.lightImpact();
                                 },
+                                // Button SIGN UP qismi...!
                                 child: Container(
                                   margin: EdgeInsets.only(
                                     bottom: size.width * .05,
@@ -128,100 +137,169 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     color: Colors.green.withOpacity(.7),
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(20).r,
                                     border: Border.all(
-                                      width: 2,
+                                      width: 1.5.w,
                                       color: Colors.white,
                                     ),
                                   ),
                                   child: GestureDetector(
                                     onTap: () {
+                                      // Text User Name Is Empty....!
                                       if (signUpUsername.text == '') {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                duration: Duration(seconds: 1),
-                                                elevation: 100,
-                                                shape: StadiumBorder(),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                margin: EdgeInsets.only(
-                                                    bottom: 40,
-                                                    right: 20,
-                                                    left: 20),
-                                                backgroundColor: Colors.green,
-                                                content:
-                                                    Text("Username is empty")));
+                                            .showSnackBar(
+                                          SnackBar(
+                                            duration:
+                                                const Duration(seconds: 1),
+                                            elevation: 100,
+                                            shape: const StadiumBorder(),
+                                            behavior: SnackBarBehavior.floating,
+                                            margin: const EdgeInsets.only(
+                                              bottom: 20,
+                                              right: 20,
+                                              left: 20,
+                                            ),
+                                            backgroundColor: Colors.green,
+                                            content: Text(
+                                              translation(context)
+                                                  .userNameIsEmpty,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.sp,
+                                                fontFamily: "Lora",
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        );
                                         return;
                                       }
+                                      // Text Email is empty...!
                                       if (signUpEmail.text == '') {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                duration: Duration(seconds: 1),
-                                                elevation: 100,
-                                                shape: StadiumBorder(),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                margin: EdgeInsets.only(
-                                                    bottom: 40,
-                                                    right: 20,
-                                                    left: 20),
-                                                backgroundColor: Colors.green,
-                                                content:
-                                                    Text("Email is empty")));
+                                            .showSnackBar(
+                                          SnackBar(
+                                            duration:
+                                                const Duration(seconds: 1),
+                                            elevation: 100,
+                                            shape: const StadiumBorder(),
+                                            behavior: SnackBarBehavior.floating,
+                                            margin: const EdgeInsets.only(
+                                              bottom: 20,
+                                              right: 20,
+                                              left: 20,
+                                            ),
+                                            backgroundColor: Colors.green,
+                                            content: Text(
+                                              translation(context).emailIsEmpty,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.sp,
+                                                fontFamily: "Lora",
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        );
                                         return;
                                       }
+                                      // Text Bad format Email...!
                                       if (!signUpEmail.text
                                               .contains('@mail.ru') &&
                                           !signUpEmail.text
                                               .contains('@gmail.com')) {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                duration: Duration(seconds: 1),
-                                                elevation: 100,
-                                                shape: StadiumBorder(),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                margin: EdgeInsets.only(
-                                                    bottom: 40,
-                                                    right: 20,
-                                                    left: 20),
-                                                backgroundColor: Colors.green,
-                                                content:
-                                                    Text("Bad format Email")));
+                                            .showSnackBar(
+                                          SnackBar(
+                                            duration:
+                                                const Duration(seconds: 1),
+                                            elevation: 100,
+                                            shape: const StadiumBorder(),
+                                            behavior: SnackBarBehavior.floating,
+                                            margin: const EdgeInsets.only(
+                                              bottom: 20,
+                                              right: 20,
+                                              left: 20,
+                                            ),
+                                            backgroundColor: Colors.green,
+                                            content: Text(
+                                              translation(context)
+                                                  .badFormatEmail,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.sp,
+                                                fontFamily: "Lora",
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        );
                                         return;
                                       }
+                                      // Text Password is empty...!
                                       if (signUpPassword.text == '') {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                duration: Duration(seconds: 1),
-                                                elevation: 100,
-                                                shape: StadiumBorder(),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                margin: EdgeInsets.only(
-                                                    bottom: 40,
-                                                    right: 20,
-                                                    left: 20),
-                                                backgroundColor: Colors.green,
-                                                content:
-                                                    Text("Password is empty")));
+                                            .showSnackBar(
+                                          SnackBar(
+                                            duration:
+                                                const Duration(seconds: 1),
+                                            elevation: 100,
+                                            shape: const StadiumBorder(),
+                                            behavior: SnackBarBehavior.floating,
+                                            margin: const EdgeInsets.only(
+                                              bottom: 20,
+                                              right: 20,
+                                              left: 20,
+                                            ),
+                                            backgroundColor: Colors.green,
+                                            content: Text(
+                                              translation(context)
+                                                  .passwordIsEmpty,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.sp,
+                                                fontFamily: "Lora",
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        );
                                         return;
                                       }
+                                      // Text Password must be more than 6!...!
                                       if (signUpPassword.text.length < 6) {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                duration: Duration(seconds: 1),
-                                                elevation: 100,
-                                                shape: StadiumBorder(),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                margin: EdgeInsets.only(
-                                                    bottom: 40,
-                                                    right: 20,
-                                                    left: 20),
-                                                backgroundColor: Colors.green,
-                                                content: Text(
-                                                    "Password is less then 6 characters")));
+                                            .showSnackBar(
+                                          SnackBar(
+                                            duration:
+                                                const Duration(seconds: 1),
+                                            elevation: 100,
+                                            shape: const StadiumBorder(),
+                                            behavior: SnackBarBehavior.floating,
+                                            margin: const EdgeInsets.only(
+                                              bottom: 20,
+                                              right: 20,
+                                              left: 20,
+                                            ),
+                                            backgroundColor: Colors.green,
+                                            content: Text(
+                                              translation(context)
+                                                  .passwordMustBeMoreThan6,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.sp,
+                                                fontFamily: "Lora",
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        );
                                         return;
                                       }
                                       if (signUpPassword.text != '' &&
@@ -231,30 +309,46 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
                                         BlocProvider.of<SignUpCubit>(context)
                                             .signUp(context);
                                       }
+                                      // Text Email address is already in use by another account...!
                                       if (resultt == true) {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                duration: Duration(seconds: 2),
-                                                elevation: 100,
-                                                shape: StadiumBorder(),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                margin: EdgeInsets.only(
-                                                    bottom: 40,
-                                                    right: 20,
-                                                    left: 20),
-                                                backgroundColor: Colors.green,
-                                                content: Text(
-                                                    "The email address is already in use by another account")));
+                                            .showSnackBar(
+                                          SnackBar(
+                                            duration:
+                                                const Duration(seconds: 2),
+                                            elevation: 100,
+                                            shape: const StadiumBorder(),
+                                            behavior: SnackBarBehavior.floating,
+                                            margin: const EdgeInsets.only(
+                                              bottom: 20,
+                                              right: 20,
+                                              left: 20,
+                                            ),
+                                            backgroundColor: Colors.green,
+                                            content: Text(
+                                              translation(context)
+                                                  .theEmailAddressIsAlreadyInUseByAnotherAccount,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14.sp,
+                                                fontFamily: "Lora",
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        );
                                       }
                                     },
+                                    // text SIGN UP...!
                                     child: Text(
                                       translation(context).signup,
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
-                                        fontWeight: FontWeight.w600,
+                                        fontWeight: FontWeight.bold,
                                       ),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ),
@@ -271,14 +365,20 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        'Allready has account ',
+                      // text Allready has account...!
+                      Text(
+                        translation(context).allreadyhasaccount,
                         style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                          color: Colors.black,
+                          fontSize: 14.sp,
+                          fontFamily: "Lora",
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       SizedBox(
                         width: size.width * 0.08,
                       ),
+                      // ElevatedButton qismi...!
                       Container(
                         margin: EdgeInsets.only(
                           bottom: size.width * .03,
@@ -286,23 +386,23 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
-                            shape: const BeveledRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(14))),
+                            shape: BeveledRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                const Radius.circular(14).r,
+                              ),
+                            ),
                             shadowColor: Colors.red,
                             elevation: 5,
-                            // padding: MaterialStateProperty.all<EdgeInsets>(
-                            //     const EdgeInsets.fromLTRB(5, 0, 5, 0)),
-                            // backgroundColor: MaterialStateProperty.all(
-                            //   Colors.red.withOpacity(0.8),
-                            // ),
                           ),
                           child: Text(
                             translation(context).signIn,
                             style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600),
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
+                          // SIGN IN page ga kirish qismi...!
                           onPressed: () =>
                               Navigator.of(context).pushAndRemoveUntil(
                                   SizeTransition1(
@@ -320,9 +420,10 @@ signUpView(BuildContext context, resultt, loading, passwordObse) {
               ),
             ),
             Center(
-                child: loading
-                    ? const CircularProgressIndicator()
-                    : const SizedBox())
+              child: loading
+                  ? const CircularProgressIndicator()
+                  : const SizedBox(),
+            )
           ],
         ),
       ),
@@ -341,6 +442,7 @@ Widget component(
   bool obsuretext,
 ) {
   Size size = MediaQuery.of(context).size;
+  // Button qismi...!
   return Container(
     height: size.width / 7.6,
     width: size.width / 1.25,
@@ -348,9 +450,13 @@ Widget component(
     padding: EdgeInsets.only(right: size.width / 30),
     decoration: BoxDecoration(
       color: Colors.white.withOpacity(.9),
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(width: 1.4, color: Colors.green),
+      borderRadius: BorderRadius.circular(20).r,
+      border: Border.all(
+        width: 1.4.w,
+        color: Colors.green,
+      ),
     ),
+    // Text qismi...!
     child: TextField(
       autocorrect: false,
       enableSuggestions: false,
@@ -359,6 +465,9 @@ Widget component(
       controller: controller,
       style: TextStyle(
         color: Colors.black.withOpacity(.9),
+        fontSize: 15.sp,
+        fontFamily: "Lora",
+        fontWeight: FontWeight.bold,
       ),
       decoration: InputDecoration(
         counterText: '',
@@ -376,7 +485,8 @@ Widget component(
                     : const Icon(
                         Icons.remove_red_eye_outlined,
                         color: Colors.black,
-                      ))
+                      ),
+              )
             : const SizedBox(),
         prefixIcon: Icon(
           icon,

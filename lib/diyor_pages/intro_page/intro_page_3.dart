@@ -13,6 +13,7 @@ class IntroPage3 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
+            // Images qismi...!
             child: Container(
               height: 300,
               width: 270,

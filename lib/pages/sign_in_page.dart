@@ -1,11 +1,11 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/login/sign_in_cubit.dart';
 import 'package:recipe_app/blocs/login/sign_in_state.dart';
 import 'package:recipe_app/views/sign_in_view.dart';
 
+// SIGN IN Page qismi...!
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
@@ -26,16 +26,13 @@ class _SignInPage extends State<SignInPage> {
           if (state is SignInError) {
             return viewOfError(state.error);
           }
-
           if (state is PassState) {
             check = state.pass;
           }
-
           if (state is SignInUserNotFound) {
             log('${userResult.toString()} state');
             userResult = state.result;
           }
-
           return SignInView(
             context: context,
             pass: check,
