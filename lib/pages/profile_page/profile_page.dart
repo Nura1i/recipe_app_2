@@ -116,19 +116,32 @@ class ProfilePage extends StatelessWidget {
                                   : snapshots.data!['recepts'] != null
                                       ? GridView.builder(
                                           shrinkWrap: true,
-                                          itemCount: snapshots
-                                              .data!['recepts']!.length,
+                                          itemCount: 33,
+                                          // snapshots
+                                          //     .data!['recepts']!.length,
                                           physics:
                                               const NeverScrollableScrollPhysics(),
                                           itemBuilder: (contex, index) {
-                                            var data = snapshots
-                                                .data!['recepts'][index];
+                                            // var data = snapshots
+                                            //     .data!['recepts'][index];
+
+                                            ////StreamBuilder updates when scrolling
                                             var dataUser = snapshots.data;
-                                            return showOwnPosts(data, dataUser);
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                height: 100,
+                                                width: 100,
+                                                color: Colors.red,
+                                              ),
+                                            );
+
+                                            //showOwnPosts(data, dataUser);
                                           },
                                           gridDelegate:
                                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 2,
+                                            crossAxisCount: 3,
                                           ),
                                         )
                                       : const SizedBox();

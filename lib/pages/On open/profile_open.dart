@@ -55,139 +55,132 @@ class _profielOnOpenState extends State<profielOnOpen> {
           elevation: 0,
         ),
       ),
-      body: SingleChildScrollView(
+      body: ListView(
+        shrinkWrap: true,
+        physics: const AlwaysScrollableScrollPhysics(),
+        primary: false,
         scrollDirection: Axis.vertical,
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 80.h),
-            // Users Avatar qismi...!
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 10),
-              child: CircleAvatar(
-                radius: 55.r,
-                foregroundImage: CachedNetworkImageProvider(widget
-                        .data['avatarImage'] ??
-                    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Users Avatar qismi...!
+              Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 10),
+                child: CircleAvatar(
+                  radius: 55.r,
+                  foregroundImage: CachedNetworkImageProvider(widget
+                          .data['avatarImage'] ??
+                      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+                ),
               ),
-            ),
-            // users Name qismi...!
-            Text(
-              widget.data['username'] ?? 'username',
-              style: TextStyle(
-                color: Colors.grey.shade700,
-                fontSize: 16.sp,
-                fontFamily: "Lora",
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            // Users Bio qismi...!
-            Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Text(
-                widget.data['bio'] ?? '',
+              // users Name qismi...!
+              Text(
+                widget.data['username'] ?? 'username',
                 style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14.sp,
+                  color: Colors.grey.shade700,
+                  fontSize: 16.sp,
                   fontFamily: "Lora",
+                  fontWeight: FontWeight.bold,
                 ),
-                textAlign: TextAlign.center,
               ),
-            ),
-            SizedBox(height: 50.h),
-            // Recipes and likes qismi...!
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                counter(
-                    widget.data['recepts'] != null
-                        ? widget.data['recepts'].length.toString()
-                        : '0',
-                    translation(context).recipes,
-                    //'Recipes',
-                    context),
-                SizedBox(
-                  width: 80.w,
-                ),
-                counter(
-                    widget.data['totalLikes'] != null
-                        ? widget.data['totalLikes'].length.toString()
-                        : '0',
-                    translation(context).likes,
-                    //'Likes',
-                    context),
-              ],
-            ),
-            SizedBox(height: 10.h),
-            // Dvider qismi...!
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 1.h,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.white,
-                            Colors.black,
-                          ],
-                          begin: Alignment.centerRight,
-                          end: Alignment.centerLeft,
-                        ),
-                      ),
-                    ),
+              // Users Bio qismi...!
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: Text(
+                  widget.data['bio'] ?? '',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.sp,
+                    fontFamily: "Lora",
                   ),
+                  textAlign: TextAlign.center,
                 ),
-                Expanded(
-                  child: SizedBox(
-                    height: 1.h,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.white,
-                            Colors.black,
-                          ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              width: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(10).r,
               ),
-              child: Column(
+              SizedBox(height: 50.h),
+              // Recipes and likes qismi...!
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  counter(
+                      widget.data['recepts'] != null
+                          ? widget.data['recepts'].length.toString()
+                          : '0',
+                      translation(context).recipes,
+                      //'Recipes',
+                      context),
                   SizedBox(
-                    height: 500,
-                    child: widget.data['recepts'] != null
-                        ? GridView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: widget.data['recepts'].length,
-                            itemBuilder: (contex, index) {
-                              return showPersonsPosts(
-                                  widget.data['recepts'][index], widget.data);
-                            },
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3),
-                          )
-                        : const SizedBox(),
-                  )
+                    width: 80.w,
+                  ),
+                  counter(
+                      widget.data['totalLikes'] != null
+                          ? widget.data['totalLikes'].length.toString()
+                          : '0',
+                      translation(context).likes,
+                      //'Likes',
+                      context),
                 ],
               ),
-            ),
-          ],
-        ),
+              SizedBox(height: 10.h),
+              // Dvider qismi...!
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 1.h,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.white,
+                              Colors.black,
+                            ],
+                            begin: Alignment.centerRight,
+                            end: Alignment.centerLeft,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 1.h,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.white,
+                              Colors.black,
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              widget.data['recepts'] != null
+                  ? GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: widget.data['recepts'].length,
+                      itemBuilder: (contex, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: showPersonsPosts(
+                              widget.data['recepts'][index], widget.data),
+                        );
+                      },
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3),
+                    )
+                  : const SizedBox(),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -239,7 +232,7 @@ class _profielOnOpenState extends State<profielOnOpen> {
                                 data['photo'],
                               ),
                             ),
-                            borderRadius: BorderRadius.circular(10),
+                            // borderRadius: BorderRadius.circular(10),
                             color: Colors.grey,
                           ),
                         ),
