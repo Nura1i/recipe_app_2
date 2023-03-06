@@ -75,11 +75,12 @@ class EditProfilePage extends StatelessWidget {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Navigator.of(context)
-                                                  .push(MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const CropperScreenn(),
-                                              ));
+                                              cropperBottomSheet(context);
+                                              // Navigator.of(context)
+                                              //     .push(MaterialPageRoute(
+                                              //   builder: (context) =>
+                                              //       const CropperScreenn(),
+                                              // ));
                                             },
                                             child: Container(
                                               width: 130,
@@ -144,9 +145,7 @@ class EditProfilePage extends StatelessWidget {
                     },
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 buildTextField(context, 'UserName', ' UserName',
                     controllerUserName!, true, true),
                 buildTextField(

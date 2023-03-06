@@ -11,18 +11,28 @@ class SignUpPage extends StatefulWidget {
   State<SignUpPage> createState() => _SignUpPage();
 }
 
+bool result = false;
+bool load = false;
+
 class _SignUpPage extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<SignUpCubit>(context).signUp;
-
     return Scaffold(
       body: BlocBuilder<SignUpCubit, SignUpState>(
         builder: (BuildContext context, SignUpState state) {
           if (state is SignUpError) {
             return viewOfError(state.error);
           }
-          return const signUpView();
+          if (state is alreadyHasAccount) {
+            result = state.result;
+          }
+          if (state is SignUpLoading) {
+            load = state.load;
+          }
+          return signUpView(
+            result: result,
+            load: load,
+          );
         },
       ),
     );

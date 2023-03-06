@@ -132,7 +132,6 @@ class HomeView2 extends StatelessWidget {
                             itemBuilder: (context, index) {
                               allRecipes = snapshots.data!.docs[index].data()
                                   as Map<String, dynamic>;
-
                               return recentAdded(context, allRecipes);
                             }),
                       );

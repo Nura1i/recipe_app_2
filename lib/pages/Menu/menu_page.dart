@@ -82,13 +82,13 @@ class _MenuPageState extends State<MenuPage> {
               ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
-                  'assets/svg/Notification.svg',
-                  width: 50,
+                  'assets/svg/Ssearch.svg',
+                  width: 28,
                   color: Colors.orange.shade600,
                 ),
                 activeIcon: _pages(
                   'notification',
-                  'assets/svg/Notification.svg',
+                  'assets/svg/Ssearch.svg',
                 ),
               ),
               BottomNavigationBarItem(

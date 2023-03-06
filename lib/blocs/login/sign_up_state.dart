@@ -7,11 +7,20 @@ abstract class SignUpState extends Equatable {
 
 class SignUpInit extends SignUpState {}
 
-class SignUpLoading extends SignUpState {}
+class SignUpLoading extends SignUpState {
+  final load;
+  SignUpLoading({this.load});
+}
 
 class SignUpLoaded extends SignUpState {}
+
+class alreadyHasAccount extends SignUpState {
+  final result;
+  alreadyHasAccount({this.result});
+}
 
 class SignUpError extends SignUpState {
   final error;
   SignUpError({this.error});
+
 }

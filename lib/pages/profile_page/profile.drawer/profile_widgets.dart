@@ -13,9 +13,9 @@ ThemeBottomSheet(BuildContext context, light) {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20.r))),
       context: context,
-      builder: (ctx) {
+      builder: (context) {
         return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.35.h,
+            height: MediaQuery.of(context).size.height * 0.30.h,
             child: Center(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -29,51 +29,47 @@ ThemeBottomSheet(BuildContext context, light) {
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
-                  // themeWidget('light', 'light', 'Light', Icons.sunny, context),
-                  // const Divider(
-                  //   thickness: 1,
-                  //   color: Colors.orange,
-                  // ),
-                  // themeWidget('dark', 'dark', 'Dark', Icons.dark_mode, context),
-                  // const Divider(
-                  //   thickness: 1,
-                  //   color: Colors.orange,
-                  // ),
-                  // themeWidget(
-                  //     'dark', 'light', 'System', Icons.sunny_snowing, context),
+                  themesheet(context, Icons.sunny, 'Light', 'light', 'light'),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.orange,
+                  ),
+                  themesheet(context, Icons.dark_mode, 'Dark', 'dark', 'dark'),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.orange,
+                  ),
                 ])));
       });
 }
 
 // Theme for Widgets
 
-
-  //  ThemeSwitcher.withTheme(
-  //   builder: (_, switcher, theme) {
-  //     return TextButton(
-  //       onPressed: () => switcher.changeTheme(
-  //         theme:
-  //             theme.brightness == Brightness.dark ? themechange1 : themechange2,
-  //       ),
-  //       child: Row(
-  //         children: [
-  //           Icon(
-  //             icon,
-  //             color: Theme.of(context).focusColor,
-  //           ),
-  //           const SizedBox(
-  //             width: 3,
-  //           ),
-  //           Text(
-  //             texttheme,
-  //             style: Theme.of(context).textTheme.bodySmall,
-  //           )
-  //         ],
-  //       ),
-  //     );
-  //   },
-  // );
-//}
+Widget themesheet(BuildContext context, IconData iconn, String text,
+    String themedark, String themelight) {
+  return ThemeSwitcher(
+    builder: (context) {
+      return ListTile(
+        onTap: () async {
+          var themeName =
+              ThemeModelInheritedNotifier.of(context).theme.brightness ==
+                      Brightness.light
+                  ? themedark
+                  : themelight;
+          var service = await ThemeService.instance
+            ..save(themeName);
+          var theme = service.getByName(themeName);
+          ThemeSwitcher.of(context).changeTheme(theme: theme);
+        },
+        leading: Icon(iconn),
+        title: Text(
+          text,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20),
+        ),
+      );
+    },
+  );
+}
 
 // Language Widget
 Widget LanguageForSheet(
@@ -96,10 +92,7 @@ Widget LanguageForSheet(
                 SizedBox(
                   width: size.width / 30,
                 ),
-                Text(
-                  text2,
-                  style: Theme.of(context).textTheme.bodySmall,
-                )
+                Text(text2, style: Theme.of(context).textTheme.bodyText1)
               ],
             ),
             const Divider(

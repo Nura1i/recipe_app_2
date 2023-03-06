@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
+import 'package:recipe_app/pages/sign_up_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/views/sign_up_view.dart';
 import 'package:recipe_app/widgets/pageAnimationFade.dart';
@@ -93,7 +95,8 @@ class _SignInViewState extends State<SignInView> {
                                     false,
                                     false,
                                     false,
-                                    signUpEmail),
+                                    signUpEmail,
+                                    false),
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 20),
@@ -103,7 +106,8 @@ class _SignInViewState extends State<SignInView> {
                                       false,
                                       false,
                                       false,
-                                      signUpPassword),
+                                      signUpPassword,
+                                      true),
                                 ),
                                 SizedBox(height: size.width * .1),
                                 InkWell(
@@ -164,7 +168,7 @@ class _SignInViewState extends State<SignInView> {
                                     onPressed: () => Navigator.of(context)
                                         .pushAndRemoveUntil(
                                             SizeTransition1(
-                                              const signUpView(),
+                                              const SignUpPage(),
                                             ),
                                             (route) => false),
                                   ),
@@ -185,8 +189,14 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
-  Widget component(IconData icon, String hintText, bool isPassword,
-      bool isEmail, bool isNumber, TextEditingController controller) {
+  Widget component(
+      IconData icon,
+      String hintText,
+      bool isPassword,
+      bool isEmail,
+      bool isNumber,
+      TextEditingController controller,
+      bool obsure) {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.width / 7.6,
@@ -198,6 +208,7 @@ class _SignInViewState extends State<SignInView> {
           borderRadius: BorderRadius.circular(20),
           border: Border.all(width: 1.4, color: Colors.green)),
       child: TextField(
+        obscureText: obsure == true ? ozgartish : false,
         controller: controller,
         style: TextStyle(
           color: Colors.black.withOpacity(.9),
@@ -205,6 +216,25 @@ class _SignInViewState extends State<SignInView> {
         keyboardType:
             !isNumber ? TextInputType.emailAddress : TextInputType.number,
         decoration: InputDecoration(
+          suffixIcon: obsure
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      log('works');
+                      ozgartish = !ozgartish;
+                      obsure = false;
+                    });
+                  },
+                  icon: ozgartish == true
+                      ? const Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.red,
+                        )
+                      : const Icon(
+                          Icons.remove_red_eye_outlined,
+                          color: Colors.black,
+                        ))
+              : const SizedBox(),
           prefixIcon: Icon(
             icon,
             color: Colors.green.withOpacity(.9),

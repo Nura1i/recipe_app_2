@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:recipe_app/consts/consts.dart';
 import 'package:recipe_app/pages/On%20open/into_recipe.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/settings_profile.dart';
 import 'package:recipe_app/pages/profile_page/zoom_drawer_page.dart';
@@ -127,11 +126,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       StreamBuilder(
                           stream: FirebaseFirestore.instance
                               .collection('users')
-                              .doc(currentUser)
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
                               .snapshots(),
                           builder: (context, snapshot) {
                             return (snapshot.connectionState ==
-                                    ConnectionState.waiting)
+                                        ConnectionState.waiting ||
+                                    snapshot.data == null)
                                 ? const SizedBox()
                                 : Row(
                                     children: [
@@ -352,13 +352,3 @@ Widget showOwnPosts(dataaId) {
     },
   );
 }
-
-
-
-  //  Shimmer.fromColors(
-  //       highlightColor: Colors.white,
-  //       baseColor: Colors.grey.shade400,
-  //       child: cardView(contex, posts[index]),
-  //       period: Duration(seconds: time),
-  //       enabled: true,
-  //     );

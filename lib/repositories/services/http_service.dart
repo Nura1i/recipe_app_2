@@ -14,12 +14,10 @@ class Network {
   static String API_DELETE = "/posts/"; //{id}
 
   /* Http Requests */
-
+  
   static Future<String?> GET(String api, Map<String, String> params) async {
     var uri = Uri.https(BASE, api, params); // http or https
-    var response = await get(
-      uri,
-    );
+    var response = await get(uri,);
 
     if (response.statusCode == 200) {
       return response.body;

@@ -46,14 +46,11 @@ topCreator(contex, data) {
               padding: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Colors.orange),
-                borderRadius: const BorderRadius.only(
+                 borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(20),
                     bottomLeft: Radius.circular(20)),
-                color: Colors.white,
-              ),
-              child: const Text(
-                '  TOP',
-                style: TextStyle(
+                color:Colors.white,
+              ),child: const Text('TOP',style:TextStyle(
                     color: Color.fromARGB(255, 14, 242, 21),
                     fontWeight: FontWeight.bold),
               ),

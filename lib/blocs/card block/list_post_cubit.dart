@@ -5,7 +5,6 @@ import 'package:recipe_app/repositories/services/http_service.dart';
 
 class ListPostCubit extends Cubit<ListPostState> {
   ListPostCubit() : super(ListPostInit());
-
   void apiPostList() async {
     emit(
       ListPostLoading(),

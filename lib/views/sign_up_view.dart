@@ -1,14 +1,21 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/views/sign_in_view.dart';
 import 'package:recipe_app/widgets/pageAnimationFade.dart';
 
+bool ozgartish = true;
+bool indicator = false;
+
 class signUpView extends StatefulWidget {
-  const signUpView({super.key});
+  final result;
+  final load;
+  const signUpView({this.result, this.load, super.key});
 
   @override
   State<signUpView> createState() => _signUpViewState();
@@ -87,30 +94,36 @@ class _signUpViewState extends State<signUpView> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 15),
                                   child: component(
-                                      Icons.account_circle_outlined,
-                                      translation(context).enterYourName,
-                                      false,
-                                      false,
-                                      false,
-                                      signUpUsername),
+                                    Icons.account_circle_outlined,
+                                    translation(context).enterYourName,
+                                    false,
+                                    false,
+                                    false,
+                                    signUpUsername,
+                                    false,
+                                  ),
                                 ),
                                 component(
-                                    Icons.email,
-                                    translation(context).enterEmail,
-                                    false,
-                                    false,
-                                    false,
-                                    signUpEmail),
+                                  Icons.email,
+                                  translation(context).enterEmail,
+                                  false,
+                                  false,
+                                  false,
+                                  signUpEmail,
+                                  false,
+                                ),
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 15),
                                   child: component(
-                                      Icons.lock,
-                                      translation(context).enterAPassword,
-                                      false,
-                                      false,
-                                      false,
-                                      signUpPassword),
+                                    Icons.lock,
+                                    translation(context).enterAPassword,
+                                    false,
+                                    false,
+                                    false,
+                                    signUpPassword,
+                                    true,
+                                  ),
                                 ),
                                 SizedBox(height: size.width * .1),
                                 InkWell(
@@ -136,7 +149,142 @@ class _signUpViewState extends State<signUpView> {
                                     ),
                                     child: GestureDetector(
                                       onTap: () {
-                                        SignUpCubit().signUp(context);
+                                        if (signUpUsername.text == '') {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  elevation: 100,
+                                                  shape: StadiumBorder(),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 40,
+                                                      right: 20,
+                                                      left: 20),
+                                                  backgroundColor: Colors.green,
+                                                  content: Text(
+                                                      "Username is empty")));
+                                          return;
+                                        }
+                                        if (signUpEmail.text == '') {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  elevation: 100,
+                                                  shape: StadiumBorder(),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 40,
+                                                      right: 20,
+                                                      left: 20),
+                                                  backgroundColor: Colors.green,
+                                                  content:
+                                                      Text("Email is empty")));
+                                          return;
+                                        }
+                                        if (!signUpEmail.text
+                                                .contains('@mail.ru') &&
+                                            !signUpEmail.text
+                                                .contains('@gmail.com')) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  elevation: 100,
+                                                  shape: StadiumBorder(),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 40,
+                                                      right: 20,
+                                                      left: 20),
+                                                  backgroundColor: Colors.green,
+                                                  content: Text(
+                                                      "Bad format Email")));
+                                          return;
+                                        }
+                                        if (signUpPassword.text == '') {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  elevation: 100,
+                                                  shape: StadiumBorder(),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 40,
+                                                      right: 20,
+                                                      left: 20),
+                                                  backgroundColor: Colors.green,
+                                                  content: Text(
+                                                      "Password is empty")));
+                                          return;
+                                        }
+
+                                        if (signUpPassword.text.length < 6) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  elevation: 100,
+                                                  shape: StadiumBorder(),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 40,
+                                                      right: 20,
+                                                      left: 20),
+                                                  backgroundColor: Colors.green,
+                                                  content: Text(
+                                                      "Password is less then 6 characters")));
+                                          return;
+                                        }
+                                        if (signUpPassword.text != '' &&
+                                            signUpEmail.text != '' &&
+                                            signUpUsername.text != '') {
+                                          BlocProvider.of<SignUpCubit>(context)
+                                              .signUp(context);
+                                        }
+                                        if (widget.result == true) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  duration:
+                                                      Duration(seconds: 2),
+                                                  elevation: 100,
+                                                  shape: StadiumBorder(),
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 40,
+                                                      right: 20,
+                                                      left: 20),
+                                                  backgroundColor: Colors.green,
+                                                  content: Text(
+                                                      "The email address is already in use by another account")));
+                                        }
+
+                                        // if (widget.result == true) {
+                                        //   ScaffoldMessenger.of(context)
+                                        //       .showSnackBar(SnackBar(
+                                        //           duration: const Duration(
+                                        //               seconds: 1),
+                                        //           elevation: 100,
+                                        //           shape: const StadiumBorder(),
+                                        //           behavior:
+                                        //               SnackBarBehavior.floating,
+                                        //           margin: EdgeInsets.only(
+                                        //               bottom: size.height * 0.6,
+                                        //               right: 20,
+                                        //               left: 20),
+                                        //           backgroundColor:
+                                        //               Colors.orange,
+                                        //           content: const Text(
+                                        //               "Bu akkaunt bor ")));
+                                        // }
                                       },
                                       child: Text(
                                         translation(context).signup,
@@ -183,6 +331,10 @@ class _signUpViewState extends State<signUpView> {
                   ],
                 ),
               ),
+              Center(
+                  child: widget.load
+                      ? const CircularProgressIndicator()
+                      : const SizedBox())
             ],
           ),
         ),
@@ -190,9 +342,17 @@ class _signUpViewState extends State<signUpView> {
     );
   }
 
-  Widget component(IconData icon, String hintText, bool isPassword,
-      bool isEmail, bool isNumber, TextEditingController controller) {
+  Widget component(
+    IconData icon,
+    String hintText,
+    bool isPassword,
+    bool isEmail,
+    bool isNumber,
+    TextEditingController controller,
+    bool obsuretext,
+  ) {
     Size size = MediaQuery.of(context).size;
+
     return Container(
       height: size.width / 7.6,
       width: size.width / 1.25,
@@ -204,6 +364,7 @@ class _signUpViewState extends State<signUpView> {
         border: Border.all(width: 1.4, color: Colors.green),
       ),
       child: TextField(
+        obscureText: obsuretext == true ? ozgartish : false,
         controller: controller,
         style: TextStyle(
           color: Colors.black.withOpacity(.9),
@@ -211,6 +372,25 @@ class _signUpViewState extends State<signUpView> {
         keyboardType:
             !isNumber ? TextInputType.emailAddress : TextInputType.number,
         decoration: InputDecoration(
+          suffixIcon: obsuretext
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      log('works');
+                      ozgartish = !ozgartish;
+                      obsuretext = false;
+                    });
+                  },
+                  icon: ozgartish == true
+                      ? const Icon(
+                          Icons.remove_red_eye,
+                          color: Colors.green,
+                        )
+                      : const Icon(
+                          Icons.remove_red_eye_outlined,
+                          color: Colors.black,
+                        ))
+              : const SizedBox(),
           prefixIcon: Icon(
             icon,
             color: Colors.green.withOpacity(.9),

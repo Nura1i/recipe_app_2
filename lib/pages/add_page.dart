@@ -132,7 +132,8 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                                     bottom: 40, right: 20, left: 20),
                                 backgroundColor: Colors.orange,
                                 content: Text("time is empty")));
-                        return;
+                        
+                         return;
                       }
                       if (serves == 0) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -145,12 +146,11 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                                     bottom: 40, right: 20, left: 20),
                                 backgroundColor: Colors.orange,
                                 content: Text("serves is empty")));
-                        return;
-                      }
+                        return; }
                       if (bodyText == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                duration: Duration(seconds: 1),
+                                duration: Duration(seconds: 1),                           
                                 elevation: 100,
                                 shape: StadiumBorder(),
                                 behavior: SnackBarBehavior.floating,

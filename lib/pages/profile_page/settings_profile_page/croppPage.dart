@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
+import 'package:recipe_app/pages/profile_page/settings_profile_page/widgets.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 
 class CropperScreenn extends StatefulWidget {
@@ -67,7 +68,7 @@ class _CropperScreennState extends State<CropperScreenn> {
                         source: ImageSource.gallery,
                       );
 
-                      if (image != null) {
+                      if (image != null||image==imageCamera) {
                         final imageBytes = await image!.readAsBytes();
                         setState(() {
                           _imageToCrop = imageBytes;
