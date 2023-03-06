@@ -12,7 +12,7 @@ _$_userModel _$$_userModelFromJson(Map<String, dynamic> json) => _$_userModel(
       avatarImage: json['avatarImage'] as String?,
       password: json['password'] as String?,
       email: json['email'] as String?,
-      totalLikes: json['totalLikes'] as int?,
+      totalLikes: json['totalLikes'] as List<dynamic>?,
       publishedDate: json['publishedDate'] == null
           ? null
           : DateTime.parse(json['publishedDate'] as String),

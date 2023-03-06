@@ -13,13 +13,17 @@ class IntroPage2 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
+            // Images qismi...!
             child: Container(
               height: 300,
               width: 310,
               decoration: const BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage('assets/intro/intro2.jpg'),
-              )),
+                image: DecorationImage(
+                  image: AssetImage(
+                    'assets/intro/intro2.jpg',
+                  ),
+                ),
+              ),
             ),
           ),
           // Text qismi
@@ -33,8 +37,9 @@ class IntroPage2 extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.black,
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: FontWeight.w600,
+                    fontFamily: "Lora",
                   ),
                 ),
                 const SizedBox(
@@ -45,9 +50,11 @@ class IntroPage2 extends StatelessWidget {
                   translation(context).introPage22,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500),
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Lora",
+                  ),
                 ),
               ],
             ),

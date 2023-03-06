@@ -24,6 +24,7 @@ mixin _$recipeModel {
   String? get userId => throw _privateConstructorUsedError;
   String? get head => throw _privateConstructorUsedError;
   String? get photo => throw _privateConstructorUsedError;
+  String? get categorie => throw _privateConstructorUsedError;
   int? get serves => throw _privateConstructorUsedError;
   int? get totalLikes => throw _privateConstructorUsedError;
   String? get cookTime => throw _privateConstructorUsedError;
@@ -48,6 +49,7 @@ abstract class $recipeModelCopyWith<$Res> {
       String? userId,
       String? head,
       String? photo,
+      String? categorie,
       int? serves,
       int? totalLikes,
       String? cookTime,
@@ -73,6 +75,7 @@ class _$recipeModelCopyWithImpl<$Res, $Val extends recipeModel>
     Object? userId = freezed,
     Object? head = freezed,
     Object? photo = freezed,
+    Object? categorie = freezed,
     Object? serves = freezed,
     Object? totalLikes = freezed,
     Object? cookTime = freezed,
@@ -96,6 +99,10 @@ class _$recipeModelCopyWithImpl<$Res, $Val extends recipeModel>
       photo: freezed == photo
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categorie: freezed == categorie
+          ? _value.categorie
+          : categorie // ignore: cast_nullable_to_non_nullable
               as String?,
       serves: freezed == serves
           ? _value.serves
@@ -138,6 +145,7 @@ abstract class _$$_recipeModelCopyWith<$Res>
       String? userId,
       String? head,
       String? photo,
+      String? categorie,
       int? serves,
       int? totalLikes,
       String? cookTime,
@@ -161,6 +169,7 @@ class __$$_recipeModelCopyWithImpl<$Res>
     Object? userId = freezed,
     Object? head = freezed,
     Object? photo = freezed,
+    Object? categorie = freezed,
     Object? serves = freezed,
     Object? totalLikes = freezed,
     Object? cookTime = freezed,
@@ -184,6 +193,10 @@ class __$$_recipeModelCopyWithImpl<$Res>
       photo: freezed == photo
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categorie: freezed == categorie
+          ? _value.categorie
+          : categorie // ignore: cast_nullable_to_non_nullable
               as String?,
       serves: freezed == serves
           ? _value.serves
@@ -221,6 +234,7 @@ class _$_recipeModel implements _recipeModel {
       this.userId,
       this.head,
       this.photo,
+      this.categorie,
       this.serves,
       this.totalLikes,
       this.cookTime,
@@ -240,6 +254,8 @@ class _$_recipeModel implements _recipeModel {
   final String? head;
   @override
   final String? photo;
+  @override
+  final String? categorie;
   @override
   final int? serves;
   @override
@@ -262,7 +278,7 @@ class _$_recipeModel implements _recipeModel {
 
   @override
   String toString() {
-    return 'recipeModel(id: $id, userId: $userId, head: $head, photo: $photo, serves: $serves, totalLikes: $totalLikes, cookTime: $cookTime, text: $text, totalLike: $totalLike, items: $items)';
+    return 'recipeModel(id: $id, userId: $userId, head: $head, photo: $photo, categorie: $categorie, serves: $serves, totalLikes: $totalLikes, cookTime: $cookTime, text: $text, totalLike: $totalLike, items: $items)';
   }
 
   @override
@@ -274,6 +290,8 @@ class _$_recipeModel implements _recipeModel {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.head, head) || other.head == head) &&
             (identical(other.photo, photo) || other.photo == photo) &&
+            (identical(other.categorie, categorie) ||
+                other.categorie == categorie) &&
             (identical(other.serves, serves) || other.serves == serves) &&
             (identical(other.totalLikes, totalLikes) ||
                 other.totalLikes == totalLikes) &&
@@ -293,6 +311,7 @@ class _$_recipeModel implements _recipeModel {
       userId,
       head,
       photo,
+      categorie,
       serves,
       totalLikes,
       cookTime,
@@ -320,6 +339,7 @@ abstract class _recipeModel implements recipeModel {
       final String? userId,
       final String? head,
       final String? photo,
+      final String? categorie,
       final int? serves,
       final int? totalLikes,
       final String? cookTime,
@@ -338,6 +358,8 @@ abstract class _recipeModel implements recipeModel {
   String? get head;
   @override
   String? get photo;
+  @override
+  String? get categorie;
   @override
   int? get serves;
   @override

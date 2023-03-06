@@ -2,19 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:recipe_app/pages/profile_page/profile.drawer/profile_widgets.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
+import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 String uid = auth.currentUser!.uid.toString();
 Widget dropdown(BuildContext context) {
-  var size = MediaQuery.of(context).size;
+  ScreenUtil.init(context, designSize: const Size(360, 690));
   return DropdownButtonHideUnderline(
     child: DropdownButton2(
+      buttonHighlightColor: Colors.white,
       customButton: SvgPicture.asset(
         'assets/svg/ProfileUnion.svg',
-        height: size.width * 0.015,
+        width: 22.w,
         color: Theme.of(context).focusColor,
       ),
       customItemsHeights: [
@@ -36,37 +39,68 @@ Widget dropdown(BuildContext context) {
                 return (snapshot.connectionState == ConnectionState.waiting)
                     ? const SizedBox()
                     : TextButton(
+                        style: ButtonStyle(
+                          overlayColor: MaterialStateColor.resolveWith(
+                              (states) => Colors.white),
+                        ),
                         onPressed: () async {
                           await FireDatabaseService.ProfileImageDelete();
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
                               duration: const Duration(seconds: 1),
                               elevation: 100,
                               shape: const StadiumBorder(),
                               behavior: SnackBarBehavior.floating,
-                              margin: const EdgeInsets.only(
-                                  bottom: 40, right: 20, left: 20),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 15.w, vertical: 20.h),
                               backgroundColor: Colors.orange,
                               content: data!['avatarImage'] != null
-                                  ? const Text('Your Profile Image Delete')
-                                  : const Text('Your Profile Image empty')));
+                                  // Your Profile Image Delete...!
+                                  ? Text(
+                                      translation(context)
+                                          .yourProfileImageDelete,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14.sp,
+                                        fontFamily: "Lora",
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  // Your Profile Image empty...!
+                                  : Text(
+                                      translation(context)
+                                          .yourProfileImageempty,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14.sp,
+                                        fontFamily: "Lora",
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                            ),
+                          );
                         },
                         child: MenuItems.buildItem(context, item),
                       );
               },
             ),
-            //
           ),
         ),
         const DropdownMenuItem<Divider>(enabled: false, child: Divider()),
         ...MenuItems.secondItems.map(
           (item) => DropdownMenuItem<MenuItem>(
-              value: item,
-              child: TextButton(
-                onPressed: () {
-                  Logoutdialog(context);
-                },
-                child: MenuItems.buildItem(context, item),
-              )),
+            value: item,
+            child: TextButton(
+              style: ButtonStyle(
+                overlayColor:
+                    MaterialStateColor.resolveWith((states) => Colors.white),
+              ),
+              onPressed: () {
+                Logoutdialog(context);
+              },
+              child: MenuItems.buildItem(context, item),
+            ),
+          ),
         ),
       ],
       onChanged: (value) {
@@ -77,7 +111,7 @@ Widget dropdown(BuildContext context) {
       dropdownWidth: 180,
       dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
       dropdownDecoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(15).r,
         color: Theme.of(context).backgroundColor,
       ),
       dropdownElevation: 8,
@@ -109,11 +143,16 @@ class MenuItems {
   static Widget buildItem(BuildContext context, MenuItem item) {
     return Row(
       children: [
-        Icon(item.icon, color: Theme.of(context).iconTheme.color),
+        Icon(item.icon, color: Colors.red),
+        // Theme.of(context).iconTheme.color),
         const SizedBox(
           width: 10,
         ),
-        Text(item.text, style: Theme.of(context).textTheme.bodySmall),
+        Text(item.text,
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall!
+                .copyWith(color: Colors.green, fontFamily: 'Lora')),
       ],
     );
   }

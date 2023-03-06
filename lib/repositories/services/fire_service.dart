@@ -1,14 +1,17 @@
+import 'dart:collection';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:recipe_app/models/Recipe%20Model/recipe_model.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/widgets.dart';
-import 'package:recipe_app/views/sign_in_view.dart';
+import 'package:recipe_app/pages/sign_in_page.dart';
 
+import 'package:shared_preferences/shared_preferences.dart' as ShP;
 
 String? username1111;
 String? bio;
@@ -16,6 +19,7 @@ String? avatarImage;
 String? email;
 List? UserRecepts;
 List? allRecepts;
+int? totalCountLikes;
 
 class FireDatabaseService {
   static final FirebaseFirestore _databaseFirestore =
@@ -39,6 +43,12 @@ class FireDatabaseService {
     return userSaved;
   }
 
+  static getUserFromRecept(userId) async {
+    final userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    return userDoc;
+  }
+
   static Future SaveRecipeToCollection(
       {required recipeModel? recipe, required File? image}) async {
     bool recipeSaved = false;
@@ -55,9 +65,7 @@ class FireDatabaseService {
       await _databaseFirestore
           .collection('users')
           .doc(currentUserId)
-          .update({'recepts': recipes}).then((value) {
-        log(allRecepts.toString());
-      });
+          .update({'recepts': recipes});
       final userRef = _storage.ref("PhotoOfRecipes");
       final nameReferense = userRef.child(recipe.id!);
       UploadTask? uploadTask = nameReferense.putFile(image!);
@@ -87,6 +95,7 @@ class FireDatabaseService {
     bio = userDoc.get('bio');
     email = userDoc.get('email');
     avatarImage = userDoc.get('avatarImage');
+    // Navigator.of(ctx).pop();
   }
 
   static Future<String?> updateProfile({
@@ -118,6 +127,73 @@ class FireDatabaseService {
     return null;
   }
 
+  static Future deletePost(postId) async {
+    try {
+      DocumentSnapshot postDoc = await FirebaseFirestore.instance
+          .collection('Recipes')
+          .doc(postId['id'])
+          .get();
+      List likes = postDoc['totalLikes'] ?? [];
+
+      await _databaseFirestore.collection('Recipes').doc(postId['id']).delete();
+      await _storage.refFromURL(postId['photo']).delete();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+      List userLikes = userDoc['totalLikes'] ?? [];
+      for (var element in likes) {
+        userLikes.remove(element);
+      }
+
+      List lsPost = userDoc.get('recepts') ?? [];
+      List lsSaved = userDoc.get('saved') ?? [];
+
+      if (lsPost.contains(postId['id'])) {
+        lsPost.remove(postId['id']);
+      }
+      if (lsSaved.contains(postId['id'])) {
+        lsSaved.remove(postId['id']);
+      }
+      _databaseFirestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update(
+              {'recepts': lsPost, 'saved': lsSaved, 'totalLikes': userLikes});
+      log('Deleted Success');
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  static Future topCreators() async {
+    final QuerySnapshot<Map<String, dynamic>> allusersDoc;
+    var ref = FirebaseFirestore.instance.collection('users');
+    allusersDoc = await ref.get();
+    List ls = allusersDoc.docs;
+    Map<String, dynamic>? topUserId = {};
+    int max = 0;
+
+    for (var element in ls) {
+      if (element.data()['totalLikes'] != null) {
+        if (max < element.data()['totalLikes'].length) {
+          topUserId[element.data()['id'].toString()] =
+              element.data()['totalLikes'].length;
+        }
+      }
+    }
+
+    var sortedByValueMap = Map.fromEntries(topUserId.entries.toList()
+      ..sort((e1, e2) => e1.value.compareTo(e2.value)));
+    final reverseM =
+        LinkedHashMap.fromEntries(sortedByValueMap.entries.toList().reversed);
+    List topItems = [];
+    for (int i = 0; i < 9; i++) {
+      topItems.add(reverseM.keys.elementAt(i));
+    }
+    return topItems;
+  }
+
   static Future<bool?> updateItemCollection({
     required userModel? usermodelll,
   }) async {
@@ -133,26 +209,12 @@ class FireDatabaseService {
       });
 
       log('saved bio end email');
+      await getdata();
     } catch (e) {
       log(e.toString());
     }
 
     return isput;
-  }
-
-  static Future<bool?> deletePostById({required userModel? usermodel}) async {
-    bool? isDeleted = false;
-
-    try {
-      final deleteRef = _storage.refFromURL(usermodel!.avatarImage!);
-      await deleteRef.delete();
-      await _databaseFirestore.collection('users').doc(usermodel.id).delete();
-      isDeleted = true; // tushunarsiz joylari mavjud
-    } catch (e) {
-      log(e.toString());
-      return isDeleted;
-    }
-    return null;
   }
 
   static Future saved(recipeID, saved) async {
@@ -196,7 +258,20 @@ class FireDatabaseService {
           .collection('Recipes')
           .doc(recipeID)
           .get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserId)
+          .get();
+      List ls = [];
+      ls = userDoc.get('totalLikes') ?? [];
       totalLikes = recipeDoc.get('totalLikes') ?? [];
+      List supLike = recipeDoc.get('totalLikes') ?? [];
+      DocumentSnapshot ownRecipeDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(recipeDoc.get('userId'))
+          .get();
+
+      List ownRecipeLikeList = ownRecipeDoc.get('totalLikes') ?? [];
 
       if (liked == false) {
         if (!totalLikes.contains(currentUserId)) {
@@ -206,42 +281,48 @@ class FireDatabaseService {
       if (liked == true) {
         if (totalLikes.contains(currentUserId)) {
           totalLikes.remove(currentUserId);
+          // ls.remove(currentUserId);
         }
       }
       await _databaseFirestore
           .collection('Recipes')
           .doc(recipeID)
-          .update({'totalLikes': totalLikes}).then((value) {
-        log(totalLikes.toString());
-      });
+          .update({'totalLikes': totalLikes});
+
+      if (currentUserId == recipeDoc.get('userId')) {
+        for (var element in supLike) {
+          ls.remove(element);
+        }
+      }
+      if (currentUserId == recipeDoc.get('userId')) {
+        for (var element in totalLikes) {
+          ls.add(element);
+        }
+      }
+      if (currentUserId != recipeDoc.get('userId')) {
+        for (var element in supLike) {
+          ownRecipeLikeList.remove(element);
+        }
+
+        for (var element in totalLikes) {
+          ownRecipeLikeList.add(element);
+        }
+
+        await _databaseFirestore
+            .collection('users')
+            .doc(recipeDoc.get('userId'))
+            .update({'totalLikes': ownRecipeLikeList});
+      }
+      await _databaseFirestore
+          .collection('users')
+          .doc(currentUserId)
+          .update({'totalLikes': ls});
 
       return log('LikedSuccess');
     } catch (e) {
       log(e.toString());
     }
   }
-
-  // static Future<bool?> sendMssage({required MessageModel message}) async {
-  //   bool? messageCreated = false;
-  //   try {
-  //     final userDocument = await _databaseFirestore
-  //         .collection('users')
-  //         .doc(message.userId)
-  //         .get();
-
-  //     final UserModel user = UserModel.fromJson(userDocument.data()!);
-  //     message = message.copyWith(username: user.userName);
-  //     await _databaseFirestore
-  //         .collection('messages')
-  //         .doc(message.id)
-  //         .set(message.toJson());
-  //     messageCreated = true;
-  //     return messageCreated;
-  //   } catch (e) {
-  //     log(e.toString());
-  //   }
-  //   return messageCreated;
-  // }
 
   static Future<bool?> ProfileImageDelete() async {
     bool? isDeleted = false;
@@ -267,12 +348,15 @@ class FireDatabaseService {
     return null;
   }
 
-  static void signOutUser(context) async {
+  static signOutUser(context) async {
     await FirebaseAuth.instance.signOut();
+
+    final prefs = await ShP.SharedPreferences.getInstance();
+    await prefs.clear();
 
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => const SignInView(),
+          builder: (context) => const SignInPage(),
         ),
         (route) => false);
   }

@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 var posts;
+List? Topusers;
 
 class _HomePageState extends State<HomePage> {
   @override
@@ -22,7 +23,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     BlocProvider.of<ListPostCubit>(context).apiPostList();
     BlocProvider.of<ListPostCubit>(context).runner();
-    //BlocProvider.of<ListPostCubit>(context).PostListOfRecipes();
   }
 
   @override
@@ -33,10 +33,11 @@ class _HomePageState extends State<HomePage> {
         builder: (BuildContext context, ListPostState state) {
           if (state is ListPostLoaded) {
             posts = state.posts!;
-            // builder(posts);
-            return const HomeView2();
+            Topusers = state.result;
+            return HomeView2(
+              topUsers: Topusers,
+            );
           }
-
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+// Uzbek National recipes Homedagi ko'rinish qismi...!
 Widget builder(List<Post> items) {
   return ListView.builder(
     physics: const BouncingScrollPhysics(),
@@ -53,21 +55,22 @@ Widget builder(List<Post> items) {
     itemCount: items.length,
     itemBuilder: (contex, index) {
       return cardView(contex, posts[index]);
-
-      //cardView(contex, posts[index]);
     },
   );
 }
 
+// Uzbek National Recipes See Allni ichki qismi...!
 Widget builderAll(List<Post> items) {
   return GridView.builder(
     physics: const BouncingScrollPhysics(),
     scrollDirection: Axis.vertical,
     itemCount: items.length,
+    shrinkWrap: true,
     itemBuilder: (contex, index) {
       return seeAllView(contex, posts[index]);
     },
-    gridDelegate:
-        const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+    ),
   );
 }

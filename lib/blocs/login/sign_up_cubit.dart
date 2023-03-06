@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/blocs/login/sign_up_state.dart';
 import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
-import 'package:recipe_app/views/sign_up_view.dart';
 import 'package:uuid/uuid.dart';
 import '../../models/user Model/user_model.dart';
 import '../../repositories/services/fire_service.dart';
@@ -18,25 +18,29 @@ TextEditingController signUpPassword = TextEditingController();
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInit());
 
-  changeIcon(obsuretext) {
-    ozgartish = !ozgartish;
-    obsuretext = false;
+  changeIcon(check) {
+    check = !check;
+    emit(passwordCheck(check));
   }
+
+  // checkEmail() {
+  //   result = false;
+  //   emit(alreadyHasAccount(result));
+  // }
 
   signUp(BuildContext context) async {
     try {
-      //load = true;
-      log('message1');
-      //  emit(SignUpLoading(load: load));
-      if (signUpUsername.text.isEmpty ||
-          signUpPassword.text.isEmpty ||
+      // log('loading');
+      // isLoading = true;
+      // emit(SignUpLoading(isLoading));
+      if (signUpUsername.text.isEmpty &&
+          signUpPassword.text.isEmpty &&
           signUpEmail.text.isEmpty) return;
 
       final UserCredential credentional = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: signUpEmail.text, password: signUpPassword.text);
 
-      // emit(SignUpLoading(load: load));
       assert(credentional.user != null);
 
       userModel? userMod = userModel(
@@ -50,8 +54,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
       if (credentional.user != null && userSavedToDatabase!) {
         log('Saved');
-        result = false;
-        emit(alreadyHasAccount(result: result));
+
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const MenuPage()),
             (route) => false);
@@ -67,22 +70,19 @@ class SignUpCubit extends Cubit<SignUpState> {
 
       return null;
     } catch (e) {
-      // load = false;
-      // emit(SignUpLoading(load: load));
-
+      log(e.toString());
       if (e.toString() ==
           '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
-        log('already use');
         result = true;
-
-        emit(alreadyHasAccount(result: result));
+        emit(alreadyHasAccount(result));
       }
-      result = false;
-
-      emit(alreadyHasAccount(result: result));
+      Timer(const Duration(seconds: 2), () {
+        result = false;
+        emit(alreadyHasAccount(result));
+      });
     }
   }
 }
 
-bool result = true;
-bool? load = false;
+bool isLoading = false;
+bool? result = false;

@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +10,18 @@ import 'package:uuid/uuid.dart';
 class SignInCubit extends Cubit<SignInState> {
   SignInCubit() : super(SignInInit());
 
+  changeIcon(check) {
+    check = !check;
+    emit(PassState(pass: check));
+  }
+
+  bool load = false;
+
   signIn(BuildContext context, controllerEm, controllerPw) async {
+    emit(SignInUserNotFound(result: true));
     try {
+      load = true;
+      emit(SignInLoading(loading: load));
       if (controllerEm.text.isEmpty || controllerPw.text.isEmpty) {
         return;
       }
@@ -30,6 +40,8 @@ class SignInCubit extends Cubit<SignInState> {
       await Prefs.updateData<String>(key: 'email', data: controllerEm.text);
       await Prefs.updateData<String>(key: 'password', data: controllerPw.text);
       final isSaved = await Prefs.updateData<String>(key: 'token', data: token);
+      load = false;
+      emit(SignInLoading(loading: load));
       if (isSaved!) {
         return token;
       }
@@ -47,7 +59,14 @@ class SignInCubit extends Cubit<SignInState> {
 
       return null;
     } catch (e) {
-      log(e.toString());
+      load = false;
+      emit(SignInLoading(loading: load));
+      emit(SignInUserNotFound(result: res));
+      Timer(const Duration(seconds: 10), () {
+        emit(SignInUserNotFound(result: true));
+      });
     }
   }
 }
+
+bool res = false;

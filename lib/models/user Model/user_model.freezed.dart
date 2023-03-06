@@ -25,7 +25,7 @@ mixin _$userModel {
   String? get avatarImage => throw _privateConstructorUsedError;
   String? get password => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
-  int? get totalLikes => throw _privateConstructorUsedError;
+  List<dynamic>? get totalLikes => throw _privateConstructorUsedError;
   DateTime? get publishedDate => throw _privateConstructorUsedError;
   String? get text => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
@@ -52,7 +52,7 @@ abstract class $userModelCopyWith<$Res> {
       String? avatarImage,
       String? password,
       String? email,
-      int? totalLikes,
+      List<dynamic>? totalLikes,
       DateTime? publishedDate,
       String? text,
       String? username,
@@ -113,7 +113,7 @@ class _$userModelCopyWithImpl<$Res, $Val extends userModel>
       totalLikes: freezed == totalLikes
           ? _value.totalLikes
           : totalLikes // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as List<dynamic>?,
       publishedDate: freezed == publishedDate
           ? _value.publishedDate
           : publishedDate // ignore: cast_nullable_to_non_nullable
@@ -159,7 +159,7 @@ abstract class _$$_userModelCopyWith<$Res> implements $userModelCopyWith<$Res> {
       String? avatarImage,
       String? password,
       String? email,
-      int? totalLikes,
+      List<dynamic>? totalLikes,
       DateTime? publishedDate,
       String? text,
       String? username,
@@ -216,9 +216,9 @@ class __$$_userModelCopyWithImpl<$Res>
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
       totalLikes: freezed == totalLikes
-          ? _value.totalLikes
+          ? _value._totalLikes
           : totalLikes // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as List<dynamic>?,
       publishedDate: freezed == publishedDate
           ? _value.publishedDate
           : publishedDate // ignore: cast_nullable_to_non_nullable
@@ -260,7 +260,7 @@ class _$_userModel implements _userModel {
       this.avatarImage,
       this.password,
       this.email,
-      this.totalLikes,
+      final List<dynamic>? totalLikes,
       this.publishedDate,
       this.text,
       this.username,
@@ -268,7 +268,8 @@ class _$_userModel implements _userModel {
       final List<dynamic>? amountLikes,
       final List<dynamic>? recepts,
       final List<Map<String, dynamic>>? likedRecipes})
-      : _saved = saved,
+      : _totalLikes = totalLikes,
+        _saved = saved,
         _amountLikes = amountLikes,
         _recepts = recepts,
         _likedRecipes = likedRecipes;
@@ -286,8 +287,16 @@ class _$_userModel implements _userModel {
   final String? password;
   @override
   final String? email;
+  final List<dynamic>? _totalLikes;
   @override
-  final int? totalLikes;
+  List<dynamic>? get totalLikes {
+    final value = _totalLikes;
+    if (value == null) return null;
+    if (_totalLikes is EqualUnmodifiableListView) return _totalLikes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final DateTime? publishedDate;
   @override
@@ -351,8 +360,8 @@ class _$_userModel implements _userModel {
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.totalLikes, totalLikes) ||
-                other.totalLikes == totalLikes) &&
+            const DeepCollectionEquality()
+                .equals(other._totalLikes, _totalLikes) &&
             (identical(other.publishedDate, publishedDate) ||
                 other.publishedDate == publishedDate) &&
             (identical(other.text, text) || other.text == text) &&
@@ -375,7 +384,7 @@ class _$_userModel implements _userModel {
       avatarImage,
       password,
       email,
-      totalLikes,
+      const DeepCollectionEquality().hash(_totalLikes),
       publishedDate,
       text,
       username,
@@ -405,7 +414,7 @@ abstract class _userModel implements userModel {
       final String? avatarImage,
       final String? password,
       final String? email,
-      final int? totalLikes,
+      final List<dynamic>? totalLikes,
       final DateTime? publishedDate,
       final String? text,
       final String? username,
@@ -428,7 +437,7 @@ abstract class _userModel implements userModel {
   @override
   String? get email;
   @override
-  int? get totalLikes;
+  List<dynamic>? get totalLikes;
   @override
   DateTime? get publishedDate;
   @override

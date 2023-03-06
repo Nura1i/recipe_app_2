@@ -1,94 +1,92 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/models/Api%20Miliy%20Taom%20Model/card_http.dart';
 import 'package:recipe_app/pages/On%20open/into_card.dart';
 
+// Uzbek National Recipes See All qismi...!
 Widget seeAllView(BuildContext context, Post post) {
-  var size = MediaQuery.of(context).size;
+  ScreenUtil.init(context, designSize: const Size(360, 690));
   final cards = post;
-  return SingleChildScrollView(
+  return ListView(
     physics: const NeverScrollableScrollPhysics(),
-    child: Column(
-      children: [
-        InkWell(
-          highlightColor: Colors.white.withOpacity(0.4),
-          splashColor: Colors.blueGrey.withOpacity(0.6),
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
+    children: [
+      InkWell(
+        highlightColor: Colors.white.withOpacity(0.4),
+        splashColor: Colors.blueGrey.withOpacity(0.6),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
               builder: (context) => openedCard(cards),
-            ));
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(top: 5.0, left: 5, right: 5),
-            child: Card(
-                elevation: 0,
-                color: const Color.fromARGB(255, 214, 214, 214),
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                  side: const BorderSide(
-                      color: Color.fromARGB(179, 208, 203, 203), width: 1),
-                  borderRadius: BorderRadius.circular(15),
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 5, top: 5),
+          child: Card(
+            elevation: 8,
+            shadowColor: Colors.grey,
+            color: Colors.white,
+            clipBehavior: Clip.antiAlias,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: Colors.white,
+                width: 1.w,
+              ),
+              borderRadius: BorderRadius.circular(15).r,
+            ),
+            child: Stack(
+              children: [
+                Hero(
+                  tag: '${int.parse(cards.id!)}',
+                  child: Image(
+                    height: MediaQuery.of(context).size.height * 0.21,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    image: NetworkImage(post.photo!),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: Stack(
-                  children: [
-                    Hero(
-                      tag: '${int.parse(cards.id!)}',
-                      child: Image(
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        image: NetworkImage(post.photo!),
-                        fit: BoxFit.cover,
-                      ),
+                Positioned(
+                  bottom: 8,
+                  left: 8,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(5).r,
                     ),
-                    Positioned(
-                      bottom: 8,
-                      left: 10,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.6),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Text(
-                            post.name!,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600),
-                          ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Text(
+                        post.name!,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.sp,
+                          fontFamily: "Lora",
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    Positioned(
-                      top: 5,
-                      right: 5,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.red.withOpacity(0.5),
-                            border: Border.all(width: 1, color: Colors.white)),
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.bookmark_border,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-        // SizedBox(
-        //   //  width: MediaQuery.of(context).size.width * 0.78,
-        //   child: Text(
-        //     post.header!,
-        //     style: const TextStyle(
-        //         fontWeight: FontWeight.w600, fontSize: 15, color: Colors.black),
-        //   ),
-        // ),
-      ],
-    ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
+        child: SizedBox(
+          child: Text(
+            post.header!,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 10.sp,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Lora",
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    ],
   );
 }

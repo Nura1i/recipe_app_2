@@ -16,6 +16,7 @@ import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class AppProvider extends StatefulWidget {
   final initThem;
   const AppProvider({
@@ -34,7 +35,6 @@ class AppProvider extends StatefulWidget {
 }
 
 class _AppProviderState extends State<AppProvider> {
-
   @override
   @override
   Locale? _locale;

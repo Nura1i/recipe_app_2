@@ -1,20 +1,24 @@
 import 'dart:developer';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:like_button/like_button.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_state.dart';
 import 'package:recipe_app/pages/On%20open/profile_open.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
+import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
+import 'package:recipe_app/widgets/alertForDeletPost.dart';
 
-//
-
+// Recent Addedni ustiga bosganda kirganda ochiladigan Page...!
 class recipeOpen extends StatefulWidget {
-  final data;
+  final postData;
+  final userData;
 
-  const recipeOpen({super.key, this.data});
+  const recipeOpen({super.key, this.postData, this.userData});
 
   @override
   State<recipeOpen> createState() => _recipeOpenState();
@@ -23,28 +27,64 @@ class recipeOpen extends StatefulWidget {
 class _recipeOpenState extends State<recipeOpen> {
   @override
   void initState() {
-    BlocProvider.of<SavedCubit>(context).saved(widget.data);
-    BlocProvider.of<SavedCubit>(context).liked(widget.data);
-    // BlocProvider.of<SavedCubit>(context).likecounter(widget.data);
+    BlocProvider.of<SavedCubit>(context).saved(widget.postData);
+    BlocProvider.of<SavedCubit>(context).liked(widget.postData);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     bool? issSaved;
     bool? issLaked;
-    int? count;
     return Scaffold(
+      backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
+      // AppBar...!
       appBar: AppBar(
-        elevation: 20,
+        actions: [
+          widget.postData != null
+              ? widget.postData['userId'] ==
+                      FirebaseAuth.instance.currentUser!.uid
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: GestureDetector(
+                        onTap: () {
+                          DeletePostDialog(context, widget.postData);
+                        },
+                        child: const Icon(
+                          Icons.delete_forever,
+                          size: 25,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  : const SizedBox()
+              : const SizedBox()
+        ],
+        scrolledUnderElevation: 10,
+        toolbarHeight: 50.h,
         shadowColor: Colors.orange,
-        title: const Text('Recept'),
         backgroundColor: Colors.orange,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20))),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: const Radius.circular(40).r,
+            bottomRight: const Radius.circular(40).r,
+          ),
+        ),
+        title: Text(
+          widget.postData['categorie'] ?? '',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16.sp,
+            fontFamily: "Lora",
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        elevation: 0,
+        centerTitle: true,
       ),
+      // Body qismi...!
       body: BlocBuilder<SavedCubit, SavedState>(
         builder: (context, savedState) {
           if (savedState is Save) {
@@ -52,299 +92,466 @@ class _recipeOpenState extends State<recipeOpen> {
           }
           if (savedState is Like) {
             issLaked = savedState.isLiked;
-          }
-          if (savedState is counterLike) {
-            count = savedState.count;
-            log('${count.toString()}  counter');
-          }
-          return SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      widget.data['head'],
-                      style: const TextStyle(color: Colors.black, fontSize: 22),
+
+            return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 70.w,
+                  ),
+                  // User toamga nom qo'yadigan qismi...!
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+                    child: Center(
+                      child: Text(
+                        widget.postData['head'] ?? '',
+                        style: TextStyle(
+                          color: Colors.grey.shade800,
+                          fontSize: 16.sp,
+                          fontFamily: "Lora",
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                GestureDetector(
-                  onDoubleTap: () {},
-                  child: Container(
-                    height: 300,
-                    margin: const EdgeInsets.only(left: 12),
-                    width: MediaQuery.of(context).size.width * 0.93,
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                          width: 1,
-                          color: const Color.fromARGB(255, 247, 209, 209)),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(18),
-                      child: widget.data['photo'] != null
-                          ? Stack(
-                              children: [
-                                Hero(
-                                  tag: 'detailImage',
-                                  child: Image(
-                                    height: double.infinity,
-                                    width: double.infinity,
-                                    image: NetworkImage(widget.data['photo']),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Positioned(
-                                    bottom: 10,
-                                    right: 10,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(context,
-                                            MaterialPageRoute(builder: (_) {
-                                          return detailImage(context);
-                                        }));
-                                      },
-                                      child: const Icon(
-                                        Icons.image_search_outlined,
-                                        size: 33,
-                                        color: Colors.orange,
-                                      ),
-                                    ))
-                              ],
-                            )
-                          : const Image(
-                              image: AssetImage('assets/images/noImage.png')),
-                    ),
-                  ),
-                ),
-                StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(widget.data['userId'])
-                      .snapshots(),
-                  builder: (context, snapshots) {
-                    return (snapshots.connectionState ==
-                            ConnectionState.waiting)
-                        ? const Center(
-                            child: CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.orange),
-                            ),
-                          )
-                        : Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        profielOnOpen(data: snapshots.data),
-                                  ));
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 20, left: 20),
-                                  child: CircleAvatar(
-                                    radius: 25,
-                                    foregroundImage: NetworkImage(snapshots
-                                            .data!['avatarImage'] ??
-                                        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        profielOnOpen(data: snapshots.data),
-                                  ));
-                                },
-                                child: Text(
-                                  snapshots.data!['username'],
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.39,
-                              ),
-                              LikeButton(
-                                isLiked: issLaked,
-                                onTap: onLikeButtonTapped,
-                                padding: const EdgeInsets.only(left: 8),
-                                size: 33,
-                                circleColor: const CircleColor(
-                                    start: Colors.yellow, end: Colors.orange),
-                                bubblesColor: const BubblesColor(
-                                  dotPrimaryColor: Colors.orange,
-                                  dotSecondaryColor: Colors.yellow,
-                                ),
-                                //likeCount: count,
-                                likeBuilder: (isLiked) {
-                                  return isLiked
-                                      ? const Icon(
-                                          Icons.favorite,
-                                          color: Colors.orange,
-                                          size: 30,
-                                        )
-                                      : const Icon(
-                                          Icons.favorite_border,
-                                          size: 30,
-                                        );
-                                },
-                              ),
-                              LikeButton(
-                                padding: const EdgeInsets.only(left: 5),
-                                size: 40,
-                                isLiked: issSaved,
-                                onTap: onBookMarkButtonTapped,
-                                circleColor: const CircleColor(
-                                    start: Colors.brown, end: Colors.brown),
-                                bubblesColor: const BubblesColor(
-                                  dotPrimaryColor: Colors.white,
-                                  dotSecondaryColor:
-                                      Color.fromARGB(255, 86, 61, 52),
-                                ),
-                                likeBuilder: (isSaved) {
-                                  return isSaved
-                                      ? const Icon(
-                                          Icons.bookmark_outlined,
-                                          color: Colors.brown,
-                                          size: 30,
-                                        )
-                                      : const Icon(
-                                          Icons.bookmark_border_outlined,
-                                          size: 30,
-                                        );
-                                },
-                              )
-                            ],
-                          );
-                  },
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      count.toString(),
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.only(left: 20),
-                          decoration: BoxDecoration(
-                              color: Colors.orangeAccent.withOpacity(0.7),
-                              borderRadius: BorderRadius.circular(7)),
-                          height: 30,
-                          width: 150,
-                          child: Text(
-                            "${widget.data['serves'].toString()}  kishiga",
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontWeight: FontWeight.w300),
+                  // Images...!
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: GestureDetector(
+                      onDoubleTap: () {},
+                      child: Container(
+                        height: 200.h,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20).r,
+                          border: Border.all(
+                            width: 1.w,
+                            color: Colors.white,
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.only(left: 20),
-                          decoration: BoxDecoration(
-                              color: Colors.orangeAccent.withOpacity(0.7),
-                              borderRadius: BorderRadius.circular(7)),
-                          height: 30,
-                          width: 180,
-                          child: Text(
-                            'cookTime:  ${widget.data['cookTime']}',
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontWeight: FontWeight.w300),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20).r,
+                          child: widget.postData['photo'] != null
+                              ? Stack(
+                                  children: [
+                                    Hero(
+                                      tag: 'detailImage',
+                                      child: Image(
+                                        height: double.infinity,
+                                        width: double.infinity,
+                                        image: CachedNetworkImageProvider(
+                                          widget.postData['photo'],
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 10,
+                                      right: 10,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) {
+                                                return detailImage(context);
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        child: const Icon(
+                                          Icons.image_search_outlined,
+                                          size: 33,
+                                          color: Colors.orange,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : const Image(
+                                  image:
+                                      AssetImage('assets/images/noImage.png'),
+                                ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Profile Open Avatar, Text, Like, Saved...!
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Profile open Avatar...!
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      profielOnOpen(data: widget.userData),
+                                ),
+                              );
+                            },
+                            child: CircleAvatar(
+                              radius: 20.r,
+                              foregroundImage: CachedNetworkImageProvider(
+                                widget.userData!['avatarImage'] ??
+                                    'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
+                              ),
+                            ),
                           ),
+                        ),
+                        SizedBox(
+                          width: 3.w,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      profielOnOpen(data: widget.userData),
+                                ),
+                              );
+                            },
+                            // Text Users...!
+                            child: SizedBox(
+                              width: 210.w,
+                              child: Text(
+                                widget.userData!['username'],
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 13.sp,
+                                  fontFamily: "Lora",
+                                  fontWeight: FontWeight.bold,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Like Button...!
+                        LikeButton(
+                          isLiked: issLaked,
+                          onTap: onLikeButtonTapped,
+                          size: 33,
+                          circleColor: const CircleColor(
+                            start: Colors.red,
+                            end: Colors.orange,
+                          ),
+                          bubblesColor: const BubblesColor(
+                            dotPrimaryColor: Colors.orange,
+                            dotSecondaryColor: Colors.red,
+                          ),
+                          likeBuilder: (issLaked) {
+                            return issLaked
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: Colors.orange,
+                                    size: 30,
+                                  )
+                                : const Icon(
+                                    Icons.favorite_border,
+                                    size: 30,
+                                  );
+                          },
+                        ),
+                        // Saved Button...!
+                        LikeButton(
+                          isLiked: issSaved,
+                          onTap: onBookMarkButtonTapped,
+                          size: 33,
+                          circleColor: const CircleColor(
+                            start: Color.fromARGB(255, 96, 92, 89),
+                            end: Colors.grey,
+                          ),
+                          bubblesColor: const BubblesColor(
+                            dotPrimaryColor: Color.fromARGB(255, 96, 92, 89),
+                            dotSecondaryColor: Color.fromARGB(255, 96, 92, 89),
+                          ),
+                          likeBuilder: (issSaved) {
+                            return issSaved
+                                ? const Icon(
+                                    Icons.bookmark_outlined,
+                                    color: Color.fromARGB(255, 96, 92, 89),
+                                    size: 30,
+                                  )
+                                : const Icon(
+                                    Icons.bookmark_border,
+                                    size: 30,
+                                  );
+                          },
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.orangeAccent.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Text(
-                          'text:  ${widget.data['text']}',
-                          style: const TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20, bottom: 20),
-                      child: Text(
-                        'Ingredients',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    SizedBox(
-                        height: 300,
-                        child: widget.data['items'] != null
-                            ? (ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: widget.data['items'].length,
-                                itemBuilder: (context, index) {
-                                  Map item = widget.data['items'][index];
-                                  List myList = item.values.toList();
-                                  String itemName = myList[1];
-                                  String itemQuant = myList[0];
-
-                                  return Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Container(
-                                      height: 30,
-                                      alignment: Alignment.center,
-                                      margin: const EdgeInsets.only(
-                                          left: 20, right: 20),
-                                      decoration: BoxDecoration(
-                                          color: Colors.orangeAccent
-                                              .withOpacity(0.7),
-                                          borderRadius:
-                                              BorderRadius.circular(7)),
-                                      child: Text(
-                                        "$itemName  $itemQuant  ",
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w300),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('Recipes')
+                            .doc(widget.postData['id'])
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            log('error');
+                            return const Center(
+                              child: Text('error 404 ,files not found'),
+                            );
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            log('waiting');
+                            const Align(
+                              alignment: Alignment.topRight,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  right: 20,
+                                  bottom: 5,
+                                ),
+                                child: Text(''),
+                              ),
+                            );
+                          }
+                          // Total Likes 0...!
+                          return (snapshot.data != null)
+                              ? Align(
+                                  alignment: Alignment.topRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: 25,
+                                      bottom: 10,
+                                    ),
+                                    child: Text(
+                                      snapshot.data!['totalLikes'] != null
+                                          ? '${translation(context).like}  ${snapshot.data!['totalLikes'].length}'
+                                              .toString()
+                                          : '${translation(context).like} 0',
+                                      style: TextStyle(
+                                        color: Colors.grey.shade800,
+                                        fontSize: 12.sp,
+                                        fontFamily: "Lora",
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                  );
-                                },
-                              ))
-                            : const SizedBox())
-                  ],
-                ),
-              ],
-            ),
+                                  ),
+                                )
+                              : const SizedBox();
+                        },
+                      ),
+                      // Servise and CookTime...!
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Servis qismi...!
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1.w,
+                                  color: Colors.grey.shade300,
+                                ),
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(15).r,
+                              ),
+                              height: 30.h,
+                              width: 150.w,
+                              child: Text(
+                                '${widget.postData['serves'].toString()} ${translation(context).kishilik}',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14.sp,
+                                  fontFamily: "Lora",
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            // Cook Time qismi...!
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1.w,
+                                  color: Colors.grey.shade300,
+                                ),
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(15).r,
+                              ),
+                              height: 30.h,
+                              width: 150.w,
+                              child: Text(
+                                '${translation(context).time} ${widget.postData['cookTime'].toString()}',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14.sp,
+                                  fontFamily: "Lora",
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Qo'shimcha Text Qismi...!
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.w, vertical: 15.h),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1.w,
+                              color: Colors.grey.shade300,
+                            ),
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(15).r,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.w, vertical: 10.h),
+                            child: Text(
+                              '${widget.postData['text']}',
+                              style: TextStyle(
+                                color: Colors.grey.shade700,
+                                fontSize: 14.sp,
+                                fontFamily: "Lora",
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Text Ingredients...!
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 80.w),
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(vertical: 5.h),
+                          decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(15).r,
+                          ),
+                          child: Text(
+                            translation(context).ingredients,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.sp,
+                              fontFamily: "Lora",
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Ingredients new post...!
+                      widget.postData['items'] != null
+                          ? (ListView.builder(
+                              padding:
+                                  const EdgeInsets.only(top: 10, bottom: 20),
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: widget.postData['items'].length,
+                              itemBuilder: (context, index) {
+                                Map item = widget.postData['items'][index];
+                                List myList = item.values.toList();
+                                String itemName = myList[1];
+                                String itemQuant = myList[0];
+
+                                return itemName != ''
+                                    ? Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 5.w,
+                                          vertical: 5.h,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 120,
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 10.h,
+                                                horizontal: 10.w,
+                                              ),
+                                              alignment: Alignment.center,
+                                              margin: EdgeInsets.symmetric(
+                                                horizontal: 10.w,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  width: 1.w,
+                                                  color: Colors.grey.shade400,
+                                                ),
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(10).r,
+                                              ),
+                                              child: Text(
+                                                "$itemName  ",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 13.sp,
+                                                  fontFamily: "Lora",
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 190,
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 10.h,
+                                                horizontal: 10.h,
+                                              ),
+                                              alignment: Alignment.center,
+                                              margin: EdgeInsets.symmetric(
+                                                horizontal: 10.w,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  width: 1.w,
+                                                  color: Colors.grey.shade400,
+                                                ),
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(10).r,
+                                              ),
+                                              child: Text(
+                                                "$itemQuant  ",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 13.sp,
+                                                  fontFamily: "Lora",
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : const SizedBox();
+                              },
+                            ))
+                          : const SizedBox()
+                    ],
+                  ),
+                ],
+              ),
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         },
       ),
@@ -352,6 +559,7 @@ class _recipeOpenState extends State<recipeOpen> {
   }
 
   Widget detailImage(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
@@ -361,7 +569,9 @@ class _recipeOpenState extends State<recipeOpen> {
                 child: Stack(children: [
                   SizedBox(
                       height: MediaQuery.of(context).size.height * 0.95,
-                      child: Image(image: NetworkImage(widget.data['photo']))),
+                      child: Image(
+                          image: CachedNetworkImageProvider(
+                              widget.postData['photo']))),
                   Positioned(
                       top: 30,
                       right: 10,
@@ -384,13 +594,38 @@ class _recipeOpenState extends State<recipeOpen> {
   }
 
   Future<bool> onBookMarkButtonTapped(bool isSaved) async {
-    await FireDatabaseService.saved(widget.data['id'], isSaved);
-
+    ScreenUtil.init(context, designSize: const Size(360, 690));
+    if (isSaved == false) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(seconds: 2),
+          elevation: 100,
+          shape: const StadiumBorder(),
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.only(bottom: 40, right: 20, left: 20),
+          backgroundColor: Colors.orange,
+          content: Row(
+            children: [
+              Image(
+                  height: 30,
+                  width: 30,
+                  image: CachedNetworkImageProvider(
+                    widget.postData['photo'],
+                  )),
+              const SizedBox(
+                width: 20,
+              ),
+              Text(
+                '${widget.postData['categorie'].toString()}  |saved|',
+              ),
+            ],
+          )));
+    }
+    FireDatabaseService.saved(widget.postData['id'], isSaved);
     return !isSaved;
   }
 
   Future<bool> onLikeButtonTapped(bool isLiked) async {
-    await FireDatabaseService.like(widget.data['id'], isLiked);
+    FireDatabaseService.like(widget.postData['id'], isLiked);
 
     return !isLiked;
   }

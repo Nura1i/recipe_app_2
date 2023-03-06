@@ -1,11 +1,7 @@
-import 'dart:developer';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_state.dart';
-import 'package:recipe_app/blocs/like%20and%20saved/likedIcon_cubit.dart';
-import 'package:recipe_app/blocs/like%20and%20saved/likedIcon_state.dart';
-import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../utils/shared_pref/language_prefs/preferences_2.dart';
 
 class openedCard extends StatefulWidget {
   final carrd;
@@ -16,131 +12,105 @@ class openedCard extends StatefulWidget {
   State<openedCard> createState() => _openedCardState();
 }
 
+// Uzbek National Recipes Cardni ustiga bosgandagi ichki Text qismi...!
 class _openedCardState extends State<openedCard> {
   @override
   Widget build(BuildContext context) {
-    var Saved = false;
-    var Liked = false;
-
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
-          child: AppBar(
-            backgroundColor: Colors.red.withOpacity(0.6),
-            elevation: 10,
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: true,
+      // AppBar...!
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.h),
+        child: AppBar(
+          scrolledUnderElevation: 10,
+          toolbarHeight: 50.h,
+          shadowColor: Colors.orange,
+          backgroundColor: Colors.orange,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: const Radius.circular(40).r,
+              bottomRight: const Radius.circular(40).r,
+            ),
           ),
+          title: Text(
+            translation(context).milliytaom,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14.sp,
+              fontFamily: "Lora",
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          elevation: 0,
         ),
-        body: BlocBuilder<SavedCubit, SavedState>(
-          builder: (context, SavedState savedstate) {
-            return BlocBuilder<LikedCubit, LikedState>(
-              builder: (context, LikedState likestate) {
-                if (likestate is LikedSuccess) {
-                  Liked = likestate.success;
-                  log('lIKED Succes');
-                }
-                if (savedstate is SavedSuccess) {
-                  Saved = savedstate.success;
-                  log('SavedSucces');
-                }
-
-                return _intoCard(Liked, Saved);
-              },
-            );
-          },
-        )
-
-        // BlocBuilder<SavedCubit, SavedState>(
-        //     builder: (BuildContext context, SavedState state) {
-        //   BlocBuilder<LikedCubit, LikedState>(
-        //       builder: (BuildContext context, LikedState state) {
-        //     if (state is LikedSuccess) {
-        //       Liked = state.success;
-        //     }
-        //     return _intoCard(Saved, Liked);
-        //   });
-        //   if (state is SavedSuccess) {
-        //     Saved = state.success;
-        //     _intoCard(Saved, Liked);
-        //   }
-        //   return _intoCard(Saved, Liked);
-        // }),
-        );
+      ),
+      body: _intoCard(),
+    );
   }
 
-  // Widget like<bool>(bool liked) {
-  //   return liked;
-  // }
-
-  Widget _intoCard(bool change, bool likeChanges) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 10.0, bottom: 20, left: 20, right: 10),
-              child: Text(
-                widget.carrd.header,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
+  // Images and Text qisimlari...!
+  Widget _intoCard() {
+    return Theme(
+      data: Theme.of(context).copyWith(
+        scrollbarTheme: ScrollbarThemeData(
+          thumbColor: MaterialStateProperty.all(Colors.orange),
+        ),
+      ),
+      child: Scrollbar(
+        thumbVisibility: true,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              SizedBox(height: 80.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+                child: Text(
+                  widget.carrd.header,
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    fontFamily: "Lora",
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ),
-            Hero(
-                tag: '${int.parse(widget.carrd!.id!)}',
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.27,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: Hero(
+                  tag: '${int.parse(widget.carrd!.id!)}',
+                  child: Container(
+                    height: 200.h,
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 1.w, color: Colors.white),
+                      borderRadius: BorderRadius.circular(30).r,
                       image: DecorationImage(
-                          image: NetworkImage(widget.carrd!.photo!),
-                          fit: BoxFit.cover)),
-                )),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 29,
-                ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  padding: const EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.remove_red_eye_outlined,
-                        size: 16,
+                        image: CachedNetworkImageProvider(widget.carrd!.photo!),
+                        fit: BoxFit.cover,
                       ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        '1391',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20),
-              child: Text(
-                widget.carrd.about,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
-            )
-          ],
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                child: Text(
+                  widget.carrd.about,
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Lora",
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: 20.h),
+            ],
+          ),
         ),
       ),
     );

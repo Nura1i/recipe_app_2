@@ -1,5 +1,7 @@
-
+// ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
+
+// Tilni tanlanadigan Page Text qismi...!
 Widget LanguageIntro(Text text1, String text2, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
@@ -9,15 +11,16 @@ Widget LanguageIntro(Text text1, String text2, BuildContext context) {
       children: [
         text1,
         const SizedBox(
-          width: 3),
+          width: 3,
+        ),
         Flexible(
           child: Text(
             text2,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
+              fontSize: 13,
+              fontFamily: "Lora",
             ),
           ),
         ),

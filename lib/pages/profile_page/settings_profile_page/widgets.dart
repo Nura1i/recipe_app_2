@@ -45,7 +45,7 @@ buildTextField(
         cursorColor: Colors.blueAccent,
         maxLines: maxlength == false ? 2 : 1,
         maxLength: maxlength == emaillength
-            ? 15
+            ? 25
             : emaillength == false
                 ? 35
                 : 50,
