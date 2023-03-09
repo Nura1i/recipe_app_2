@@ -24,7 +24,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             body: SafeArea(
               child: SingleChildScrollView(
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.7,
+                  height: MediaQuery.of(context).size.height * 1,
                   child: Column(
                     children: [
                       Padding(

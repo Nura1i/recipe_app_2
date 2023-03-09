@@ -15,9 +15,10 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
   ScrollController controller = ScrollController();
 
   categoria(List response) {
+    var size = MediaQuery.of(context).size;
     List<Widget> ItemsList = [];
     ItemsList.add(
-      SizedBox(width: 10.w),
+      SizedBox(width: 5.w),
     );
     var item;
     for (var card in response) {
@@ -27,7 +28,7 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
           fit: BoxFit.fill,
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: const EdgeInsets.only(right: 10).r,
+            padding: const EdgeInsets.only(right: 10),
             child: Stack(
               alignment: Alignment.topCenter,
               children: [
@@ -39,8 +40,8 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
                     ),
                   ),
                   margin: EdgeInsets.only(top: 70.w),
-                  width: 230.w,
-                  height: 200.h,
+                  width: size.width * 0.67,
+                  height: size.height * 0.31,
                   child: Center(
                     child: Container(
                       margin: const EdgeInsets.only(top: 60).r,
@@ -48,9 +49,8 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
                         padding: EdgeInsets.symmetric(horizontal: 15.w),
                         child: Text(
                           card["name"],
-                          // overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 30.sp,
+                            fontSize: 32.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Lora",
@@ -62,8 +62,8 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
                   ),
                 ),
                 Container(
-                  width: 150.w,
-                  height: 150.h,
+                  width: size.width * 0.42,
+                  height: size.height * 0.22,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100).r,
                     image: DecorationImage(
@@ -87,16 +87,19 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
         itemCount: ItemsList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
                   builder: (context) {
                     return onChoosedCategorie(
                       categorie: response[index - 1],
                     );
                   },
-                ));
-              },
-              child: ItemsList[index]);
+                ),
+              );
+            },
+            child: ItemsList[index],
+          );
         },
       ),
     );
@@ -122,6 +125,18 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
     }
     return Column(
       children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          child: Text(
+            translation(context).popularcategory,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontFamily: "Lora",
+                ),
+          ),
+        ),
         categoria(responseList!),
         categoria(responseList2!),
       ],
