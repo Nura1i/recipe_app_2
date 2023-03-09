@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 
@@ -38,22 +39,32 @@ buildTextField(
       bottom: 25.0,
     ),
     child: TextField(
-        textAlign: TextAlign.left,
-        cursorColor: Colors.blueAccent,
-        maxLines: maxlength == false ? 2 : 1,
-        maxLength: maxlength == emaillength
-            ? 25
-            : emaillength == false
-                ? 35
-                : 50,
-        style: Theme.of(context).textTheme.bodyMedium,
-        controller: controller,
-        decoration: InputDecoration(
-            contentPadding: const EdgeInsets.only(bottom: 3, left: 2),
-            labelText: labelText,
-            labelStyle: Theme.of(context).textTheme.bodySmall,
-            hintText: placeholder,
-            hintStyle: Theme.of(context).textTheme.bodySmall)),
+      textAlign: TextAlign.left,
+      cursorColor: Colors.blueAccent,
+      maxLines: maxlength == false ? 2 : 1,
+      maxLength: maxlength == emaillength
+          ? 25
+          : emaillength == false
+              ? 35
+              : 50,
+      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontSize: 13.sp,
+            fontFamily: "Lora",
+            fontWeight: FontWeight.bold,
+          ),
+      controller: controller,
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.only(bottom: 3, left: 2),
+        labelText: labelText,
+        labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+              fontSize: 12.sp,
+              fontFamily: "Lora",
+            ),
+        hintText: placeholder,
+        hintStyle:
+            Theme.of(context).textTheme.bodySmall!.copyWith(fontFamily: "Lora"),
+      ),
+    ),
   );
 }
 

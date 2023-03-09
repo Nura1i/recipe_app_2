@@ -16,10 +16,10 @@ class SearchCubit extends Cubit<SearchState> {
 
   scroll(ScrollController controller, topCont, closeTopContainer) {
     controller.addListener(() {
-      double value = controller.offset / 135;
+      double value = controller.offset / 119;
 
       topCont = value;
-      closeTopContainer = controller.offset > 60;
+      closeTopContainer = controller.offset > 50;
       // emit(scrolled(controller));
 
       emit(topContainer(topCont));

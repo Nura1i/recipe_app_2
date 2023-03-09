@@ -125,6 +125,18 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
     }
     return Column(
       children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          child: Text(
+            translation(context).popularcategory,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontFamily: "Lora",
+                ),
+          ),
+        ),
         categoria(responseList!, CATEGORIA_DATA_EN, CATEGORIA_DATA_RU,
             CATEGORIA_DATA_UZ),
         categoria(responseList2!, CATEGORIA_DATA_DISERT_EN,

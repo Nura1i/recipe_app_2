@@ -212,37 +212,37 @@ class SignInView extends StatelessWidget {
                                           signUpPassword,
                                         );
                                         // Text There is no user record corresponding to this identifier. The user may have been deleted...!
-                                        if (UserResult == false) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              duration:
-                                                  const Duration(seconds: 2),
-                                              elevation: 100,
-                                              shape: const StadiumBorder(),
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              margin: const EdgeInsets.only(
-                                                bottom: 20,
-                                                right: 20,
-                                                left: 20,
-                                              ),
-                                              backgroundColor: Colors.green,
-                                              content: Text(
-                                                translation(context)
-                                                    .thereIsNoUserRecordCorrespondingToThisIdentifierTheUserMayHaveBeendeleted,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14.sp,
-                                                  fontFamily: "Lora",
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          );
-                                          return;
-                                        }
+                                        // if (UserResult == false) {
+                                        //   ScaffoldMessenger.of(context)
+                                        //       .showSnackBar(
+                                        //     SnackBar(
+                                        //       duration:
+                                        //           const Duration(seconds: 2),
+                                        //       elevation: 100,
+                                        //       shape: const StadiumBorder(),
+                                        //       behavior:
+                                        //           SnackBarBehavior.floating,
+                                        //       margin: const EdgeInsets.only(
+                                        //         bottom: 20,
+                                        //         right: 20,
+                                        //         left: 20,
+                                        //       ),
+                                        //       backgroundColor: Colors.green,
+                                        //       content: Text(
+                                        //         translation(context)
+                                        //             .thereIsNoUserRecordCorrespondingToThisIdentifierTheUserMayHaveBeendeleted,
+                                        //         style: TextStyle(
+                                        //           color: Colors.white,
+                                        //           fontSize: 14.sp,
+                                        //           fontFamily: "Lora",
+                                        //           fontWeight: FontWeight.bold,
+                                        //         ),
+                                        //         textAlign: TextAlign.center,
+                                        //       ),
+                                        //     ),
+                                        //   );
+                                        //   return;
+                                        // }
                                       },
                                       // Text
                                       child: Text(

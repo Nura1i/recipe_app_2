@@ -1,3 +1,33 @@
+// final FOOD_DATA = [
+//   {"name": "Osh", "brand": "To'y oshi", "price": 2, "image": "osh.png"},
+//   {
+//     "name": "Cheese Dip",
+//     "brand": "Hawkers",
+//     "price": 4.99,
+//     "image": "burger.png"
+//   },
+//   {"name": "Cola", "brand": "Mcdonald", "price": 1.49, "image": "burger.png"},
+//   {"name": "Fries", "brand": "Mcdonald", "price": 2.99, "image": "burger.png"},
+//   {
+//     "name": "Ice Cream",
+//     "brand": "Ben & Jerry's",
+//     "price": 9.49,
+//     "image": "burger.png"
+//   },
+//   {"name": "Noodles", "brand": "Hawkers", "price": 4.49, "image": "burger.png"},
+//   {"name": "Pizza", "brand": "Dominos", "price": 17.99, "image": "burger.png"},
+//   {
+//     "name": "Sandwich",
+//     "brand": "Hawkers",
+//     "price": 2.99,
+//     "image": "burger.png"
+//   },
+//   {"name": "Wrap", "brand": "Subway", "price": 6.99, "image": "burger.png"},
+//   {"name": "Wrap", "brand": "Subway", "price": 6.99, "image": "burger.png"},
+//   {"name": "Wrap", "brand": "Subway", "price": 6.99, "image": "burger.png"},
+//   {"name": "Wrap", "brand": "Subway", "price": 6.99, "image": "burger.png"},
+// ];
+
 final CATEGORIA_DATA_EN = [
   {"name": "Uzbek National Food", "image": "osh.png"},
   {"name": "Meat Dishes", "image": "osh.png"},
@@ -12,7 +42,7 @@ final CATEGORIA_DATA_EN = [
 ];
 
 final CATEGORIA_DATA_RU = [
-  {"name": "Узбекская На - циональная Еда", "image": "osh.png"},
+  {"name": "Узбекская Национальная Еда", "image": "osh.png"},
   {"name": "Мясные Блюда", "image": "osh.png"},
   {"name": "Жидкие Продукты", "image": "osh.png"},
   {"name": "блюда Супы", "image": "osh.png"},

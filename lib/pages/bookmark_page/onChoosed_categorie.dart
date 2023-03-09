@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/pages/On%20open/into_recipe.dart';
 
+import '../../utils/shared_pref/language_prefs/preferences_2.dart';
+
 class onChoosedCategorie extends StatelessWidget {
   final categorie;
   final categorie1;
@@ -19,17 +21,32 @@ class onChoosedCategorie extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.orange.shade600,
-        title: Text(
-          categorie['name'],
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w600,
-            fontFamily: "Lora",
+      extendBodyBehindAppBar: true,
+      // AppBar...!
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.h),
+        child: AppBar(
+          scrolledUnderElevation: 10,
+          toolbarHeight: 50.h,
+          shadowColor: Colors.orange,
+          backgroundColor: Colors.orange,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: const Radius.circular(40).r,
+              bottomRight: const Radius.circular(40).r,
+            ),
           ),
+          title: Text(
+            categorie['name'],
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 15.sp,
+              fontFamily: "Lora",
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          elevation: 0,
         ),
       ),
       backgroundColor: Colors.white,
@@ -63,33 +80,43 @@ class onChoosedCategorie extends StatelessWidget {
                                 .doc(recipes['userId'])
                                 .get();
                             // ignore: use_build_context_synchronously
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) {
-                                return recipeOpen(
-                                  postData: recipes,
-                                  userData: userDoc,
-                                );
-                              },
-                            ));
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return recipeOpen(
+                                    postData: recipes,
+                                    userData: userDoc,
+                                  );
+                                },
+                              ),
+                            );
                           },
                           child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5.w, vertical: 2.h),
                             child: Container(
                               height: 130.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    const Radius.circular(20.0).r,
+                                border: Border.all(
+                                  width: 1.w,
+                                  color: Colors.grey.shade300,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  const Radius.circular(15).r,
+                                ),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.4),
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 3),
                                   ),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black.withAlpha(100),
-                                        blurRadius: 10.0),
-                                  ]),
+                                ],
+                              ),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 20.0.w, vertical: 10.h),
+                                    horizontal: 15.w, vertical: 10.h),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -101,33 +128,36 @@ class onChoosedCategorie extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         SizedBox(
-                                          width: 200,
+                                          width: 200.w,
+                                          height: 20.h,
                                           child: Text(
                                             recipes["head"],
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
-                                              fontSize: 20.sp,
+                                              fontSize: 15.sp,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black,
                                               fontFamily: "Lora",
                                             ),
                                           ),
                                         ),
+                                        // Text Percon...!
                                         Text(
-                                          'kishiga:  ${recipes["serves"].toString()}',
+                                          "${recipes["serves"]} : ${translation(context).kishilik}",
                                           style: TextStyle(
-                                            fontSize: 16.sp,
-                                            color: Colors.grey,
+                                            fontSize: 14.sp,
+                                            color: Colors.grey.shade900,
                                             fontFamily: "Lora",
                                           ),
                                         ),
                                         SizedBox(
-                                          height: 10.h,
+                                          height: 30.h,
                                         ),
+                                        // Text Cook Time...!
                                         Text(
-                                          'cookTime:  ${recipes["cookTime"]}',
+                                          "${translation(context).cookTime} : ${recipes["cookTime"]}",
                                           style: TextStyle(
-                                            fontSize: 14.sp,
+                                            fontSize: 13.sp,
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             fontFamily: "Lora",
@@ -135,18 +165,35 @@ class onChoosedCategorie extends StatelessWidget {
                                         )
                                       ],
                                     ),
+                                    // Image qismi...1
                                     Container(
-                                      height: 100.h,
-                                      width: 100.w,
+                                      height: 110.h,
+                                      width: 95.w,
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          border: Border.all(
-                                              width: 1, color: Colors.grey),
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: CachedNetworkImageProvider(
-                                                  recipes['photo']))),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.3),
+                                            spreadRadius: 3,
+                                            blurRadius: 5,
+                                            offset: const Offset(
+                                              0,
+                                              3,
+                                            ), // changes position of shadow
+                                          ),
+                                        ],
+                                        border: Border.all(
+                                          width: 1.w,
+                                          color: Colors.grey.shade200,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10).r,
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: CachedNetworkImageProvider(
+                                            recipes['photo'],
+                                          ),
+                                        ),
+                                      ),
                                     )
                                   ],
                                 ),
