@@ -87,55 +87,46 @@ recentAdded(contex, data) {
 // Recent Added See All Page...!
 recentAddedForAll(context, data) {
   ScreenUtil.init(context, designSize: const Size(360, 690));
-  return SizedBox(
-    height: 200,
-    child: StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(data['userId'])
-          .snapshots(),
-      builder: (context, snapshot) {
-        final userData = snapshot.data;
-        return GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>
-                  recipeOpen(postData: data, userData: userData),
-            ));
-          },
-          child: Column(
-            children: [
-              SizedBox(height: 15.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: Container(
-                  height: 102.h,
-                  width: 140.w,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    image: DecorationImage(
-                        image: CachedNetworkImageProvider(
-                          data['photo'],
-                        ),
-                        fit: BoxFit.cover),
-                    border: Border.all(width: 1.w, color: Colors.white),
-                    borderRadius: BorderRadius.circular(20).r,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 3,
-                        blurRadius: 5,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
+  return StreamBuilder(
+    stream: FirebaseFirestore.instance
+        .collection('users')
+        .doc(data['userId'])
+        .snapshots(),
+    builder: (context, snapshot) {
+      final userData = snapshot.data;
+      return GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) =>
+                recipeOpen(postData: data, userData: userData),
+          ));
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.w),
+          child: Container(
+            height: 102.h,
+            width: 140.w,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              image: DecorationImage(
+                  image: CachedNetworkImageProvider(
+                    data['photo'],
                   ),
+                  fit: BoxFit.cover),
+              border: Border.all(width: 1.w, color: Colors.white),
+              borderRadius: BorderRadius.circular(8).r,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 3,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        );
-      },
-    ),
+        ),
+      );
+    },
   );
 }

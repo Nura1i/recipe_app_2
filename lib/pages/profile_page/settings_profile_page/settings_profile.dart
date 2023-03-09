@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/dropdownbutton.dart';
-import 'package:recipe_app/pages/profile_page/settings_profile_page/croppPage.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/widgets.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
+import 'package:recipe_app/widgets/bottomsheet.dart';
 
 // Edit Profile Page...!
 class EditProfilePage extends StatelessWidget {
@@ -34,15 +34,7 @@ class EditProfilePage extends StatelessWidget {
               ),
               centerTitle: true,
               elevation: 1,
-              title: Text(
-                controllerUserName!.text.toString(),
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14.sp,
-                  fontFamily: "Lora",
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+
               // Theme.of(context).textTheme.bodySmall),
               actions: [
                 Padding(
@@ -110,12 +102,8 @@ class EditProfilePage extends StatelessWidget {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const CropperScreenn(),
-                                                    ),
-                                                  );
+                                                  displayBottomSheetForProfile(
+                                                      context);
                                                 },
                                                 child: Container(
                                                   width: 130.w,

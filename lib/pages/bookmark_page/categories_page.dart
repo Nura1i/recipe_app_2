@@ -14,7 +14,7 @@ class CategoriesScroller extends StatefulWidget {
 class _CategoriesScrollerState extends State<CategoriesScroller> {
   ScrollController controller = ScrollController();
 
-  categoria(List response) {
+  categoria(List response, List response4, List response2, List response3) {
     List<Widget> ItemsList = [];
     ItemsList.add(
       SizedBox(width: 10.w),
@@ -91,7 +91,10 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) {
                     return onChoosedCategorie(
+                      categorie1: response4[index - 1],
                       categorie: response[index - 1],
+                      categorie2: response2[index - 1],
+                      categorie3: response3[index - 1],
                     );
                   },
                 ));
@@ -122,8 +125,12 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
     }
     return Column(
       children: [
-        categoria(responseList!),
-        categoria(responseList2!),
+        categoria(responseList!, CATEGORIA_DATA_EN, CATEGORIA_DATA_RU,
+            CATEGORIA_DATA_UZ),
+        categoria(responseList2!, CATEGORIA_DATA_DISERT_EN,
+            CATEGORIA_DATA_DISERT_RU, CATEGORIA_DATA_DISERT_UZ)
+        //  categoria(responseList!,),
+        // categoria(responseList2!),
       ],
     );
   }

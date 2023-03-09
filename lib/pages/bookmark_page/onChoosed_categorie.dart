@@ -6,8 +6,16 @@ import 'package:recipe_app/pages/On%20open/into_recipe.dart';
 
 class onChoosedCategorie extends StatelessWidget {
   final categorie;
-  const onChoosedCategorie({super.key, this.categorie});
+  final categorie1;
+  final categorie2;
+  final categorie3;
 
+  const onChoosedCategorie(
+      {super.key,
+      this.categorie,
+      this.categorie1,
+      this.categorie2,
+      this.categorie3});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +51,10 @@ class onChoosedCategorie extends StatelessWidget {
                       var recipes = snapshots.data!.docs[index].data()
                           as Map<String, dynamic>;
 
-                      if (recipes['categorie'] == categorie['name']) {
+                      if (categorie1['name'] == recipes['categorie'] ||
+                          categorie2['name'] == recipes['categorie'] ||
+                          categorie3['name'] == recipes['categorie'] ||
+                          categorie['name'] == recipes['categorie']) {
                         return GestureDetector(
                           onTap: () async {
                             DocumentSnapshot userDoc = await FirebaseFirestore

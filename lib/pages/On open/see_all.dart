@@ -74,8 +74,8 @@ class seeAllRecentAdded extends StatelessWidget {
           backgroundColor: Colors.orange,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-              bottomLeft: const Radius.circular(40).r,
-              bottomRight: const Radius.circular(40).r,
+              bottomLeft: const Radius.circular(30).r,
+              bottomRight: const Radius.circular(30).r,
             ),
           ),
           title: Text(
@@ -91,43 +91,42 @@ class seeAllRecentAdded extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
+      body: Scrollbar(
+        thumbVisibility: true,
+        child: ListView(
           children: [
-            Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('Recipes')
-                    .snapshots(),
-                builder: (context, snapshots) {
-                  return (snapshots.connectionState == ConnectionState.waiting)
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: snapshots.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              var data = snapshots.data!.docs[index].data()
-                                  as Map<String, dynamic>;
-
-                              return recentAddedForAll(context, data);
-                            },
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                            ),
-                          ),
-                        );
-                },
-              ),
+            SizedBox(
+              height: 5.h,
             ),
+            StreamBuilder<QuerySnapshot>(
+              stream:
+                  FirebaseFirestore.instance.collection('Recipes').snapshots(),
+              builder: (context, snapshots) {
+                return (snapshots.connectionState == ConnectionState.waiting)
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: snapshots.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          var data = snapshots.data!.docs[index].data()
+                              as Map<String, dynamic>;
+
+                          return recentAddedForAll(context, data);
+                        },
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                        ),
+                      );
+              },
+            ),
+            SizedBox(
+              height: 5.h,
+            )
           ],
         ),
       ),

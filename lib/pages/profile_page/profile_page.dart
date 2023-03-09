@@ -9,7 +9,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_app/pages/On%20open/into_recipe.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/settings_profile.dart';
 import 'package:recipe_app/pages/profile_page/zoom_drawer_page.dart';
-import 'package:recipe_app/repositories/services/fire_service.dart';
 import '../../utils/shared_pref/language_prefs/preferences_2.dart';
 
 ScrollController nestedScroll = ScrollController();
@@ -19,7 +18,6 @@ class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key, this.avatar});
 
   @override
-  @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 690));
     var size = MediaQuery.of(context).size;
@@ -28,6 +26,7 @@ class ProfilePage extends StatelessWidget {
         child: Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             extendBodyBehindAppBar: false,
+
             // AppBar qismi...!
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(50.h),
@@ -116,28 +115,16 @@ class ProfilePage extends StatelessWidget {
                                   : snapshots.data!['recepts'] != null
                                       ? GridView.builder(
                                           shrinkWrap: true,
-                                          itemCount: 33,
-                                          // snapshots
-                                          //     .data!['recepts']!.length,
+                                          itemCount: snapshots
+                                              .data!['recepts']!.length,
                                           physics:
                                               const NeverScrollableScrollPhysics(),
                                           itemBuilder: (contex, index) {
-                                            // var data = snapshots
-                                            //     .data!['recepts'][index];
+                                            var data = snapshots
+                                                .data!['recepts'][index];
 
-                                            ////StreamBuilder updates when scrolling
                                             var dataUser = snapshots.data;
-                                            return Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Container(
-                                                height: 100,
-                                                width: 100,
-                                                color: Colors.red,
-                                              ),
-                                            );
-
-                                            //showOwnPosts(data, dataUser);
+                                            return showOwnPosts(data, dataUser);
                                           },
                                           gridDelegate:
                                               const SliverGridDelegateWithFixedCrossAxisCount(
@@ -159,24 +146,21 @@ class ProfilePage extends StatelessWidget {
                                       child: CircularProgressIndicator(),
                                     )
                                   : snapshots.data!['saved'] != null
-                                      ? SizedBox(
-                                          height: 200,
-                                          child: GridView.builder(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            itemCount: snapshots
-                                                .data!['saved']!.length,
-                                            itemBuilder: (contex, index) {
-                                              var data = snapshots
-                                                  .data!['saved'][index];
-                                              var dataUser = snapshots.data;
-                                              return showOwnPosts(
-                                                  data, dataUser);
-                                            },
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 3,
-                                            ),
+                                      ? GridView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount:
+                                              snapshots.data!['saved']!.length,
+                                          itemBuilder: (contex, index) {
+                                            var data =
+                                                snapshots.data!['saved'][index];
+                                            var dataUser = snapshots.data;
+                                            return showOwnPosts(data, dataUser);
+                                          },
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
                                           ),
                                         )
                                       : const SizedBox();
@@ -225,12 +209,8 @@ class ProfilePage extends StatelessWidget {
                                               .instance.currentUser!.uid)
                                           .snapshots(),
                                       builder: (context, snapshot) {
-                                        return (snapshot.connectionState ==
-                                                ConnectionState.waiting)
-                                            ? const Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              )
+                                        return (!snapshot.hasData)
+                                            ? const SizedBox()
                                             : CircleAvatar(
                                                 foregroundImage: snapshot.data![
                                                             'avatarImage'] !=
@@ -296,30 +276,54 @@ class ProfilePage extends StatelessWidget {
                             // Users name text...!
                             Padding(
                               padding: const EdgeInsets.only(top: 15, left: 15),
-                              child: username1111 != null
-                                  ? Text(
-                                      username1111!,
-                                      style: TextStyle(
-                                        color: Colors.grey.shade800,
-                                        fontSize: 14.sp,
-                                        fontFamily: "Lora",
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
-                                  : const SizedBox(),
+                              child: StreamBuilder(
+                                stream: FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  return (!snapshot.hasData)
+                                      ? const SizedBox()
+                                      : SizedBox(
+                                          child: Text(
+                                            snapshot.data!['username'],
+                                            style: TextStyle(
+                                              color: Colors.grey.shade800,
+                                              fontSize: 14.sp,
+                                              fontFamily: "Lora",
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        );
+                                },
+                              ),
+
+                              //  username1111 != null
+                              //     ? Text(
+                              //         username1111!,
+                              //         style:
+
+                              //     : const SizedBox(),
                             ),
                             // Users Bio Text...!
                             Padding(
                               padding: const EdgeInsets.only(left: 15, top: 10),
                               child: SizedBox(
                                 width: 150.w,
-                                child: Text(
-                                  bio.toString() == 'null'
-                                      ? ''
-                                      : bio.toString(),
-                                  style: TextStyle(
-                                    color: Colors.grey.shade600,
-                                  ),
+                                child: StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    log('stream 3');
+                                    return (!snapshot.hasData)
+                                        ? const SizedBox()
+                                        : SizedBox(
+                                            child: Text(snapshot.data!['bio']),
+                                          );
+                                  },
                                 ),
                               ),
                             ),
@@ -335,9 +339,8 @@ class ProfilePage extends StatelessWidget {
                                           .instance.currentUser!.uid)
                                       .snapshots(),
                                   builder: (context, snapshot) {
-                                    log('2');
-                                    return (snapshot.connectionState ==
-                                            ConnectionState.waiting)
+                                    log('stream 4');
+                                    return (!snapshot.hasData)
                                         ? const SizedBox()
                                         : Padding(
                                             padding: EdgeInsets.symmetric(

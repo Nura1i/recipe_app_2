@@ -21,6 +21,7 @@ class SearchCubit extends Cubit<SearchState> {
       topCont = value;
       closeTopContainer = controller.offset > 60;
       // emit(scrolled(controller));
+
       emit(topContainer(topCont));
       emit(closeContainer(closeTopContainer));
     });
