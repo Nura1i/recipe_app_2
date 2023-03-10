@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:recipe_app/models/user%20Model/user_model.dart';
+import 'package:recipe_app/pages/profile_page/settings_profile_page/croppPage.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 
 TextEditingController? controllerUserName =
@@ -39,32 +41,22 @@ buildTextField(
       bottom: 25.0,
     ),
     child: TextField(
-      textAlign: TextAlign.left,
-      cursorColor: Colors.blueAccent,
-      maxLines: maxlength == false ? 2 : 1,
-      maxLength: maxlength == emaillength
-          ? 25
-          : emaillength == false
-              ? 35
-              : 50,
-      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            fontSize: 13.sp,
-            fontFamily: "Lora",
-            fontWeight: FontWeight.bold,
-          ),
-      controller: controller,
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.only(bottom: 3, left: 2),
-        labelText: labelText,
-        labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontSize: 12.sp,
-              fontFamily: "Lora",
-            ),
-        hintText: placeholder,
-        hintStyle:
-            Theme.of(context).textTheme.bodySmall!.copyWith(fontFamily: "Lora"),
-      ),
-    ),
+        textAlign: TextAlign.left,
+        cursorColor: Colors.blueAccent,
+        maxLines: maxlength == false ? 2 : 1,
+        maxLength: maxlength == emaillength
+            ? 25
+            : emaillength == false
+                ? 35
+                : 50,
+        style: Theme.of(context).textTheme.bodyMedium,
+        controller: controller,
+        decoration: InputDecoration(
+            contentPadding: const EdgeInsets.only(bottom: 3, left: 2),
+            labelText: labelText,
+            labelStyle: Theme.of(context).textTheme.bodySmall,
+            hintText: placeholder,
+            hintStyle: Theme.of(context).textTheme.bodySmall)),
   );
 }
 
@@ -75,4 +67,62 @@ Widget deleteImage() {
     items: const [],
     onChanged: (value) {},
   );
+}
+
+XFile? imageCamera;
+XFile? imageGalery;
+void cropperBottomSheet(BuildContext context) {
+  ImagePicker imagePicker = ImagePicker();
+
+  showModalBottomSheet(
+      context: context,
+      elevation: 10,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      builder: (ctx) {
+        return Container(
+            height: MediaQuery.of(context).size.height * 0.10,
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                      onPressed: () async {
+                        imageCamera ==
+                            await imagePicker.pickImage(
+                              source: ImageSource.camera,
+                            );
+                      },
+                      icon: SvgPicture.asset(
+                        'assets/svg/camera.svg',
+                        width: 45,
+                      )),
+                  const SizedBox(
+                    width: 100,
+                  ),
+                  IconButton(
+                      iconSize: 45,
+                      onPressed: () async {
+                        imageCamera ==
+                            await imagePicker.pickImage(
+                              source: ImageSource.camera,
+                            );
+
+                              //  Navigator.of(context)
+                              //                     .push(MaterialPageRoute(
+                              //                   builder: (context) =>
+                              //                       const CropperScreenn(),
+                              //                 ));
+
+                      },
+                      icon: SvgPicture.asset(
+                        'assets/svg/gallery.svg',
+                      )),
+                ],
+              ),
+            ));
+      });
 }

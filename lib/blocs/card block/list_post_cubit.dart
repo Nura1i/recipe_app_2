@@ -8,7 +8,6 @@ import 'package:recipe_app/repositories/services/http_service.dart';
 
 class ListPostCubit extends Cubit<ListPostState> {
   ListPostCubit() : super(ListPostInit());
-
   void apiPostList() async {
     final top = await FireDatabaseService.topCreators();
     final response = await Network.GET(Network.API_LIST, Network.paramsEmpty());

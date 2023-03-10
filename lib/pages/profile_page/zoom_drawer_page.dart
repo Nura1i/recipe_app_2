@@ -6,7 +6,6 @@ import 'package:recipe_app/pages/profile_page/profile.drawer/profile_drawer_page
 import 'package:recipe_app/pages/profile_page/profile_page.dart';
 
 final ZoomDrawerController z = ZoomDrawerController();
-
 class ZoomDrawerPage extends StatelessWidget {
   const ZoomDrawerPage({super.key});
   @override
@@ -25,12 +24,8 @@ class ZoomDrawerPage extends StatelessWidget {
             openCurve: Curves.fastOutSlowIn,
             slideWidth: MediaQuery.of(context).size.width * 0.65,
             duration: const Duration(milliseconds: 500),
-            // angle: 0.0,
             menuBackgroundColor: Theme.of(context).backgroundColor,
-            //Theme.of(context).disabledColor,
-
             menuScreenOverlayColor: Theme.of(context).backgroundColor,
-            //Colors.red.shade300,
             mainScreen: const ProfilePage(),
             menuScreen: const CustomDrawer());
       }),

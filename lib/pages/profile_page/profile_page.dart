@@ -49,7 +49,7 @@ class ProfilePage extends StatelessWidget {
                     fontFamily: "Lora",
                     fontWeight: FontWeight.bold,
                   ),
-                  //Theme.of(context).textTheme.bodyMedium,
+                  //  Theme.of(context).textTheme.bodyMedium,
                 ),
                 actions: [
                   Padding(
@@ -272,7 +272,7 @@ class ProfilePage extends StatelessWidget {
                                 ],
                               ),
                             ),
-
+                          
                             // Users name text...!
                             Padding(
                               padding: const EdgeInsets.only(top: 15, left: 15),

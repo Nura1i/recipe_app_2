@@ -29,6 +29,7 @@ class Prefs {
 
   ///load data
   static Future<T> loadData<T>({required String? key}) async {
+    const CircularProgressIndicator();
     final prefs = await ShP.SharedPreferences.getInstance();
     if (T is Map<String, dynamic>) {
       final String data = prefs.get(key!) as String;
@@ -61,7 +62,9 @@ class ThemeService {
   static ThemeService? _instance;
 
   static Future<ThemeService> get instance async {
+    
     if (_instance == null) {
+     
       prefs = await ShP.SharedPreferences.getInstance();
       _instance = ThemeService._();
     }
@@ -70,10 +73,7 @@ class ThemeService {
 
   final allThemes = <String, ThemeData>{
     'dark': AppTTheme.darkkTheme,
-    'light': AppTTheme.whiteeTheme,
-    // 'pink': pinkTheme,
-    // 'darkBlue': darkBlueTheme,
-    // 'halloween': halloweenTheme,
+    'light': AppTTheme.whiteeTheme
   };
 
   String get previousThemeName {
@@ -110,44 +110,3 @@ class ThemeService {
     return allThemes[name]!;
   }
 }
-
-/////////////////////////////////////////
-// class AppTheme extends ChangeNotifier {
-//   final String key = "theme";
-//   ShP.SharedPreferences? _prefs;
-//   late bool _darktheme;
-
-//   bool get darkTheme => _darktheme;
-
-//   AppTheme() {
-//     _darktheme = true;
-//     _loadprefs();
-//   }
-
-//   switchthemelight() {
-//     _darktheme = false;
-//     _saveprefs();
-//     notifyListeners();
-//   }
-
-//   switchthemedark() {
-//     _darktheme = true;
-//     _saveprefs();
-//     notifyListeners();
-//   }
-
-//   _initiateprefs() async {
-//     _prefs ??= await ShP.SharedPreferences.getInstance();
-//   }
-
-//   _loadprefs() async {
-//     await _initiateprefs();
-//     _darktheme = _prefs?.getBool(key) ?? true;
-//     notifyListeners();
-//   }
-
-//   _saveprefs() async {
-//     await _initiateprefs();
-//     _prefs?.setBool(key, _darktheme);
-//   }
-// }

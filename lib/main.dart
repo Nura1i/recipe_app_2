@@ -1,44 +1,30 @@
-import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'app.dart';
 import 'firebase_options.dart';
 
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
-
 void main() async {
-  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
+  var themeService = await ThemeService.instance;
+  var initThemee = themeService.initial;
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
-  // runApp(
-  //   DevicePreview(
-  //     enabled: !kReleaseMode,
-  //     builder: ((context) => const MyApp()),
-  //   ),
-  // );
+  runApp(MyApp(initThem: initThemee));
 }
 
 class MyApp extends StatelessWidget {
+  final initThem;
   const MyApp({
-    super.key,
-  });
-
+    this.initThem,super.key,});
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 690),
+    return ScreenUtilInit(  
+      key: const Key('screenutil'),
+      designSize: const Size(390, 870),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => const AppProvider(),
+      builder: (context, child) => AppProvider(initThem: initThem),
     );
   }
 }

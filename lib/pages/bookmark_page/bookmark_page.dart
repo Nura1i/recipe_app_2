@@ -29,8 +29,7 @@ class _BookMarkPageState extends State<BookMarkPage>
   void initState() {
     super.initState();
     BlocProvider.of<SearchCubit>(context).getData();
-    BlocProvider.of<SearchCubit>(context)
-        .scroll(controller, topContainerr, closeTopContainer);
+    BlocProvider.of<SearchCubit>(context).scroll(controller, topContainerr, closeTopContainer);
   }
 
   var allRecipes;
