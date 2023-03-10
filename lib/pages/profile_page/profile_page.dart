@@ -297,13 +297,6 @@ class ProfilePage extends StatelessWidget {
                                         );
                                 },
                               ),
-
-                              //  username1111 != null
-                              //     ? Text(
-                              //         username1111!,
-                              //         style:
-
-                              //     : const SizedBox(),
                             ),
                             // Users Bio Text...!
                             Padding(
