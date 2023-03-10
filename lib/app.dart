@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
-import 'package:recipe_app/blocs/like%20and%20saved/likedIcon_cubit.dart';
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
 import 'package:recipe_app/blocs/localization/localization_cubit.dart';
 import 'package:recipe_app/blocs/login/sign_in_cubit.dart';
@@ -69,9 +68,7 @@ class _AppProviderState extends State<AppProvider> {
         BlocProvider(
           create: (context) => ListPostCubit(),
         ),
-        BlocProvider(
-          create: (context) => LikedCubit(),
-        ),
+  
         BlocProvider(
           create: (context) => SavedCubit(),
         ),

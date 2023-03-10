@@ -13,7 +13,6 @@ class CategoriesScroller extends StatefulWidget {
 
 class _CategoriesScrollerState extends State<CategoriesScroller> {
   ScrollController controller = ScrollController();
-
   categoria(List response) {
     List<Widget> ItemsList = [];
     ItemsList.add(

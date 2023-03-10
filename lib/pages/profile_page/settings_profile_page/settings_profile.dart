@@ -52,7 +52,7 @@ class EditProfilePage extends StatelessWidget {
               ],
               // icon Back...!
               leading: IconButton(
-                highlightColor: Colors.white,
+                highlightColor:Theme.of(context).backgroundColor,
                 icon: const Icon(
                   Icons.arrow_back,
                   color: Colors.black,
