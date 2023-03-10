@@ -36,115 +36,121 @@ class _BookMarkPageState extends State<BookMarkPage>
   @override
   Widget build(BuildContext context) {
     String searchedRecipe = '';
-    ScreenUtil.init(context, designSize: const Size(360, 690));
+    var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
+        // AppBar qismi...!
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.orange.shade600,
+          centerTitle: true,
+          backgroundColor: Colors.orange,
           title: Text(
             translation(context).recipecategory,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
               fontFamily: "Lora",
             ),
           ),
         ),
         // Body qismi ...!
         body: BlocBuilder<SearchCubit, SearchState>(
-            builder: (context, scrolState) {
-          if (scrolState is scrolled) {
-            controller = scrolState.controller;
-          }
-          if (scrolState is topContainer) {
-            topContainerr = scrolState.top;
-          }
-          if (scrolState is closeContainer) {
-            closeTopContainer = scrolState.closeCon;
-          }
-          if (scrolState is getRecipeData) {
-            allRecipes = scrolState.data;
-          }
-          if (scrolState is onRecipeSearched) {
-            searchedRecipe = scrolState.result;
-          }
-          return Column(
-            children: <Widget>[
-              Stack(
-                children: [
-                  // AppBar tegidi contanier...!
-                  Container(
-                    color: Colors.orange.shade600,
-                    height: 100.h,
-                  ),
-                  // AppBar tegidi umumiy Search qismi...!
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        height: 120.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: const Radius.circular(40).r,
-                            topRight: const Radius.circular(40).r,
-                          ),
+          builder: (context, scrolState) {
+            if (scrolState is scrolled) {
+              controller = scrolState.controller;
+            }
+            if (scrolState is topContainer) {
+              topContainerr = scrolState.top;
+            }
+            if (scrolState is closeContainer) {
+              closeTopContainer = scrolState.closeCon;
+            }
+            if (scrolState is getRecipeData) {
+              allRecipes = scrolState.data;
+            }
+            if (scrolState is onRecipeSearched) {
+              searchedRecipe = scrolState.result;
+            }
+            return Column(
+              children: <Widget>[
+                Stack(
+                  children: [
+                    // AppBar tegidi contanier...!
+                    Container(
+                      color: Colors.orange,
+                      height: size.height * 0.1,
+                    ),
+                    // AppBar tegidi umumiy Search qismi...!
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(40).r,
+                          topRight: const Radius.circular(40).r,
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20.w,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Text qismi...!
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10.h),
-                                child: Text(
-                                  translation(context).findrecipe,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black,
-                                        fontFamily: "Lora",
-                                      ),
-                                ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Text qismi...!
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 15.h),
+                              child: Text(
+                                translation(context).findrecipe,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontFamily: "Lora",
+                                    ),
                               ),
-                              // Search qismi...!
-                              Container(
-                                height: 40.h,
-                                width: double.infinity,
+                            ),
+                            // Search qismi...!
+                            SizedBox(
+                              child: Container(
+                                height: size.height * 0.06,
+                                alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                   color: Colors.orange.withOpacity(0.03),
                                   border: Border.all(
                                     width: 1.5.w,
                                     color: Colors.orange,
                                   ),
-                                  borderRadius: BorderRadius.circular(25),
+                                  borderRadius: BorderRadius.circular(25).r,
                                 ),
-                                // Icon Search qismi...!
+                                // Icon And Search qismi...!
                                 child: TextField(
+                                  textAlign: TextAlign.start,
+                                  maxLength: 35,
+                                  autocorrect: false,
+                                  enableSuggestions: false,
                                   onChanged: (recipe) {
                                     searchedRecipe = recipe;
                                     BlocProvider.of<SearchCubit>(context)
                                         .recipeSearch(searchedRecipe);
                                   },
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14.sp,
+                                    fontFamily: "Lora",
+                                  ),
                                   decoration: InputDecoration(
+                                    counterText: "",
                                     hintText: translation(context).search,
                                     hintStyle: TextStyle(
                                       color: Colors.orange.shade500,
                                       fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
                                       fontFamily: "Lora",
                                     ),
                                     isDense: false,
@@ -156,73 +162,55 @@ class _BookMarkPageState extends State<BookMarkPage>
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              // Popular Category...!
-
-              // Popular Categoriya qismi...!
-              if (searchedRecipe.isEmpty)
-                AnimatedOpacity(
-                  duration: const Duration(seconds: 1),
-                  opacity: closeTopContainer ? 0 : 1,
-                  child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 400),
-                      width: double.infinity,
+                    ),
+                  ],
+                ),
+                // Popular Categoriya qismi...!
+                if (searchedRecipe.isEmpty)
+                  AnimatedOpacity(
+                    duration: const Duration(milliseconds: 150),
+                    opacity: closeTopContainer ? 0 : 1,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 150),
+                      width: size.width,
                       alignment: Alignment.topCenter,
-                      height: closeTopContainer ? 0 : 200.h,
-                      child: categoriesScroller),
-                ),
-              if (searchedRecipe.isEmpty)
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.h),
-                  child: Text(
-                    translation(context).popularcategory,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontFamily: "Lora",
-                        ),
+                      height: closeTopContainer ? 0 : size.height * 0.34,
+                      child: categoriesScroller,
+                    ),
                   ),
-                ),
-              // categoriyani tegidigi opshi categoriya qismi...!
-              if (searchedRecipe.isEmpty)
-                allRecipes != null
-                    ? Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          controller: controller,
-                          scrollDirection: Axis.vertical,
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: allRecipes!.docs.length,
-                          itemBuilder: (context, index) {
-                            ScreenUtil.init(context,
-                                designSize: const Size(360, 690));
-                            double scale = 1.0;
-                            if (topContainerr > 0.5) {
-                              scale = index + 0.5 - topContainerr;
-                              if (scale < 0) {
-                                scale = 0;
-                              } else if (scale > 1) {
-                                scale = 1;
+                // categoriyani tegidigi opshi categoriya qismi...!
+                if (searchedRecipe.isEmpty)
+                  allRecipes != null
+                      ? Expanded(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            controller: controller,
+                            scrollDirection: Axis.vertical,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: allRecipes!.docs.length,
+                            itemBuilder: (context, index) {
+                              double scale = 1.0;
+                              if (topContainerr > 0.5) {
+                                scale = index + 0.5 - topContainerr;
+                                if (scale < 0) {
+                                  scale = 0;
+                                } else if (scale > 1) {
+                                  scale = 1;
+                                }
                               }
-                            }
-                            final recipes = allRecipes!.docs[index].data();
-
-                            return RecipeWidget(scale, recipes);
-                          },
-                        ),
-                      )
-                    : const SizedBox(),
-              if (searchedRecipe.isNotEmpty)
-                Expanded(
-                  child: ListView.builder(
+                              final recipes = allRecipes!.docs[index].data();
+                              return RecipeWidget(scale, recipes);
+                            },
+                          ),
+                        )
+                      : const SizedBox(),
+                if (searchedRecipe.isNotEmpty)
+                  Expanded(
+                    child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       physics: const BouncingScrollPhysics(),
@@ -239,7 +227,6 @@ class _BookMarkPageState extends State<BookMarkPage>
                         }
                         final data = allRecipes.docs[index].data()
                             as Map<String, dynamic>;
-
                         if (data.isEmpty) {
                           return Container(
                             width: 100,
@@ -256,117 +243,150 @@ class _BookMarkPageState extends State<BookMarkPage>
                           return RecipeWidget(scale, data);
                         }
                         return const SizedBox();
-                      }),
-                )
-            ],
-          );
-        }),
+                      },
+                    ),
+                  ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
 
   Widget RecipeWidget(scale, recipes) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5.h),
+      padding: EdgeInsets.symmetric(vertical: 3.h),
       child: Opacity(
         opacity: scale,
         child: Transform(
           transform: Matrix4.identity()..scale(scale, scale),
           alignment: Alignment.bottomCenter,
           child: Align(
-              alignment: Alignment.topCenter,
-              child: GestureDetector(
-                onTap: () async {
-                  DocumentSnapshot userDoc = await FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(recipes['userId'])
-                      .get();
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).push(MaterialPageRoute(
+            alignment: Alignment.topCenter,
+            child: GestureDetector(
+              onTap: () async {
+                DocumentSnapshot userDoc = await FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(recipes['userId'])
+                    .get();
+                // ignore: use_build_context_synchronously
+                Navigator.of(context).push(
+                  MaterialPageRoute(
                     builder: (context) {
                       return recipeOpen(
                         postData: recipes,
                         userData: userDoc,
                       );
                     },
-                  ));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 20),
-                  child: Container(
-                    height: 130.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          const Radius.circular(20.0).r,
-                        ),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withAlpha(100),
-                              blurRadius: 10.0),
-                        ]),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.0.w, vertical: 10.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              SizedBox(
-                                width: 200,
-                                child: Text(
-                                  recipes["head"],
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    fontFamily: "Lora",
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                'kishiga:  ${recipes["serves"].toString()}',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.grey,
-                                  fontFamily: "Lora",
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Text(
-                                'cookTime:  ${recipes["cookTime"]}',
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "Lora",
-                                ),
-                              )
-                            ],
-                          ),
-                          Container(
-                            height: 100,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20).r,
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: CachedNetworkImageProvider(
-                                        recipes['photo']))),
-                          )
-                        ],
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 5, left: 5),
+                child: Container(
+                  height: 130.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1.w,
+                      color: Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      const Radius.circular(15).r,
+                    ),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.4),
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
                       ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            // Text Head Name...!
+                            SizedBox(
+                              width: 200.w,
+                              height: 20.h,
+                              child: Text(
+                                recipes["head"],
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontFamily: "Lora",
+                                ),
+                              ),
+                            ),
+                            // Text Percon...!
+                            Text(
+                              "${recipes["serves"]} : ${translation(context).kishilik}",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: Colors.grey.shade900,
+                                fontFamily: "Lora",
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            // Text Cook Time...!
+                            Text(
+                              "${translation(context).cookTime} : ${recipes["cookTime"]}",
+                              style: TextStyle(
+                                fontSize: 13.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Lora",
+                              ),
+                            )
+                          ],
+                        ),
+                        // Image qismi...1
+                        Container(
+                          height: 110.h,
+                          width: 95.w,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.4),
+                                spreadRadius: 3,
+                                blurRadius: 5,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
+                            ],
+                            border: Border.all(
+                              width: 1.w,
+                              color: Colors.grey.shade200,
+                            ),
+                            borderRadius: BorderRadius.circular(10).r,
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: CachedNetworkImageProvider(
+                                recipes['photo'],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
-              )),
+              ),
+            ),
+          ),
         ),
       ),
     );

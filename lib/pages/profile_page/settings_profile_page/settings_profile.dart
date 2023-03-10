@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/dropdownbutton.dart';
-import 'package:recipe_app/pages/profile_page/settings_profile_page/croppPage.dart';
 import 'package:recipe_app/pages/profile_page/settings_profile_page/widgets.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
+import 'package:recipe_app/widgets/bottomsheet.dart';
 
 // Edit Profile Page...!
 class EditProfilePage extends StatelessWidget {
@@ -34,15 +34,7 @@ class EditProfilePage extends StatelessWidget {
               ),
               centerTitle: true,
               elevation: 1,
-              title: Text(
-                controllerUserName!.text.toString(),
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14.sp,
-                  fontFamily: "Lora",
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+
               // Theme.of(context).textTheme.bodySmall),
               actions: [
                 Padding(
@@ -89,17 +81,19 @@ class EditProfilePage extends StatelessWidget {
                                 child: ListView(
                                   physics: const NeverScrollableScrollPhysics(),
                                   children: [
-                                    // Edit Profile...!
+                                    // Text Edit Profile...!
                                     Text(
                                       translation(context).editprofile,
-                                      style: TextStyle(
-                                        color: Colors.grey.shade800,
-                                        fontSize: 15.sp,
-                                        fontFamily: "Lora",
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style: Theme.of(_)
+                                          .textTheme
+                                          .titleLarge!
+                                          .copyWith(
+                                            color: Colors.black,
+                                            fontSize: 14.sp,
+                                            fontFamily: "Lora",
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                       textAlign: TextAlign.center,
-                                      //Theme.of(_).textTheme.titleLarge,
                                     ),
                                     SizedBox(height: 15.h),
                                     // Rasim Qo'yadigan qismi...!
@@ -110,19 +104,15 @@ class EditProfilePage extends StatelessWidget {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const CropperScreenn(),
-                                                    ),
-                                                  );
+                                                  displayBottomSheetForProfile(
+                                                      context);
                                                 },
                                                 child: Container(
                                                   width: 130.w,
                                                   height: 130.h,
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                      width: 2.w,
+                                                      width: 1.w,
                                                       color: Theme.of(context)
                                                           .scaffoldBackgroundColor,
                                                     ),
@@ -165,7 +155,7 @@ class EditProfilePage extends StatelessWidget {
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
                                                     border: Border.all(
-                                                      width: 4.w,
+                                                      width: 2.w,
                                                       color: Theme.of(context)
                                                           .scaffoldBackgroundColor,
                                                     ),
@@ -218,7 +208,7 @@ class EditProfilePage extends StatelessWidget {
                   // Saved Button...!
                   MaterialButton(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15).r,
+                      borderRadius: BorderRadius.circular(10).r,
                     ),
                     disabledTextColor: Theme.of(context).backgroundColor,
                     highlightColor: Colors.green,
@@ -227,7 +217,7 @@ class EditProfilePage extends StatelessWidget {
                       translation(context).saved,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 15.sp,
+                        fontSize: 13.sp,
                         fontFamily: "Lora",
                         fontWeight: FontWeight.bold,
                       ),

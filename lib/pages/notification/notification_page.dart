@@ -17,7 +17,7 @@ class SearchPerson extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
+    var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         focusNode.unfocus();
@@ -31,7 +31,7 @@ class SearchPerson extends StatelessWidget {
             translation(context).searchUsers,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 18.sp,
+              fontSize: 16.sp,
               fontFamily: "Lora",
               fontWeight: FontWeight.bold,
             ),
@@ -58,47 +58,50 @@ class SearchPerson extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15.w),
-                    child: Container(
-                      height: 40.h,
-                      margin: const EdgeInsets.only(top: 20),
-                      decoration: BoxDecoration(
-                        color: Colors.orange.withOpacity(0.03),
-                        border: Border.all(
-                          width: 1.5.w,
-                          color: Colors.orange,
+                    child: SizedBox(
+                      child: Container(
+                        height: size.height * 0.06,
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 20),
+                        decoration: BoxDecoration(
+                          color: Colors.orange.withOpacity(0.03),
+                          border: Border.all(
+                            width: 1.5.w,
+                            color: Colors.orange,
+                          ),
+                          borderRadius: BorderRadius.circular(25).r,
                         ),
-                        borderRadius: BorderRadius.circular(25).r,
-                      ),
-                      child: TextField(
-                        maxLength: 30,
-                        autocorrect: false,
-                        enableSuggestions: false,
-                        controller: controller,
-                        focusNode: focusNode,
-                        onChanged: (user) {
-                          username = user;
-                          BlocProvider.of<SearchCubit>(context)
-                              .userSearch(username);
-                        },
-                        style: TextStyle(
-                          color: Colors.orange,
-                          fontSize: 16.sp,
-                          fontFamily: "Lora",
-                          //fontWeight: FontWeight.bold,
-                        ),
-                        decoration: InputDecoration(
-                          counterText: "",
-                          hintText: translation(context).searchUsers,
-                          hintStyle: TextStyle(
-                            color: Colors.orange.shade500,
+                        child: TextField(
+                          textAlign: TextAlign.start,
+                          maxLength: 30,
+                          autocorrect: false,
+                          enableSuggestions: false,
+                          controller: controller,
+                          focusNode: focusNode,
+                          onChanged: (user) {
+                            username = user;
+                            BlocProvider.of<SearchCubit>(context)
+                                .userSearch(username);
+                          },
+                          style: TextStyle(
+                            color: Colors.black,
                             fontSize: 14.sp,
                             fontFamily: "Lora",
                           ),
-                          isDense: false,
-                          border: InputBorder.none,
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.orange.shade600,
+                          decoration: InputDecoration(
+                            counterText: "",
+                            hintText: translation(context).searchUsers,
+                            hintStyle: TextStyle(
+                              color: Colors.orange.shade500,
+                              fontSize: 14.sp,
+                              fontFamily: "Lora",
+                            ),
+                            isDense: false,
+                            border: InputBorder.none,
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Colors.orange.shade600,
+                            ),
                           ),
                         ),
                       ),
@@ -122,31 +125,33 @@ class SearchPerson extends StatelessWidget {
                               child: ListView(
                                 physics: const BouncingScrollPhysics(),
                                 children: [
-                                  SizedBox(height: 15.h),
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    physics: const BouncingScrollPhysics(),
-                                    itemCount: snapshots.data!.docs.length,
-                                    itemBuilder: (context, index) {
-                                      final data = snapshots.data!.docs[index]
-                                          .data() as Map<String, dynamic>;
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      physics: const BouncingScrollPhysics(),
+                                      itemCount: snapshots.data!.docs.length,
+                                      itemBuilder: (context, index) {
+                                        final data = snapshots.data!.docs[index]
+                                            .data() as Map<String, dynamic>;
 
-                                      if (username.isEmpty) {
-                                        return allUsers(context, data);
-                                      }
-                                      if (data['username']
-                                          .toString()
-                                          .toLowerCase()
-                                          .startsWith(username
-                                              .toLowerCase()
-                                              .toString())) {
-                                        return allUsers(context, data);
-                                      }
-                                      return const SizedBox();
-                                    },
+                                        if (username.isEmpty) {
+                                          return allUsers(context, data);
+                                        }
+                                        if (data['username']
+                                            .toString()
+                                            .toLowerCase()
+                                            .startsWith(
+                                              username.toLowerCase().toString(),
+                                            )) {
+                                          return allUsers(context, data);
+                                        }
+                                        return const SizedBox();
+                                      },
+                                    ),
                                   ),
-                                  SizedBox(height: 15.h),
                                 ],
                               ),
                             );
@@ -173,7 +178,7 @@ allUsers(contex, data) {
       );
     },
     child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 3.h),
       child: Container(
         height: 50.h,
         decoration: BoxDecoration(

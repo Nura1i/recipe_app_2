@@ -61,7 +61,7 @@ Widget dropdown(BuildContext context) {
                                           .yourProfileImageDelete,
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 14.sp,
+                                        fontSize: 12.sp,
                                         fontFamily: "Lora",
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -72,7 +72,7 @@ Widget dropdown(BuildContext context) {
                                           .yourProfileImageempty,
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 14.sp,
+                                        fontSize: 12.sp,
                                         fontFamily: "Lora",
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -143,16 +143,19 @@ class MenuItems {
   static Widget buildItem(BuildContext context, MenuItem item) {
     return Row(
       children: [
-        Icon(item.icon, color: Colors.red),
+        Icon(item.icon, color: Colors.black),
         // Theme.of(context).iconTheme.color),
         const SizedBox(
           width: 10,
         ),
-        Text(item.text,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall!
-                .copyWith(color: Colors.green, fontFamily: 'Lora')),
+        Text(
+          item.text,
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                color: Colors.black,
+                fontSize: 12.sp,
+                fontFamily: 'Lora',
+              ),
+        ),
       ],
     );
   }

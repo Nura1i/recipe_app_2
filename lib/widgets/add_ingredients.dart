@@ -18,17 +18,17 @@ class IngredientsWidget extends StatelessWidget {
   final String uuid;
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
+    var size = MediaQuery.of(context).size;
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.h),
+      padding: EdgeInsets.symmetric(vertical: 5.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           const SizedBox(),
           // Indgredients Text "Item name"...!
           Container(
-            width: 160.w,
-            height: 40.h,
+            width: size.width * 0.5,
+            height: size.height * 0.06,
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1,
@@ -37,10 +37,14 @@ class IngredientsWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10).r,
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
               child: TextField(
                 maxLength: 20,
+                maxLines: 1,
                 controller: controllerName,
+                textAlign: TextAlign.start,
+                autocorrect: false,
+                enableSuggestions: false,
                 decoration: InputDecoration(
                   counterText: '',
                   border: InputBorder.none,
@@ -63,8 +67,8 @@ class IngredientsWidget extends StatelessWidget {
           ),
           // Indgredients Text "Quantity"...!
           Container(
-            width: 100.w,
-            height: 40.h,
+            width: size.width * 0.25,
+            height: size.height * 0.06,
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1.w,
@@ -73,10 +77,14 @@ class IngredientsWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10).r,
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
               child: TextField(
                 maxLength: 20,
+                maxLines: 1,
                 controller: controllerQuant,
+                textAlign: TextAlign.start,
+                autocorrect: false,
+                enableSuggestions: false,
                 decoration: InputDecoration(
                   counterText: '',
                   border: InputBorder.none,
@@ -105,11 +113,11 @@ class IngredientsWidget extends StatelessWidget {
                         .removeItem(context, uuid);
                   },
                   icon: Container(
-                    width: 50.w,
-                    height: 50.h,
+                    width: size.width * 0.1,
+                    height: size.height * 0.1,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(30).r,
                     ),
                     child: const Icon(
                       Icons.clear,

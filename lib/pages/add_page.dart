@@ -445,53 +445,48 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                       padding: const EdgeInsets.only(
                         left: 20,
                         right: 20,
-                        bottom: 25,
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 50.h,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
-                              border: Border.all(
-                                width: 1.w,
-                                color: Colors.grey.shade400,
-                              ),
-                              borderRadius: BorderRadius.circular(15).r,
-                            ),
-                            child: TextFormField(
-                              onChanged: (value) {
-                                headText = value;
-                              },
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.sp,
-                                color: Colors.black,
-                                fontFamily: "Lora",
-                              ),
-                              maxLines: 2,
-                              controller: controlerMain,
-                              maxLength: 60,
-                              showCursor: true,
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 10.w),
-                                hintText: translation(context).mainText,
-                                counterText: ' ',
-                                hintStyle: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontSize: 12.sp,
-                                  fontFamily: "Lora",
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                isDense: false,
-                                border: InputBorder.none,
-                              ),
-                            ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          border: Border.all(
+                            width: 1.w,
+                            color: Colors.grey.shade400,
                           ),
-                        ],
+                          borderRadius: BorderRadius.circular(10).r,
+                        ),
+                        child: TextFormField(
+                          onChanged: (value) {
+                            headText = value;
+                          },
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.sp,
+                            color: Colors.black,
+                            fontFamily: "Lora",
+                          ),
+                          textAlign: TextAlign.start,
+                          autocorrect: false,
+                          enableSuggestions: false,
+                          maxLines: 2,
+                          controller: controlerMain,
+                          maxLength: 60,
+                          showCursor: true,
+                          decoration: InputDecoration(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 10.w),
+                            hintText: translation(context).mainText,
+                            counterText: ' ',
+                            hintStyle: TextStyle(
+                              color: Colors.grey.shade600,
+                              fontSize: 12.sp,
+                              fontFamily: "Lora",
+                              fontWeight: FontWeight.bold,
+                            ),
+                            isDense: false,
+                            border: InputBorder.none,
+                          ),
+                        ),
                       ),
                     ),
                     // Text "Serves" add...!
@@ -505,8 +500,6 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                           BlocProvider.of<CameraCubit>(context).isOpenServes();
                         },
                         child: Container(
-                          width: double.infinity,
-                          height: 56.h,
                           decoration: BoxDecoration(
                             color: Colors.grey.shade100,
                             border: Border.all(
@@ -517,10 +510,10 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                           ),
                           child: ListTile(
                             leading: Container(
-                              height: 35.h,
-                              width: 35.w,
-                              margin: const EdgeInsets.only(bottom: 5),
-                              padding: const EdgeInsets.all(5),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 5.w,
+                                vertical: 5.h,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10).r,
@@ -534,21 +527,19 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                             ),
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 5),
-                                  child: Text(
-                                    translation(context).serves,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: Colors.grey.shade700,
-                                      fontFamily: "Lora",
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                Text(
+                                  translation(context).serves,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: Colors.grey.shade700,
+                                    fontFamily: "Lora",
+                                    fontWeight: FontWeight.bold,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.only(bottom: 5),
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 15.w,
                                     vertical: 8.h,
@@ -584,8 +575,6 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                           bottom: 20,
                         ),
                         child: Container(
-                          width: double.infinity,
-                          height: 56.h,
                           decoration: BoxDecoration(
                             color: Colors.grey.shade100,
                             border: Border.all(
@@ -596,9 +585,6 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                           ),
                           child: ListTile(
                             leading: Container(
-                              height: 35.h,
-                              width: 35.w,
-                              margin: const EdgeInsets.only(bottom: 5),
                               padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -613,21 +599,19 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                             ),
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 5),
-                                  child: Text(
-                                    translation(context).cookTime,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontFamily: "Lora",
-                                      color: Colors.grey.shade700,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                Text(
+                                  translation(context).cookTime,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontFamily: "Lora",
+                                    color: Colors.grey.shade700,
+                                    fontWeight: FontWeight.bold,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.only(bottom: 5),
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 15.w,
                                     vertical: 8.h,
@@ -668,11 +652,14 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                             bodyTextt = value;
                           },
                           style: TextStyle(
-                            fontSize: 15.sp,
+                            fontSize: 14.sp,
                             fontFamily: "Lora",
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
+                          textAlign: TextAlign.start,
+                          autocorrect: false,
+                          enableSuggestions: false,
                           maxLines: 4,
                           controller: controllerBody,
                           showCursor: true,

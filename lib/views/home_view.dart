@@ -51,73 +51,65 @@ class HomeView2 extends StatelessWidget {
         ),
         // Card Uzbek National Recipes..!
         bottom: PreferredSize(
-            preferredSize: Size(double.infinity, size.height * 0.30),
-            child: Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(40).r,
-                  ),
-                  // Uzbek National Recipes See All...!
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, bottom: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              translation(context).milliytaom,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
+            preferredSize: Size(double.infinity, size.height * 0.28),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(40).r,
+              ),
+              // Uzbek National Recipes See All...!
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15, bottom: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          translation(context).milliytaom,
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontSize: 14.sp,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: "Lora",
                                   ),
-                            ),
-                            SizedBox(width: 15.w),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const seeAllMilliyTaom(),
-                                  ),
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  Text(
-                                    translation(context).seeAll,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "Lora",
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                  SizedBox(width: 5.w),
-                                  SvgPicture.asset(
-                                    'assets/svg/Belgi.svg',
-                                    width: 12.w,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
                         ),
-                      ),
-                      // Uzbek National Recipes...! Cards
-                      SizedBox(height: 170.h, child: builder(posts)),
-                    ],
+                        SizedBox(width: 15.w),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const seeAllMilliyTaom(),
+                              ),
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                translation(context).seeAll,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Lora",
+                                  color: Colors.red,
+                                ),
+                              ),
+                              SizedBox(width: 5.w),
+                              SvgPicture.asset(
+                                'assets/svg/Belgi.svg',
+                                width: 12.w,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  // Uzbek National Recipes...! Cards
+                  SizedBox(height: size.height * 0.24, child: builder(posts)),
+                ],
+              ),
             )),
       ),
       // Divider and Cards Popular Shef, Recent Added...!
@@ -126,7 +118,7 @@ class HomeView2 extends StatelessWidget {
           Column(
             children: [
               SizedBox(
-                height: size.height * 0.37,
+                height: size.height * 0.33,
               ),
               Expanded(
                 child: SingleChildScrollView(
