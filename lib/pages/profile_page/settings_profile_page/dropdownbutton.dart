@@ -18,7 +18,7 @@ Widget dropdown(BuildContext context) {
       customButton: SvgPicture.asset(
         'assets/svg/ProfileUnion.svg',
         width: 22.w,
-        color: Theme.of(context).focusColor,
+        color: Theme.of(context).backgroundColor,
       ),
       customItemsHeights: [
         ...List<double>.filled(MenuItems.firstItems.length, 48),

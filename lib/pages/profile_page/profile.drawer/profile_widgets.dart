@@ -16,7 +16,7 @@ ThemeBottomSheet(BuildContext context, light) {
       context: context,
       builder: (ctx) {
         return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.35.h,
+            height: MediaQuery.of(context).size.height * 0.20.h,
             child: Center(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -24,56 +24,80 @@ ThemeBottomSheet(BuildContext context, light) {
                     children: [
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 10, top: 10, bottom: 20),
+                        const EdgeInsets.only(left: 20, top: 10, bottom: 20),
                     child: Text(
                       'Theme',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
-                  // themeWidget('light', 'light', 'Light', Icons.sunny, context),
-                  // const Divider(
-                  //   thickness: 1,
-                  //   color: Colors.orange,
-                  // ),
-                  // themeWidget('dark', 'dark', 'Dark', Icons.dark_mode, context),
-                  // const Divider(
-                  //   thickness: 1,
-                  //   color: Colors.orange,
-                  // ),
-                  // themeWidget(
-                  //     'dark', 'light', 'System', Icons.sunny_snowing, context),
+                  themeWidget(
+                    'light',
+                    'light',
+                    'Light',
+                    Icons.sunny,
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.orange,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  themeWidget(
+                    'dark',
+                    'dark',
+                    'Dark',
+                    Icons.dark_mode,
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.orange,
+                  ),
                 ])));
       });
 }
 
 // Theme for Widgets
-
-//  ThemeSwitcher.withTheme(
-//   builder: (_, switcher, theme) {
-//     return TextButton(
-//       onPressed: () => switcher.changeTheme(
-//         theme:
-//             theme.brightness == Brightness.dark ? themechange1 : themechange2,
-//       ),
-//       child: Row(
-//         children: [
-//           Icon(
-//             icon,
-//             color: Theme.of(context).focusColor,
-//           ),
-//           const SizedBox(
-//             width: 3,
-//           ),
-//           Text(
-//             texttheme,
-//             style: Theme.of(context).textTheme.bodySmall,
-//           )
-//         ],
-//       ),
-//     );
-//   },
-// );
-//}
+themeWidget(
+  String themechange1,
+  String themechange2,
+  String themename,
+  IconData icon,
+) {
+  return ThemeSwitcher(
+    builder: (context) {
+      return InkWell(
+        onTap: () async {
+          var themeName =
+              ThemeModelInheritedNotifier.of(context).theme.brightness ==
+                      Brightness.light
+                  ? themechange1
+                  : themechange2;
+          var service = await ThemeService.instance
+            ..save(themeName);
+          var theme = service.getByName(themeName);
+          ThemeSwitcher.of(context).changeTheme(theme: theme);
+          Navigator.of(context).pop();
+        },
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: Theme.of(context).focusColor,
+            ),
+            const SizedBox(
+              width: 3,
+            ),
+            Text(
+              themename,
+              style: Theme.of(context).textTheme.bodySmall,
+            )
+          ],
+        ),
+      );
+    },
+  );
+}
 
 // Language Widget
 Widget LanguageForSheet(
@@ -271,7 +295,10 @@ Aboutdialog(BuildContext context) {
         elevation: .0,
         title: const Text('Haqida'),
         content: const Text(
-          'Flutter App Mobile Devoloper',
+          '''Flutter App Mobile Devolopers 
+      Nurali Olimov
+      Diyor Omonov,
+      Shekhroz Berdiyev''',
         ),
         titleTextStyle: Theme.of(context).textTheme.bodySmall,
         contentTextStyle: Theme.of(context).textTheme.bodySmall,

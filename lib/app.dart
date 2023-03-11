@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
-
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
-
 import 'package:recipe_app/blocs/like%20and%20saved/savedIcon_cubit.dart';
 import 'package:recipe_app/blocs/localization/localization_cubit.dart';
 import 'package:recipe_app/blocs/login/sign_in_cubit.dart';
@@ -17,11 +15,11 @@ import 'package:recipe_app/pages/Menu/menu_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:recipe_app/utils/theme/theme_configg.dart';
-import 'package:recipe_app/views/sign_up_view.dart';
 
 class AppProvider extends StatefulWidget {
+  final initThem;
   const AppProvider({
+    this.initThem,
     super.key,
   });
 
@@ -35,33 +33,8 @@ class AppProvider extends StatefulWidget {
   }
 }
 
-final isPlatformDark =
-    WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-final initTheme = isPlatformDark ? AppTTheme.darkkTheme : AppTTheme.whiteeTheme;
-
 class _AppProviderState extends State<AppProvider> {
-  var themmm;
   @override
-  void initState() {
-    changer();
-
-    super.initState();
-  }
-
-  changer() async {
-    var themeService = await ThemeService.instance;
-    var initThemee = themeService.initial;
-    themmm = initThemee;
-
-    return themmm;
-  }
-
-  @override
-  // void initState() {
-  //   changer();
-  //   super.initState();
-  // }
-
   @override
   Locale? _locale;
   @override
@@ -79,7 +52,11 @@ class _AppProviderState extends State<AppProvider> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
+    ScreenUtil.init(
+      context,
+      designSize: const Size(390, 870),
+    );
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -91,6 +68,7 @@ class _AppProviderState extends State<AppProvider> {
         BlocProvider(
           create: (context) => ListPostCubit(),
         ),
+  
         BlocProvider(
           create: (context) => SavedCubit(),
         ),
@@ -109,26 +87,24 @@ class _AppProviderState extends State<AppProvider> {
       ],
       child: ThemeProvider(
         duration: const Duration(milliseconds: 600),
-        initTheme: initTheme,
+        initTheme: widget.initThem,
         builder: (_, myTheme) {
           return MaterialApp(
-            color: Colors.orange,
-            debugShowCheckedModeBanner: false,
-            title: 'Cooking Uno',
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            locale: _locale,
-            theme: myTheme,
-            home: FutureBuilder(
-              future: Prefs.loadData<String>(key: 'token'),
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.data != null) {
-                  return const MenuPage();
-                }
-                return const LanguageIntroPage();
-              },
-            ),
-          );
+              themeMode: ThemeMode.system,
+              debugShowCheckedModeBanner: false,
+              title: 'Recipe App',
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: _locale,
+              theme: myTheme,
+              home: FutureBuilder(
+                  future: Prefs.loadData<String>(key: 'token'),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && snapshot.data != null) {
+                      return const MenuPage();
+                    }
+                    return const LanguageIntroPage();
+                  }));
         },
       ),
     );
