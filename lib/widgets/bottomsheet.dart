@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipe_app/blocs/add_cubits/add_cubit.dart';
@@ -7,59 +8,57 @@ import 'package:recipe_app/pages/profile_page/settings_profile_page/croppPage.da
 
 void displayBottomSheet(BuildContext context) {
   showModalBottomSheet(
-      context: context,
-      elevation: 10,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+    context: context,
+    elevation: 10,
+    backgroundColor: Colors.grey.shade100,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: const Radius.circular(40).r,
+        topRight: const Radius.circular(40).r,
       ),
-      builder: (ctx) {
-        return Container(
-            height: MediaQuery.of(context).size.height * 0.10,
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconButton(
-                      //  iconSize: 40,
-                      onPressed: () {
-                        //  BlocProvider.of<CameraCubit>(context).openCamera();
-                        BlocProvider.of<CameraCubit>(context)
-                            .pickImageFromCamera(context);
-                      },
-                      icon: SvgPicture.asset(
-                        'assets/svg/camera.svg',
-                        width: 45,
-                      )
-
-                      // const Icon(
-                      //   Icons.camera_alt_outlined,
-                      //   color: Colors.black,
-                      //   size: 45,
-                      // )),
-                      ),
-                  const SizedBox(
-                    width: 100,
-                  ),
-                  IconButton(
-                      iconSize: 45,
-                      onPressed: () {
-                        BlocProvider.of<CameraCubit>(context)
-                            .pickImageFromGalery(context);
-                        //    BlocProvider.of<CameraCubit>(context).openGalerea();
-                      },
-                      icon: SvgPicture.asset(
-                        'assets/svg/gallery.svg',
-                      )),
-                  // SizedBox(
-                  //     child: img != null
-                  //         ? Image.file(img)
-                  //         : Text('    No Photo'))
-                ],
+    ),
+    builder: (ctx) {
+      return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.10,
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Icon Camera...!
+              IconButton(
+                highlightColor: Colors.white,
+                iconSize: 40,
+                onPressed: () {
+                  BlocProvider.of<CameraCubit>(context)
+                      .pickImageFromCamera(context);
+                },
+                icon: SvgPicture.asset(
+                  'assets/svg/camera.svg',
+                  color: Colors.orange,
+                ),
               ),
-            ));
-      });
+              const SizedBox(
+                width: 100,
+              ),
+              // Icon  Galalery...!
+              IconButton(
+                iconSize: 40,
+                highlightColor: Colors.white,
+                onPressed: () {
+                  BlocProvider.of<CameraCubit>(context)
+                      .pickImageFromGalery(context);
+                },
+                icon: SvgPicture.asset(
+                  'assets/svg/gallery.svg',
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }
 
 void displayBottomSheetForProfile(BuildContext context) {

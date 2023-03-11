@@ -66,7 +66,6 @@ class _AddPageState extends State<AddPage> {
           if (cameraState is successPost) {
             isPosted = cameraState.isPosted;
           }
-
           return add(
               context, cam, gal, image, choosed, serves, time, items, isPosted);
         },
@@ -104,12 +103,8 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
         shadowColor: Colors.orange,
         leading: GestureDetector(
           onTap: () {
-            // controlerMain!.clear();
-            // controllerBody!.clear();
             headText = null;
             bodyTextt = null;
-            // itNameQuant = [];
-            // items = null;
             BlocProvider.of<CameraCubit>(context).clearItems(context);
           },
           child: Icon(
@@ -118,7 +113,6 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
             size: 20.r,
           ),
         ),
-
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: const Radius.circular(40).r,
@@ -520,8 +514,8 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                               ),
                               child: SvgPicture.asset(
                                 'assets/svg/People.svg',
-                                width: 30.w,
-                                height: 30.h,
+                                width: 25.w,
+                                height: 25.h,
                                 color: Colors.orange.shade400,
                               ),
                             ),
@@ -541,8 +535,8 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                                 ),
                                 Container(
                                   padding: EdgeInsets.symmetric(
-                                    horizontal: 15.w,
-                                    vertical: 8.h,
+                                    horizontal: 10.w,
+                                    vertical: 5.h,
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -593,8 +587,8 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                               child: SvgPicture.asset(
                                 'assets/svg/Hour.svg',
                                 color: Colors.orange.shade400,
-                                width: 30.w,
-                                height: 30.h,
+                                width: 25.w,
+                                height: 25.h,
                               ),
                             ),
                             title: Row(
@@ -613,8 +607,8 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                                 ),
                                 Container(
                                   padding: EdgeInsets.symmetric(
-                                    horizontal: 15.w,
-                                    vertical: 8.h,
+                                    horizontal: 10.w,
+                                    vertical: 5.h,
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,

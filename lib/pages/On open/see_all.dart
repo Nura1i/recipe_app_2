@@ -13,7 +13,6 @@ class seeAllMilliyTaom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
@@ -61,7 +60,6 @@ class seeAllRecentAdded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
@@ -74,15 +72,15 @@ class seeAllRecentAdded extends StatelessWidget {
           backgroundColor: Colors.orange,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-              bottomLeft: const Radius.circular(30).r,
-              bottomRight: const Radius.circular(30).r,
+              bottomLeft: const Radius.circular(40).r,
+              bottomRight: const Radius.circular(40).r,
             ),
           ),
           title: Text(
             translation(context).recentAddedRecipes,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16.sp,
+              fontSize: 15.sp,
               fontWeight: FontWeight.bold,
               fontFamily: "Lora",
             ),

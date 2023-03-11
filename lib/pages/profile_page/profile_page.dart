@@ -22,294 +22,191 @@ class ProfilePage extends StatelessWidget {
     ScreenUtil.init(context, designSize: const Size(360, 690));
     var size = MediaQuery.of(context).size;
     return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
-            extendBodyBehindAppBar: false,
-
-            // AppBar qismi...!
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(50.h),
-              child: AppBar(
-                scrolledUnderElevation: 10,
-                toolbarHeight: 50.h,
-                shadowColor: const Color.fromARGB(255, 255, 255, 255),
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: const Radius.circular(40).r,
-                    bottomRight: const Radius.circular(40).r,
-                  ),
-                ),
-                title: Text(
-                  translation(context).homePage,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14.sp,
-                    fontFamily: "Lora",
-                    fontWeight: FontWeight.bold,
-                  ),
-                  //Theme.of(context).textTheme.bodyMedium,
-                ),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: IconButton(
-                      onPressed: () {
-                        z.toggle!();
-                      },
-                      icon: SvgPicture.asset(
-                        'assets/svg/ProfileUnion.svg',
-                        height: 6.h,
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
-                ],
-                centerTitle: true,
-                elevation: 0,
+      length: 2,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        extendBodyBehindAppBar: false,
+        // AppBar qismi...!
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50.h),
+          child: AppBar(
+            scrolledUnderElevation: 10,
+            toolbarHeight: 50.h,
+            shadowColor: const Color.fromARGB(255, 255, 255, 255),
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: const Radius.circular(20).r,
+                bottomRight: const Radius.circular(20).r,
               ),
             ),
-            body: NestedScrollView(
-                controller: nestedScroll,
-                body: Column(
+            title: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                return (!snapshot.hasData)
+                    ? const SizedBox()
+                    : Text(
+                        snapshot.data!['username'],
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14.sp,
+                          fontFamily: "Lora",
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+              },
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: IconButton(
+                  onPressed: () {
+                    z.toggle!();
+                  },
+                  icon: SvgPicture.asset(
+                    'assets/svg/ProfileUnion.svg',
+                    height: 6.h,
+                    color: Colors.black,
+                  ),
+                ),
+              )
+            ],
+            centerTitle: true,
+            elevation: 0,
+          ),
+        ),
+        body: NestedScrollView(
+          controller: nestedScroll,
+          body: Column(
+            children: [
+              TabBar(
+                labelStyle: TextStyle(
+                  fontSize: 13.sp,
+                  fontFamily: "Lora",
+                  fontWeight: FontWeight.bold,
+                ),
+                tabs: [
+                  // Recipes...!
+                  Tab(
+                    text: translation(context).recipes,
+                  ),
+                  // Saved Recipes...!
+                  Tab(
+                    text: translation(context).saved,
+                  ),
+                ],
+                unselectedLabelColor: Colors.black,
+                overlayColor: const MaterialStatePropertyAll(Colors.white),
+                labelColor: Colors.orange,
+                indicatorColor: Colors.orange,
+                indicatorWeight: 2,
+              ),
+              Expanded(
+                child: TabBarView(
                   children: [
-                    TabBar(
-                      labelStyle: TextStyle(
-                        fontSize: 14.sp,
-                        fontFamily: "Lora",
-                        fontWeight: FontWeight.bold,
-                      ),
-                      tabs: [
-                        // Recipes...!
-                        Tab(
-                          text: translation(context).recipes,
-                        ),
-                        // Saved Recipes...!
-                        Tab(
-                          text: translation(context).savedRecipes,
-                        ),
-                      ],
-                      unselectedLabelColor: Colors.black,
-                      overlayColor:
-                          const MaterialStatePropertyAll(Colors.white),
-                      labelColor: Colors.orange,
-                      indicatorColor: Colors.orange,
-                      indicatorWeight: 2,
-                      padding: const EdgeInsets.all(2),
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        children: [
-                          StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(FirebaseAuth.instance.currentUser!.uid)
-                                .snapshots(),
-                            builder: (context, snapshots) {
-                              return (snapshots.connectionState ==
-                                      ConnectionState.waiting)
-                                  ? const Center(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                  : snapshots.data!['recepts'] != null
-                                      ? GridView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: snapshots
-                                              .data!['recepts']!.length,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemBuilder: (contex, index) {
-                                            var data = snapshots
-                                                .data!['recepts'][index];
+                    StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .snapshots(),
+                      builder: (context, snapshots) {
+                        return (snapshots.connectionState ==
+                                ConnectionState.waiting)
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : snapshots.data!['recepts'] != null
+                                ? GridView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        snapshots.data!['recepts']!.length,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (contex, index) {
+                                      var data =
+                                          snapshots.data!['recepts'][index];
 
-                                            var dataUser = snapshots.data;
-                                            return showOwnPosts(data, dataUser);
-                                          },
-                                          gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 3,
-                                          ),
-                                        )
-                                      : const SizedBox();
-                            },
-                          ),
-                          StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(FirebaseAuth.instance.currentUser!.uid)
-                                .snapshots(),
-                            builder: (context, snapshots) {
-                              return (snapshots.connectionState ==
-                                      ConnectionState.waiting)
-                                  ? const Center(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                  : snapshots.data!['saved'] != null
-                                      ? GridView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount:
-                                              snapshots.data!['saved']!.length,
-                                          itemBuilder: (contex, index) {
-                                            var data =
-                                                snapshots.data!['saved'][index];
-                                            var dataUser = snapshots.data;
-                                            return showOwnPosts(data, dataUser);
-                                          },
-                                          gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 3,
-                                          ),
-                                        )
-                                      : const SizedBox();
-                            },
-                          ),
-                        ],
-                      ),
-                    )
+                                      var dataUser = snapshots.data;
+                                      return showOwnPosts(data, dataUser);
+                                    },
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                    ),
+                                  )
+                                : const SizedBox();
+                      },
+                    ),
+                    StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .snapshots(),
+                      builder: (context, snapshots) {
+                        return (snapshots.connectionState ==
+                                ConnectionState.waiting)
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : snapshots.data!['saved'] != null
+                                ? GridView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: snapshots.data!['saved']!.length,
+                                    itemBuilder: (contex, index) {
+                                      var data =
+                                          snapshots.data!['saved'][index];
+                                      var dataUser = snapshots.data;
+                                      return showOwnPosts(data, dataUser);
+                                    },
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                    ),
+                                  )
+                                : const SizedBox();
+                      },
+                    ),
                   ],
                 ),
-                headerSliverBuilder: (context, _) {
-                  return [
-                    SliverList(
-                      delegate: SliverChildListDelegate([
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 10.h),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  // Users Avtar...!
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(60).r,
-                                      border: Border.all(
-                                        width: 1.w,
-                                        color: Colors.grey.shade300,
-                                      ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 3,
-                                          blurRadius: 7,
-                                          offset: const Offset(0, 3),
-                                        ),
-                                      ],
-                                    ),
-                                    child: StreamBuilder(
-                                      stream: FirebaseFirestore.instance
-                                          .collection('users')
-                                          .doc(FirebaseAuth
-                                              .instance.currentUser!.uid)
-                                          .snapshots(),
-                                      builder: (context, snapshot) {
-                                        return (!snapshot.hasData)
-                                            ? const SizedBox()
-                                            : CircleAvatar(
-                                                foregroundImage: snapshot.data![
-                                                            'avatarImage'] !=
-                                                        null
-                                                    ? CachedNetworkImageProvider(
-                                                        snapshot.data![
-                                                            'avatarImage'],
-                                                      )
-                                                    : const CachedNetworkImageProvider(
-                                                        'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
-                                                      ),
-                                                radius: 60.r,
-                                                backgroundColor: Colors.white,
-                                              );
-                                      },
-                                    ),
+              )
+            ],
+          ),
+          headerSliverBuilder: (context, _) {
+            return [
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 10.h),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Users Avtar...!
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(60).r,
+                                  border: Border.all(
+                                    width: 1.w,
+                                    color: Colors.grey.shade300,
                                   ),
-                                  // Edit Profile...!
-                                  Container(
-                                    height: 45,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      border: Border.all(
-                                        width: 1.w,
-                                        color: Colors.orange,
-                                      ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      spreadRadius: 3,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3),
                                     ),
-                                    child: MaterialButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30).r,
-                                      ),
-                                      highlightColor: Colors.orange,
-                                      color: const Color.fromARGB(
-                                          255, 252, 252, 252),
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const EditProfilePage(),
-                                          ),
-                                        );
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10.w, vertical: 10.h),
-                                        child: Text(
-                                          translation(context).editprofile,
-                                          style: TextStyle(
-                                            color: Colors.orange,
-                                            fontSize: 13.sp,
-                                            fontFamily: "Lora",
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            // Users name text...!
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15, left: 15),
-                              child: StreamBuilder(
-                                stream: FirebaseFirestore.instance
-                                    .collection('users')
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                                    .snapshots(),
-                                builder: (context, snapshot) {
-                                  return (!snapshot.hasData)
-                                      ? const SizedBox()
-                                      : SizedBox(
-                                          child: Text(
-                                            snapshot.data!['username'],
-                                            style: TextStyle(
-                                              color: Colors.grey.shade800,
-                                              fontSize: 14.sp,
-                                              fontFamily: "Lora",
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        );
-                                },
-                              ),
-
-                              //  username1111 != null
-                              //     ? Text(
-                              //         username1111!,
-                              //         style:
-
-                              //     : const SizedBox(),
-                            ),
-                            // Users Bio Text...!
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15, top: 10),
-                              child: SizedBox(
-                                width: 150.w,
+                                  ],
+                                ),
                                 child: StreamBuilder(
                                   stream: FirebaseFirestore.instance
                                       .collection('users')
@@ -317,86 +214,169 @@ class ProfilePage extends StatelessWidget {
                                           .instance.currentUser!.uid)
                                       .snapshots(),
                                   builder: (context, snapshot) {
-                                    log('stream 3');
                                     return (!snapshot.hasData)
                                         ? const SizedBox()
-                                        : SizedBox(
-                                            child: Text(snapshot.data!['bio']),
+                                        : CircleAvatar(
+                                            foregroundImage: snapshot
+                                                        .data!['avatarImage'] !=
+                                                    null
+                                                ? CachedNetworkImageProvider(
+                                                    snapshot
+                                                        .data!['avatarImage'],
+                                                  )
+                                                : const CachedNetworkImageProvider(
+                                                    'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
+                                                  ),
+                                            radius: 50.r,
+                                            backgroundColor: Colors.white,
                                           );
                                   },
                                 ),
                               ),
-                            ),
-                            // Recipes, Saved, Likes, And Recipes & Saved Recipes...!
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(height: 20.h),
-                                StreamBuilder(
-                                  stream: FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(FirebaseAuth
-                                          .instance.currentUser!.uid)
-                                      .snapshots(),
-                                  builder: (context, snapshot) {
-                                    log('stream 4');
-                                    return (!snapshot.hasData)
-                                        ? const SizedBox()
-                                        : Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 15.w),
-                                            // Text Recipes, Saved, Likes...!
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                // Recipes...!
-                                                counter(
-                                                  snapshot.data!['recepts'] ==
-                                                          null
-                                                      ? '0'
-                                                      : snapshot
-                                                          .data!['recepts']
-                                                          .length,
-                                                  translation(context).recipes,
-                                                  context,
-                                                ),
-                                                // Saved...!
-                                                counter(
-                                                  snapshot.data!['saved'] ==
-                                                          null
-                                                      ? '0'
-                                                      : snapshot.data!['saved']
-                                                          .length,
-                                                  translation(context).saved,
-                                                  context,
-                                                ),
-                                                // Likes...!
-                                                counter(
-                                                  snapshot.data![
-                                                              'totalLikes'] ==
-                                                          null
-                                                      ? '0'
-                                                      : snapshot
-                                                          .data!['totalLikes']
-                                                          .length,
-                                                  translation(context).likes,
-                                                  context,
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                  },
+                              // Edit Profile...!
+                              MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30).r,
                                 ),
-                              ],
+                                highlightColor: Colors.white,
+                                color: const Color.fromARGB(255, 252, 252, 252),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const EditProfilePage(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  translation(context).editprofile,
+                                  style: TextStyle(
+                                    color: Colors.orange,
+                                    fontSize: 12.sp,
+                                    fontFamily: "Lora",
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Users name text...!
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15, left: 15),
+                          child: StreamBuilder(
+                            stream: FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              return (!snapshot.hasData)
+                                  ? const SizedBox()
+                                  : Text(
+                                      snapshot.data!['username'],
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14.sp,
+                                        fontFamily: "Lora",
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    );
+                            },
+                          ),
+                        ),
+                        // Users Bio Text...!
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: SizedBox(
+                            width: 150.w,
+                            child: StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                log('stream 3');
+                                return (!snapshot.hasData)
+                                    ? const SizedBox()
+                                    : Text(
+                                        snapshot.data!['bio'],
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 13.sp,
+                                          fontFamily: "Lora",
+                                        ),
+                                      );
+                              },
+                            ),
+                          ),
+                        ),
+                        // Recipes, Saved, Likes, And Recipes & Saved Recipes...!
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(height: 30.h),
+                            StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                log('stream 4');
+                                return (!snapshot.hasData)
+                                    ? const SizedBox()
+                                    : Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 15.w),
+                                        // Text Recipes, Saved, Likes...!
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            // Recipes...!
+                                            counter(
+                                              snapshot.data!['recepts'] == null
+                                                  ? '0'
+                                                  : snapshot
+                                                      .data!['recepts'].length,
+                                              translation(context).recipes,
+                                              context,
+                                            ),
+                                            // Saved...!
+                                            counter(
+                                              snapshot.data!['saved'] == null
+                                                  ? '0'
+                                                  : snapshot
+                                                      .data!['saved'].length,
+                                              translation(context).saved,
+                                              context,
+                                            ),
+                                            // Likes...!
+                                            counter(
+                                              snapshot.data!['totalLikes'] ==
+                                                      null
+                                                  ? '0'
+                                                  : snapshot.data!['totalLikes']
+                                                      .length,
+                                              translation(context).likes,
+                                              context,
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                              },
                             ),
                           ],
                         ),
-                      ]),
-                    )
-                  ];
-                })));
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ];
+          },
+        ),
+      ),
+    );
   }
 }
 
@@ -411,7 +391,7 @@ counter(count, String field, context) {
             field,
             style: TextStyle(
               color: Colors.black,
-              fontSize: 14.sp,
+              fontSize: 13.sp,
               fontFamily: "Lora",
               fontWeight: FontWeight.bold,
             ),
@@ -447,9 +427,7 @@ Widget showOwnPosts(idRecepts, dataUser) {
               itemCount: snapshots.data!.docs.length,
               itemBuilder: (context, index) {
                 var data = snapshots.data!.docs[index];
-
                 if (data['id'] == idRecepts) {
-                  //  BlocProvider.of<SavedCubit>(context).totalLikes(idRecepts);
                   return GestureDetector(
                     onTap: () async {
                       DocumentSnapshot userDoc = await FirebaseFirestore
@@ -457,14 +435,16 @@ Widget showOwnPosts(idRecepts, dataUser) {
                           .collection('users')
                           .doc(data['userId'])
                           .get();
-
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => recipeOpen(
-                              postData: data.data(), userData: userDoc),
+                            postData: data.data(),
+                            userData: userDoc,
+                          ),
                         ),
                       );
                     },
+                    // Post...!
                     child: Padding(
                       padding: const EdgeInsets.only(
                         left: 2,

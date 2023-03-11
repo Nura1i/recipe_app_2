@@ -34,8 +34,6 @@ class EditProfilePage extends StatelessWidget {
               ),
               centerTitle: true,
               elevation: 1,
-
-              // Theme.of(context).textTheme.bodySmall),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 20),

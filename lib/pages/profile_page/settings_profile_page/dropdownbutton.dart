@@ -163,6 +163,8 @@ class MenuItems {
   static onChanged(BuildContext context, MenuItem item) {
     switch (item) {
       case MenuItems.delete:
+
+        ///contextti tilga bervorish kereeee if warti bilan
         break;
       case MenuItems.logout:
         break;

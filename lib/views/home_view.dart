@@ -20,7 +20,6 @@ class HomeView2 extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     ScrollController controller = ScrollController();
-    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Theme.of(context).backgroundColor,

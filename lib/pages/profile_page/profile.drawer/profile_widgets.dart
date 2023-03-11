@@ -80,70 +80,69 @@ Widget LanguageForSheet(
     String? text1, String text2, Locale locale, BuildContext context) {
   var size = MediaQuery.of(context).size;
   return MaterialButton(
-      onPressed: () async {
-        Language? language;
-        AppProvider.setLLocale(context, locale);
-      },
-      child: Padding(
-        padding: EdgeInsets.all(2.0.sp),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Text(
-                  text1!,
-                ),
-                SizedBox(
-                  width: size.width / 30,
-                ),
-                Text(
-                  text2,
-                  style: Theme.of(context).textTheme.bodySmall,
-                )
-              ],
-            ),
-            const Divider(
-              thickness: 1,
-              color: Colors.orange,
-            )
-          ],
-        ),
-      ));
+    onPressed: () async {
+      Language? language;
+      AppProvider.setLLocale(context, locale);
+    },
+    child: Padding(
+      padding: EdgeInsets.all(2.0.sp),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text(
+                text1!,
+              ),
+              SizedBox(
+                width: size.width / 30,
+              ),
+              Text(
+                text2,
+                style: Theme.of(context).textTheme.bodySmall,
+              )
+            ],
+          ),
+          const Divider(
+            thickness: 1,
+            color: Colors.orange,
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 // Language Bottom Sheet Widget
 void displayBottomSheet(BuildContext context) {
   showModalBottomSheet(
-      backgroundColor: Theme.of(context).backgroundColor,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20.sp))),
-      context: context,
-      builder: (ctx) {
-        return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.30,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 10, top: 10, bottom: 20),
-                    child: Text(
-                      'Language',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ),
-                  LanguageForSheet(
-                      "🇺🇸", "English", const Locale('en'), context),
-                  LanguageForSheet(
-                      "🇷🇺", "Russian", const Locale('ru'), context),
-                  LanguageForSheet(
-                      "🇺🇿", "Uzbek", const Locale('uz'), context),
-                ],
+    backgroundColor: Theme.of(context).backgroundColor,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.sp))),
+    context: context,
+    builder: (ctx) {
+      return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.30,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10, top: 10, bottom: 20),
+                child: Text(
+                  'Language',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ),
-            ));
-      });
+              LanguageForSheet("🇺🇸", "English", const Locale('en'), context),
+              LanguageForSheet("🇷🇺", "Russian", const Locale('ru'), context),
+              LanguageForSheet("🇺🇿", "Uzbek", const Locale('uz'), context),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }
 
 // DrawerWidgetsListTile
@@ -155,30 +154,34 @@ Widget drawerlisttile(
   BuildContext context,
 ) {
   return ListTile(
-      title: Text(
-        text!,
-        style: Theme.of(context).textTheme.bodySmall,
+    title: Text(
+      text!,
+      style: Theme.of(context).textTheme.bodySmall,
+    ),
+    onTap: button,
+    trailing: Icon(
+      trailing,
+      color: Theme.of(context).focusColor,
+    ),
+    leading: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        gradient: LinearGradient(
+          begin: Alignment.center,
+          end: Alignment.topCenter,
+          colors: [
+            Colors.orange.shade100,
+            Colors.orange.shade200,
+            Colors.orange.shade300,
+            Colors.orange.shade700,
+          ],
+        ),
       ),
-      onTap: button,
-      trailing: Icon(
-        trailing,
-        color: Theme.of(context).focusColor,
+      child: Icon(
+        leading,
       ),
-      leading: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              gradient: LinearGradient(
-                  begin: Alignment.center,
-                  end: Alignment.topCenter,
-                  colors: [
-                    Colors.orange.shade100,
-                    Colors.orange.shade200,
-                    Colors.orange.shade300,
-                    Colors.orange.shade700,
-                  ])),
-          child: Icon(
-            leading,
-          )));
+    ),
+  );
 }
 
 // Log Out Page...!
@@ -218,6 +221,7 @@ Logoutdialog(BuildContext context) {
         ),
         actions: [
           MaterialButton(
+            highlightColor: Colors.white,
             color: Colors.grey.shade100,
             onPressed: () {
               Navigator.of(context).pop();
@@ -235,6 +239,7 @@ Logoutdialog(BuildContext context) {
             ),
           ),
           MaterialButton(
+            highlightColor: Colors.white,
             color: Colors.grey.shade100,
             onPressed: () {
               FireDatabaseService.signOutUser(context);
@@ -257,6 +262,7 @@ Logoutdialog(BuildContext context) {
   );
 }
 
+// About Dialog...!
 Aboutdialog(BuildContext context) {
   showDialog(
     context: context,
@@ -271,18 +277,20 @@ Aboutdialog(BuildContext context) {
         contentTextStyle: Theme.of(context).textTheme.bodySmall,
         backgroundColor: Theme.of(context).backgroundColor,
         shape: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: Colors.orange, width: 2)),
+          borderRadius: BorderRadius.circular(10).r,
+          borderSide: const BorderSide(color: Colors.orange, width: 2),
+        ),
         actions: [
           MaterialButton(
-              color: Colors.orange,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'Ok',
-                style: Theme.of(context).textTheme.bodySmall,
-              )),
+            color: Colors.orange,
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'Ok',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
         ],
       );
     },

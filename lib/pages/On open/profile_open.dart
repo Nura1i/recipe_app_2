@@ -23,7 +23,6 @@ class _profielOnOpenState extends State<profielOnOpen> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
@@ -46,13 +45,13 @@ class _profielOnOpenState extends State<profielOnOpen> {
             widget.data['username'] ?? 'username',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontFamily: "Lora",
               fontWeight: FontWeight.bold,
             ),
           ),
           centerTitle: true,
-          elevation: 0,
+          elevation: 1,
         ),
       ),
       body: ListView(
@@ -68,7 +67,7 @@ class _profielOnOpenState extends State<profielOnOpen> {
               Padding(
                 padding: const EdgeInsets.only(top: 20, bottom: 10),
                 child: CircleAvatar(
-                  radius: 55.r,
+                  radius: 50.r,
                   foregroundImage: CachedNetworkImageProvider(widget
                           .data['avatarImage'] ??
                       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
@@ -78,7 +77,7 @@ class _profielOnOpenState extends State<profielOnOpen> {
               Text(
                 widget.data['username'] ?? 'username',
                 style: TextStyle(
-                  color: Colors.grey.shade700,
+                  color: Colors.black,
                   fontSize: 16.sp,
                   fontFamily: "Lora",
                   fontWeight: FontWeight.bold,
@@ -86,11 +85,11 @@ class _profielOnOpenState extends State<profielOnOpen> {
               ),
               // Users Bio qismi...!
               Padding(
-                padding: const EdgeInsets.only(top: 5),
+                padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
                 child: Text(
                   widget.data['bio'] ?? '',
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.black,
                     fontSize: 14.sp,
                     fontFamily: "Lora",
                   ),
@@ -113,12 +112,13 @@ class _profielOnOpenState extends State<profielOnOpen> {
                     width: 80.w,
                   ),
                   counter(
-                      widget.data['totalLikes'] != null
-                          ? widget.data['totalLikes'].length.toString()
-                          : '0',
-                      translation(context).likes,
-                      //'Likes',
-                      context),
+                    widget.data['totalLikes'] != null
+                        ? widget.data['totalLikes'].length.toString()
+                        : '0',
+                    translation(context).likes,
+                    //'Likes',
+                    context,
+                  ),
                 ],
               ),
               SizedBox(height: 10.h),
@@ -127,13 +127,13 @@ class _profielOnOpenState extends State<profielOnOpen> {
                 children: [
                   Expanded(
                     child: SizedBox(
-                      height: 1.h,
+                      height: 2.h,
                       child: Container(
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              Colors.white,
                               Colors.black,
+                              Colors.white,
                             ],
                             begin: Alignment.centerRight,
                             end: Alignment.centerLeft,
@@ -144,13 +144,13 @@ class _profielOnOpenState extends State<profielOnOpen> {
                   ),
                   Expanded(
                     child: SizedBox(
-                      height: 1.h,
+                      height: 2.h,
                       child: Container(
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              Colors.white,
                               Colors.black,
+                              Colors.white,
                             ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
@@ -168,14 +168,15 @@ class _profielOnOpenState extends State<profielOnOpen> {
                       itemCount: widget.data['recepts'].length,
                       itemBuilder: (contex, index) {
                         return Padding(
-                          padding: const EdgeInsets.all(3.0),
+                          padding: const EdgeInsets.all(1),
                           child: showPersonsPosts(
                               widget.data['recepts'][index], widget.data),
                         );
                       },
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3),
+                        crossAxisCount: 3,
+                      ),
                     )
                   : const SizedBox(),
             ],
@@ -212,29 +213,23 @@ class _profielOnOpenState extends State<profielOnOpen> {
                           ),
                         );
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 2, right: 2),
-                        child: Container(
-                          height: 120.w,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: CachedNetworkImageProvider(
-                                data['photo'],
-                              ),
-                            ),
-                            // borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey,
+                      child: Container(
+                        height: 120.w,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1.w,
+                            color: Colors.grey.shade300,
                           ),
+                          borderRadius: BorderRadius.circular(8).r,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: CachedNetworkImageProvider(
+                              data['photo'],
+                            ),
+                          ),
+                          // borderRadius: BorderRadius.circular(10),
+                          color: Colors.grey,
                         ),
                       ),
                     );

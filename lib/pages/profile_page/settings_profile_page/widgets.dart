@@ -39,6 +39,8 @@ buildTextField(
       bottom: 25.0,
     ),
     child: TextField(
+      autocorrect: false,
+      enableSuggestions: false,
       textAlign: TextAlign.left,
       cursorColor: Colors.blueAccent,
       maxLines: maxlength == false ? 2 : 1,
@@ -46,7 +48,7 @@ buildTextField(
           ? 25
           : emaillength == false
               ? 35
-              : 50,
+              : 100,
       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
             fontSize: 13.sp,
             fontFamily: "Lora",
@@ -54,7 +56,8 @@ buildTextField(
           ),
       controller: controller,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.only(bottom: 3, left: 2),
+        isDense: false,
+        contentPadding: const EdgeInsets.only(bottom: 3, left: 5),
         labelText: labelText,
         labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontSize: 12.sp,

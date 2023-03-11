@@ -86,7 +86,6 @@ recentAdded(contex, data) {
 
 // Recent Added See All Page...!
 recentAddedForAll(context, data) {
-  ScreenUtil.init(context, designSize: const Size(360, 690));
   return StreamBuilder(
     stream: FirebaseFirestore.instance
         .collection('users')
@@ -115,14 +114,6 @@ recentAddedForAll(context, data) {
                   fit: BoxFit.cover),
               border: Border.all(width: 1.w, color: Colors.white),
               borderRadius: BorderRadius.circular(8).r,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 3,
-                  blurRadius: 5,
-                  offset: const Offset(0, 3), // changes position of shadow
-                ),
-              ],
             ),
           ),
         ),
