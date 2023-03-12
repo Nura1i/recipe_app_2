@@ -16,7 +16,6 @@ class openedCard extends StatefulWidget {
 class _openedCardState extends State<openedCard> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
@@ -41,6 +40,14 @@ class _openedCardState extends State<openedCard> {
               fontSize: 14.sp,
               fontFamily: "Lora",
               fontWeight: FontWeight.bold,
+            ),
+          ),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: const Icon(
+              Icons.arrow_back,
             ),
           ),
           centerTitle: true,

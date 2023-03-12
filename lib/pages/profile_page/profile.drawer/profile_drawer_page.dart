@@ -15,7 +15,6 @@ class CustomDrawer extends StatefulWidget {
 class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mediaQuery = MediaQuery.of(context);
     return Builder(builder: (_) {
       return ThemeSwitchingArea(
         child: Scaffold(

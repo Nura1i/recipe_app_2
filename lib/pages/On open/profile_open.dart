@@ -30,6 +30,14 @@ class _profielOnOpenState extends State<profielOnOpen> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h),
         child: AppBar(
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: const Icon(
+              Icons.arrow_back,
+            ),
+          ),
           scrolledUnderElevation: 10,
           toolbarHeight: 50.h,
           shadowColor: Colors.grey.shade100,

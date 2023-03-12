@@ -11,14 +11,13 @@ import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 FirebaseAuth auth = FirebaseAuth.instance;
 String uid = auth.currentUser!.uid.toString();
 Widget dropdown(BuildContext context) {
-  ScreenUtil.init(context, designSize: const Size(360, 690));
   return DropdownButtonHideUnderline(
     child: DropdownButton2(
       buttonHighlightColor: Colors.white,
       customButton: SvgPicture.asset(
         'assets/svg/ProfileUnion.svg',
         width: 22.w,
-        color: Theme.of(context).backgroundColor,
+        color: Colors.black,
       ),
       customItemsHeights: [
         ...List<double>.filled(MenuItems.firstItems.length, 48),
@@ -52,7 +51,9 @@ Widget dropdown(BuildContext context) {
                               shape: const StadiumBorder(),
                               behavior: SnackBarBehavior.floating,
                               margin: EdgeInsets.symmetric(
-                                  horizontal: 15.w, vertical: 20.h),
+                                horizontal: 15.w,
+                                vertical: 20.h,
+                              ),
                               backgroundColor: Colors.orange,
                               content: data!['avatarImage'] != null
                                   // Your Profile Image Delete...!

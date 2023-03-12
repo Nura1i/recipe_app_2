@@ -12,7 +12,6 @@ recentAdded(contex, data) {
         .doc(data['userId'])
         .snapshots(),
     builder: (context, snapshot) {
-      ScreenUtil.init(context, designSize: const Size(360, 690));
       final userData = snapshot.data;
 
       return GestureDetector(
@@ -63,6 +62,7 @@ recentAdded(contex, data) {
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: SizedBox(
                     width: data['head'].toString().length > 22 ? 250 : null,
+                    height: 20.h,
                     child: Text(
                       data['head'],
                       style: TextStyle(
@@ -95,10 +95,12 @@ recentAddedForAll(context, data) {
       final userData = snapshot.data;
       return GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) =>
-                recipeOpen(postData: data, userData: userData),
-          ));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>
+                  recipeOpen(postData: data, userData: userData),
+            ),
+          );
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.w),
@@ -114,6 +116,14 @@ recentAddedForAll(context, data) {
                   fit: BoxFit.cover),
               border: Border.all(width: 1.w, color: Colors.white),
               borderRadius: BorderRadius.circular(8).r,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 3,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3), // changes position of shadow
+                ),
+              ],
             ),
           ),
         ),

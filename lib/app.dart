@@ -18,6 +18,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppProvider extends StatefulWidget {
   final initThem;
+
   const AppProvider({
     this.initThem,
     super.key,
@@ -35,7 +36,6 @@ class AppProvider extends StatefulWidget {
 
 class _AppProviderState extends State<AppProvider> {
   @override
-  @override
   Locale? _locale;
   @override
   ssetLocale(Locale newLocale) {
@@ -52,10 +52,7 @@ class _AppProviderState extends State<AppProvider> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-      context,
-      designSize: const Size(390, 870),
-    );
+    ScreenUtil.init(context, designSize: const Size(360, 690));
 
     return MultiBlocProvider(
       providers: [
@@ -68,7 +65,6 @@ class _AppProviderState extends State<AppProvider> {
         BlocProvider(
           create: (context) => ListPostCubit(),
         ),
-  
         BlocProvider(
           create: (context) => SavedCubit(),
         ),
@@ -90,21 +86,24 @@ class _AppProviderState extends State<AppProvider> {
         initTheme: widget.initThem,
         builder: (_, myTheme) {
           return MaterialApp(
-              themeMode: ThemeMode.system,
-              debugShowCheckedModeBanner: false,
-              title: 'Recipe App',
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
-              locale: _locale,
-              theme: myTheme,
-              home: FutureBuilder(
-                  future: Prefs.loadData<String>(key: 'token'),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData && snapshot.data != null) {
-                      return const MenuPage();
-                    }
-                    return const LanguageIntroPage();
-                  }));
+            themeMode: ThemeMode.system,
+            color: Colors.orange,
+            debugShowCheckedModeBanner: false,
+            title: 'Cooking Uno',
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: _locale,
+            theme: myTheme,
+            home: FutureBuilder(
+              future: Prefs.loadData<String>(key: 'token'),
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data != null) {
+                  return const MenuPage();
+                }
+                return const LanguageIntroPage();
+              },
+            ),
+          );
         },
       ),
     );

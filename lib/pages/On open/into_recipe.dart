@@ -76,9 +76,17 @@ class _recipeOpenState extends State<recipeOpen> {
           widget.postData['categorie'] ?? '',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 16.sp,
+            fontSize: 15.sp,
             fontFamily: "Lora",
             fontWeight: FontWeight.bold,
+          ),
+        ),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: const Icon(
+            Icons.arrow_back,
           ),
         ),
         elevation: 0,

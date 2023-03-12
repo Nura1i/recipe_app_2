@@ -42,7 +42,7 @@ class EditProfilePage extends StatelessWidget {
               ],
               // icon Back...!
               leading: IconButton(
-                highlightColor:Theme.of(context).backgroundColor,
+                highlightColor: Theme.of(context).backgroundColor,
                 icon: const Icon(
                   Icons.arrow_back,
                   color: Colors.black,
@@ -212,7 +212,7 @@ class EditProfilePage extends StatelessWidget {
                     highlightColor: Colors.green,
                     color: Colors.green,
                     child: Text(
-                      translation(context).saved,
+                      translation(context).save,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 13.sp,

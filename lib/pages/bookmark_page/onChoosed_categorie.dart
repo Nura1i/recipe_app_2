@@ -45,6 +45,14 @@ class onChoosedCategorie extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: const Icon(
+              Icons.arrow_back,
+            ),
+          ),
           centerTitle: true,
           elevation: 0,
         ),

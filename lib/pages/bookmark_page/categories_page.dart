@@ -17,7 +17,7 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
   categoria(List response, List response4, List response2, List response3) {
     List<Widget> ItemsList = [];
     ItemsList.add(
-      SizedBox(width: 10.w),
+      SizedBox(width: 5.w),
     );
     var item;
     for (var card in response) {
@@ -87,8 +87,9 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
         itemCount: ItemsList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
                   builder: (context) {
                     return onChoosedCategorie(
                       categorie1: response4[index - 1],
@@ -97,9 +98,11 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
                       categorie3: response3[index - 1],
                     );
                   },
-                ));
-              },
-              child: ItemsList[index]);
+                ),
+              );
+            },
+            child: ItemsList[index],
+          );
         },
       ),
     );
@@ -140,9 +143,7 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
         categoria(responseList!, CATEGORIA_DATA_EN, CATEGORIA_DATA_RU,
             CATEGORIA_DATA_UZ),
         categoria(responseList2!, CATEGORIA_DATA_DISERT_EN,
-            CATEGORIA_DATA_DISERT_RU, CATEGORIA_DATA_DISERT_UZ)
-        //  categoria(responseList!,),
-        // categoria(responseList2!),
+            CATEGORIA_DATA_DISERT_RU, CATEGORIA_DATA_DISERT_UZ),
       ],
     );
   }

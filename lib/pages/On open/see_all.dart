@@ -38,6 +38,14 @@ class seeAllMilliyTaom extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: const Icon(
+              Icons.arrow_back,
+            ),
+          ),
           centerTitle: true,
           elevation: 0,
         ),
@@ -83,6 +91,14 @@ class seeAllRecentAdded extends StatelessWidget {
               fontSize: 15.sp,
               fontWeight: FontWeight.bold,
               fontFamily: "Lora",
+            ),
+          ),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: const Icon(
+              Icons.arrow_back,
             ),
           ),
           centerTitle: true,
@@ -139,7 +155,6 @@ class seeAllTopCreators extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
@@ -160,9 +175,17 @@ class seeAllTopCreators extends StatelessWidget {
             translation(context).popularShef,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16.sp,
+              fontSize: 15.sp,
               fontFamily: "Lora",
               fontWeight: FontWeight.bold,
+            ),
+          ),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: const Icon(
+              Icons.arrow_back,
             ),
           ),
           centerTitle: true,

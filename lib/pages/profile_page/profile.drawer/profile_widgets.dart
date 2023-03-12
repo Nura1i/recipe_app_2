@@ -2,59 +2,100 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/app.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
-import 'package:recipe_app/utils/shared_pref/language_prefs/language.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/utils/shared_pref/preferences.dart';
 
 ThemeBottomSheet(BuildContext context, light) {
   showModalBottomSheet(
-      backgroundColor: Theme.of(context).backgroundColor,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20.r))),
-      context: context,
-      builder: (ctx) {
-        return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.20.h,
-            child: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, top: 10, bottom: 20),
-                    child: Text(
-                      'Theme',
-                      style: Theme.of(context).textTheme.bodySmall,
+    backgroundColor: Theme.of(context).backgroundColor,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(40.r),
+      ),
+    ),
+    context: context,
+    builder: (ctx) {
+      return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.25.h,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 20),
+                  child: Text(
+                    translation(context).theme,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 15.sp,
+                          fontFamily: "Lora",
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+              ),
+              themeWidget(
+                'light',
+                'light',
+                'Light',
+                Icons.sunny,
+              ),
+              // Dvider...!
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 1.h,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.black,
+                              Colors.white,
+                            ],
+                            begin: Alignment.centerRight,
+                            end: Alignment.centerLeft,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  themeWidget(
-                    'light',
-                    'light',
-                    'Light',
-                    Icons.sunny,
+                  Expanded(
+                    child: SizedBox(
+                      height: 1.h,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.black,
+                              Colors.white,
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  const Divider(
-                    thickness: 1,
-                    color: Colors.orange,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  themeWidget(
-                    'dark',
-                    'dark',
-                    'Dark',
-                    Icons.dark_mode,
-                  ),
-                  const Divider(
-                    thickness: 1,
-                    color: Colors.orange,
-                  ),
-                ])));
-      });
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              themeWidget(
+                'dark',
+                'dark',
+                'Dark',
+                Icons.dark_mode,
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }
 
 // Theme for Widgets
@@ -79,20 +120,28 @@ themeWidget(
           ThemeSwitcher.of(context).changeTheme(theme: theme);
           Navigator.of(context).pop();
         },
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              color: Theme.of(context).focusColor,
-            ),
-            const SizedBox(
-              width: 3,
-            ),
-            Text(
-              themename,
-              style: Theme.of(context).textTheme.bodySmall,
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15, bottom: 10),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                color: Theme.of(context).focusColor,
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              Text(
+                // translation(context).accept,
+                themename,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 14.sp,
+                      fontFamily: "Lora",
+                      fontWeight: FontWeight.bold,
+                    ),
+              )
+            ],
+          ),
         ),
       );
     },
@@ -105,8 +154,10 @@ Widget LanguageForSheet(
   var size = MediaQuery.of(context).size;
   return MaterialButton(
     onPressed: () async {
-      Language? language;
       AppProvider.setLLocale(context, locale);
+      setLocale(
+        locale.toString(),
+      );
     },
     child: Padding(
       padding: EdgeInsets.all(2.0.sp),
@@ -116,19 +167,61 @@ Widget LanguageForSheet(
             children: [
               Text(
                 text1!,
+                style: TextStyle(fontSize: 18.sp),
               ),
               SizedBox(
                 width: size.width / 30,
               ),
+              // Tilni Tanlash Style qismi ...!
               Text(
                 text2,
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 14.sp,
+                      fontFamily: "Lora",
+                      fontWeight: FontWeight.bold,
+                    ),
               )
             ],
           ),
-          const Divider(
-            thickness: 1,
-            color: Colors.orange,
+          SizedBox(height: 10.h),
+          // Dvider...!
+          Row(
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: 1.h,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black,
+                          Colors.white,
+                        ],
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: 1.h,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black,
+                          Colors.white,
+                        ],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -141,26 +234,52 @@ void displayBottomSheet(BuildContext context) {
   showModalBottomSheet(
     backgroundColor: Theme.of(context).backgroundColor,
     shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.sp))),
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(40.r),
+      ),
+    ),
     context: context,
     builder: (ctx) {
       return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.30,
+        height: MediaQuery.of(context).size.height * 0.35,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 10, bottom: 20),
-                child: Text(
-                  'Language',
-                  style: Theme.of(context).textTheme.bodySmall,
+              // Text Language...!
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 20),
+                  child: Text(
+                    translation(context).language,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 14.sp,
+                          fontFamily: "Lora",
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
                 ),
               ),
-              LanguageForSheet("🇺🇸", "English", const Locale('en'), context),
-              LanguageForSheet("🇷🇺", "Russian", const Locale('ru'), context),
-              LanguageForSheet("🇺🇿", "Uzbek", const Locale('uz'), context),
+              // Tilni Tanlash qismi...!
+              LanguageForSheet(
+                "🇺🇸",
+                "English",
+                const Locale('en'),
+                context,
+              ),
+              LanguageForSheet(
+                "🇷🇺",
+                "Русский",
+                const Locale('ru'),
+                context,
+              ),
+              LanguageForSheet(
+                "🇺🇿",
+                "O'zbekcha",
+                const Locale('uz'),
+                context,
+              ),
             ],
           ),
         ),
@@ -239,8 +358,8 @@ Logoutdialog(BuildContext context) {
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15).r,
           borderSide: BorderSide(
-            color: Colors.white,
-            width: 2.w,
+            color: Colors.transparent,
+            width: 1.w,
           ),
         ),
         actions: [
@@ -251,16 +370,12 @@ Logoutdialog(BuildContext context) {
               Navigator.of(context).pop();
             },
             // Text Cancel...!
-            child: Text(
-              translation(context).cancel,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 13.sp,
-                fontFamily: "Lora",
-                fontWeight: FontWeight.bold,
-              ),
-              //Theme.of(context).textTheme.bodySmall,
-            ),
+            child: Text(translation(context).cancel,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 13.sp,
+                      fontFamily: "Lora",
+                      fontWeight: FontWeight.bold,
+                    )),
           ),
           MaterialButton(
             highlightColor: Colors.white,
@@ -271,13 +386,12 @@ Logoutdialog(BuildContext context) {
             // Text Sing Out...!
             child: Text(
               translation(context).signOut,
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: 13.sp,
-                fontFamily: "Lora",
-                fontWeight: FontWeight.bold,
-              ),
-              //Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: Colors.red,
+                    fontSize: 13.sp,
+                    fontFamily: "Lora",
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
           ),
         ],
@@ -304,12 +418,11 @@ Aboutdialog(BuildContext context) {
         contentTextStyle: Theme.of(context).textTheme.bodySmall,
         backgroundColor: Theme.of(context).backgroundColor,
         shape: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10).r,
-          borderSide: const BorderSide(color: Colors.orange, width: 2),
+          borderRadius: BorderRadius.circular(15).r,
         ),
         actions: [
           MaterialButton(
-            color: Colors.orange,
+            color: Colors.grey.shade200,
             onPressed: () {
               Navigator.of(context).pop();
             },

@@ -6,7 +6,6 @@ import 'package:recipe_app/pages/On%20open/into_card.dart';
 
 // Uzbek National recipes Homedagi ko'rinish qismi...!
 Widget cardView(BuildContext context, Post post) {
-  ScreenUtil.init(context, designSize: const Size(360, 690));
   final cards = post;
   return Column(
     children: [

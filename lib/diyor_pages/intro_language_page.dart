@@ -114,6 +114,7 @@ class _LanguageIntroPageState extends State<LanguageIntroPage>
                       Language? language;
                       Locale locale = Locale(value.data);
                       AppProvider.setLLocale(context, locale);
+                      setLocale(locale.toString());
                       setState(() {});
                     },
                   ),

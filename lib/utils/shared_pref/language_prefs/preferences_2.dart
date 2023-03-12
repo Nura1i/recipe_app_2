@@ -10,6 +10,7 @@ const String UZBEK = 'uz';
 Future<Locale> setLocale(String languageCode) async {
   SharedPreferences _prefs = await SharedPreferences.getInstance();
   await _prefs.setString(LAGUAGE_CODE, languageCode);
+
   return _locale(languageCode);
 }
 
@@ -26,7 +27,7 @@ Locale _locale(String languageCode) {
     case RUSSIAN:
       return const Locale(RUSSIAN, "");
     case UZBEK:
-      return const Locale(UZBEK, " ");
+      return const Locale(UZBEK, "");
     default:
       return const Locale(RUSSIAN, '');
   }

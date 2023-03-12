@@ -14,12 +14,10 @@
 //     bodySmall: const TextStyle(color: Colors.black),
 //     titleLarge: const TextStyle(color: Colors.black));
 
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
- TextTheme darkTextTheme = TextTheme(
+TextTheme darkTextTheme = TextTheme(
     bodyText1: TextStyle(
         fontSize: 10.sp,
         fontWeight: FontWeight.w600,

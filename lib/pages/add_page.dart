@@ -107,10 +107,9 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
             bodyTextt = null;
             BlocProvider.of<CameraCubit>(context).clearItems(context);
           },
-          child: Icon(
-            Icons.arrow_back_ios,
+          child: const Icon(
+            Icons.arrow_back,
             color: Colors.white,
-            size: 20.r,
           ),
         ),
         shape: RoundedRectangleBorder(
@@ -127,6 +126,7 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
             fontWeight: FontWeight.bold,
           ),
         ),
+
         centerTitle: true,
         foregroundColor: Colors.white,
         backgroundColor: Colors.orange,
