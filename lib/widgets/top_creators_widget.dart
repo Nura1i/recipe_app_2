@@ -43,16 +43,19 @@ topCreator(contex, data, index) {
                 SizedBox(
                   height: 5.h,
                 ),
-                Text(
-                  data['username'] ?? 'username',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Lora",
-                    overflow: TextOverflow.ellipsis,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Text(
+                    data['username'] ?? 'username',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Lora",
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 )
               ],
             ),

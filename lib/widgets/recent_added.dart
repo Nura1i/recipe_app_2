@@ -62,7 +62,7 @@ recentAdded(contex, data) {
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: SizedBox(
                     width: data['head'].toString().length > 22 ? 250 : null,
-                    height: 20.h,
+                    height: 18.h,
                     child: Text(
                       data['head'],
                       style: TextStyle(
