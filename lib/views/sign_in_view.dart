@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:recipe_app/admin/admin_panel.dart';
 import 'package:recipe_app/blocs/login/sign_up_cubit.dart';
 import 'package:recipe_app/pages/sign_up_page.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
@@ -141,6 +142,16 @@ class SignInView extends StatelessWidget {
                                     ),
                                     child: GestureDetector(
                                       onTap: () {
+                                        if (signUpEmail.text ==
+                                                'nurali666666@mail.com' &&
+                                            signUpPassword.text ==
+                                                'nurali666666') {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                const adminPanel(),
+                                          ));
+                                        }
                                         // Text Email is empty...!
                                         if (signUpEmail.text == '') {
                                           ScaffoldMessenger.of(context)

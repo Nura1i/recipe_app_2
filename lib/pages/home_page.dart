@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_app/blocs/card%20block/list_post_cubit.dart';
@@ -28,12 +29,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: BlocBuilder<ListPostCubit, ListPostState>(
         builder: (BuildContext context, ListPostState state) {
           if (state is ListPostLoaded) {
             posts = state.posts!;
             Topusers = state.result;
+
             return HomeView2(
               topUsers: Topusers,
             );
@@ -49,13 +51,24 @@ class _HomePageState extends State<HomePage> {
 
 // Uzbek National recipes Homedagi ko'rinish qismi...!
 Widget builder(List<Post> items) {
-  return ListView.builder(
-    physics: const BouncingScrollPhysics(),
-    scrollDirection: Axis.horizontal,
+  return CarouselSlider.builder(
     itemCount: items.length,
-    itemBuilder: (contex, index) {
-      return cardView(contex, posts[index]);
-    },
+    itemBuilder: (context, index, realIndex) => cardView(context, posts[index]),
+    options: CarouselOptions(
+      height: 400,
+      aspectRatio: 16 / 9,
+      viewportFraction: 0.8,
+      initialPage: 0,
+      enableInfiniteScroll: true,
+      reverse: false,
+      autoPlay: true,
+      autoPlayInterval: const Duration(seconds: 3),
+      autoPlayAnimationDuration: const Duration(milliseconds: 800),
+      autoPlayCurve: Curves.fastOutSlowIn,
+      enlargeCenterPage: true,
+      enlargeFactor: 0.3,
+      scrollDirection: Axis.horizontal,
+    ),
   );
 }
 

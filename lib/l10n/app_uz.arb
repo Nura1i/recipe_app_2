@@ -1,4 +1,6 @@
-{    
+{ 
+  "chooseCategorie": "Kategoriani tanglang",
+  "deserts": "Desertlar",
   "next": "Keyingi",
   "back": "Orqaga",
   "done": "Bajarildi",
@@ -32,8 +34,8 @@
   "unread": "O'qilmagan",
   "read": "O'qing",
   "theme": "Mavzu",
-  "light": "Nur",
-  "dark": "Qorong'i",
+  "light": "Kunduzgi",
+  "dark": "Kechgi",
   "logOut": "Chiqish",
   "language": "Til",
   "seeAll": "Hammasini ko'rish",

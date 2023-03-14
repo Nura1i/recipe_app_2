@@ -81,8 +81,21 @@ Widget dropdown(BuildContext context) {
                             ),
                           );
                         },
-                        child: MenuItems.buildItem(context, item),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              translation(context).deletePost,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            const Icon(
+                              Icons.delete,
+                              color: Colors.black,
+                            )
+                          ],
+                        ),
                       );
+                //MenuItems.buildItem(context, item),
               },
             ),
           ),
@@ -92,15 +105,25 @@ Widget dropdown(BuildContext context) {
           (item) => DropdownMenuItem<MenuItem>(
             value: item,
             child: TextButton(
-              style: ButtonStyle(
-                overlayColor:
-                    MaterialStateColor.resolveWith((states) => Colors.white),
-              ),
-              onPressed: () {
-                Logoutdialog(context);
-              },
-              child: MenuItems.buildItem(context, item),
-            ),
+                style: ButtonStyle(
+                  overlayColor:
+                      MaterialStateColor.resolveWith((states) => Colors.white),
+                ),
+                onPressed: () {
+                  Logoutdialog(context);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      translation(context).logOut,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    Icon(item.icon, color: Colors.black),
+                  ],
+                )
+                //MenuItems.buildItem(context, item),
+                ),
           ),
         ),
       ],
@@ -113,7 +136,7 @@ Widget dropdown(BuildContext context) {
       dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
       dropdownDecoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15).r,
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
       ),
       dropdownElevation: 8,
       offset: const Offset(0, 8),
@@ -141,25 +164,6 @@ class MenuItems {
     icon: Icons.delete,
   );
   static const logout = MenuItem(text: 'Log Out', icon: Icons.logout);
-  static Widget buildItem(BuildContext context, MenuItem item) {
-    return Row(
-      children: [
-        Icon(item.icon, color: Colors.black),
-        // Theme.of(context).iconTheme.color),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(
-          item.text,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                color: Colors.black,
-                fontSize: 12.sp,
-                fontFamily: 'Lora',
-              ),
-        ),
-      ],
-    );
-  }
 
   static onChanged(BuildContext context, MenuItem item) {
     switch (item) {

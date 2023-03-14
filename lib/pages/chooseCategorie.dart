@@ -38,9 +38,7 @@ class chooseCategorie extends StatelessWidget {
       responseList = CATEGORIA_DATA_UZ;
       responseList2 = CATEGORIA_DATA_DISERT_UZ;
     }
-    for (var element in responseList2!) {
-      responseList!.add(element);
-    }
+
     return BlocBuilder<CameraCubit, CameraState>(
       builder: (context, cameraState) {
         if (cameraState is loadingg) {
@@ -51,9 +49,21 @@ class chooseCategorie extends StatelessWidget {
             appBar: AppBar(
               automaticallyImplyLeading: !load!,
               elevation: 0,
+              centerTitle: true,
+              title: load == false
+                  ? Text(
+                      translation(context).chooseCategorie,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w100,
+                          fontFamily: 'Lora'),
+                    )
+                  : const Text(''),
               shadowColor: Colors.orange,
               backgroundColor: Colors.orange,
               foregroundColor: Colors.white,
+              toolbarHeight: 40,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30),
@@ -63,13 +73,66 @@ class chooseCategorie extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 load == false
-                    ? const Text(
-                        'Choose Catergorie',
-                        style: TextStyle(color: Colors.black, fontSize: 30),
-                      )
-                    : const Text(''),
+                    ? chooseCategoriWidget(responseList!, context,
+                        [Colors.orange, Colors.deepOrangeAccent])
+                    : const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.orange,
+                        ),
+                      ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    translation(context).deserts,
+                    style: const TextStyle(
+                        fontFamily: 'Lora',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 2.h,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.orange,
+                                Colors.white,
+                              ],
+                              begin: Alignment.centerRight,
+                              end: Alignment.centerLeft,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        height: 2.h,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.orange,
+                                Colors.white,
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 load == false
-                    ? chooseCategoriWidget(responseList!, context)
+                    ? chooseCategoriWidget(responseList2!, context, [
+                        Colors.red.shade400,
+                        Colors.deepOrangeAccent,
+                      ])
                     : const Center(
                         child: CircularProgressIndicator(
                           color: Colors.orange,
@@ -81,7 +144,7 @@ class chooseCategorie extends StatelessWidget {
     );
   }
 
-  chooseCategoriWidget(List response, context) {
+  chooseCategoriWidget(List response, context, List<Color> lnColor) {
     List<Widget> ItemsList = [];
 
     for (var card in response) {
@@ -119,7 +182,7 @@ class chooseCategorie extends StatelessWidget {
           },
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.deepOrangeAccent,
+              gradient: LinearGradient(colors: lnColor),
               borderRadius: BorderRadius.circular(20),
             ),
             margin: const EdgeInsets.only(top: 20, left: 4),
@@ -143,9 +206,11 @@ class chooseCategorie extends StatelessWidget {
                   child: Text(
                     card["name"],
                     style: const TextStyle(
-                        fontSize: 17,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800),
+                      fontSize: 15,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Lora",
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),

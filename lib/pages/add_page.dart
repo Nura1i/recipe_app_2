@@ -95,7 +95,7 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
       );
     },
     child: Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       extendBodyBehindAppBar: true,
       // AppBar...!
       appBar: AppBar(
@@ -117,13 +117,15 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
             bottom: const Radius.circular(40).r,
           ),
         ),
-        title: Text(
-          translation(context).createRecipe,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16.sp,
-            fontFamily: "Lora",
-            fontWeight: FontWeight.bold,
+        title: GestureDetector(
+          child: Text(
+            translation(context).createRecipe,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.sp,
+              fontFamily: "Lora",
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
 

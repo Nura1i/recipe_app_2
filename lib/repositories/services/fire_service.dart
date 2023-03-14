@@ -136,6 +136,11 @@ class FireDatabaseService {
       List likes = postDoc['totalLikes'] ?? [];
 
       await _databaseFirestore.collection('Recipes').doc(postId['id']).delete();
+      await _databaseFirestore
+          .collection('BlokRecipes')
+          .doc(postId['id'])
+          .delete();
+      log('deleted');
       await _storage.refFromURL(postId['photo']).delete();
       DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection('users')
@@ -164,6 +169,13 @@ class FireDatabaseService {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  static Future cancelBlokPost(postId) async {
+    await _databaseFirestore
+        .collection('BlokRecipes')
+        .doc(postId['id'])
+        .delete();
   }
 
   static Future topCreators() async {
@@ -344,6 +356,37 @@ class FireDatabaseService {
     } catch (e) {
       log(e.toString());
       return isDeleted;
+    }
+    return null;
+  }
+
+  static Future<bool?> blockRecipes(
+      {required recipeData, required rule}) async {
+    bool userSaved = false;
+    try {
+      recipeModel recipe = recipeModel(
+        photo: recipeData['photo'],
+        totalLike: rule,
+        //totalLikes: recipeData['totalLikes'],
+        cookTime: recipeData['cookTime'],
+        head: recipeData['head'],
+        categorie: recipeData['categorie'],
+        serves: recipeData['serves'],
+        userId: recipeData['userId'],
+        id: recipeData['id'],
+        text: recipeData['text'],
+        items: recipeData['items'],
+      );
+
+      await _databaseFirestore
+          .collection('BlokRecipes')
+          .doc(recipeData['id'])
+          .set(recipe.toJson());
+
+      userSaved = true;
+      return userSaved;
+    } catch (e) {
+      log(e.toString());
     }
     return null;
   }

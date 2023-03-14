@@ -1,4 +1,6 @@
-{
+{ 
+  "chooseCategorie": "Choose Categorie",
+  "deserts": "Desserts",
   "next": "Next",
   "back": "Back",
   "done": "Done",

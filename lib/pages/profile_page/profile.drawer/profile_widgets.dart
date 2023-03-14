@@ -8,7 +8,7 @@ import 'package:recipe_app/utils/shared_pref/preferences.dart';
 
 ThemeBottomSheet(BuildContext context, light) {
   showModalBottomSheet(
-    backgroundColor: Theme.of(context).backgroundColor,
+    backgroundColor: Theme.of(context).colorScheme.background,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         top: Radius.circular(40.r),
@@ -39,7 +39,14 @@ ThemeBottomSheet(BuildContext context, light) {
               themeWidget(
                 'light',
                 'light',
-                'Light',
+                Text(
+                  translation(context).light,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontSize: 14.sp,
+                        fontFamily: "Lora",
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
                 Icons.sunny,
               ),
               // Dvider...!
@@ -87,7 +94,14 @@ ThemeBottomSheet(BuildContext context, light) {
               themeWidget(
                 'dark',
                 'dark',
-                'Dark',
+                Text(
+                  translation(context).dark,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontSize: 14.sp,
+                        fontFamily: "Lora",
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
                 Icons.dark_mode,
               ),
             ],
@@ -102,7 +116,7 @@ ThemeBottomSheet(BuildContext context, light) {
 themeWidget(
   String themechange1,
   String themechange2,
-  String themename,
+  Text translations,
   IconData icon,
 ) {
   return ThemeSwitcher(
@@ -131,15 +145,7 @@ themeWidget(
               const SizedBox(
                 width: 15,
               ),
-              Text(
-                // translation(context).accept,
-                themename,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 14.sp,
-                      fontFamily: "Lora",
-                      fontWeight: FontWeight.bold,
-                    ),
-              )
+              translations
             ],
           ),
         ),
@@ -232,7 +238,7 @@ Widget LanguageForSheet(
 // Language Bottom Sheet Widget
 void displayBottomSheet(BuildContext context) {
   showModalBottomSheet(
-    backgroundColor: Theme.of(context).backgroundColor,
+    backgroundColor: Theme.of(context).colorScheme.background,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         top: Radius.circular(40.r),
@@ -354,7 +360,7 @@ Logoutdialog(BuildContext context) {
         ),
         titleTextStyle: Theme.of(context).textTheme.bodySmall,
         contentTextStyle: Theme.of(context).textTheme.bodySmall,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15).r,
           borderSide: BorderSide(
@@ -416,7 +422,7 @@ Aboutdialog(BuildContext context) {
         ),
         titleTextStyle: Theme.of(context).textTheme.bodySmall,
         contentTextStyle: Theme.of(context).textTheme.bodySmall,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15).r,
         ),

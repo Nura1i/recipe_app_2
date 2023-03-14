@@ -59,6 +59,7 @@ dependencies:
   dropdown_button2: ^1.9.2
   device_preview: ^1.1.0
   flutterfire_ui: ^0.4.3+20
+  carousel_slider: ^4.2.1
   
 dev_dependencies:
   flutter_test:

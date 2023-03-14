@@ -22,7 +22,7 @@ class ProfilePage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        //   backgroundColor: Theme.of(context).backgroundColor,
         extendBodyBehindAppBar: false,
         // AppBar qismi...!
         appBar: PreferredSize(

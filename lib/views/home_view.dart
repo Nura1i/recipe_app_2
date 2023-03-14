@@ -21,7 +21,7 @@ class HomeView2 extends StatelessWidget {
     ScrollController controller = ScrollController();
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       // AppBar...!
       appBar: AppBar(
         scrolledUnderElevation: 7,

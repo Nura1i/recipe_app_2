@@ -12,6 +12,7 @@ import 'package:recipe_app/pages/On%20open/profile_open.dart';
 import 'package:recipe_app/repositories/services/fire_service.dart';
 import 'package:recipe_app/utils/shared_pref/language_prefs/preferences_2.dart';
 import 'package:recipe_app/widgets/alertForDeletPost.dart';
+import 'package:recipe_app/widgets/alert_dialog_block.dart';
 
 // Recent Addedni ustiga bosganda kirganda ochiladigan Page...!
 class recipeOpen extends StatefulWidget {
@@ -34,6 +35,7 @@ class _recipeOpenState extends State<recipeOpen> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     ScreenUtil.init(context, designSize: const Size(360, 690));
     bool? issSaved;
     bool? issLaked;
@@ -43,6 +45,32 @@ class _recipeOpenState extends State<recipeOpen> {
       // AppBar...!
       appBar: AppBar(
         actions: [
+          GestureDetector(
+            onTap: () {
+              alertForBlockRecipe(context, blocN, widget.postData);
+            },
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 15),
+              padding: const EdgeInsets.all(2),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  shape: BoxShape.rectangle,
+                  color: Colors.red),
+              child: const Text(
+                'Отчёт',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              // SIGN UP page ga kirish qismi...!
+            ),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
           widget.postData != null
               ? widget.postData['userId'] ==
                       FirebaseAuth.instance.currentUser!.uid
@@ -148,13 +176,25 @@ class _recipeOpenState extends State<recipeOpen> {
                                   children: [
                                     Hero(
                                       tag: 'detailImage',
-                                      child: Image(
-                                        height: double.infinity,
-                                        width: double.infinity,
-                                        image: CachedNetworkImageProvider(
-                                          widget.postData['photo'],
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) {
+                                                return detailImage(context);
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        child: Image(
+                                          height: double.infinity,
+                                          width: double.infinity,
+                                          image: CachedNetworkImageProvider(
+                                            widget.postData['photo'],
+                                          ),
+                                          fit: BoxFit.cover,
                                         ),
-                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                     Positioned(
