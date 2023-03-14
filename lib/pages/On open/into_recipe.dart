@@ -38,7 +38,7 @@ class _recipeOpenState extends State<recipeOpen> {
     bool? issSaved;
     bool? issLaked;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       extendBodyBehindAppBar: true,
       // AppBar...!
       appBar: AppBar(
@@ -72,21 +72,19 @@ class _recipeOpenState extends State<recipeOpen> {
             bottomRight: const Radius.circular(40).r,
           ),
         ),
-        title: Text(
-          widget.postData['categorie'] ?? '',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 15.sp,
-            fontFamily: "Lora",
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: Text(widget.postData['categorie'] ?? '',
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Lora",
+                )),
         leading: GestureDetector(
           onTap: () {
             Navigator.of(context).pop();
           },
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back,
+            color: Theme.of(context).backgroundColor,
           ),
         ),
         elevation: 0,
@@ -116,12 +114,11 @@ class _recipeOpenState extends State<recipeOpen> {
                     child: Center(
                       child: Text(
                         widget.postData['head'] ?? '',
-                        style: TextStyle(
-                          color: Colors.grey.shade800,
-                          fontSize: 16.sp,
-                          fontFamily: "Lora",
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Lora",
+                            ),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -234,13 +231,12 @@ class _recipeOpenState extends State<recipeOpen> {
                               width: 210.w,
                               child: Text(
                                 widget.userData!['username'],
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 13.sp,
-                                  fontFamily: "Lora",
-                                  fontWeight: FontWeight.bold,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                style:
+                Theme.of(context).textTheme.titleSmall!.copyWith(
+                  fontSize: 15.sp,        
+                  fontWeight: FontWeight.bold,
+                                fontFamily: "Lora",
+                               )
                               ),
                             ),
                           ),

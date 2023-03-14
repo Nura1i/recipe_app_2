@@ -17,7 +17,7 @@ Widget dropdown(BuildContext context) {
       customButton: SvgPicture.asset(
         'assets/svg/ProfileUnion.svg',
         width: 22.w,
-        color: Colors.black,
+        color: Theme.of(context).hoverColor,
       ),
       customItemsHeights: [
         ...List<double>.filled(MenuItems.firstItems.length, 48),
@@ -60,24 +60,26 @@ Widget dropdown(BuildContext context) {
                                   ? Text(
                                       translation(context)
                                           .yourProfileImageDelete,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12.sp,
-                                        fontFamily: "Lora",
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            fontSize: 12.sp,
+                                            fontFamily: "Lora",
+                                            fontWeight: FontWeight.bold,
+                                          ))
                                   // Your Profile Image empty...!
                                   : Text(
                                       translation(context)
                                           .yourProfileImageempty,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12.sp,
-                                        fontFamily: "Lora",
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            fontSize: 12.sp,
+                                            fontFamily: "Lora",
+                                            fontWeight: FontWeight.bold,
+                                          )),
                             ),
                           );
                         },
@@ -144,15 +146,14 @@ class MenuItems {
   static Widget buildItem(BuildContext context, MenuItem item) {
     return Row(
       children: [
-        Icon(item.icon, color: Colors.black),
+        Icon(item.icon, color: Theme.of(context).focusColor),
         // Theme.of(context).iconTheme.color),
         const SizedBox(
           width: 10,
         ),
         Text(
           item.text,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                color: Colors.black,
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
                 fontSize: 12.sp,
                 fontFamily: 'Lora',
               ),

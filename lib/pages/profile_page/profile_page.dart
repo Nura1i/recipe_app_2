@@ -31,7 +31,7 @@ class ProfilePage extends StatelessWidget {
             scrolledUnderElevation: 10,
             toolbarHeight: 50.h,
             shadowColor: const Color.fromARGB(255, 255, 255, 255),
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).highlightColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 bottomLeft: const Radius.circular(20).r,
@@ -46,15 +46,12 @@ class ProfilePage extends StatelessWidget {
               builder: (context, snapshot) {
                 return (!snapshot.hasData)
                     ? const SizedBox()
-                    : Text(
-                        snapshot.data!['username'],
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14.sp,
-                          fontFamily: "Lora",
-                          fontWeight: FontWeight.bold,
-                        ),
-                      );
+                    : Text(snapshot.data!['username'],
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              fontSize: 14.sp,
+                              fontFamily: "Lora",
+                              fontWeight: FontWeight.bold,
+                            ));
               },
             ),
             actions: [
@@ -67,7 +64,7 @@ class ProfilePage extends StatelessWidget {
                   icon: SvgPicture.asset(
                     'assets/svg/ProfileUnion.svg',
                     height: 6.h,
-                    color: Colors.black,
+                    color: Theme.of(context).focusColor,
                   ),
                 ),
               )
@@ -96,7 +93,7 @@ class ProfilePage extends StatelessWidget {
                     text: translation(context).saved,
                   ),
                 ],
-                unselectedLabelColor: Colors.black,
+                unselectedLabelColor: Theme.of(context).focusColor,
                 overlayColor: const MaterialStatePropertyAll(Colors.white),
                 labelColor: Colors.orange,
                 indicatorColor: Colors.orange,
@@ -270,15 +267,14 @@ class ProfilePage extends StatelessWidget {
                             builder: (context, snapshot) {
                               return (!snapshot.hasData)
                                   ? const SizedBox()
-                                  : Text(
-                                      snapshot.data!['username'],
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14.sp,
-                                        fontFamily: "Lora",
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    );
+                                  : Text(snapshot.data!['username'],
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              fontSize: 14.sp,
+                                              fontFamily: "Lora",
+                                              fontWeight: FontWeight.bold));
                             },
                           ),
                         ),
@@ -293,17 +289,16 @@ class ProfilePage extends StatelessWidget {
                                   .doc(FirebaseAuth.instance.currentUser!.uid)
                                   .snapshots(),
                               builder: (context, snapshot) {
-                                log('stream 3');
                                 return (!snapshot.hasData)
                                     ? const SizedBox()
-                                    : Text(
-                                        snapshot.data!['bio'],
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 13.sp,
-                                          fontFamily: "Lora",
-                                        ),
-                                      );
+                                    : Text(snapshot.data!['bio'] ?? '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              fontSize: 13.sp,
+                                              fontFamily: "Lora",
+                                            ));
                               },
                             ),
                           ),
@@ -385,25 +380,18 @@ counter(count, String field, context) {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 5),
-          child: Text(
-            field,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 13.sp,
-              fontFamily: "Lora",
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          child: Text(field,
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: 13.sp,
+                    fontFamily: "Lora",
+                    fontWeight: FontWeight.bold,
+                  )),
         ),
-        Text(
-          count.toString(),
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Lora",
-            color: Colors.black,
-          ),
-        ),
+        Text(count.toString(),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Lora")),
       ],
     ),
   );

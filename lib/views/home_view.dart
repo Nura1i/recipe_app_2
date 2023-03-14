@@ -38,15 +38,12 @@ class HomeView2 extends StatelessWidget {
           statusBarColor: Colors.transparent,
         ),
         centerTitle: true,
-        title: Text(
-          'Cooking Uno',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Lora",
-          ),
-        ),
+        title: Text('Cooking Uno',
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Lora",
+                )),
         // Card Uzbek National Recipes..!
         bottom: PreferredSize(
             preferredSize: Size(double.infinity, size.height * 0.28),
@@ -66,9 +63,8 @@ class HomeView2 extends StatelessWidget {
                         Text(
                           translation(context).milliytaom,
                           style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
                                     fontSize: 14.sp,
-                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: "Lora",
                                   ),
@@ -86,7 +82,9 @@ class HomeView2 extends StatelessWidget {
                             children: [
                               Text(
                                 translation(context).seeAll,
-                                style: TextStyle(
+                                style:
+                                
+                                 TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "Lora",

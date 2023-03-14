@@ -25,7 +25,7 @@ Widget seeAllView(BuildContext context, Post post) {
           child: Card(
             elevation: 8,
             shadowColor: Colors.grey,
-            color: Colors.white,
+            color: Theme.of(context).backgroundColor,
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
               side: BorderSide(
@@ -57,12 +57,11 @@ Widget seeAllView(BuildContext context, Post post) {
                       padding: const EdgeInsets.all(2),
                       child: Text(
                         post.name!,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12.sp,
+                        style:Theme.of(context).textTheme.titleSmall!.copyWith(
+                              fontSize: 12.sp,
                           fontFamily: "Lora",
                           fontWeight: FontWeight.bold,
-                        ),
+                        )
                       ),
                     ),
                   ),
@@ -77,12 +76,11 @@ Widget seeAllView(BuildContext context, Post post) {
         child: SizedBox(
           child: Text(
             post.header!,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 10.sp,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Lora",
-            ),
+            style:Theme.of(context).textTheme.titleSmall!.copyWith(
+                   fontSize: 12.sp,
+                  fontFamily: "Lora",
+                   fontWeight: FontWeight.bold,
+              ),
             textAlign: TextAlign.center,
           ),
         ),

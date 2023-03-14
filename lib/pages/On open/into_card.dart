@@ -33,15 +33,12 @@ class _openedCardState extends State<openedCard> {
               bottomRight: const Radius.circular(40).r,
             ),
           ),
-          title: Text(
-            translation(context).milliytaom,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14.sp,
-              fontFamily: "Lora",
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          title: Text(translation(context).milliytaom,
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: 14.sp,
+                    fontFamily: "Lora",
+                    fontWeight: FontWeight.bold,
+                  )),
           leading: GestureDetector(
             onTap: () {
               Navigator.of(context).pop();
@@ -77,11 +74,11 @@ class _openedCardState extends State<openedCard> {
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
                 child: Text(
                   widget.carrd.header,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontFamily: "Lora",
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        fontSize: 12.sp,
+                        fontFamily: "Lora",
+                        fontWeight: FontWeight.bold,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -106,12 +103,11 @@ class _openedCardState extends State<openedCard> {
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                 child: Text(
                   widget.carrd.about,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Lora",
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        fontSize: 12.sp,
+                        fontFamily: "Lora",
+                        fontWeight: FontWeight.bold,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ),

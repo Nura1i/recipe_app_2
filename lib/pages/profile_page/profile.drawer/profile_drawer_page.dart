@@ -108,7 +108,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   child: ListTile(
                     title: Text(
                       'Haqida',
-                      style: Theme.of(context).textTheme.bodySmall,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
                 ),

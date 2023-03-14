@@ -51,7 +51,7 @@ buildTextField(
           : emaillength == false
               ? 35
               : 100,
-      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+      style: Theme.of(context).textTheme.titleSmall!.copyWith(
             fontSize: 13.sp,
             fontFamily: "Lora",
             fontWeight: FontWeight.bold,
@@ -61,13 +61,15 @@ buildTextField(
         isDense: false,
         contentPadding: const EdgeInsets.only(bottom: 3, left: 5),
         labelText: labelText,
-        labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+        labelStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
               fontSize: 12.sp,
               fontFamily: "Lora",
             ),
         hintText: placeholder,
-        hintStyle:
-            Theme.of(context).textTheme.bodySmall!.copyWith(fontFamily: "Lora"),
+        hintStyle: Theme.of(context)
+            .textTheme
+            .titleSmall!
+            .copyWith(fontFamily: "Lora"),
       ),
     ),
   );
@@ -86,7 +88,6 @@ XFile? imageCamera;
 XFile? imageGalery;
 void cropperBottomSheet(BuildContext context) {
   ImagePicker imagePicker = ImagePicker();
-
   showModalBottomSheet(
       context: context,
       elevation: 10,
@@ -123,12 +124,6 @@ void cropperBottomSheet(BuildContext context) {
                             await imagePicker.pickImage(
                               source: ImageSource.camera,
                             );
-
-                        //  Navigator.of(context)
-                        //                     .push(MaterialPageRoute(
-                        //                   builder: (context) =>
-                        //                       const CropperScreenn(),
-                        //                 ));
                       },
                       icon: SvgPicture.asset(
                         'assets/svg/gallery.svg',

@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart' as SHp;
 import 'app.dart';
 import 'firebase_options.dart';
 
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -16,7 +17,6 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
-
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,13 +31,10 @@ void main() async {
     ),
   );
 }
-
 class MyApp extends StatelessWidget {
   final initThem;
   const MyApp({
-    this.initThem,
-    super.key,
-  });
+    this.initThem,super.key,});
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(

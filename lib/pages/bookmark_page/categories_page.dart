@@ -48,13 +48,12 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
                         padding: EdgeInsets.symmetric(horizontal: 15.w),
                         child: Text(
                           card["name"],
-                          // overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 30.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Lora",
-                          ),
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "Lora",
+                                    fontSize: 30.sp,
+                                  ),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -132,10 +131,9 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
           padding: EdgeInsets.symmetric(vertical: 10.h),
           child: Text(
             translation(context).popularcategory,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
                   fontFamily: "Lora",
                 ),
           ),

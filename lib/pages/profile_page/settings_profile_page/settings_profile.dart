@@ -25,7 +25,7 @@ class EditProfilePage extends StatelessWidget {
               scrolledUnderElevation: 10,
               toolbarHeight: 50.h,
               shadowColor: Colors.grey.shade100,
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   bottomLeft: const Radius.circular(40).r,
@@ -42,10 +42,10 @@ class EditProfilePage extends StatelessWidget {
               ],
               // icon Back...!
               leading: IconButton(
+                color: Theme.of(context).hoverColor,
                 highlightColor: Theme.of(context).backgroundColor,
                 icon: const Icon(
                   Icons.arrow_back,
-                  color: Colors.black,
                   size: 22,
                 ),
                 onPressed: () {
@@ -84,9 +84,9 @@ class EditProfilePage extends StatelessWidget {
                                       translation(context).editprofile,
                                       style: Theme.of(_)
                                           .textTheme
-                                          .titleLarge!
+                                          .titleSmall!
                                           .copyWith(
-                                            color: Colors.black,
+                                            color: Theme.of(context).hoverColor,
                                             fontSize: 14.sp,
                                             fontFamily: "Lora",
                                             fontWeight: FontWeight.bold,
@@ -211,15 +211,12 @@ class EditProfilePage extends StatelessWidget {
                     disabledTextColor: Theme.of(context).backgroundColor,
                     highlightColor: Colors.green,
                     color: Colors.green,
-                    child: Text(
-                      translation(context).save,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13.sp,
-                        fontFamily: "Lora",
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text(translation(context).save,
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              fontSize: 13.sp,
+                              fontFamily: "Lora",
+                              fontWeight: FontWeight.bold,
+                            )),
                     onPressed: () async {
                       await yourProfileSetting();
                       // ignore: use_build_context_synchronously

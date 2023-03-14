@@ -24,7 +24,7 @@ class _profielOnOpenState extends State<profielOnOpen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       extendBodyBehindAppBar: true,
       // AppBar Qismi...!
       appBar: PreferredSize(
@@ -34,14 +34,15 @@ class _profielOnOpenState extends State<profielOnOpen> {
             onTap: () {
               Navigator.of(context).pop();
             },
-            child: const Icon(
+            child: Icon(
               Icons.arrow_back,
+              color: Theme.of(context).focusColor,
             ),
           ),
           scrolledUnderElevation: 10,
           toolbarHeight: 50.h,
           shadowColor: Colors.grey.shade100,
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: const Radius.circular(40).r,
@@ -49,15 +50,12 @@ class _profielOnOpenState extends State<profielOnOpen> {
             ),
           ),
           foregroundColor: Colors.black,
-          title: Text(
-            widget.data['username'] ?? 'username',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 14.sp,
-              fontFamily: "Lora",
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          title: Text(widget.data['username'] ?? 'username',
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: 14.sp,
+                    fontFamily: "Lora",
+                    fontWeight: FontWeight.bold,
+                  )),
           centerTitle: true,
           elevation: 1,
         ),
@@ -82,15 +80,12 @@ class _profielOnOpenState extends State<profielOnOpen> {
                 ),
               ),
               // users Name qismi...!
-              Text(
-                widget.data['username'] ?? 'username',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontFamily: "Lora",
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text(widget.data['username'] ?? 'username',
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        fontSize: 16.sp,
+                        fontFamily: "Lora",
+                        fontWeight: FontWeight.bold,
+                      )),
               // Users Bio qismi...!
               Padding(
                 padding: const EdgeInsets.only(top: 5, left: 20, right: 20),

@@ -29,7 +29,8 @@ class _BookMarkPageState extends State<BookMarkPage>
   void initState() {
     super.initState();
     BlocProvider.of<SearchCubit>(context).getData();
-    BlocProvider.of<SearchCubit>(context).scroll(controller, topContainerr, closeTopContainer);
+    BlocProvider.of<SearchCubit>(context)
+        .scroll(controller, topContainerr, closeTopContainer);
   }
 
   var allRecipes;
@@ -48,15 +49,12 @@ class _BookMarkPageState extends State<BookMarkPage>
           elevation: 0,
           centerTitle: true,
           backgroundColor: Colors.orange,
-          title: Text(
-            translation(context).recipecategory,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Lora",
-            ),
-          ),
+          title: Text(translation(context).recipecategory,
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Lora",
+                  )),
         ),
         // Body qismi ...!
         body: BlocBuilder<SearchCubit, SearchState>(
@@ -88,7 +86,7 @@ class _BookMarkPageState extends State<BookMarkPage>
                     // AppBar tegidi umumiy Search qismi...!
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).backgroundColor,
                         borderRadius: BorderRadius.only(
                           topLeft: const Radius.circular(40).r,
                           topRight: const Radius.circular(40).r,
@@ -107,11 +105,10 @@ class _BookMarkPageState extends State<BookMarkPage>
                                 translation(context).findrecipe,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyMedium!
+                                    .titleSmall!
                                     .copyWith(
                                       fontSize: 15.sp,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black,
                                       fontFamily: "Lora",
                                     ),
                               ),
@@ -140,11 +137,13 @@ class _BookMarkPageState extends State<BookMarkPage>
                                     BlocProvider.of<SearchCubit>(context)
                                         .recipeSearch(searchedRecipe);
                                   },
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontFamily: "Lora",
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        fontSize: 14.sp,
+                                        fontFamily: "Lora",
+                                      ),
                                   decoration: InputDecoration(
                                     counterText: "",
                                     hintText: translation(context).search,
@@ -295,7 +294,7 @@ class _BookMarkPageState extends State<BookMarkPage>
                     borderRadius: BorderRadius.all(
                       const Radius.circular(15).r,
                     ),
-                    color: Colors.white,
+                    color: Theme.of(context).splashColor,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.4),
@@ -318,39 +317,40 @@ class _BookMarkPageState extends State<BookMarkPage>
                             SizedBox(
                               width: 200.w,
                               height: 20.h,
-                              child: Text(
-                                recipes["head"],
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontFamily: "Lora",
-                                ),
-                              ),
+                              child: Text(recipes["head"],
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        fontFamily: "Lora",
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold,
+                                      )),
                             ),
                             // Text Percon...!
                             Text(
-                              "${recipes["serves"]} : ${translation(context).kishilik}",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.grey.shade900,
-                                fontFamily: "Lora",
-                              ),
-                            ),
+                                "${recipes["serves"]} : ${translation(context).kishilik}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      fontFamily: "Lora",
+                                      fontSize: 14.sp,
+                                    )),
                             SizedBox(
                               height: 30.h,
                             ),
                             // Text Cook Time...!
                             Text(
-                              "${translation(context).cookTime} : ${recipes["cookTime"]}",
-                              style: TextStyle(
-                                fontSize: 13.sp,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Lora",
-                              ),
-                            )
+                                "${translation(context).cookTime} : ${recipes["cookTime"]}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      fontFamily: "Lora",
+                                      fontSize: 14.sp,
+                                    ))
                           ],
                         ),
                         // Image qismi...1
