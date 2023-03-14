@@ -64,6 +64,10 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
                   width: 150.w,
                   height: 150.h,
                   decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 7.w,
+                      color: Colors.white,
+                    ),
                     borderRadius: BorderRadius.circular(100).r,
                     image: DecorationImage(
                       image: AssetImage(
@@ -131,15 +135,17 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
           padding: EdgeInsets.symmetric(vertical: 10.h),
           child: Text(
             translation(context).popularcategory,
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
+                  color: Colors.black,
                   fontFamily: "Lora",
                 ),
           ),
         ),
         categoria(responseList!, CATEGORIA_DATA_EN, CATEGORIA_DATA_RU,
             CATEGORIA_DATA_UZ),
+        const SizedBox(height: 2),
         categoria(responseList2!, CATEGORIA_DATA_DISERT_EN,
             CATEGORIA_DATA_DISERT_RU, CATEGORIA_DATA_DISERT_UZ),
       ],
