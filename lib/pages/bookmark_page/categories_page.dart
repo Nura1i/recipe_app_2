@@ -48,11 +48,10 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
                         padding: EdgeInsets.symmetric(horizontal: 15.w),
                         child: Text(
                           card["name"],
-                          // overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 30.sp,
                             color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.bold,
                             fontFamily: "Lora",
                           ),
                           textAlign: TextAlign.center,
@@ -65,6 +64,10 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
                   width: 150.w,
                   height: 150.h,
                   decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 7.w,
+                      color: Colors.white,
+                    ),
                     borderRadius: BorderRadius.circular(100).r,
                     image: DecorationImage(
                       image: AssetImage(
@@ -142,6 +145,7 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
         ),
         categoria(responseList!, CATEGORIA_DATA_EN, CATEGORIA_DATA_RU,
             CATEGORIA_DATA_UZ),
+        const SizedBox(height: 2),
         categoria(responseList2!, CATEGORIA_DATA_DISERT_EN,
             CATEGORIA_DATA_DISERT_RU, CATEGORIA_DATA_DISERT_UZ),
       ],
