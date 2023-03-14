@@ -10,7 +10,7 @@ void displayBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
     elevation: 10,
-    backgroundColor: Colors.grey.shade100,
+    backgroundColor: Theme.of(context).backgroundColor,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: const Radius.circular(40).r,

@@ -17,7 +17,7 @@ Widget dropdown(BuildContext context) {
       customButton: SvgPicture.asset(
         'assets/svg/ProfileUnion.svg',
         width: 22.w,
-        color: Colors.black,
+        color: Theme.of(context).hoverColor,
       ),
       customItemsHeights: [
         ...List<double>.filled(MenuItems.firstItems.length, 48),
@@ -60,42 +60,31 @@ Widget dropdown(BuildContext context) {
                                   ? Text(
                                       translation(context)
                                           .yourProfileImageDelete,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12.sp,
-                                        fontFamily: "Lora",
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            fontSize: 12.sp,
+                                            fontFamily: "Lora",
+                                            fontWeight: FontWeight.bold,
+                                          ))
                                   // Your Profile Image empty...!
                                   : Text(
                                       translation(context)
                                           .yourProfileImageempty,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12.sp,
-                                        fontFamily: "Lora",
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                            fontSize: 12.sp,
+                                            fontFamily: "Lora",
+                                            fontWeight: FontWeight.bold,
+                                          )),
                             ),
                           );
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              translation(context).deletePost,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            const Icon(
-                              Icons.delete,
-                              color: Colors.black,
-                            )
-                          ],
-                        ),
+                        child: MenuItems.buildItem(context, item),
                       );
-                //MenuItems.buildItem(context, item),
               },
             ),
           ),
@@ -105,25 +94,15 @@ Widget dropdown(BuildContext context) {
           (item) => DropdownMenuItem<MenuItem>(
             value: item,
             child: TextButton(
-                style: ButtonStyle(
-                  overlayColor:
-                      MaterialStateColor.resolveWith((states) => Colors.white),
-                ),
-                onPressed: () {
-                  Logoutdialog(context);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      translation(context).logOut,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    Icon(item.icon, color: Colors.black),
-                  ],
-                )
-                //MenuItems.buildItem(context, item),
-                ),
+              style: ButtonStyle(
+                overlayColor:
+                    MaterialStateColor.resolveWith((states) => Colors.white),
+              ),
+              onPressed: () {
+                Logoutdialog(context);
+              },
+              child: MenuItems.buildItem(context, item),
+            ),
           ),
         ),
       ],
@@ -164,6 +143,24 @@ class MenuItems {
     icon: Icons.delete,
   );
   static const logout = MenuItem(text: 'Log Out', icon: Icons.logout);
+  static Widget buildItem(BuildContext context, MenuItem item) {
+    return Row(
+      children: [
+        Icon(item.icon, color: Theme.of(context).focusColor),
+        // Theme.of(context).iconTheme.color),
+        const SizedBox(
+          width: 10,
+        ),
+        Text(
+          item.text,
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                fontSize: 12.sp,
+                fontFamily: 'Lora',
+              ),
+        ),
+      ],
+    );
+  }
 
   static onChanged(BuildContext context, MenuItem item) {
     switch (item) {

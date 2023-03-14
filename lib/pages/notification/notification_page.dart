@@ -27,15 +27,12 @@ class SearchPerson extends StatelessWidget {
         // AppBar qismi...1
         appBar: AppBar(
           backgroundColor: Colors.orange,
-          title: Text(
-            translation(context).searchUsers,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.sp,
-              fontFamily: "Lora",
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          title: Text(translation(context).searchUsers,
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: 16.sp,
+                    fontFamily: "Lora",
+                    fontWeight: FontWeight.bold,
+                  )),
           centerTitle: true,
           elevation: 0,
         ),
@@ -48,7 +45,7 @@ class SearchPerson extends StatelessWidget {
 
             return Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).backgroundColor,
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(40).r,
                   topRight: const Radius.circular(40).r,
@@ -83,11 +80,11 @@ class SearchPerson extends StatelessWidget {
                             BlocProvider.of<SearchCubit>(context)
                                 .userSearch(username);
                           },
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontFamily: "Lora",
-                          ),
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    fontSize: 14.sp,
+                                    fontFamily: "Lora",
+                                  ),
                           decoration: InputDecoration(
                             counterText: "",
                             hintText: translation(context).searchUsers,
@@ -138,7 +135,10 @@ class SearchPerson extends StatelessWidget {
                                             .data() as Map<String, dynamic>;
 
                                         if (username.isEmpty) {
-                                          return allUsers(context, data);
+                                          return allUsers(
+                                            context,
+                                            data,
+                                          );
                                         }
                                         if (data['username']
                                             .toString()
@@ -168,7 +168,10 @@ class SearchPerson extends StatelessWidget {
 }
 
 // Search Users qismi...!
-allUsers(contex, data) {
+allUsers(
+  contex,
+  data,
+) {
   return GestureDetector(
     onTap: () {
       Navigator.of(contex).push(
@@ -186,7 +189,7 @@ allUsers(contex, data) {
             width: 2.w,
             color: Colors.grey.shade200,
           ),
-          color: Colors.white,
+          color: Theme.of(contex).splashColor,
           borderRadius: BorderRadius.circular(25).r,
         ),
         child: Row(
@@ -201,14 +204,12 @@ allUsers(contex, data) {
             ),
             SizedBox(width: 15.w),
             Expanded(
-              child: Text(
-                data['username'] ?? 'username',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14.sp,
-                  fontFamily: "Lora",
-                ),
-              ),
+              child: Text(data['username'] ?? 'username',
+                  style: Theme.of(contex).textTheme.titleSmall!.copyWith(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Lora",
+                      )),
             ),
           ],
         ),

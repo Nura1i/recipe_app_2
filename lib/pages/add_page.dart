@@ -107,9 +107,9 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
             bodyTextt = null;
             BlocProvider.of<CameraCubit>(context).clearItems(context);
           },
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back,
-            color: Colors.white,
+            color: Theme.of(context).focusColor,
           ),
         ),
         shape: RoundedRectangleBorder(
@@ -117,17 +117,12 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
             bottom: const Radius.circular(40).r,
           ),
         ),
-        title: GestureDetector(
-          child: Text(
-            translation(context).createRecipe,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.sp,
-              fontFamily: "Lora",
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+        title: Text(translation(context).createRecipe,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  fontSize: 16.sp,
+                  fontFamily: "Lora",
+                  fontWeight: FontWeight.bold,
+                )),
 
         centerTitle: true,
         foregroundColor: Colors.white,
@@ -151,12 +146,11 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                     backgroundColor: Colors.red,
                     content: Text(
                       translation(context).imageIsEmpty,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontFamily: "Lora",
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: 14.sp,
+                            fontFamily: "Lora",
+                            fontWeight: FontWeight.bold,
+                          ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -177,12 +171,11 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                     backgroundColor: Colors.red,
                     content: Text(
                       translation(context).mainTextIsEmpty,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontFamily: "Lora",
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: 14.sp,
+                            fontFamily: "Lora",
+                            fontWeight: FontWeight.bold,
+                          ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -203,12 +196,11 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                     backgroundColor: Colors.red,
                     content: Text(
                       translation(context).servesIsEmpty,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontFamily: "Lora",
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: 14.sp,
+                            fontFamily: "Lora",
+                            fontWeight: FontWeight.bold,
+                          ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -229,12 +221,11 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                     backgroundColor: Colors.red,
                     content: Text(
                       translation(context).timeIsEmpty,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontFamily: "Lora",
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: 14.sp,
+                            fontFamily: "Lora",
+                            fontWeight: FontWeight.bold,
+                          ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -255,12 +246,11 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                     backgroundColor: Colors.red,
                     content: Text(
                       translation(context).bodyTextIsEmpty,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontFamily: "Lora",
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: 14.sp,
+                            fontFamily: "Lora",
+                            fontWeight: FontWeight.bold,
+                          ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -335,19 +325,18 @@ Widget add(BuildContext context, bool cam, gal, img, choosed, serves, time,
                 children: [
                   Text(
                     translation(context).next,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12.sp,
-                      fontFamily: "Lora",
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontSize: 12.sp,
+                          fontFamily: "Lora",
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   SizedBox(width: 2.w),
                   SizedBox(
                     width: 10.w,
                     child: SvgPicture.asset(
                       'assets/svg/Belgi.svg',
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.background,
                     ),
                   ),
                 ],

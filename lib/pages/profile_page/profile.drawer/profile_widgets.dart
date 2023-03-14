@@ -28,7 +28,7 @@ ThemeBottomSheet(BuildContext context, light) {
                   padding: const EdgeInsets.only(top: 20, bottom: 20),
                   child: Text(
                     translation(context).theme,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: 15.sp,
                           fontFamily: "Lora",
                           fontWeight: FontWeight.bold,
@@ -39,14 +39,7 @@ ThemeBottomSheet(BuildContext context, light) {
               themeWidget(
                 'light',
                 'light',
-                Text(
-                  translation(context).light,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 14.sp,
-                        fontFamily: "Lora",
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
+                'Light',
                 Icons.sunny,
               ),
               // Dvider...!
@@ -94,14 +87,7 @@ ThemeBottomSheet(BuildContext context, light) {
               themeWidget(
                 'dark',
                 'dark',
-                Text(
-                  translation(context).dark,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 14.sp,
-                        fontFamily: "Lora",
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
+                'Dark',
                 Icons.dark_mode,
               ),
             ],
@@ -116,7 +102,7 @@ ThemeBottomSheet(BuildContext context, light) {
 themeWidget(
   String themechange1,
   String themechange2,
-  Text translations,
+  String themename,
   IconData icon,
 ) {
   return ThemeSwitcher(
@@ -145,7 +131,15 @@ themeWidget(
               const SizedBox(
                 width: 15,
               ),
-              translations
+              Text(
+                // translation(context).accept,
+                themename,
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      fontSize: 14.sp,
+                      fontFamily: "Lora",
+                      fontWeight: FontWeight.bold,
+                    ),
+              )
             ],
           ),
         ),
@@ -181,7 +175,7 @@ Widget LanguageForSheet(
               // Tilni Tanlash Style qismi ...!
               Text(
                 text2,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       fontSize: 14.sp,
                       fontFamily: "Lora",
                       fontWeight: FontWeight.bold,
@@ -259,7 +253,7 @@ void displayBottomSheet(BuildContext context) {
                   padding: const EdgeInsets.only(top: 20, bottom: 20),
                   child: Text(
                     translation(context).language,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: 14.sp,
                           fontFamily: "Lora",
                           fontWeight: FontWeight.bold,
@@ -305,7 +299,7 @@ Widget drawerlisttile(
   return ListTile(
     title: Text(
       text!,
-      style: Theme.of(context).textTheme.bodySmall,
+      style: Theme.of(context).textTheme.titleSmall,
     ),
     onTap: button,
     trailing: Icon(
@@ -358,8 +352,8 @@ Logoutdialog(BuildContext context) {
             fontWeight: FontWeight.bold,
           ),
         ),
-        titleTextStyle: Theme.of(context).textTheme.bodySmall,
-        contentTextStyle: Theme.of(context).textTheme.bodySmall,
+        titleTextStyle: Theme.of(context).textTheme.titleSmall,
+        contentTextStyle: Theme.of(context).textTheme.titleSmall,
         backgroundColor: Theme.of(context).colorScheme.background,
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15).r,
@@ -377,14 +371,15 @@ Logoutdialog(BuildContext context) {
             },
             // Text Cancel...!
             child: Text(translation(context).cancel,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: Colors.orange,
                       fontSize: 13.sp,
                       fontFamily: "Lora",
                       fontWeight: FontWeight.bold,
                     )),
           ),
           MaterialButton(
-            highlightColor: Colors.white,
+            highlightColor: const Color.fromARGB(255, 231, 171, 171),
             color: Colors.grey.shade100,
             onPressed: () {
               FireDatabaseService.signOutUser(context);
@@ -392,7 +387,7 @@ Logoutdialog(BuildContext context) {
             // Text Sing Out...!
             child: Text(
               translation(context).signOut,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Colors.red,
                     fontSize: 13.sp,
                     fontFamily: "Lora",
@@ -420,8 +415,8 @@ Aboutdialog(BuildContext context) {
       Diyor Omonov,
       Shekhroz Berdiyev''',
         ),
-        titleTextStyle: Theme.of(context).textTheme.bodySmall,
-        contentTextStyle: Theme.of(context).textTheme.bodySmall,
+        titleTextStyle: Theme.of(context).textTheme.titleSmall,
+        contentTextStyle: Theme.of(context).textTheme.titleSmall,
         backgroundColor: Theme.of(context).colorScheme.background,
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15).r,
@@ -432,9 +427,9 @@ Aboutdialog(BuildContext context) {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text(
+            child: const Text(
               'Ok',
-              style: Theme.of(context).textTheme.bodySmall,
+              style: TextStyle(color: Colors.orange),
             ),
           ),
         ],

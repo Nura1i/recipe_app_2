@@ -36,28 +36,26 @@ class onChoosedCategorie extends StatelessWidget {
               bottomRight: const Radius.circular(40).r,
             ),
           ),
-          title: Text(
-            categorie['name'],
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 15.sp,
-              fontFamily: "Lora",
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          title: Text(categorie['name'],
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: 15.sp,
+                    fontFamily: "Lora",
+                    fontWeight: FontWeight.bold,
+                  )),
           leading: GestureDetector(
             onTap: () {
               Navigator.of(context).pop();
             },
-            child: const Icon(
+            child: Icon(
               Icons.arrow_back,
+              color: Theme.of(context).backgroundColor,
             ),
           ),
           centerTitle: true,
           elevation: 0,
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('Recipes').snapshots(),
         builder: (context, snapshots) {
@@ -113,7 +111,7 @@ class onChoosedCategorie extends StatelessWidget {
                                 borderRadius: BorderRadius.all(
                                   const Radius.circular(15).r,
                                 ),
-                                color: Colors.white,
+                                color: Theme.of(context).splashColor,
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey.withOpacity(0.4),
@@ -138,39 +136,42 @@ class onChoosedCategorie extends StatelessWidget {
                                         SizedBox(
                                           width: 200.w,
                                           height: 20.h,
-                                          child: Text(
-                                            recipes["head"],
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                              fontFamily: "Lora",
-                                            ),
-                                          ),
+                                          child: Text(recipes["head"],
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: "Lora",
+                                                  )),
                                         ),
                                         // Text Percon...!
                                         Text(
-                                          "${recipes["serves"]} : ${translation(context).kishilik}",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: Colors.grey.shade900,
-                                            fontFamily: "Lora",
-                                          ),
-                                        ),
+                                            "${recipes["serves"]} : ${translation(context).kishilik}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: "Lora",
+                                                )),
                                         SizedBox(
                                           height: 30.h,
                                         ),
                                         // Text Cook Time...!
                                         Text(
-                                          "${translation(context).cookTime} : ${recipes["cookTime"]}",
-                                          style: TextStyle(
-                                            fontSize: 13.sp,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: "Lora",
-                                          ),
-                                        )
+                                            "${translation(context).cookTime} : ${recipes["cookTime"]}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: "Lora",
+                                                ))
                                       ],
                                     ),
                                     // Image qismi...1
