@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -43,18 +45,31 @@ class _BookMarkPageState extends State<BookMarkPage>
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         // AppBar qismi...!
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          backgroundColor: Colors.orange,
-          title: Text(translation(context).recipecategory,
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    fontSize: 16.sp,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          title: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.h),
+            child: Text(
+              translation(context).popularcategory,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.bold,
+                    color: Colors.black,
                     fontFamily: "Lora",
-                  )),
+                  ),
+            ),
+          ),
+
+          //  Text(translation(context).recipecategory,
+          //     style: Theme.of(context).textTheme.titleSmall!.copyWith(
+          //           fontSize: 16.sp,
+          //           fontWeight: FontWeight.bold,
+          //           fontFamily: "Lora",
+          //         )),
         ),
         // Body qismi ...!
         body: BlocBuilder<SearchCubit, SearchState>(
@@ -80,13 +95,13 @@ class _BookMarkPageState extends State<BookMarkPage>
                   children: [
                     // AppBar tegidi contanier...!
                     Container(
-                      color: Colors.orange,
+                      color: Theme.of(context).colorScheme.onSecondary,
                       height: size.height * 0.1,
                     ),
                     // AppBar tegidi umumiy Search qismi...!
                     Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).backgroundColor,
+                        color: Theme.of(context).colorScheme.background,
                         borderRadius: BorderRadius.only(
                           topLeft: const Radius.circular(40).r,
                           topRight: const Radius.circular(40).r,
@@ -171,13 +186,13 @@ class _BookMarkPageState extends State<BookMarkPage>
                 // Popular Categoriya qismi...!
                 if (searchedRecipe.isEmpty)
                   AnimatedOpacity(
-                    duration: const Duration(milliseconds: 150),
+                    duration: const Duration(milliseconds: 50),
                     opacity: closeTopContainer ? 0 : 1,
                     child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 150),
+                      duration: const Duration(milliseconds: 50),
                       width: size.width,
                       alignment: Alignment.topCenter,
-                      height: closeTopContainer ? 0 : size.height * 0.34,
+                      height: closeTopContainer ? 0 : size.height * 0.31,
                       child: categoriesScroller,
                     ),
                   ),
@@ -194,6 +209,7 @@ class _BookMarkPageState extends State<BookMarkPage>
                             itemBuilder: (context, index) {
                               double scale = 1.0;
                               if (topContainerr > 0.5) {
+                                log('1');
                                 scale = index + 0.5 - topContainerr;
                                 if (scale < 0) {
                                   scale = 0;
@@ -226,13 +242,7 @@ class _BookMarkPageState extends State<BookMarkPage>
                         }
                         final data = allRecipes.docs[index].data()
                             as Map<String, dynamic>;
-                        if (data.isEmpty) {
-                          return Container(
-                            width: 100,
-                            height: 100,
-                            color: Colors.yellow,
-                          );
-                        }
+
                         if (data['head'].toString().toLowerCase().contains(
                                 searchedRecipe.toLowerCase().toString())
                             // startsWith(

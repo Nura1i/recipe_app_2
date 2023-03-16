@@ -82,9 +82,7 @@ class HomeView2 extends StatelessWidget {
                             children: [
                               Text(
                                 translation(context).seeAll,
-                                style:
-                                
-                                 TextStyle(
+                                style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "Lora",

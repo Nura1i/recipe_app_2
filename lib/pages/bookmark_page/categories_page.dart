@@ -27,7 +27,7 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
           fit: BoxFit.fill,
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: const EdgeInsets.only(right: 10).r,
+            padding: const EdgeInsets.only(right: 10, top: 20).r,
             child: Stack(
               alignment: Alignment.topCenter,
               children: [
@@ -68,7 +68,7 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
                       width: 7.w,
                       color: Colors.white,
                     ),
-                    borderRadius: BorderRadius.circular(100).r,
+                    shape: BoxShape.circle,
                     image: DecorationImage(
                       image: AssetImage(
                         "assets/images/${card["image"]}",
@@ -85,6 +85,7 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
     ItemsList;
     return Expanded(
       child: ListView.builder(
+        shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: ItemsList.length,
@@ -131,18 +132,18 @@ class _CategoriesScrollerState extends State<CategoriesScroller> {
     }
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.h),
-          child: Text(
-            translation(context).popularcategory,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontFamily: "Lora",
-                ),
-          ),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.symmetric(vertical: 10.h),
+        //   child: Text(
+        //     translation(context).popularcategory,
+        //     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+        //           fontSize: 15.sp,
+        //           fontWeight: FontWeight.bold,
+        //           color: Colors.black,
+        //           fontFamily: "Lora",
+        //         ),
+        //   ),
+        // ),
         categoria(responseList!, CATEGORIA_DATA_EN, CATEGORIA_DATA_RU,
             CATEGORIA_DATA_UZ),
         const SizedBox(height: 2),
