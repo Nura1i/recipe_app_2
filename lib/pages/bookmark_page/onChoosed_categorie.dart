@@ -162,7 +162,12 @@ class onChoosedCategorie extends StatelessWidget {
                                           height: 30.h,
                                         ),
                                         // Text Cook Time...!
-                                        Text(
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.60,
+                                          child: Text(
                                             "${translation(context).cookTime} : ${recipes["cookTime"]}",
                                             style: Theme.of(context)
                                                 .textTheme
@@ -171,7 +176,10 @@ class onChoosedCategorie extends StatelessWidget {
                                                   fontSize: 15.sp,
                                                   fontWeight: FontWeight.bold,
                                                   fontFamily: "Lora",
-                                                ))
+                                                ),
+                                            maxLines: 1,
+                                          ),
+                                        )
                                       ],
                                     ),
                                     // Image qismi...1

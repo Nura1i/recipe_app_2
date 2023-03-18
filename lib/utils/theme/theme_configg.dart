@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class AppTTheme {
@@ -14,8 +16,12 @@ class AppTTheme {
     highlightColor: Colors.white,
     focusColor: const Color.fromARGB(255, 13, 25, 36),
     hoverColor: const Color.fromARGB(255, 13, 25, 36),
-    colorScheme: ColorScheme.fromSwatch().copyWith(
-        secondary: Colors.white.withOpacity(0.1), background: Colors.white),
+    colorScheme: ColorScheme.fromSwatch()
+        .copyWith(
+            background: Colors.white,
+            secondary: Colors.orange,
+            onSecondary: Colors.orange)
+        .copyWith(background: Colors.white),
   );
 
   static final ThemeData darkkTheme = ThemeData.dark().copyWith(
@@ -30,5 +36,9 @@ class AppTTheme {
       shadowColor: const Color.fromARGB(255, 90, 57, 6),
       focusColor: Colors.white,
       iconTheme: const IconThemeData(color: Colors.white),
-      hoverColor: Colors.white);
+      hoverColor: Colors.white,
+      colorScheme: ColorScheme.fromSwatch().copyWith(
+          background: Colors.grey[700],
+          secondary: Colors.grey[800],
+          onSecondary: Colors.grey[700]));
 }
