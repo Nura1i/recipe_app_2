@@ -127,7 +127,7 @@ class FireDatabaseService {
     return null;
   }
 
-  static Future deletePost(postId) async {
+  static Future deletePost(postId, admin) async {
     try {
       DocumentSnapshot postDoc = await FirebaseFirestore.instance
           .collection('Recipes')
@@ -144,7 +144,9 @@ class FireDatabaseService {
       await _storage.refFromURL(postId['photo']).delete();
       DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc(admin == true
+              ? postId['userId']
+              : FirebaseAuth.instance.currentUser!.uid)
           .get();
       List userLikes = userDoc['totalLikes'] ?? [];
       for (var element in likes) {
@@ -162,7 +164,9 @@ class FireDatabaseService {
       }
       _databaseFirestore
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc(admin == true
+              ? postId['userId']
+              : FirebaseAuth.instance.currentUser!.uid)
           .update(
               {'recepts': lsPost, 'saved': lsSaved, 'totalLikes': userLikes});
       log('Deleted Success');

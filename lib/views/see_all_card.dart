@@ -24,8 +24,8 @@ Widget seeAllView(BuildContext context, Post post) {
           padding: const EdgeInsets.only(bottom: 5, top: 5),
           child: Card(
             elevation: 8,
-            shadowColor: Colors.grey,
-            color: Theme.of(context).backgroundColor,
+            //  shadowColor: Colors.grey,
+            color: Theme.of(context).colorScheme.background,
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
               side: BorderSide(
@@ -55,14 +55,13 @@ Widget seeAllView(BuildContext context, Post post) {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(2),
-                      child: Text(
-                        post.name!,
-                        style:Theme.of(context).textTheme.titleSmall!.copyWith(
-                              fontSize: 12.sp,
-                          fontFamily: "Lora",
-                          fontWeight: FontWeight.bold,
-                        )
-                      ),
+                      child: Text(post.name!,
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 12.sp,
+                                    fontFamily: "Lora",
+                                    fontWeight: FontWeight.bold,
+                                  )),
                     ),
                   ),
                 ),
@@ -76,11 +75,11 @@ Widget seeAllView(BuildContext context, Post post) {
         child: SizedBox(
           child: Text(
             post.header!,
-            style:Theme.of(context).textTheme.titleSmall!.copyWith(
-                   fontSize: 12.sp,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  fontSize: 12.sp,
                   fontFamily: "Lora",
-                   fontWeight: FontWeight.bold,
-              ),
+                  fontWeight: FontWeight.bold,
+                ),
             textAlign: TextAlign.center,
           ),
         ),

@@ -28,7 +28,7 @@ DeletePostDialog(BuildContext context, postData) {
         ),
         titleTextStyle: Theme.of(context).textTheme.bodySmall,
         contentTextStyle: Theme.of(context).textTheme.bodySmall,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15).r,
           borderSide: BorderSide(color: Colors.white, width: 1.w),
@@ -53,7 +53,7 @@ DeletePostDialog(BuildContext context, postData) {
             child: MaterialButton(
               color: Colors.grey.shade200,
               onPressed: () {
-                FireDatabaseService.deletePost(postData);
+                FireDatabaseService.deletePost(postData, true);
                 var count = 0;
                 Navigator.popUntil(
                   context,

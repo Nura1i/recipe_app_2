@@ -59,12 +59,11 @@ Widget cardView(BuildContext context, Post post) {
                       padding: const EdgeInsets.all(2),
                       child: Text(
                         post.name!,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12.sp,
-                          fontFamily: "Lora",
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              fontSize: 12.sp,
+                              fontFamily: "Lora",
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ),
                   ),

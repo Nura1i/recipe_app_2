@@ -50,14 +50,7 @@ class seeAllMilliyTaom extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: builderAll(posts),
-          ),
-        ],
-      ),
+      body: builderAll(posts),
     );
   }
 }
